@@ -1,0 +1,6 @@
+app.config.timestamp_*
+node_modules
+prisma/*.db
+.env
+.vinxi
+.output

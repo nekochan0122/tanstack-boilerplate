@@ -1,0 +1,95 @@
+import { createFileRoute, Link } from '@tanstack/react-router'
+import { toast } from 'sonner'
+import { useTranslations } from 'use-intl'
+
+import { createBasicFormBuilder } from '~/components/form/basic'
+import { Button } from '~/components/ui/button'
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '~/components/ui/card'
+import { useForm } from '~/components/ui/form'
+import { useSignUpMutation } from '~/services/auth.query'
+import { signUpSchema } from '~/services/auth.schema'
+
+export const Route = createFileRoute('/(authentication)/_auth/sign-up')({
+  component: SignUp,
+})
+
+function SignUp() {
+  const t = useTranslations()
+  const signUpMutation = useSignUpMutation()
+
+  const form = useForm(signUpSchema(t), {
+    defaultValues: {
+      name: 'NekoChan',
+      username: 'nekochan',
+      password: '12345678Ab!',
+      email: 'example@example.com',
+    },
+    onSubmit: async ({ value }) => {
+      const signUpPromise = signUpMutation.mutateAsync(value, {
+        // TODO: error handling
+      })
+
+      toast.promise(signUpPromise, {
+        loading: t('auth.sign-up-loading'),
+        success: t('auth.sign-up-success'),
+        error: t('auth.sign-up-error'),
+      })
+
+      await signUpPromise
+    },
+  })
+
+  const SignUpFormBuilder = createBasicFormBuilder(form)({
+    base: {
+      submit: t('auth.sign-up'),
+    },
+    fields: [
+      {
+        type: 'text',
+        name: 'name',
+        label: t('auth.name'),
+      },
+      {
+        type: 'text',
+        name: 'email',
+        label: t('auth.email'),
+      },
+      {
+        type: 'text',
+        name: 'username',
+        label: t('auth.username'),
+      },
+      {
+        type: 'password',
+        name: 'password',
+        label: t('auth.password'),
+      },
+    ],
+  })
+
+  return (
+    <Card className='w-full lg:max-w-md'>
+      <CardHeader>
+        <CardTitle>
+          {t('auth.sign-up')}
+        </CardTitle>
+        <CardDescription>
+          {t('auth.sign-up-description')}
+        </CardDescription>
+      </CardHeader>
+
+      <CardContent className='space-y-6'>
+        <SignUpFormBuilder />
+
+        <div className='flex items-center justify-center gap-2'>
+          <p>{t('auth.already-have-an-account')}</p>
+          <Button asChild variant='link' className='h-auto p-0 text-base'>
+            <Link to='/sign-in'>
+              {t('auth.sign-in')}
+            </Link>
+          </Button>
+        </div>
+      </CardContent>
+    </Card>
+  )
+}
