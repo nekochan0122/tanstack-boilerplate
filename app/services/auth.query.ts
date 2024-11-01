@@ -3,7 +3,6 @@ import { useRouter } from '@tanstack/react-router'
 import type { UseSuspenseQueryResult } from '@tanstack/react-query'
 
 import { authClient } from '~/libs/auth-client'
-import { logger } from '~/libs/logger'
 import { getAuth, signIn, signOut, signUp } from '~/services/auth.api'
 import type { Auth } from '~/services/auth.schema'
 
@@ -37,9 +36,7 @@ export const useInvalidateAuth = () => {
   const queryClient = useQueryClient()
 
   async function invalidateAuth() {
-    logger.info('Invalidating auth...')
     await queryClient.invalidateQueries(getAuthQueryOptions())
-    logger.info('Invalidating router...')
     await router.invalidate()
   }
 
