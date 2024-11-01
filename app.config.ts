@@ -22,6 +22,18 @@ const app = defineConfig({
     generatedRouteTree: 'app/route-tree.gen.ts',
     quoteStyle: 'single',
     semicolons: false,
+    customScaffolding: {
+      routeTemplate: [
+        '%%tsrImports%%\n\n',
+        '%%tsrExportStart%%{\n component: RouteComponent\n }%%tsrExportEnd%%\n\n',
+        'function RouteComponent() { return "Hello %%tsrPath%%!" }\n',
+      ].join(''),
+      apiTemplate: [
+        'import { json } from "@tanstack/start";\n',
+        '%%tsrImports%%\n\n',
+        '%%tsrExportStart%%{ GET: ({ request, params }) => { return json({ message:\'Hello "%%tsrPath%%"!\' }) }}%%tsrExportEnd%%\n',
+      ].join(''),
+    },
   },
   vite: {
     plugins: [

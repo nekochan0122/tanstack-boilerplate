@@ -26,8 +26,6 @@ A fully **type-safe** boilerplate with a focus on UX and DX, complete with multi
   - https://github.com/TanStack/router/pull/2316
 - Chained Server Fn Syntax, ServerFn Middleware
   - https://github.com/TanStack/router/pull/2513
-- Custom Scaffolding
-  - https://github.com/TanStack/router/pull/2394
 - Server functions can't serialize error objects
   - https://github.com/TanStack/router/issues/2535
 - Environment Variables Not Loaded in Production
