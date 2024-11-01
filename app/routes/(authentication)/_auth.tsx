@@ -15,8 +15,6 @@ export const Route = createFileRoute('/(authentication)/_auth')({
     if (context.auth.isAuthenticated) {
       logger.info('Already authenticated, redirecting to callback URL')
 
-      console.log(context.auth.user.email)
-
       toast.error(context.i18n.t('auth.already-authenticated'))
 
       throw redirect({
