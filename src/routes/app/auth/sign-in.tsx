@@ -4,23 +4,32 @@ import { useTranslations } from 'use-intl'
 
 import { createBasicFormBuilder } from '~/components/form/basic'
 import { Button } from '~/components/ui/button'
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '~/components/ui/card'
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from '~/components/ui/card'
 import { useForm } from '~/components/ui/form'
 import { Separator } from '~/components/ui/separator'
 import { oauthConfigs } from '~/config/oauth'
 import { cx } from '~/libs/utils'
-import { useSignInMutation, useSignInOAuthMutation } from '~/services/auth.query'
+import {
+  useSignInMutation,
+  useSignInOAuthMutation,
+} from '~/services/auth.query'
 import { signInSchema } from '~/services/auth.schema'
 import type { SupportedOAuthProviderId } from '~/config/oauth'
 
-export const Route = createFileRoute('/(authentication)/_auth/sign-in')({
+export const Route = createFileRoute('/_auth/sign-in')({
   component: SignInRoute,
 })
 
 function SignInRoute() {
   const t = useTranslations()
 
-  const search = useSearch({ from: '/(authentication)/_auth' })
+  const search = useSearch({ from: '/_auth' })
 
   const signInMutation = useSignInMutation()
   const signInOAuthMutation = useSignInOAuthMutation()
@@ -64,22 +73,23 @@ function SignInRoute() {
     ],
   })
 
-  function handleSignInOAuth({ provider }: { provider: SupportedOAuthProviderId }) {
-    return () => signInOAuthMutation.mutate({
-      provider,
-      callbackURL: search.callbackURL,
-    })
+  function handleSignInOAuth({
+    provider,
+  }: {
+    provider: SupportedOAuthProviderId
+  }) {
+    return () =>
+      signInOAuthMutation.mutate({
+        provider,
+        callbackURL: search.callbackURL,
+      })
   }
 
   return (
     <Card className='w-full lg:max-w-md'>
       <CardHeader>
-        <CardTitle>
-          {t('auth.sign-in')}
-        </CardTitle>
-        <CardDescription>
-          {t('auth.sign-in-description')}
-        </CardDescription>
+        <CardTitle>{t('auth.sign-in')}</CardTitle>
+        <CardDescription>{t('auth.sign-in-description')}</CardDescription>
       </CardHeader>
 
       <CardContent className='space-y-6'>
@@ -87,9 +97,7 @@ function SignInRoute() {
 
         <div className='flex items-center justify-between'>
           <Separator className='flex-1' />
-          <span className='px-4 text-muted-foreground'>
-            {t('auth.or')}
-          </span>
+          <span className='px-4 text-muted-foreground'>{t('auth.or')}</span>
           <Separator className='flex-1' />
         </div>
 
@@ -115,13 +123,9 @@ function SignInRoute() {
         </div>
 
         <div className='flex items-center justify-center gap-2'>
-          <p>
-            {t('auth.dont-have-an-account')}
-          </p>
+          <p>{t('auth.dont-have-an-account')}</p>
           <Button asChild variant='link' className='h-auto p-0 text-base'>
-            <Link to='/sign-up'>
-              {t('auth.sign-up')}
-            </Link>
+            <Link to='/sign-up'>{t('auth.sign-up')}</Link>
           </Button>
         </div>
       </CardContent>

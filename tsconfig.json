@@ -9,7 +9,7 @@
     "strict": true,
     "baseUrl": ".",
     "paths": {
-      "~/*": ["app/*"]
+      "~/*": ["src/*"]
     }
   }
 }

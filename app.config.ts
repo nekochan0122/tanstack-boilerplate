@@ -1,11 +1,33 @@
 import { exec } from 'node:child_process'
+import { join } from 'node:path'
 
+import { index, layout, rootRoute, route } from '@tanstack/react-router-virtual-file-routes'
 import { defineConfig } from '@tanstack/start/config'
 import tsconfigPathsPlugin from 'vite-plugin-tsconfig-paths'
 import type { App } from 'vinxi'
 
-const customConfig = {
-  autoOpenBrowser: true,
+const routes = rootRoute('root.tsx', [
+  index('app/_index.tsx'),
+
+  layout('auth', 'app/auth/_layout.tsx', [
+    route('/sign-in', 'app/auth/sign-in.tsx'),
+    route('/sign-up', 'app/auth/sign-up.tsx'),
+  ]),
+
+  layout('protected-user', 'app/protected/user/_layout.tsx', [
+    route('/user/profile', 'app/protected/user/profile.tsx'),
+    route('/user/account-settings', 'app/protected/user/account-settings.tsx'),
+  ]),
+
+  layout('protected-admin', 'app/protected/admin/_layout.tsx', [
+    route('/admin/dashboard', 'app/protected/admin/dashboard.tsx'),
+    route('/admin/user-management', 'app/protected/admin/user-management.tsx'),
+  ]),
+])
+
+const config = {
+  appDirectory: 'src',
+  autoOpenBrowser: false,
 }
 
 const app = defineConfig({
@@ -14,18 +36,19 @@ const app = defineConfig({
   },
   routers: {
     api: {
-      entry: './app/entry-api.ts',
+      entry: join(config.appDirectory, 'entry-api.ts'),
     },
     ssr: {
-      entry: './app/entry-server.ts',
+      entry: join(config.appDirectory, 'entry-server.ts'),
     },
     client: {
-      entry: './app/entry-client.ts',
+      entry: join(config.appDirectory, 'entry-client.ts'),
     },
   },
   tsr: {
-    appDirectory: 'app',
-    generatedRouteTree: 'app/route-tree.gen.ts',
+    virtualRouteConfig: routes,
+    appDirectory: config.appDirectory,
+    generatedRouteTree: join(config.appDirectory, 'route-tree.gen.ts'),
     quoteStyle: 'single',
     semicolons: false,
     customScaffolding: {
@@ -53,7 +76,7 @@ const app = defineConfig({
 // https://github.com/nksaraf/vinxi/issues/34#issuecomment-1871437097
 // https://github.com/nksaraf/vinxi/blob/b0ccb64d3c37488050eb9411be4290ea466c3eba/packages/vinxi/lib/dev-server.js#L225
 app.hooks.hook('app:dev:server:listener:created', ({ listener }) => {
-  if (!customConfig.autoOpenBrowser) return
+  if (!config.autoOpenBrowser) return
   exec(`start ${listener.url}`)
 })
 
@@ -65,7 +88,7 @@ function withMiddleware(app: App) {
       ...app.config,
       routers: app.config.routers.map((router) => ({
         ...router,
-        middleware: router.target === 'server' ? './app/middleware.ts' : undefined,
+        middleware: router.target !== 'server' ? undefined : join(config.appDirectory, 'middleware.ts'),
       })),
     },
   }

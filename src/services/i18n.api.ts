@@ -28,7 +28,7 @@ export const getI18n = createServerFn('GET', async () => {
     await session.update({ timeZone })
   }
 
-  const messages = await import(`../i18n/${session.data['locale']}.ts`)
+  const messages = await import(`../messages/${session.data['locale']}.ts`)
 
   return {
     locale: session.data['locale'] as SupportedLocales,

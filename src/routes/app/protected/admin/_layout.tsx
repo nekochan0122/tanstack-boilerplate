@@ -3,7 +3,7 @@ import { toast } from 'sonner'
 
 import { logger } from '~/libs/logger'
 
-export const Route = createFileRoute('/(authentication)/_authed')({
+export const Route = createFileRoute('/_protected-admin')({
   beforeLoad: ({ context, location }) => {
     if (!context.auth.isAuthenticated) {
       logger.info('Authentication failed, redirecting to sign-in page')
@@ -17,14 +17,26 @@ export const Route = createFileRoute('/(authentication)/_authed')({
         },
       })
     }
+
+    if (context.auth.user.role !== 'admin') {
+      logger.info('Unauthorized access, redirecting to home page')
+
+      toast.error(context.i18n.t('auth.unauthorized-access'))
+
+      throw redirect({
+        to: '/',
+      })
+    }
+
+    if (['/admin', '/admin/'].includes(location.pathname)) {
+      throw redirect({
+        to: '/admin/dashboard',
+      })
+    }
   },
-  component: AuthedLayout,
+  component: RouteComponent,
 })
 
-function AuthedLayout() {
-  return (
-    <>
-      <Outlet />
-    </>
-  )
+function RouteComponent() {
+  return <Outlet />
 }

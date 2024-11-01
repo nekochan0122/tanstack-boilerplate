@@ -5,7 +5,7 @@ import { z } from 'zod'
 
 import { logger } from '~/libs/logger'
 
-export const Route = createFileRoute('/(authentication)/_auth')({
+export const Route = createFileRoute('/_auth')({
   validateSearch: zodSearchValidator(
     z.object({
       callbackURL: z.string().default('/'),

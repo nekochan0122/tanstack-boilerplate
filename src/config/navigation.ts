@@ -1,4 +1,4 @@
-import { LuKeyRound } from 'react-icons/lu'
+import { LuKeyRound, LuShieldCheck, LuUser } from 'react-icons/lu'
 import type { IconType } from 'react-icons'
 
 import type { TranslateKeys } from '~/libs/i18n'
@@ -36,13 +36,33 @@ export const navigation: NavigationGroup[] = [
             name: 'navigation.sign-up',
             link: '/sign-up',
           },
+        ],
+      },
+      {
+        name: 'navigation.user',
+        icon: LuUser,
+        items: [
           {
-            name: 'navigation.protected',
-            link: '/protected',
+            name: 'navigation.profile',
+            link: '/user/profile',
           },
           {
-            name: 'navigation.protected-admin',
-            link: '/protected-admin',
+            name: 'navigation.account-settings',
+            link: '/user/account-settings',
+          },
+        ],
+      },
+      {
+        name: 'navigation.admin',
+        icon: LuShieldCheck,
+        items: [
+          {
+            name: 'navigation.dashboard',
+            link: '/admin/dashboard',
+          },
+          {
+            name: 'navigation.user-management',
+            link: '/admin/user-management',
           },
         ],
       },

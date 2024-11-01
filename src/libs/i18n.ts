@@ -1,8 +1,8 @@
 import type { LiteralUnion } from 'type-fest'
 import type { IntlConfig } from 'use-intl'
 
-import type enMessages from '~/i18n/en.ts'
 import type { InferRouteContext } from '~/libs/router'
+import type enMessages from '~/messages/en'
 
 export const supportedLocales = ['en', 'zh-tw'] as const
 

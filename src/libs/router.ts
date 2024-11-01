@@ -29,6 +29,7 @@ export function createRouter() {
       search: {
         strict: true,
       },
+      trailingSlash: 'never',
       // transformer: SuperJSON,
       // defaultPreload: 'intent',
     }),
