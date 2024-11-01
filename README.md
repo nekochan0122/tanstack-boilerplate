@@ -1,3 +1,6 @@
+> [!WARNING]
+> This boilerplate is still a work in progress and **should not be used in production**.
+
 # TanStack Boilerplate (WIP)
 
 A fully **type-safe** boilerplate with a focus on UX and DX, complete with multiple examples.
