@@ -26,7 +26,7 @@ export default tseslint.config(
       'jsx-a11y/no-autofocus': ['error', {
         ignoreNonDOM: true,
       }],
-      'unicorn/no-useless-undefined': 'off', // for server function fix
+      'unicorn/no-useless-undefined': 'off', // a quickfix for server function
     },
   },
   {
