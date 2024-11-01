@@ -5,7 +5,7 @@ import { Combobox } from '~/components/ui/combobox'
 import { Typography } from '~/components/ui/typography'
 import type { ComboboxOption } from '~/components/ui/combobox'
 
-export const Route = createFileRoute('/(ui)/combobox-example')({
+export const Route = createFileRoute('/(ui)/combobox')({
   loader: () => {
     const createRandomOption = (): ComboboxOption => ({
       label: faker.internet.username(),
@@ -25,7 +25,7 @@ function ComboboxExample() {
   const { options } = Route.useLoaderData()
 
   return (
-    <div className='space-y-4'>
+    <div className="space-y-4">
       <Typography.H2>Shadcn Combobox + TanStack Virtual</Typography.H2>
       <Typography.P>
         Data Amount: {new Intl.NumberFormat('en-US').format(options.length)}{' '}

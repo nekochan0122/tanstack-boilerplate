@@ -14,7 +14,7 @@ import { createFileRoute } from '@tanstack/react-router'
 
 import { Route as rootRoute } from './routes/__root'
 import { Route as IndexImport } from './routes/index'
-import { Route as uiComboboxExampleImport } from './routes/(ui)/combobox-example'
+import { Route as uiComboboxImport } from './routes/(ui)/combobox'
 import { Route as formFormImport } from './routes/(form)/form'
 import { Route as authenticationAuthedImport } from './routes/(authentication)/_authed'
 import { Route as authenticationAuthImport } from './routes/(authentication)/_auth'
@@ -40,9 +40,9 @@ const IndexRoute = IndexImport.update({
   getParentRoute: () => rootRoute,
 } as any)
 
-const uiComboboxExampleRoute = uiComboboxExampleImport.update({
-  id: '/(ui)/combobox-example',
-  path: '/combobox-example',
+const uiComboboxRoute = uiComboboxImport.update({
+  id: '/(ui)/combobox',
+  path: '/combobox',
   getParentRoute: () => rootRoute,
 } as any)
 
@@ -127,11 +127,11 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof formFormImport
       parentRoute: typeof rootRoute
     }
-    '/(ui)/combobox-example': {
-      id: '/(ui)/combobox-example'
-      path: '/combobox-example'
-      fullPath: '/combobox-example'
-      preLoaderRoute: typeof uiComboboxExampleImport
+    '/(ui)/combobox': {
+      id: '/(ui)/combobox'
+      path: '/combobox'
+      fullPath: '/combobox'
+      preLoaderRoute: typeof uiComboboxImport
       parentRoute: typeof rootRoute
     }
     '/(authentication)/_auth/sign-in': {
@@ -212,7 +212,7 @@ export interface FileRoutesByFullPath {
   '/': typeof authenticationAuthRouteWithChildren
   '': typeof authenticationAuthedRouteWithChildren
   '/form': typeof formFormRoute
-  '/combobox-example': typeof uiComboboxExampleRoute
+  '/combobox': typeof uiComboboxRoute
   '/sign-in': typeof authenticationAuthSignInRoute
   '/sign-up': typeof authenticationAuthSignUpRoute
   '/protected': typeof authenticationAuthedProtectedRoute
@@ -223,7 +223,7 @@ export interface FileRoutesByTo {
   '/': typeof authenticationAuthRouteWithChildren
   '': typeof authenticationAuthedRouteWithChildren
   '/form': typeof formFormRoute
-  '/combobox-example': typeof uiComboboxExampleRoute
+  '/combobox': typeof uiComboboxRoute
   '/sign-in': typeof authenticationAuthSignInRoute
   '/sign-up': typeof authenticationAuthSignUpRoute
   '/protected': typeof authenticationAuthedProtectedRoute
@@ -237,7 +237,7 @@ export interface FileRoutesById {
   '/(authentication)/_auth': typeof authenticationAuthRouteWithChildren
   '/(authentication)/_authed': typeof authenticationAuthedRouteWithChildren
   '/(form)/form': typeof formFormRoute
-  '/(ui)/combobox-example': typeof uiComboboxExampleRoute
+  '/(ui)/combobox': typeof uiComboboxRoute
   '/(authentication)/_auth/sign-in': typeof authenticationAuthSignInRoute
   '/(authentication)/_auth/sign-up': typeof authenticationAuthSignUpRoute
   '/(authentication)/_authed/protected': typeof authenticationAuthedProtectedRoute
@@ -250,7 +250,7 @@ export interface FileRouteTypes {
     | '/'
     | ''
     | '/form'
-    | '/combobox-example'
+    | '/combobox'
     | '/sign-in'
     | '/sign-up'
     | '/protected'
@@ -260,7 +260,7 @@ export interface FileRouteTypes {
     | '/'
     | ''
     | '/form'
-    | '/combobox-example'
+    | '/combobox'
     | '/sign-in'
     | '/sign-up'
     | '/protected'
@@ -272,7 +272,7 @@ export interface FileRouteTypes {
     | '/(authentication)/_auth'
     | '/(authentication)/_authed'
     | '/(form)/form'
-    | '/(ui)/combobox-example'
+    | '/(ui)/combobox'
     | '/(authentication)/_auth/sign-in'
     | '/(authentication)/_auth/sign-up'
     | '/(authentication)/_authed/protected'
@@ -284,14 +284,14 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   authenticationRoute: typeof authenticationRouteWithChildren
   formFormRoute: typeof formFormRoute
-  uiComboboxExampleRoute: typeof uiComboboxExampleRoute
+  uiComboboxRoute: typeof uiComboboxRoute
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   authenticationRoute: authenticationRouteWithChildren,
   formFormRoute: formFormRoute,
-  uiComboboxExampleRoute: uiComboboxExampleRoute,
+  uiComboboxRoute: uiComboboxRoute,
 }
 
 export const routeTree = rootRoute
@@ -307,7 +307,7 @@ export const routeTree = rootRoute
         "/",
         "/(authentication)",
         "/(form)/form",
-        "/(ui)/combobox-example"
+        "/(ui)/combobox"
       ]
     },
     "/": {
@@ -339,8 +339,8 @@ export const routeTree = rootRoute
     "/(form)/form": {
       "filePath": "(form)/form.tsx"
     },
-    "/(ui)/combobox-example": {
-      "filePath": "(ui)/combobox-example.tsx"
+    "/(ui)/combobox": {
+      "filePath": "(ui)/combobox.tsx"
     },
     "/(authentication)/_auth/sign-in": {
       "filePath": "(authentication)/_auth.sign-in.tsx",

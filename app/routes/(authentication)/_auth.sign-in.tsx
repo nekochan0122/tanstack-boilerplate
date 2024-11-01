@@ -1,15 +1,17 @@
-import { createFileRoute, Link } from '@tanstack/react-router'
+import { createFileRoute, Link, useSearch } from '@tanstack/react-router'
 import { toast } from 'sonner'
 import { useTranslations } from 'use-intl'
 
 import { createBasicFormBuilder } from '~/components/form/basic'
-import { OAuthSignIn } from '~/components/oauth-sign-in'
 import { Button } from '~/components/ui/button'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '~/components/ui/card'
 import { useForm } from '~/components/ui/form'
 import { Separator } from '~/components/ui/separator'
-import { useSignInMutation } from '~/services/auth.query'
+import { oauthConfigs } from '~/config/oauth'
+import { cx } from '~/libs/utils'
+import { useSignInMutation, useSignInOAuthMutation } from '~/services/auth.query'
 import { signInSchema } from '~/services/auth.schema'
+import type { SupportedOAuthProviderId } from '~/config/oauth'
 
 export const Route = createFileRoute('/(authentication)/_auth/sign-in')({
   component: SignInRoute,
@@ -18,7 +20,10 @@ export const Route = createFileRoute('/(authentication)/_auth/sign-in')({
 function SignInRoute() {
   const t = useTranslations()
 
+  const search = useSearch({ from: '/(authentication)/_auth' })
+
   const signInMutation = useSignInMutation()
+  const signInOAuthMutation = useSignInOAuthMutation()
 
   const form = useForm(signInSchema(t), {
     defaultValues: {
@@ -59,6 +64,13 @@ function SignInRoute() {
     ],
   })
 
+  function handleSignInOAuth({ provider }: { provider: SupportedOAuthProviderId }) {
+    return () => signInOAuthMutation.mutate({
+      provider,
+      callbackURL: search.callbackURL,
+    })
+  }
+
   return (
     <Card className='w-full lg:max-w-md'>
       <CardHeader>
@@ -81,7 +93,26 @@ function SignInRoute() {
           <Separator className='flex-1' />
         </div>
 
-        <OAuthSignIn />
+        <div className='w-full space-y-4'>
+          {oauthConfigs.map((oauth) => (
+            <Button
+              key={oauth.id}
+              onClick={handleSignInOAuth({ provider: oauth.id })}
+              style={{ '--oauth-bg': oauth.backgroundColor }}
+              className={cx(
+                'w-full items-center justify-center gap-2 border',
+                'bg-[var(--oauth-bg)] hover:bg-[var(--oauth-bg)] focus-visible:ring-[var(--oauth-bg)]',
+                'brightness-100 hover:brightness-90',
+                oauth.id === 'google' && 'focus-visible:ring-ring',
+              )}
+            >
+              <oauth.icon size={oauth.size} color={oauth.logoColor} />
+              <span style={{ color: oauth.textColor }}>
+                {t('auth.oauth-sign-in', { name: oauth.name })}
+              </span>
+            </Button>
+          ))}
+        </div>
 
         <div className='flex items-center justify-center gap-2'>
           <p>
