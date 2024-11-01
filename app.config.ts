@@ -1,6 +1,10 @@
+import { exec } from 'node:child_process'
+
 import { defineConfig } from '@tanstack/start/config'
 import tsconfigPathsPlugin from 'vite-plugin-tsconfig-paths'
 import type { App } from 'vinxi'
+
+const OPEN_BROWSER_WHEN_READY = true
 
 const app = defineConfig({
   server: {
@@ -44,6 +48,14 @@ const app = defineConfig({
   },
 })
 
+// https://github.com/nksaraf/vinxi/issues/34#issuecomment-1871437097
+// https://github.com/nksaraf/vinxi/blob/b0ccb64d3c37488050eb9411be4290ea466c3eba/packages/vinxi/lib/dev-server.js#L225
+app.hooks.hook('app:dev:server:listener:created', ({ listener }) => {
+  if (!OPEN_BROWSER_WHEN_READY) return
+  exec(`start ${listener.url}`)
+})
+
+// https://discord.com/channels/719702312431386674/1238170697650405547/1300589573080092723
 function withMiddleware(app: App) {
   return {
     ...app,
