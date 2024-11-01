@@ -12,10 +12,10 @@ import { useSignInMutation } from '~/services/auth.query'
 import { signInSchema } from '~/services/auth.schema'
 
 export const Route = createFileRoute('/(authentication)/_auth/sign-in')({
-  component: SignIn,
+  component: SignInRoute,
 })
 
-function SignIn() {
+function SignInRoute() {
   const t = useTranslations()
 
   const signInMutation = useSignInMutation()
@@ -27,6 +27,8 @@ function SignIn() {
       dontRememberMe: false,
     },
     onSubmit: async ({ value }) => {
+      // TODO: error handling
+
       const signInPromise = signInMutation.mutateAsync(value)
 
       toast.promise(signInPromise, {

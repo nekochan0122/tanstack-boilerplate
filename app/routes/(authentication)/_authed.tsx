@@ -18,10 +18,10 @@ export const Route = createFileRoute('/(authentication)/_authed')({
       })
     }
   },
-  component: AuthenticatedLayout,
+  component: AuthedLayout,
 })
 
-function AuthenticatedLayout() {
+function AuthedLayout() {
   return (
     <>
       <Outlet />

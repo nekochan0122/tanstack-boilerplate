@@ -10,10 +10,10 @@ import { useSignUpMutation } from '~/services/auth.query'
 import { signUpSchema } from '~/services/auth.schema'
 
 export const Route = createFileRoute('/(authentication)/_auth/sign-up')({
-  component: SignUp,
+  component: SignUpRoute,
 })
 
-function SignUp() {
+function SignUpRoute() {
   const t = useTranslations()
   const signUpMutation = useSignUpMutation()
 
@@ -25,9 +25,9 @@ function SignUp() {
       email: 'example@example.com',
     },
     onSubmit: async ({ value }) => {
-      const signUpPromise = signUpMutation.mutateAsync(value, {
-        // TODO: error handling
-      })
+      // TODO: error handling
+
+      const signUpPromise = signUpMutation.mutateAsync(value)
 
       toast.promise(signUpPromise, {
         loading: t('auth.sign-up-loading'),
