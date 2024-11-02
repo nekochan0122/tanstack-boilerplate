@@ -35,5 +35,5 @@ A fully **type-safe** boilerplate with a focus on UX and DX, complete with multi
   - https://github.com/nksaraf/vinxi/issues/277
   - https://github.com/unjs/nitro/issues/1492
   - `node --env-file=.env .\.output\server\index.mjs`
-- Auto Reload Server when `.env` changes
+- Auto reload dev server when `.env` changes
   - https://github.com/nksaraf/vinxi/issues/345
