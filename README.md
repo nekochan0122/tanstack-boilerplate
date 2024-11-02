@@ -1,7 +1,7 @@
 > [!WARNING]
 > This boilerplate is still a work in progress and **should not be used in production**.
 
-# TanStack Boilerplate (WIP)
+# TanStack Boilerplate
 
 A fully **type-safe** boilerplate with a focus on UX and DX, complete with multiple examples.
 
@@ -31,7 +31,9 @@ A fully **type-safe** boilerplate with a focus on UX and DX, complete with multi
   - https://github.com/TanStack/router/pull/2513
 - Server functions can't serialize error objects
   - https://github.com/TanStack/router/issues/2535
-- Environment Variables Not Loaded in Production
+- Environment variables not loaded in production
   - https://github.com/nksaraf/vinxi/issues/277
   - https://github.com/unjs/nitro/issues/1492
   - `node --env-file=.env .\.output\server\index.mjs`
+- Auto Reload Server when `.env` changes
+  - https://github.com/nksaraf/vinxi/issues/345
