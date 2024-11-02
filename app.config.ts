@@ -1,29 +1,11 @@
 import { exec } from 'node:child_process'
 import { join } from 'node:path'
 
-import { index, layout, rootRoute, route } from '@tanstack/react-router-virtual-file-routes'
 import { defineConfig } from '@tanstack/start/config'
 import tsconfigPathsPlugin from 'vite-plugin-tsconfig-paths'
 import type { App } from 'vinxi'
 
-const routes = rootRoute('root.tsx', [
-  index('app/_index.tsx'),
-
-  layout('auth', 'app/auth/_layout.tsx', [
-    route('/sign-in', 'app/auth/sign-in.tsx'),
-    route('/sign-up', 'app/auth/sign-up.tsx'),
-  ]),
-
-  layout('protected-user', 'app/protected/user/_layout.tsx', [
-    route('/user/profile', 'app/protected/user/profile.tsx'),
-    route('/user/account-settings', 'app/protected/user/account-settings.tsx'),
-  ]),
-
-  layout('protected-admin', 'app/protected/admin/_layout.tsx', [
-    route('/admin/dashboard', 'app/protected/admin/dashboard.tsx'),
-    route('/admin/user-management', 'app/protected/admin/user-management.tsx'),
-  ]),
-])
+import { appRoutes } from './app.routes'
 
 const config = {
   appDirectory: 'src',
@@ -46,7 +28,7 @@ const app = defineConfig({
     },
   },
   tsr: {
-    virtualRouteConfig: routes,
+    virtualRouteConfig: appRoutes,
     appDirectory: config.appDirectory,
     generatedRouteTree: join(config.appDirectory, 'route-tree.gen.ts'),
     quoteStyle: 'single',
