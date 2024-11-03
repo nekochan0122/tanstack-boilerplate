@@ -29,7 +29,6 @@ export function createRouter() {
       search: {
         strict: true,
       },
-      defaultPreload: 'intent',
     }),
     queryClient,
   )
