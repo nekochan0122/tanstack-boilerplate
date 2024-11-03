@@ -31,9 +31,9 @@ export default tseslint.config(
   },
   {
     files: [
-      'app/components/ui/form.tsx',
-      'app/components/ui/form-builder.tsx',
-      'app/components/form/**/*',
+      'src/components/ui/form.tsx',
+      'src/components/ui/form-builder.tsx',
+      'src/components/form/**/*',
     ],
     rules: {
       'react/no-children-prop': 'off',

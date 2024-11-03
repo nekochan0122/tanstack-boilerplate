@@ -4,21 +4,12 @@ import { useTranslations } from 'use-intl'
 
 import { createBasicFormBuilder } from '~/components/form/basic'
 import { Button } from '~/components/ui/button'
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from '~/components/ui/card'
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '~/components/ui/card'
 import { useForm } from '~/components/ui/form'
 import { Separator } from '~/components/ui/separator'
 import { oauthConfigs } from '~/config/oauth'
 import { cx } from '~/libs/utils'
-import {
-  useSignInMutation,
-  useSignInOAuthMutation,
-} from '~/services/auth.query'
+import { useSignInMutation, useSignInOAuthMutation } from '~/services/auth.query'
 import { signInSchema } from '~/services/auth.schema'
 import type { SupportedOAuthProviderId } from '~/config/oauth'
 

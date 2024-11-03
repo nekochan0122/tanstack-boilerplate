@@ -4,13 +4,7 @@ import { useTranslations } from 'use-intl'
 
 import { createBasicFormBuilder } from '~/components/form/basic'
 import { Button } from '~/components/ui/button'
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from '~/components/ui/card'
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '~/components/ui/card'
 import { useForm } from '~/components/ui/form'
 import { useSignUpMutation } from '~/services/auth.query'
 import { signUpSchema } from '~/services/auth.schema'
@@ -74,19 +68,19 @@ function SignUpRoute() {
   })
 
   return (
-    <Card className="w-full lg:max-w-md">
+    <Card className='w-full lg:max-w-md'>
       <CardHeader>
         <CardTitle>{t('auth.sign-up')}</CardTitle>
         <CardDescription>{t('auth.sign-up-description')}</CardDescription>
       </CardHeader>
 
-      <CardContent className="space-y-6">
+      <CardContent className='space-y-6'>
         <SignUpFormBuilder />
 
-        <div className="flex items-center justify-center gap-2">
+        <div className='flex items-center justify-center gap-2'>
           <p>{t('auth.already-have-an-account')}</p>
-          <Button asChild variant="link" className="h-auto p-0 text-base">
-            <Link to="/sign-in">{t('auth.sign-in')}</Link>
+          <Button asChild variant='link' className='h-auto p-0 text-base'>
+            <Link to='/sign-in'>{t('auth.sign-in')}</Link>
           </Button>
         </div>
       </CardContent>
