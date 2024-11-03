@@ -7,6 +7,8 @@ import { handleZodErrors } from '~/libs/zod'
 
 // https://docs.solidjs.com/configuration/environment-variables
 
+type EnvSchema = z.ZodObject<Record<string, z.ZodString>>
+
 const envSchema = z.object({
   VITE_APP_NAME: z.string(),
   APP_SECRET: z.string(),
@@ -20,7 +22,7 @@ const envSchema = z.object({
   GITHUB_CLIENT_ID: z.string(),
   GITHUB_CLIENT_SECRET: z.string(),
   RESEND_API_KEY: z.string(),
-}) satisfies z.ZodObject<Record<string, z.ZodString>>
+}) satisfies EnvSchema
 
 const result = await envSchema.safeParseAsync({
   ...import.meta.env,
@@ -36,8 +38,6 @@ if (result.error) {
 const total = Object.keys(result.data).length
 
 logger.info(`Environment variables parsed successfully (${total} variables)`)
-
-// Infer types
 
 type Env = z.infer<typeof envSchema>
 type PublicPrefix = 'VITE_'
