@@ -39,3 +39,5 @@ A fully **type-safe** boilerplate with a focus on UX and DX, complete with multi
   - https://github.com/nksaraf/vinxi/issues/345
 - No valid compatibility date is specified
   - https://github.com/solidjs/solid-start/issues/1670
+  - https://github.com/nitrojs/nitro/pull/2511
+  - https://github.com/unjs/compatx/blob/main/RFC.md
