@@ -41,3 +41,5 @@ A fully **type-safe** boilerplate with a focus on UX and DX, complete with multi
   - https://github.com/solidjs/solid-start/issues/1670
   - https://github.com/nitrojs/nitro/pull/2511
   - https://github.com/unjs/compatx/blob/main/RFC.md
+- Router optional params for i18n
+  -
