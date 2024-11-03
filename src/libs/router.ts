@@ -4,12 +4,12 @@ import { lazy } from 'react'
 import type { QueryClient } from '@tanstack/react-query'
 import type { useRouteContext } from '@tanstack/react-router'
 
-// import { SuperJSON } from 'superjson'
 import { createQueryClient } from '~/libs/query'
 import { routeTree } from '~/route-tree.gen'
 import type { FileRouteTypes } from '~/route-tree.gen'
 
-export type InferRouteContext<Route extends FileRouteTypes['to']> = ReturnType<typeof useRouteContext<typeof routeTree, Route>>
+export type InferRouteContext<Route extends FileRouteTypes['to']> =
+  ReturnType<typeof useRouteContext<typeof routeTree, Route>>
 
 export type RouterContext = {
   queryClient: QueryClient
@@ -29,9 +29,7 @@ export function createRouter() {
       search: {
         strict: true,
       },
-      trailingSlash: 'never',
-      // transformer: SuperJSON,
-      // defaultPreload: 'intent',
+      defaultPreload: 'intent',
     }),
     queryClient,
   )
