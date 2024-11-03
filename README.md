@@ -37,3 +37,5 @@ A fully **type-safe** boilerplate with a focus on UX and DX, complete with multi
   - `node --env-file=.env .\.output\server\index.mjs`
 - Auto reload dev server when `.env` changes
   - https://github.com/nksaraf/vinxi/issues/345
+- No valid compatibility date is specified
+  - https://github.com/solidjs/solid-start/issues/1670
