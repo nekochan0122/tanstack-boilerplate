@@ -25,21 +25,28 @@ A fully **type-safe** boilerplate with a focus on UX and DX, complete with multi
 
 ## Issues or Pull Requests Tracking List
 
-- HMR
-  - https://github.com/TanStack/router/pull/2316
-- Chained Server Fn Syntax, ServerFn Middleware
-  - https://github.com/TanStack/router/pull/2513
-- Server functions can't serialize error objects
-  - https://github.com/TanStack/router/issues/2535
-- Environment variables not loaded in production
-  - https://github.com/nksaraf/vinxi/issues/277
-  - https://github.com/unjs/nitro/issues/1492
-  - `node --env-file=.env .\.output\server\index.mjs`
-- Auto reload dev server when `.env` changes
-  - https://github.com/nksaraf/vinxi/issues/345
-- No valid compatibility date is specified
-  - https://github.com/solidjs/solid-start/issues/1670
-  - https://github.com/nitrojs/nitro/pull/2511
-  - https://github.com/unjs/compatx/blob/main/RFC.md
-- Router optional params for i18n
-  - https://github.com/TanStack/router/discussions/146#discussioncomment-10917959
+- Start
+  - HMR
+    - https://github.com/TanStack/router/pull/2316
+  - Chained Server Fn Syntax, ServerFn Middleware
+    - https://github.com/TanStack/router/pull/2513
+  - Server functions can't serialize error objects
+    - https://github.com/TanStack/router/issues/2535
+- Router
+  - Router optional params for i18n
+    - https://github.com/TanStack/router/discussions/146#discussioncomment-10917959
+- Vinxi
+  - Environment variables not loaded in production
+    - https://github.com/nksaraf/vinxi/issues/277
+    - https://github.com/unjs/nitro/issues/1492
+    - `node --env-file=.env .\.output\server\index.mjs`
+  - Auto reload dev server when `.env` changes
+    - https://github.com/nksaraf/vinxi/issues/345
+  - No valid compatibility date is specified
+    - https://github.com/solidjs/solid-start/issues/1670
+    - https://github.com/nitrojs/nitro/pull/2511
+    - https://github.com/unjs/compatx/blob/main/RFC.md
+- ESLint
+  - Tailwindcss Plugin
+    - no-multiple-whitespace rule
+      - https://github.com/francoismassart/eslint-plugin-tailwindcss/pull/370
