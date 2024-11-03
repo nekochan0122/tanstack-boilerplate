@@ -7,15 +7,15 @@ A fully **type-safe** boilerplate with a focus on UX and DX, complete with multi
 
 ## Features
 
-- SSR - TanStack Start
-- Form - TanStack Form
-- Routing - TanStack Router
-- Data Fetching - TanStack Query
-- Authentication - Better Auth
-- Localization - use-intl (core library of next-intl)
-- Validation - Zod
-- ORM - Prisma
-- UI - Shadcn UI
+- SSR - [TanStack Start](https://tanstack.com/start/latest)
+- Form - [TanStack Form](https://tanstack.com/form/latest)
+- Routing - [TanStack Router](https://tanstack.com/router/latest)
+- Data Fetching - [TanStack Query](https://tanstack.com/query/latest)
+- Authentication - [Better Auth](https://www.better-auth.com/)
+- Localization - [use-intl](https://github.com/amannn/next-intl/blob/main/packages/use-intl/README.md) (core library of next-intl)
+- Validation - [Zod](https://zod.dev/)
+- ORM - [Prisma](https://www.prisma.io/)
+- UI - [Shadcn UI](https://ui.shadcn.com/)
 - Additional Features:
   - File Upload (TODO)
   - Form Builder
