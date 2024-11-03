@@ -21,6 +21,21 @@ export const getAuth = createServerFn('GET', async (): Promise<Auth> => {
 })
 
 export const signUp = createServerFn('POST', async (input: z.infer<ReturnType<typeof signUpSchema>>, ctx) => {
+  // FIXME: can't catch the API Error, it always return a response
+  // try {
+  //   const result = await auth.api.signUpEmail({
+  //     headers: ctx.request.headers,
+  //     body: input,
+  //     asResponse: false,
+  //   })
+
+  //   console.log({ input })
+  //   console.log({ result })
+  // }
+  // catch (error) {
+  //   console.error(error)
+  // }
+
   const [signUpError, signUpResult] = await tryCatchAsync<APIError, Response>(
     auth.api.signUpEmail({
       headers: ctx.request.headers,
