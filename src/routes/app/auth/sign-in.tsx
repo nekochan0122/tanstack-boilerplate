@@ -25,7 +25,7 @@ function SignInRoute() {
   const signInMutation = useSignInMutation()
   const signInOAuthMutation = useSignInOAuthMutation()
 
-  const form = useForm(signInSchema(t), {
+  const signInForm = useForm(signInSchema(t), {
     defaultValues: {
       username: 'nekochan',
       password: '12345678Ab!',
@@ -46,7 +46,7 @@ function SignInRoute() {
     },
   })
 
-  const SignInFormBuilder = createBasicFormBuilder(form)({
+  const SignInFormBuilder = createBasicFormBuilder(signInForm)({
     base: {
       submit: t('auth.sign-in'),
     },

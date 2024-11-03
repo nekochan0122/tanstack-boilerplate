@@ -17,7 +17,7 @@ function SignUpRoute() {
   const t = useTranslations()
   const signUpMutation = useSignUpMutation()
 
-  const form = useForm(signUpSchema(t), {
+  const signUpForm = useForm(signUpSchema(t), {
     defaultValues: {
       name: 'NekoChan',
       username: 'nekochan',
@@ -39,7 +39,7 @@ function SignUpRoute() {
     },
   })
 
-  const SignUpFormBuilder = createBasicFormBuilder(form)({
+  const SignUpFormBuilder = createBasicFormBuilder(signUpForm)({
     base: {
       submit: t('auth.sign-up'),
     },
