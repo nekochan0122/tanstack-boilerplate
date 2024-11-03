@@ -5,6 +5,8 @@ import { z } from 'zod'
 import { logger } from '~/libs/logger'
 import { handleZodErrors } from '~/libs/zod'
 
+// https://docs.solidjs.com/configuration/environment-variables
+
 const envSchema = z.object({
   VITE_APP_NAME: z.string(),
   APP_SECRET: z.string(),
