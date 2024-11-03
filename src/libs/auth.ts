@@ -57,39 +57,44 @@ export const auth = betterAuth({
   ],
 })
 
-export const userSchema = z.object({
-  id: z.string(),
-  name: z.string(),
-  email: z.string().email(),
-  emailVerified: z.boolean(),
-  image: z.string().nullable(),
-  createdAt: z.date(),
-  updatedAt: z.date(),
-  username: z.string().nullable(),
-  role: z.enum(['user', 'admin']),
-  banned: z.boolean().nullable(),
-  banReason: z.string().nullable(),
-  banExpires: z.date().nullable(),
-})
+export const userSchema = z
+  .object({
+    id: z.string(),
+    name: z.string(),
+    email: z.string().email(),
+    emailVerified: z.boolean(),
+    image: z.string().nullable(),
+    createdAt: z.date(),
+    updatedAt: z.date(),
+    username: z.string().nullable(),
+    role: z.enum(['user', 'admin']),
+    banned: z.boolean().nullable(),
+    banReason: z.string().nullable(),
+    banExpires: z.date().nullable(),
+  })
+  .strict()
 
-export const sessionSchema = z.object({
-  id: z.string(),
-  expiresAt: z.date(),
-  ipAddress: z.string().nullable(),
-  userAgent: z.string().nullable(),
-  userId: z.string(),
-  impersonatedBy: z.string().nullable(),
-})
+export const sessionSchema = z
+  .object({
+    id: z.string(),
+    expiresAt: z.date(),
+    ipAddress: z.string().nullable(),
+    userAgent: z.string().nullable(),
+    userId: z.string(),
+    impersonatedBy: z.string().nullable(),
+  })
+  .strict()
 
-export const authSchema = z.discriminatedUnion('isAuthenticated', [
-  z.object({
-    isAuthenticated: z.literal(false),
-    user: z.null(),
-    session: z.null(),
-  }),
-  z.object({
-    isAuthenticated: z.literal(true),
-    user: userSchema,
-    session: sessionSchema,
-  }),
-])
+export const authSchema = z
+  .discriminatedUnion('isAuthenticated', [
+    z.object({
+      isAuthenticated: z.literal(false),
+      user: z.null(),
+      session: z.null(),
+    }),
+    z.object({
+      isAuthenticated: z.literal(true),
+      user: userSchema,
+      session: sessionSchema,
+    }),
+  ])
