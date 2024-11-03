@@ -11,77 +11,77 @@
 // Import Routes
 
 import { Route as rootRoute } from './routes/root'
-import { Route as appprotecteduserlayoutImport } from './routes/app/protected/user/_layout'
-import { Route as appprotectedadminlayoutImport } from './routes/app/protected/admin/_layout'
-import { Route as appauthlayoutImport } from './routes/app/auth/_layout'
-import { Route as appindexImport } from './routes/app/_index'
-import { Route as appauthsignUpImport } from './routes/app/auth/sign-up'
-import { Route as appauthsignInImport } from './routes/app/auth/sign-in'
-import { Route as appprotecteduserprofileImport } from './routes/app/protected/user/profile'
-import { Route as appprotecteduseraccountSettingsImport } from './routes/app/protected/user/account-settings'
-import { Route as appprotectedadminuserManagementImport } from './routes/app/protected/admin/user-management'
-import { Route as appprotectedadmindashboardImport } from './routes/app/protected/admin/dashboard'
+import { Route as appProtectedUserLayoutImport } from './routes/app/protected/user/_layout'
+import { Route as appProtectedAdminLayoutImport } from './routes/app/protected/admin/_layout'
+import { Route as appAuthLayoutImport } from './routes/app/auth/_layout'
+import { Route as appIndexImport } from './routes/app/_index'
+import { Route as appAuthSignUpImport } from './routes/app/auth/sign-up'
+import { Route as appAuthSignInImport } from './routes/app/auth/sign-in'
+import { Route as appProtectedUserProfileImport } from './routes/app/protected/user/profile'
+import { Route as appProtectedUserAccountSettingsImport } from './routes/app/protected/user/account-settings'
+import { Route as appProtectedAdminUserManagementImport } from './routes/app/protected/admin/user-management'
+import { Route as appProtectedAdminDashboardImport } from './routes/app/protected/admin/dashboard'
 
 // Create/Update Routes
 
-const appprotecteduserlayoutRoute = appprotecteduserlayoutImport.update({
+const appProtectedUserLayoutRoute = appProtectedUserLayoutImport.update({
   id: '/_protected-user',
   getParentRoute: () => rootRoute,
 } as any)
 
-const appprotectedadminlayoutRoute = appprotectedadminlayoutImport.update({
+const appProtectedAdminLayoutRoute = appProtectedAdminLayoutImport.update({
   id: '/_protected-admin',
   getParentRoute: () => rootRoute,
 } as any)
 
-const appauthlayoutRoute = appauthlayoutImport.update({
+const appAuthLayoutRoute = appAuthLayoutImport.update({
   id: '/_auth',
   getParentRoute: () => rootRoute,
 } as any)
 
-const appindexRoute = appindexImport.update({
+const appIndexRoute = appIndexImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRoute,
 } as any)
 
-const appauthsignUpRoute = appauthsignUpImport.update({
+const appAuthSignUpRoute = appAuthSignUpImport.update({
   id: '/sign-up',
   path: '/sign-up',
-  getParentRoute: () => appauthlayoutRoute,
+  getParentRoute: () => appAuthLayoutRoute,
 } as any)
 
-const appauthsignInRoute = appauthsignInImport.update({
+const appAuthSignInRoute = appAuthSignInImport.update({
   id: '/sign-in',
   path: '/sign-in',
-  getParentRoute: () => appauthlayoutRoute,
+  getParentRoute: () => appAuthLayoutRoute,
 } as any)
 
-const appprotecteduserprofileRoute = appprotecteduserprofileImport.update({
+const appProtectedUserProfileRoute = appProtectedUserProfileImport.update({
   id: '/user/profile',
   path: '/user/profile',
-  getParentRoute: () => appprotecteduserlayoutRoute,
+  getParentRoute: () => appProtectedUserLayoutRoute,
 } as any)
 
-const appprotecteduseraccountSettingsRoute =
-  appprotecteduseraccountSettingsImport.update({
+const appProtectedUserAccountSettingsRoute =
+  appProtectedUserAccountSettingsImport.update({
     id: '/user/account-settings',
     path: '/user/account-settings',
-    getParentRoute: () => appprotecteduserlayoutRoute,
+    getParentRoute: () => appProtectedUserLayoutRoute,
   } as any)
 
-const appprotectedadminuserManagementRoute =
-  appprotectedadminuserManagementImport.update({
+const appProtectedAdminUserManagementRoute =
+  appProtectedAdminUserManagementImport.update({
     id: '/admin/user-management',
     path: '/admin/user-management',
-    getParentRoute: () => appprotectedadminlayoutRoute,
+    getParentRoute: () => appProtectedAdminLayoutRoute,
   } as any)
 
-const appprotectedadmindashboardRoute = appprotectedadmindashboardImport.update(
+const appProtectedAdminDashboardRoute = appProtectedAdminDashboardImport.update(
   {
     id: '/admin/dashboard',
     path: '/admin/dashboard',
-    getParentRoute: () => appprotectedadminlayoutRoute,
+    getParentRoute: () => appProtectedAdminLayoutRoute,
   } as any,
 )
 
@@ -93,157 +93,157 @@ declare module '@tanstack/react-router' {
       id: '/'
       path: '/'
       fullPath: '/'
-      preLoaderRoute: typeof appindexImport
+      preLoaderRoute: typeof appIndexImport
       parentRoute: typeof rootRoute
     }
     '/_auth': {
       id: '/_auth'
       path: ''
       fullPath: ''
-      preLoaderRoute: typeof appauthlayoutImport
+      preLoaderRoute: typeof appAuthLayoutImport
       parentRoute: typeof rootRoute
     }
     '/_protected-admin': {
       id: '/_protected-admin'
       path: ''
       fullPath: ''
-      preLoaderRoute: typeof appprotectedadminlayoutImport
+      preLoaderRoute: typeof appProtectedAdminLayoutImport
       parentRoute: typeof rootRoute
     }
     '/_protected-user': {
       id: '/_protected-user'
       path: ''
       fullPath: ''
-      preLoaderRoute: typeof appprotecteduserlayoutImport
+      preLoaderRoute: typeof appProtectedUserLayoutImport
       parentRoute: typeof rootRoute
     }
     '/_auth/sign-in': {
       id: '/_auth/sign-in'
       path: '/sign-in'
       fullPath: '/sign-in'
-      preLoaderRoute: typeof appauthsignInImport
-      parentRoute: typeof appauthlayoutImport
+      preLoaderRoute: typeof appAuthSignInImport
+      parentRoute: typeof appAuthLayoutImport
     }
     '/_auth/sign-up': {
       id: '/_auth/sign-up'
       path: '/sign-up'
       fullPath: '/sign-up'
-      preLoaderRoute: typeof appauthsignUpImport
-      parentRoute: typeof appauthlayoutImport
+      preLoaderRoute: typeof appAuthSignUpImport
+      parentRoute: typeof appAuthLayoutImport
     }
     '/_protected-admin/admin/dashboard': {
       id: '/_protected-admin/admin/dashboard'
       path: '/admin/dashboard'
       fullPath: '/admin/dashboard'
-      preLoaderRoute: typeof appprotectedadmindashboardImport
-      parentRoute: typeof appprotectedadminlayoutImport
+      preLoaderRoute: typeof appProtectedAdminDashboardImport
+      parentRoute: typeof appProtectedAdminLayoutImport
     }
     '/_protected-admin/admin/user-management': {
       id: '/_protected-admin/admin/user-management'
       path: '/admin/user-management'
       fullPath: '/admin/user-management'
-      preLoaderRoute: typeof appprotectedadminuserManagementImport
-      parentRoute: typeof appprotectedadminlayoutImport
+      preLoaderRoute: typeof appProtectedAdminUserManagementImport
+      parentRoute: typeof appProtectedAdminLayoutImport
     }
     '/_protected-user/user/account-settings': {
       id: '/_protected-user/user/account-settings'
       path: '/user/account-settings'
       fullPath: '/user/account-settings'
-      preLoaderRoute: typeof appprotecteduseraccountSettingsImport
-      parentRoute: typeof appprotecteduserlayoutImport
+      preLoaderRoute: typeof appProtectedUserAccountSettingsImport
+      parentRoute: typeof appProtectedUserLayoutImport
     }
     '/_protected-user/user/profile': {
       id: '/_protected-user/user/profile'
       path: '/user/profile'
       fullPath: '/user/profile'
-      preLoaderRoute: typeof appprotecteduserprofileImport
-      parentRoute: typeof appprotecteduserlayoutImport
+      preLoaderRoute: typeof appProtectedUserProfileImport
+      parentRoute: typeof appProtectedUserLayoutImport
     }
   }
 }
 
 // Create and export the route tree
 
-interface appauthlayoutRouteChildren {
-  appauthsignInRoute: typeof appauthsignInRoute
-  appauthsignUpRoute: typeof appauthsignUpRoute
+interface appAuthLayoutRouteChildren {
+  appAuthSignInRoute: typeof appAuthSignInRoute
+  appAuthSignUpRoute: typeof appAuthSignUpRoute
 }
 
-const appauthlayoutRouteChildren: appauthlayoutRouteChildren = {
-  appauthsignInRoute: appauthsignInRoute,
-  appauthsignUpRoute: appauthsignUpRoute,
+const appAuthLayoutRouteChildren: appAuthLayoutRouteChildren = {
+  appAuthSignInRoute: appAuthSignInRoute,
+  appAuthSignUpRoute: appAuthSignUpRoute,
 }
 
-const appauthlayoutRouteWithChildren = appauthlayoutRoute._addFileChildren(
-  appauthlayoutRouteChildren,
+const appAuthLayoutRouteWithChildren = appAuthLayoutRoute._addFileChildren(
+  appAuthLayoutRouteChildren,
 )
 
-interface appprotectedadminlayoutRouteChildren {
-  appprotectedadmindashboardRoute: typeof appprotectedadmindashboardRoute
-  appprotectedadminuserManagementRoute: typeof appprotectedadminuserManagementRoute
+interface appProtectedAdminLayoutRouteChildren {
+  appProtectedAdminDashboardRoute: typeof appProtectedAdminDashboardRoute
+  appProtectedAdminUserManagementRoute: typeof appProtectedAdminUserManagementRoute
 }
 
-const appprotectedadminlayoutRouteChildren: appprotectedadminlayoutRouteChildren =
+const appProtectedAdminLayoutRouteChildren: appProtectedAdminLayoutRouteChildren =
   {
-    appprotectedadmindashboardRoute: appprotectedadmindashboardRoute,
-    appprotectedadminuserManagementRoute: appprotectedadminuserManagementRoute,
+    appProtectedAdminDashboardRoute: appProtectedAdminDashboardRoute,
+    appProtectedAdminUserManagementRoute: appProtectedAdminUserManagementRoute,
   }
 
-const appprotectedadminlayoutRouteWithChildren =
-  appprotectedadminlayoutRoute._addFileChildren(
-    appprotectedadminlayoutRouteChildren,
+const appProtectedAdminLayoutRouteWithChildren =
+  appProtectedAdminLayoutRoute._addFileChildren(
+    appProtectedAdminLayoutRouteChildren,
   )
 
-interface appprotecteduserlayoutRouteChildren {
-  appprotecteduseraccountSettingsRoute: typeof appprotecteduseraccountSettingsRoute
-  appprotecteduserprofileRoute: typeof appprotecteduserprofileRoute
+interface appProtectedUserLayoutRouteChildren {
+  appProtectedUserAccountSettingsRoute: typeof appProtectedUserAccountSettingsRoute
+  appProtectedUserProfileRoute: typeof appProtectedUserProfileRoute
 }
 
-const appprotecteduserlayoutRouteChildren: appprotecteduserlayoutRouteChildren =
+const appProtectedUserLayoutRouteChildren: appProtectedUserLayoutRouteChildren =
   {
-    appprotecteduseraccountSettingsRoute: appprotecteduseraccountSettingsRoute,
-    appprotecteduserprofileRoute: appprotecteduserprofileRoute,
+    appProtectedUserAccountSettingsRoute: appProtectedUserAccountSettingsRoute,
+    appProtectedUserProfileRoute: appProtectedUserProfileRoute,
   }
 
-const appprotecteduserlayoutRouteWithChildren =
-  appprotecteduserlayoutRoute._addFileChildren(
-    appprotecteduserlayoutRouteChildren,
+const appProtectedUserLayoutRouteWithChildren =
+  appProtectedUserLayoutRoute._addFileChildren(
+    appProtectedUserLayoutRouteChildren,
   )
 
 export interface FileRoutesByFullPath {
-  '/': typeof appindexRoute
-  '': typeof appprotecteduserlayoutRouteWithChildren
-  '/sign-in': typeof appauthsignInRoute
-  '/sign-up': typeof appauthsignUpRoute
-  '/admin/dashboard': typeof appprotectedadmindashboardRoute
-  '/admin/user-management': typeof appprotectedadminuserManagementRoute
-  '/user/account-settings': typeof appprotecteduseraccountSettingsRoute
-  '/user/profile': typeof appprotecteduserprofileRoute
+  '/': typeof appIndexRoute
+  '': typeof appProtectedUserLayoutRouteWithChildren
+  '/sign-in': typeof appAuthSignInRoute
+  '/sign-up': typeof appAuthSignUpRoute
+  '/admin/dashboard': typeof appProtectedAdminDashboardRoute
+  '/admin/user-management': typeof appProtectedAdminUserManagementRoute
+  '/user/account-settings': typeof appProtectedUserAccountSettingsRoute
+  '/user/profile': typeof appProtectedUserProfileRoute
 }
 
 export interface FileRoutesByTo {
-  '/': typeof appindexRoute
-  '': typeof appprotecteduserlayoutRouteWithChildren
-  '/sign-in': typeof appauthsignInRoute
-  '/sign-up': typeof appauthsignUpRoute
-  '/admin/dashboard': typeof appprotectedadmindashboardRoute
-  '/admin/user-management': typeof appprotectedadminuserManagementRoute
-  '/user/account-settings': typeof appprotecteduseraccountSettingsRoute
-  '/user/profile': typeof appprotecteduserprofileRoute
+  '/': typeof appIndexRoute
+  '': typeof appProtectedUserLayoutRouteWithChildren
+  '/sign-in': typeof appAuthSignInRoute
+  '/sign-up': typeof appAuthSignUpRoute
+  '/admin/dashboard': typeof appProtectedAdminDashboardRoute
+  '/admin/user-management': typeof appProtectedAdminUserManagementRoute
+  '/user/account-settings': typeof appProtectedUserAccountSettingsRoute
+  '/user/profile': typeof appProtectedUserProfileRoute
 }
 
 export interface FileRoutesById {
   __root__: typeof rootRoute
-  '/': typeof appindexRoute
-  '/_auth': typeof appauthlayoutRouteWithChildren
-  '/_protected-admin': typeof appprotectedadminlayoutRouteWithChildren
-  '/_protected-user': typeof appprotecteduserlayoutRouteWithChildren
-  '/_auth/sign-in': typeof appauthsignInRoute
-  '/_auth/sign-up': typeof appauthsignUpRoute
-  '/_protected-admin/admin/dashboard': typeof appprotectedadmindashboardRoute
-  '/_protected-admin/admin/user-management': typeof appprotectedadminuserManagementRoute
-  '/_protected-user/user/account-settings': typeof appprotecteduseraccountSettingsRoute
-  '/_protected-user/user/profile': typeof appprotecteduserprofileRoute
+  '/': typeof appIndexRoute
+  '/_auth': typeof appAuthLayoutRouteWithChildren
+  '/_protected-admin': typeof appProtectedAdminLayoutRouteWithChildren
+  '/_protected-user': typeof appProtectedUserLayoutRouteWithChildren
+  '/_auth/sign-in': typeof appAuthSignInRoute
+  '/_auth/sign-up': typeof appAuthSignUpRoute
+  '/_protected-admin/admin/dashboard': typeof appProtectedAdminDashboardRoute
+  '/_protected-admin/admin/user-management': typeof appProtectedAdminUserManagementRoute
+  '/_protected-user/user/account-settings': typeof appProtectedUserAccountSettingsRoute
+  '/_protected-user/user/profile': typeof appProtectedUserProfileRoute
 }
 
 export interface FileRouteTypes {
@@ -283,17 +283,17 @@ export interface FileRouteTypes {
 }
 
 export interface RootRouteChildren {
-  appindexRoute: typeof appindexRoute
-  appauthlayoutRoute: typeof appauthlayoutRouteWithChildren
-  appprotectedadminlayoutRoute: typeof appprotectedadminlayoutRouteWithChildren
-  appprotecteduserlayoutRoute: typeof appprotecteduserlayoutRouteWithChildren
+  appIndexRoute: typeof appIndexRoute
+  appAuthLayoutRoute: typeof appAuthLayoutRouteWithChildren
+  appProtectedAdminLayoutRoute: typeof appProtectedAdminLayoutRouteWithChildren
+  appProtectedUserLayoutRoute: typeof appProtectedUserLayoutRouteWithChildren
 }
 
 const rootRouteChildren: RootRouteChildren = {
-  appindexRoute: appindexRoute,
-  appauthlayoutRoute: appauthlayoutRouteWithChildren,
-  appprotectedadminlayoutRoute: appprotectedadminlayoutRouteWithChildren,
-  appprotecteduserlayoutRoute: appprotecteduserlayoutRouteWithChildren,
+  appIndexRoute: appIndexRoute,
+  appAuthLayoutRoute: appAuthLayoutRouteWithChildren,
+  appProtectedAdminLayoutRoute: appProtectedAdminLayoutRouteWithChildren,
+  appProtectedUserLayoutRoute: appProtectedUserLayoutRouteWithChildren,
 }
 
 export const routeTree = rootRoute
@@ -313,51 +313,51 @@ export const routeTree = rootRoute
       ]
     },
     "/": {
-      "filePath": "app\\_index.tsx"
+      "filePath": "app/_index.tsx"
     },
     "/_auth": {
-      "filePath": "app\\auth\\_layout.tsx",
+      "filePath": "app/auth/_layout.tsx",
       "children": [
         "/_auth/sign-in",
         "/_auth/sign-up"
       ]
     },
     "/_protected-admin": {
-      "filePath": "app\\protected\\admin\\_layout.tsx",
+      "filePath": "app/protected/admin/_layout.tsx",
       "children": [
         "/_protected-admin/admin/dashboard",
         "/_protected-admin/admin/user-management"
       ]
     },
     "/_protected-user": {
-      "filePath": "app\\protected\\user\\_layout.tsx",
+      "filePath": "app/protected/user/_layout.tsx",
       "children": [
         "/_protected-user/user/account-settings",
         "/_protected-user/user/profile"
       ]
     },
     "/_auth/sign-in": {
-      "filePath": "app\\auth\\sign-in.tsx",
+      "filePath": "app/auth/sign-in.tsx",
       "parent": "/_auth"
     },
     "/_auth/sign-up": {
-      "filePath": "app\\auth\\sign-up.tsx",
+      "filePath": "app/auth/sign-up.tsx",
       "parent": "/_auth"
     },
     "/_protected-admin/admin/dashboard": {
-      "filePath": "app\\protected\\admin\\dashboard.tsx",
+      "filePath": "app/protected/admin/dashboard.tsx",
       "parent": "/_protected-admin"
     },
     "/_protected-admin/admin/user-management": {
-      "filePath": "app\\protected\\admin\\user-management.tsx",
+      "filePath": "app/protected/admin/user-management.tsx",
       "parent": "/_protected-admin"
     },
     "/_protected-user/user/account-settings": {
-      "filePath": "app\\protected\\user\\account-settings.tsx",
+      "filePath": "app/protected/user/account-settings.tsx",
       "parent": "/_protected-user"
     },
     "/_protected-user/user/profile": {
-      "filePath": "app\\protected\\user\\profile.tsx",
+      "filePath": "app/protected/user/profile.tsx",
       "parent": "/_protected-user"
     }
   }
