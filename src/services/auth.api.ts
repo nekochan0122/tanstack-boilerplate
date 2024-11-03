@@ -10,7 +10,8 @@ import type { z } from 'zod'
 import { auth } from '~/libs/auth'
 import { logger } from '~/libs/logger'
 import { tryCatchAsync } from '~/libs/utils'
-import type { Auth, signInSchema, signUpSchema } from '~/services/auth.schema'
+import type { Auth } from '~/libs/auth'
+import type { signInSchema, signUpSchema } from '~/services/auth.schema'
 
 export const getAuth = createServerFn('GET', async (): Promise<Auth> => {
   logger.info('Getting auth...')

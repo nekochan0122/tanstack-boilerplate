@@ -1,8 +1,7 @@
 import { defineMiddleware } from 'vinxi/http'
 
-import { auth } from '~/libs/auth'
+import { auth, authSchema } from '~/libs/auth'
 import { handleZodErrors } from '~/libs/zod'
-import { authSchema } from '~/services/auth.schema'
 
 export default defineMiddleware({
   onRequest: async (event) => {

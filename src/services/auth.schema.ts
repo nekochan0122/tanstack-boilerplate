@@ -5,45 +5,6 @@ import { translateKey } from '~/libs/i18n'
 import type { AuthAPI, InferAuthOptions } from '~/libs/auth'
 import type { InferZodObjectShape } from '~/libs/zod'
 
-export type Auth = z.infer<typeof authSchema>
-
-export const userSchema = z.object({
-  id: z.string(),
-  name: z.string(),
-  email: z.string().email(),
-  emailVerified: z.boolean(),
-  image: z.string().nullable(),
-  createdAt: z.date(),
-  updatedAt: z.date(),
-  username: z.string().nullable(),
-  role: z.enum(['user', 'admin']),
-  banned: z.boolean().nullable(),
-  banReason: z.string().nullable(),
-  banExpires: z.date().nullable(),
-})
-
-export const sessionSchema = z.object({
-  id: z.string(),
-  expiresAt: z.date(),
-  ipAddress: z.string().nullable(),
-  userAgent: z.string().nullable(),
-  userId: z.string(),
-  impersonatedBy: z.string().nullable(),
-})
-
-export const authSchema = z.discriminatedUnion('isAuthenticated', [
-  z.object({
-    isAuthenticated: z.literal(false),
-    user: z.null(),
-    session: z.null(),
-  }),
-  z.object({
-    isAuthenticated: z.literal(true),
-    user: userSchema,
-    session: sessionSchema,
-  }),
-])
-
 type InferZodAuthAPIShape<API extends AuthAPI> =
   InferAuthOptions<API> extends { body: UnknownRecord }
     ? InferZodObjectShape<Except<InferAuthOptions<API>['body'], 'callbackURL' | 'image'>>
