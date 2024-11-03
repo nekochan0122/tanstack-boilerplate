@@ -22,16 +22,15 @@ export function createRouter() {
     queryClient,
   }
 
-  return routerWithQueryClient(
-    createTanStackRouter({
-      routeTree,
-      context: routerContext,
-      search: {
-        strict: true,
-      },
-    }),
-    queryClient,
-  )
+  const router = createTanStackRouter({
+    routeTree,
+    context: routerContext,
+    search: {
+      strict: true,
+    },
+  })
+
+  return routerWithQueryClient(router, queryClient)
 }
 
 declare module '@tanstack/react-router' {
