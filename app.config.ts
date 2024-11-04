@@ -5,8 +5,6 @@ import { defineConfig } from '@tanstack/start/config'
 import tsconfigPathsPlugin from 'vite-plugin-tsconfig-paths'
 import type { App } from 'vinxi'
 
-import { appRoutes } from './app.routes'
-
 const config = {
   appDirectory: 'src',
   autoOpenBrowser: false,
@@ -28,7 +26,6 @@ const app = defineConfig({
     },
   },
   tsr: {
-    virtualRouteConfig: appRoutes,
     appDirectory: config.appDirectory,
     generatedRouteTree: join(config.appDirectory, 'route-tree.gen.ts'),
     quoteStyle: 'single',
