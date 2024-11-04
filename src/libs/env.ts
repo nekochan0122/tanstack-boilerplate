@@ -45,7 +45,7 @@ const total = Object.keys(result.data).length
 
 logger.info(`Environment variables parsed successfully (${total} variables)`)
 
-function createEnvSchema(type: 'Public' | 'Private', shape: z.ZodRawShape) {
+function createEnvSchema<Shpae extends z.ZodRawShape>(type: 'Public' | 'Private', shape: Shpae) {
   for (const key in shape) {
     if (type === 'Public' && !key.startsWith(PUBLIC_ENV_PREFIX)) {
       throw new Error(`Public environment variables must start with "${PUBLIC_ENV_PREFIX}", got "${key}"`)
