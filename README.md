@@ -36,6 +36,8 @@ A fully **type-safe** boilerplate with a focus on UX and DX, complete with multi
     - https://github.com/TanStack/router/pull/2513
   - Server functions can't serialize error objects
     - https://github.com/TanStack/router/issues/2535
+  - Flash of Unstyled Content for quickstart plus a CSS file
+    - https://github.com/TanStack/router/issues/2700
 - Router
   - Router optional params for i18n
     - https://github.com/TanStack/router/discussions/146#discussioncomment-10917959
