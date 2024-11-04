@@ -5,12 +5,15 @@ import { z } from 'zod'
 import { logger } from '~/libs/logger'
 import { handleZodErrors } from '~/libs/zod'
 
+const PUBLIC_ENV_PREFIX = 'VITE_' as const
+
 // https://docs.solidjs.com/configuration/environment-variables
 
-type EnvSchema = z.ZodObject<Record<string, z.ZodString>>
-
-const envSchema = z.object({
+const publicSchema = createEnvSchema('Public', {
   VITE_APP_NAME: z.string(),
+})
+
+const privateSchema = createEnvSchema('Private', {
   APP_SECRET: z.string(),
   AUTH_SECRET: z.string(),
   DATABASE_URL: z.string(),
@@ -22,9 +25,12 @@ const envSchema = z.object({
   GITHUB_CLIENT_ID: z.string(),
   GITHUB_CLIENT_SECRET: z.string(),
   RESEND_API_KEY: z.string(),
-}) satisfies EnvSchema
+})
 
-const result = await envSchema.safeParseAsync({
+const result = await z.object({
+  ...publicSchema.shape,
+  ...privateSchema.shape,
+}).safeParseAsync({
   ...import.meta.env,
   ...process.env,
 })
@@ -39,11 +45,19 @@ const total = Object.keys(result.data).length
 
 logger.info(`Environment variables parsed successfully (${total} variables)`)
 
-type Env = z.infer<typeof envSchema>
-type PublicPrefix = 'VITE_'
-type PublicKey = keyof Env & `${PublicPrefix}${string}`
-type PublicEnv = Pick<Env, PublicKey>
-type PrivateEnv = Omit<Env, PublicKey>
+function createEnvSchema(type: 'Public' | 'Private', shape: z.ZodRawShape) {
+  for (const key in shape) {
+    if (type === 'Public' && !key.startsWith(PUBLIC_ENV_PREFIX)) {
+      throw new Error(`Public environment variables must start with "${PUBLIC_ENV_PREFIX}", got "${key}"`)
+    }
+
+    if (type === 'Private' && key.startsWith(PUBLIC_ENV_PREFIX)) {
+      throw new Error(`Private environment variables must not start with "${PUBLIC_ENV_PREFIX}", got "${key}"`)
+    }
+  }
+
+  return z.object(shape)
+}
 
 type ViteBuiltInEnv = {
   MODE: 'development' | 'production' | 'test'
@@ -54,13 +68,13 @@ type ViteBuiltInEnv = {
 }
 
 declare global {
-  interface ImportMetaEnv extends PublicEnv, ViteBuiltInEnv {}
+  interface ImportMetaEnv extends z.infer<typeof publicSchema>, ViteBuiltInEnv {}
 
   interface ImportMeta {
     readonly env: ImportMetaEnv
   }
 
   namespace NodeJS {
-    interface ProcessEnv extends PrivateEnv {}
+    interface ProcessEnv extends z.infer<typeof privateSchema> {}
   }
 }
