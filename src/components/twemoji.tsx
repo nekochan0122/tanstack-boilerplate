@@ -12,7 +12,6 @@ export type TwemojiProps = ComponentProps<'img'> & {
 
 export function Twemoji({ emoji, format = 'svg', className, ...props }: TwemojiProps) {
   const decodedEmoji = decodeUnicodeEscapes(emoji)
-  console.log({ emoji, decodedEmoji })
   const codePoint = twemoji.convert.toCodePoint(decodedEmoji)
   const folder = format === 'svg' ? 'svg' : '72x72'
   const url = `${BASE}/assets/${folder}/${codePoint}.${format}`
