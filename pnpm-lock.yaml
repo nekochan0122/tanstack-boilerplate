@@ -114,8 +114,8 @@ importers:
         specifier: ^1.7.7
         version: 1.7.7
       better-auth:
-        specifier: 0.7.1-beta.6
-        version: 0.7.1-beta.6(react@19.0.0-rc-7c8e5e7a-20241101)(solid-js@1.9.2)(vue@3.5.12(typescript@5.6.3))
+        specifier: 0.7.1
+        version: 0.7.1(react@19.0.0-rc-7c8e5e7a-20241101)(solid-js@1.9.2)(vue@3.5.12(typescript@5.6.3))
       class-variance-authority:
         specifier: ^0.7.0
         version: 0.7.0
@@ -2867,8 +2867,8 @@ packages:
   base64-js@1.5.1:
     resolution: {integrity: sha512-AKpaYlHn8t4SVbOHCy+b5+KKgvR4vrsD8vbvrbiQJps7fKDTkjkDry6ji0rUJjC0kzbNePLwzxq8iypo41qeWA==}
 
-  better-auth@0.7.1-beta.6:
-    resolution: {integrity: sha512-rRDtdxWEtVfcPRBaq88EFhJhjWpoVgO9EGECPUaJO619UmSf+cNO9Ush1X5h6mv82rI8E41sKZnx68TgAfIstQ==}
+  better-auth@0.7.1:
+    resolution: {integrity: sha512-pubFsRa6sYMX4LkffPRD+Xo4/5698syet5xHAQ8KcWaUyydgG99koTD9WXAbj+SO62Do9NIy0zNtRhpL050Gog==}
 
   better-call@0.2.14-beta.2:
     resolution: {integrity: sha512-j3hFMkD7xZNBXT1lFxrNFbz2Q5wwrzJ+3h+yDWJTVGrbkw7iL0gTA6ZY4hl1Nv3LCgW65wNnGJno9E8vy35oVA==}
@@ -8195,7 +8195,7 @@ snapshots:
 
   base64-js@1.5.1: {}
 
-  better-auth@0.7.1-beta.6(react@19.0.0-rc-7c8e5e7a-20241101)(solid-js@1.9.2)(vue@3.5.12(typescript@5.6.3)):
+  better-auth@0.7.1(react@19.0.0-rc-7c8e5e7a-20241101)(solid-js@1.9.2)(vue@3.5.12(typescript@5.6.3)):
     dependencies:
       '@better-fetch/fetch': 1.1.12
       '@nanostores/query': 0.3.4(nanostores@0.11.3)
@@ -9292,7 +9292,7 @@ snapshots:
   h3@1.13.0:
     dependencies:
       cookie-es: 1.2.2
-      crossws: 0.3.1
+      crossws: 0.2.4
       defu: 6.1.4
       destr: 2.0.3
       iron-webcrypto: 1.2.1
@@ -9301,6 +9301,8 @@ snapshots:
       ufo: 1.5.4
       uncrypto: 0.1.3
       unenv: 1.10.0
+    transitivePeerDependencies:
+      - uWebSockets.js
 
   has-bigints@1.0.2: {}
 
@@ -9743,7 +9745,7 @@ snapshots:
       citty: 0.1.6
       clipboardy: 4.0.0
       consola: 3.2.3
-      crossws: 0.3.1
+      crossws: 0.2.4
       defu: 6.1.4
       get-port-please: 3.1.2
       h3: 1.13.0
@@ -9756,6 +9758,8 @@ snapshots:
       ufo: 1.5.4
       untun: 0.1.3
       uqr: 0.1.2
+    transitivePeerDependencies:
+      - uWebSockets.js
 
   local-pkg@0.5.0:
     dependencies:
@@ -10002,6 +10006,7 @@ snapshots:
       - mysql2
       - supports-color
       - typescript
+      - uWebSockets.js
       - webpack-sources
 
   node-addon-api@7.1.1: {}
@@ -11061,6 +11066,8 @@ snapshots:
       ufo: 1.5.4
     optionalDependencies:
       ioredis: 5.4.1
+    transitivePeerDependencies:
+      - uWebSockets.js
 
   untun@0.1.3:
     dependencies:

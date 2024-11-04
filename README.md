@@ -5,24 +5,27 @@
 
 A fully **type-safe** boilerplate with a focus on UX and DX, complete with multiple examples.
 
-## Features
+## Tech Stack
 
 - [React 19](https://19.react.dev/)
-- SSR - [TanStack Start](https://tanstack.com/start/latest)
-- Form - [TanStack Form](https://tanstack.com/form/latest)
-- Routing - [TanStack Router](https://tanstack.com/router/latest)
-- Data Fetching - [TanStack Query](https://tanstack.com/query/latest)
-- Authentication - [Better Auth](https://www.better-auth.com/)
-- Localization - [use-intl](https://github.com/amannn/next-intl/blob/main/packages/use-intl/README.md) (core library of next-intl)
-- Validation - [Zod](https://zod.dev/)
-- ORM - [Prisma](https://www.prisma.io/)
-- UI - [Shadcn UI](https://ui.shadcn.com/)
-- Additional Features:
-  - File Upload (TODO)
-  - Form Builder
-  - Custom Logger
-  - Theme Switcher
-  - Environment Variable Validation with Type Inference
+- [React Compiler](https://19.react.dev/learn/react-compiler)
+- [TanStack Start](https://tanstack.com/start/latest)
+- [TanStack Router](https://tanstack.com/router/latest)
+- [TanStack Query](https://tanstack.com/query/latest)
+- [TanStack Form](https://tanstack.com/form/latest)
+- [Better Auth](https://www.better-auth.com/)
+- [Shadcn UI](https://ui.shadcn.com/)
+- [Prisma](https://www.prisma.io/)
+- [Zod](https://zod.dev/)
+- [next-intl core library](https://next-intl-docs.vercel.app/docs/environments/core-library)
+
+## Utilities
+
+- File Upload *(TODO)* - Planned support for file uploads compatible with any S3-compatible object storage API.
+- Form Builder - A type-safe form builder powered by TanStack Form.
+- Custom Logger - A visually appealing logger compatible with both browser and Node environments.
+- Theme Switcher - A `next-themes`-like API that integrates seamlessly with TanStack Start.
+- Environment Variable Validation - Type-safe, runtime validation of environment variables for a more secure configuration.
 
 ## Issues or Pull Requests Tracking List
 
