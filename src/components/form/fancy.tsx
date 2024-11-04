@@ -6,9 +6,7 @@ import { createFormBuilderFactory } from '~/components/ui/form-builder'
 import { Input } from '~/components/ui/input'
 import { InputPassword } from '~/components/ui/input-password'
 import { cx } from '~/libs/utils'
-import type { CheckboxProps } from '~/components/ui/checkbox'
 import type { DeepKeyValueName, FieldLabelProps, FormFieldProps, FormProps, SubmitProps } from '~/components/ui/form'
-import type { InputProps } from '~/components/ui/input'
 
 const createFancyFormBuilder = createFormBuilderFactory({
   base: {
@@ -30,7 +28,7 @@ type FancyFormFieldBaseProps = {
 }
 
 type FancyFormTextInputProps = FancyFormFieldBaseProps & {
-  inputProps?: InputProps
+  inputProps?: ComponentProps<typeof Input>
 }
 
 function FancyFormTextInput<
@@ -104,7 +102,7 @@ function FancyFormPasswordInput<
 }
 
 type FancyFormCheckboxProps = FancyFormFieldBaseProps & {
-  checkboxProps?: CheckboxProps
+  checkboxProps?: ComponentProps<typeof Checkbox>
 }
 
 function FancyFormCheckbox<

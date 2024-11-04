@@ -11,7 +11,7 @@ import { PASSWORD_MAX, PASSWORD_MIN } from '~/services/auth.schema'
 export type Auth = z.infer<typeof authSchema>
 export type Authed = Extract<Auth, { isAuthenticated: true }>
 export type AuthAPI = keyof typeof auth.api
-export type InferAuthOptions<API extends AuthAPI> = SimplifyDeep<Parameters<typeof auth.api[API]>[0]>
+export type InferAuthOptions<API extends AuthAPI> = SimplifyDeep<NonNullable<Parameters<typeof auth.api[API]>[0]>>
 export type InferAuthResponse<API extends AuthAPI> = SimplifyDeep<Awaited<ReturnType<typeof auth.api[API]>>>
 
 export const auth = betterAuth({

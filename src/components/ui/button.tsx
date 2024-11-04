@@ -1,12 +1,13 @@
 import { Slot } from '@radix-ui/react-slot'
 import { cva } from 'class-variance-authority'
-import { forwardRef } from 'react'
 import type { VariantProps } from 'class-variance-authority'
-import type { ComponentProps, ComponentPropsWithoutRef, ComponentRef } from 'react'
+import type { ComponentProps } from 'react'
 
 import { cx } from '~/libs/utils'
 
-type ButtonProps = ComponentProps<typeof Button>
+type ButtonProps = ComponentProps<'button'> & VariantProps<typeof buttonVariants> & {
+  asChild?: boolean
+}
 
 const buttonVariants = cva(
   'inline-flex select-none items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-shadow focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50',
@@ -38,25 +39,17 @@ const defaultProps: ButtonProps = {
   type: 'button',
 }
 
-const Button = forwardRef<
-  ComponentRef<'button'>,
-  ComponentPropsWithoutRef<'button'> & VariantProps<typeof buttonVariants> & {
-    asChild?: boolean
-  }
->(
-  ({ className, variant, size, asChild = false, ...props }, ref) => {
-    const Comp = asChild ? Slot : 'button'
-    return (
-      <Comp
-        ref={ref}
-        className={cx(buttonVariants({ variant, size, className }))}
-        {...defaultProps}
-        {...props}
-      />
-    )
-  },
-)
-Button.displayName = 'Button'
+function Button({ asChild, variant, size, className, ...props }: ButtonProps) {
+  const Comp = asChild ? Slot : 'button'
+
+  return (
+    <Comp
+      className={cx(buttonVariants({ variant, size, className }))}
+      {...defaultProps}
+      {...props}
+    />
+  )
+}
 
 export { buttonVariants }
 export { Button }

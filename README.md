@@ -7,6 +7,7 @@ A fully **type-safe** boilerplate with a focus on UX and DX, complete with multi
 
 ## Features
 
+- [React 19](https://19.react.dev/)
 - SSR - [TanStack Start](https://tanstack.com/start/latest)
 - Form - [TanStack Form](https://tanstack.com/form/latest)
 - Routing - [TanStack Router](https://tanstack.com/router/latest)

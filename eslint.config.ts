@@ -1,3 +1,5 @@
+import module from 'node:module'
+
 import nekoConfig from '@nekochan0122/config/eslint'
 import eslintPluginTailwind from 'eslint-plugin-tailwindcss'
 import eslintPluginTanStackQuery from 'eslint-plugin-tanstack-query'
@@ -5,11 +7,22 @@ import eslintPluginTanStackRouter from 'eslint-plugin-tanstack-router'
 import globals from 'globals'
 import tseslint from 'typescript-eslint'
 
+const require = module.createRequire(import.meta.url)
+
 export default tseslint.config(
   ...nekoConfig.presets.react,
   ...eslintPluginTailwind.configs['flat/recommended'],
   ...eslintPluginTanStackQuery.configs['flat/recommended'],
   ...eslintPluginTanStackRouter.configs['flat/recommended'],
+  {
+    name: 'react-compiler/recommended',
+    plugins: {
+      'react-compiler': require('eslint-plugin-react-compiler'),
+    },
+    rules: {
+      'react-compiler/react-compiler': 'error',
+    },
+  },
   {
     languageOptions: {
       globals: globals.browser,
@@ -21,12 +34,18 @@ export default tseslint.config(
       },
     },
     rules: {
-      'react-refresh/only-export-components': 'off',
       '@typescript-eslint/no-non-null-assertion': 'off',
-      'jsx-a11y/no-autofocus': ['error', {
-        ignoreNonDOM: true,
-      }],
+      'react-refresh/only-export-components': 'off',
       'unicorn/no-useless-undefined': 'off', // a quickfix for server function
+      'jsx-a11y/no-autofocus': ['error', { ignoreNonDOM: true }], // for react-day-picker autoFocus prop
+    },
+  },
+  {
+    files: [
+      'src/components/**/*.tsx',
+    ],
+    rules: {
+      'jsx-a11y/heading-has-content': 'off',
     },
   },
   {

@@ -1,5 +1,8 @@
+// TODO: localStorage should use useSyncExternalStore
+
 import themeScript from '~/scripts/theme?raw'
 
+import { useDidUpdate } from '@mantine/hooks'
 import { useEffect, useState } from 'react'
 import type { ReactNode } from 'react'
 
@@ -31,13 +34,17 @@ function ThemeProvider({ children }: ThemeProviderProps) {
 
   const setTheme = (theme: Theme) => {
     _setTheme(theme)
-    localStorage.setItem('theme', theme)
+    _setResolvedTheme(getResolvedTheme(theme))
+  }
 
-    const resolvedTheme = getResolvedTheme(theme)
-    _setResolvedTheme(resolvedTheme)
+  useDidUpdate(() => {
+    localStorage.setItem('theme', theme)
+  }, [theme])
+
+  useDidUpdate(() => {
     document.documentElement.dataset.theme = resolvedTheme
     document.documentElement.style.colorScheme = resolvedTheme
-  }
+  }, [resolvedTheme])
 
   const toggleTheme = () => {
     setTheme(resolvedTheme === 'dark' ? 'light' : 'dark')

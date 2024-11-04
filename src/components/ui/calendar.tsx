@@ -260,6 +260,7 @@ function CaptionLabel({ children }: ComponentProps<CustomComponents['CaptionLabe
       onClick={() => setNavView((prev) => (prev === 'days' ? 'years' : 'days'))}
       className='h-7 w-full select-none truncate text-sm font-medium focus-visible:ring-offset-0'
     >
+      {/* @ts-expect-error React 19 Support */}
       {navView === 'days' ? children : displayYears.from + ' - ' + displayYears.to}
     </Button>
   )
@@ -271,9 +272,11 @@ function MonthGrid({ className, children, ...props }: ComponentProps<CustomCompo
 
   return navView === 'days' ? (
     <table className={className} {...props}>
+      {/* @ts-expect-error React 19 Types Issue */}
       {children}
     </table>
   ) : (
+    // @ts-expect-error React 19 Types Issue
     <div
       className={cx('grid grid-cols-4 gap-y-2', className)}
       {...props}

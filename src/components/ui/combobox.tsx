@@ -1,6 +1,6 @@
 import { useControllableState } from '@radix-ui/react-use-controllable-state'
 import { useVirtualizer } from '@tanstack/react-virtual'
-import { useMemo, useState } from 'react'
+import { useState } from 'react'
 import { LuCheck, LuChevronsUpDown } from 'react-icons/lu'
 import type { Virtualizer } from '@tanstack/react-virtual'
 import type { PropsWithChildren } from 'react'
@@ -54,15 +54,9 @@ function Combobox({ options, disabled, ...props }: ComboboxProps) {
 
   const [search, setSearch] = useState('')
 
-  const selectedOption = useMemo(
-    () => options.find((option) => option.value === selected),
-    [options, selected],
-  )
+  const selectedOption = options.find((option) => option.value === selected)
 
-  const filteredOptions = useMemo(
-    () => options.filter((option) => option.label.toLowerCase().includes(search.trim().toLowerCase())),
-    [options, search],
-  )
+  const filteredOptions = comboboxFilter(options, search)
 
   const [parentNode, parentNodeRef] = useDynamicNode()
 
@@ -172,6 +166,8 @@ function CommandVirtual() {
                 No option found.
               </CommandEmpty>
               <CommandGroup>
+                {/* FIXME: getVirtualItems() always returns an empty array with React Compiler */}
+                {/* https://discord.com/channels/719702312431386674/1003325490687385693/1302814487857991701 */}
                 {context.virtualizer.getVirtualItems().map((virtualItem) => {
                   const option = context.filteredOptions[virtualItem.index]
 
@@ -212,6 +208,10 @@ function CommandVirtual() {
       </CommandList>
     </Command>
   )
+}
+
+function comboboxFilter(options: ComboboxOption[], search: string) {
+  return options.filter((option) => option.label.toLowerCase().includes(search.trim().toLowerCase()))
 }
 
 export { Combobox }

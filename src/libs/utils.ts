@@ -29,13 +29,13 @@ export function cx(...inputs: ClassArray) {
  * @param errorMessage - Error message if `useContext` is called outside a provider.
  * @returns A tuple with the Provider and custom `useContext` hook.
  */
-export function createContextFactory<Context>(
-  defaultValue: Context | null = null,
+export function createContextFactory<ContextData>(
+  defaultValue: ContextData | null = null,
   errorMessage = 'useContext must be used within a Provider',
 ) {
-  const context = createContext<Context | null>(defaultValue)
+  const context = createContext<ContextData | null>(defaultValue)
 
-  function useContextFactory(): Context {
+  function useContextFactory(): ContextData {
     const contextValue = useContext(context)
     if (contextValue === null) {
       throw new Error(errorMessage)

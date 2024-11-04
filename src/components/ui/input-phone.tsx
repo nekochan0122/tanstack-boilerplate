@@ -2,12 +2,12 @@
 
 import { useMediaQuery } from '@mantine/hooks'
 import { useVirtualizer } from '@tanstack/react-virtual'
-import { forwardRef, useMemo, useState } from 'react'
+import { useState } from 'react'
 import { LuChevronsUpDown } from 'react-icons/lu'
 import * as PhoneInputPrimitive from 'react-phone-number-input'
 import flags from 'react-phone-number-input/flags'
 import type { Virtualizer } from '@tanstack/react-virtual'
-import type { ComponentPropsWithoutRef, ComponentRef, PropsWithChildren } from 'react'
+import type { ComponentProps, PropsWithChildren } from 'react'
 import type { Except, Simplify } from 'type-fest'
 
 import { Button } from '~/components/ui/button'
@@ -21,8 +21,8 @@ import { createContextFactory, cx } from '~/libs/utils'
 
 type InputPhoneProps = Simplify<
   Except<
-    ComponentPropsWithoutRef<'input'>,
-    'onChange' | 'value'
+    ComponentProps<'input'>,
+    'ref' | 'onChange' | 'value'
   > &
   Except<
     PhoneInputPrimitive.Props<typeof PhoneInputPrimitive.default>, 'onChange'
@@ -31,49 +31,37 @@ type InputPhoneProps = Simplify<
   }
 >
 
-const InputPhone = forwardRef<
-  ComponentRef<typeof PhoneInputPrimitive.default>,
-  InputPhoneProps
->(
-  ({ onChange, className, ...props }, ref) => {
-    return (
-      <PhoneInputPrimitive.default
-        ref={ref}
-        flagComponent={FlagComponent}
-        inputComponent={InputComponent}
-        countrySelectComponent={CountrySelect}
-        /**
-         * Handles the onChange event.
-         *
-         * react-phone-number-input might trigger the onChange event as undefined
-         * when a valid phone number is not entered.
-         *
-         * To prevent this, the value is coerced to an empty string.
-         *
-         * @param {E164Number | undefined} value - The entered value
-         */
-        onChange={(value) => onChange?.(value || '' as PhoneInputPrimitive.Value)}
-        className={cx('flex', className)}
-        {...props}
-      />
-    )
-  },
-)
-InputPhone.displayName = 'PhoneInput'
+function InputPhone({ onChange, className, ...props }: InputPhoneProps) {
+  return (
+    <PhoneInputPrimitive.default
+      flagComponent={FlagComponent}
+      inputComponent={InputComponent}
+      countrySelectComponent={CountrySelect}
+      /**
+       * Handles the onChange event.
+       *
+       * react-phone-number-input might trigger the onChange event as undefined
+       * when a valid phone number is not entered.
+       *
+       * To prevent this, the value is coerced to an empty string.
+       *
+       * @param {E164Number | undefined} value - The entered value
+       */
+      onChange={(value) => onChange?.(value || '' as PhoneInputPrimitive.Value)}
+      className={cx('flex', className)}
+      {...props}
+    />
+  )
+}
 
-const InputComponent = forwardRef<
-  ComponentRef<typeof Input>,
-  ComponentPropsWithoutRef<typeof Input>
->(
-  ({ className, ...props }, ref) => (
+function InputComponent({ className, ...props }: ComponentProps<typeof Input>) {
+  return (
     <Input
-      ref={ref}
       className={cx('rounded-e-lg rounded-s-none', className)}
       {...props}
     />
-  ),
-)
-InputComponent.displayName = 'InputComponent'
+  )
+}
 
 type CountrySelectOption = { label: string; value: PhoneInputPrimitive.Country }
 
@@ -98,22 +86,16 @@ type CountrySelectContext = {
 
 const [ContextProvider, useContext] = createContextFactory<CountrySelectContext>()
 
-const CountrySelect = ({
-  disabled,
-  value,
-  options,
-  onChange,
-}: CountrySelectProps) => {
+function CountrySelect({ disabled, value, options, onChange }: CountrySelectProps) {
   const [open, setOpen] = useState(false)
   const [search, setSearch] = useState('')
 
-  const countries = useMemo(() => options
+  const countries = options
     .filter((item) => item.value !== undefined)
     .filter((item) =>
       item.label.toLowerCase().includes(search.trim().toLowerCase()) ||
       PhoneInputPrimitive.getCountryCallingCode(item.value).includes(search),
-    ),
-  [options, search])
+    )
 
   const [parentNode, parentNodeRef] = useDynamicNode()
 
@@ -268,7 +250,7 @@ function CountrySelectCommand() {
   )
 }
 
-const FlagComponent = ({ country, countryName }: PhoneInputPrimitive.FlagProps) => {
+function FlagComponent({ country, countryName }: PhoneInputPrimitive.FlagProps) {
   const Flag = flags[country]
 
   return (
@@ -277,7 +259,5 @@ const FlagComponent = ({ country, countryName }: PhoneInputPrimitive.FlagProps) 
     </span>
   )
 }
-FlagComponent.displayName = 'FlagComponent'
 
 export { InputPhone }
-export type { InputPhoneProps }

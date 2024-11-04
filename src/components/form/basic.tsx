@@ -8,11 +8,7 @@ import { Input } from '~/components/ui/input'
 import { InputPassword } from '~/components/ui/input-password'
 import { InputPhone } from '~/components/ui/input-phone'
 import { cx } from '~/libs/utils'
-import type { CheckboxProps } from '~/components/ui/checkbox'
-import type { DatePickerProps } from '~/components/ui/date-picker'
 import type { DeepKeyValueName, FieldLabelProps, FormFieldProps, FormProps, SubmitProps } from '~/components/ui/form'
-import type { InputProps } from '~/components/ui/input'
-import type { InputPhoneProps } from '~/components/ui/input-phone'
 
 const createBasicFormBuilder = createFormBuilderFactory({
   base: {
@@ -35,7 +31,7 @@ type BasicFormFieldBaseProps = {
 }
 
 type BasicFormInputProps = BasicFormFieldBaseProps & {
-  inputProps?: InputProps
+  inputProps?: ComponentProps<typeof Input>
 }
 
 function BasicFormTextInput<
@@ -69,7 +65,7 @@ function BasicFormTextInput<
 }
 
 type BasicFormPhoneInputProps = BasicFormFieldBaseProps & {
-  inputPhoneProps?: InputPhoneProps
+  inputPhoneProps?: ComponentProps<typeof InputPhone>
 }
 
 function BasicFormPhoneInput<
@@ -166,7 +162,7 @@ function BasicFormPasswordInput<
 
 type BasicFormCheckboxProps = BasicFormFieldBaseProps & {
   description: string
-  checkboxProps?: CheckboxProps
+  checkboxProps?: ComponentProps<typeof Checkbox>
 }
 
 function BasicFormCheckbox<
@@ -207,7 +203,7 @@ function BasicFormCheckbox<
 }
 
 type BasicFormDatePickerProps = BasicFormFieldBaseProps & {
-  datePickerProps?: DatePickerProps
+  datePickerProps?: ComponentProps<typeof DatePicker>
 }
 
 function BasicFormDatePicker<

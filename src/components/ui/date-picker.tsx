@@ -60,4 +60,3 @@ function DatePicker({ calendar, className, ...props }: DatePickerProps) {
 }
 
 export { DatePicker }
-export type { DatePickerProps }

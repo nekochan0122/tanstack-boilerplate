@@ -12,10 +12,10 @@ import { Button } from '~/components/ui/button'
 import { Label } from '~/components/ui/label'
 import { cx } from '~/libs/utils'
 import type { ButtonProps } from '~/components/ui/button'
-import type { CheckboxProps } from '~/components/ui/checkbox'
-import type { DatePickerProps } from '~/components/ui/date-picker'
-import type { InputProps } from '~/components/ui/input'
-import type { InputPhoneProps } from '~/components/ui/input-phone'
+import type { Calendar } from '~/components/ui/calendar'
+import type { Checkbox } from '~/components/ui/checkbox'
+import type { Input } from '~/components/ui/input'
+import type { InputPhone } from '~/components/ui/input-phone'
 
 function useFormWithZod<
   TFormSchema extends z.ZodType,
@@ -70,7 +70,7 @@ const fieldController = {
       const isEmpty = e.target.value.length === 0
       const isOptional = form.options.defaultValues[field.name] === undefined
 
-      const inputMode = e.target.inputMode as InputProps['inputMode'] | undefined
+      const inputMode = e.target.inputMode as ComponentProps<typeof Input>['inputMode']
       const inputValue = (() => {
         let parsedNumber: number
         switch (inputMode) {
@@ -92,22 +92,22 @@ const fieldController = {
         field.handleChange(inputValue)
       }
     },
-  }) satisfies InputProps,
+  }) satisfies ComponentProps<typeof Input>,
   phone: (form, field) => ({
     ...fieldControllerBase(form, field),
     value: field.state.value ?? '',
     onChange: field.handleChange,
-  }) satisfies InputPhoneProps,
+  }) satisfies ComponentProps<typeof InputPhone>,
   checkbox: (form, field) => ({
     ...fieldControllerBase(form, field),
     checked: field.state.value,
     onCheckedChange: field.handleChange,
-  }) satisfies CheckboxProps,
+  }) satisfies ComponentProps<typeof Checkbox>,
   datePicker: (form, field) => ({
     ...fieldControllerBase(form, field),
     selected: field.state.value,
     onSelect: field.handleChange,
-  }) satisfies DatePickerProps['calendar'],
+  }) satisfies ComponentProps<typeof Calendar>,
 } satisfies FieldController
 
 type FormProps = ComponentProps<'form'> & {
@@ -135,7 +135,9 @@ type SubmitProps = Except<ButtonProps, 'form'> & {
 }
 
 function Submit({ form, allowDefaultValues = true, ...props }: SubmitProps) {
-  const isDefaultValues = isEqual(form.options.defaultValues, form.useStore().values)
+  // eslint-disable-next-line react-compiler/react-compiler
+  const store = form.useStore()
+  const isDefaultValues = isEqual(form.options.defaultValues, store.values)
 
   return (
     <form.Subscribe

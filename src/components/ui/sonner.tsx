@@ -1,11 +1,9 @@
 import { Toaster as Sonner } from 'sonner'
-import type { ComponentPropsWithoutRef } from 'react'
+import type { ComponentProps } from 'react'
 
 import { useTheme } from '~/components/theme'
 
-type ToasterProps = ComponentPropsWithoutRef<typeof Sonner>
-
-const Toaster = ({ ...props }: ToasterProps) => {
+function Toaster({ ...props }: ComponentProps<typeof Sonner>) {
   const theme = useTheme()
 
   return (
@@ -27,4 +25,3 @@ const Toaster = ({ ...props }: ToasterProps) => {
 }
 
 export { Toaster }
-export type { ToasterProps }

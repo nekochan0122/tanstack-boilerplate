@@ -1,82 +1,62 @@
-/* eslint-disable jsx-a11y/heading-has-content */
-
-import { forwardRef } from 'react'
-import type { ComponentPropsWithoutRef, ComponentRef } from 'react'
+import type { ComponentProps } from 'react'
 
 import { cx } from '~/libs/utils'
 
-const Card = forwardRef<
-  ComponentRef<'div'>,
-  ComponentPropsWithoutRef<'div'>
->(({ className, ...props }, ref) => (
-  <div
-    ref={ref}
-    className={cx(
-      'rounded-lg border bg-card text-card-foreground shadow-sm',
-      className,
-    )}
-    {...props}
-  />
-))
-Card.displayName = 'Card'
+function Card({ className, ...props }: ComponentProps<'div'>) {
+  return (
+    <div
+      className={cx(
+        'rounded-lg border bg-card text-card-foreground shadow-sm',
+        className,
+      )}
+      {...props}
+    />
+  )
+}
 
-const CardHeader = forwardRef<
-  ComponentRef<'div'>,
-  ComponentPropsWithoutRef<'div'>
->(({ className, ...props }, ref) => (
-  <div
-    ref={ref}
-    className={cx('flex flex-col space-y-2 p-6', className)}
-    {...props}
-  />
-))
-CardHeader.displayName = 'CardHeader'
+function CardHeader({ className, ...props }: ComponentProps<'div'>) {
+  return (
+    <div
+      className={cx('flex flex-col space-y-2 p-6', className)}
+      {...props}
+    />
+  )
+}
 
-const CardTitle = forwardRef<
-  ComponentRef<'h3'>,
-  ComponentPropsWithoutRef<'h3'>
->(({ className, ...props }, ref) => (
-  <h3
-    ref={ref}
-    className={cx(
-      'text-2xl font-bold leading-none tracking-tight',
-      className,
-    )}
-    {...props}
-  />
-))
-CardTitle.displayName = 'CardTitle'
+function CardTitle({ className, ...props }: ComponentProps<'h3'>) {
+  return (
+    <h3
+      className={cx(
+        'text-2xl font-bold leading-none tracking-tight',
+        className,
+      )}
+      {...props}
+    />
+  )
+}
 
-const CardDescription = forwardRef<
-  ComponentRef<'p'>,
-  ComponentPropsWithoutRef<'p'>
->(({ className, ...props }, ref) => (
-  <p
-    ref={ref}
-    className={cx('text-sm text-muted-foreground', className)}
-    {...props}
-  />
-))
-CardDescription.displayName = 'CardDescription'
+function CardDescription({ className, ...props }: ComponentProps<'p'>) {
+  return (
+    <p
+      className={cx('text-sm text-muted-foreground', className)}
+      {...props}
+    />
+  )
+}
 
-const CardContent = forwardRef<
-  ComponentRef<'div'>,
-  ComponentPropsWithoutRef<'div'>
->(({ className, ...props }, ref) => (
-  <div ref={ref} className={cx('p-6 pt-0', className)} {...props} />
-))
-CardContent.displayName = 'CardContent'
+function CardContent({ className, ...props }: ComponentProps<'div'>) {
+  return (
+    <div className={cx('p-6 pt-0', className)} {...props} />
+  )
+}
 
-const CardFooter = forwardRef<
-  ComponentRef<'div'>,
-  ComponentPropsWithoutRef<'div'>
->(({ className, ...props }, ref) => (
-  <div
-    ref={ref}
-    className={cx('flex items-center p-6 pt-0', className)}
-    {...props}
-  />
-))
-CardFooter.displayName = 'CardFooter'
+function CardFooter({ className, ...props }: ComponentProps<'div'>) {
+  return (
+    <div
+      className={cx('flex items-center p-6 pt-0', className)}
+      {...props}
+    />
+  )
+}
 
 export { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }

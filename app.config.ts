@@ -24,7 +24,7 @@ const app = defineConfig({
       entry: join(config.appDirectory, 'entry-server.ts'),
     },
     client: {
-      entry: join(config.appDirectory, 'entry-client.ts'),
+      entry: join(config.appDirectory, 'entry-client.tsx'),
     },
   },
   tsr: {
@@ -52,6 +52,18 @@ const app = defineConfig({
         projects: ['./tsconfig.json'],
       }),
     ],
+  },
+  react: {
+    babel: {
+      plugins: [
+        [
+          'babel-plugin-react-compiler',
+          {
+            target: '19',
+          },
+        ],
+      ],
+    },
   },
 })
 
