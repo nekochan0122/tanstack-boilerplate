@@ -1,5 +1,3 @@
-// TODO: localStorage should use useSyncExternalStore
-
 import themeScript from '~/scripts/theme?raw'
 
 import { useDidUpdate } from '@mantine/hooks'
@@ -58,7 +56,14 @@ function ThemeProvider({ children }: ThemeProviderProps) {
   }
 
   useEffect(() => {
-    setTheme(getLocalTheme())
+    const storageListener = () => {
+      setTheme(getLocalTheme())
+    }
+
+    storageListener()
+
+    window.addEventListener('storage', storageListener)
+    return () => window.removeEventListener('storage', storageListener)
   }, [])
 
   return (
