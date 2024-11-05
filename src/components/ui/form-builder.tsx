@@ -72,7 +72,7 @@ function createFormBuilderFactory<
               if (!FieldComponent) throw new Error(`Can't find the field component: ${fieldConfig.type}.`)
               return <FieldComponent key={fieldConfig.name} form={form} {...fieldConfig} />
             })}
-            <SubmitComponent form={form}{...submitProps} />
+            <SubmitComponent form={form} {...submitProps} />
           </FormComponent>
         )
       }
