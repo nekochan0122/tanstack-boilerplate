@@ -48,14 +48,14 @@ function createFormBuilderFactory<
   return function createFormBuilder<
     TFormData,
     TName extends DeepKeyValueName<TFormData, any>,
+    TBuilderConfig extends BuilderFieldsConfig = InferBuilderConfig<
+      InferBuilderComponentsProps<TFiledComponents, TFormData, TName>
+    >[],
   >(form: FormFieldProps<TFormData, TName>['form']) {
 
     return function configResolver<
       TFormProps = Except<ComponentProps<BuilderBaseComponents['form']>, 'form'>,
       TSubmitProps = Except<ComponentProps<BuilderBaseComponents['submit']>, 'form'>,
-      TBuilderConfig extends BuilderFieldsConfig = InferBuilderConfig<
-        InferBuilderComponentsProps<TFiledComponents, TFormData, TName>
-      >[],
     >(config: { base: BuilderBaseConfig<TSubmitProps>; fields: TBuilderConfig }) {
       const submitProps = typeof config.base.submit !== 'object'
         ? { children: config.base.submit as ReactNode }
