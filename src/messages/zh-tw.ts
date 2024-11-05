@@ -1,6 +1,16 @@
 import type { Messages } from '~/libs/i18n'
 
 const zhTw: Messages = {
+  common: {
+    'submit': '發送',
+    'submit-loading': '發送中...',
+    'submit-success': '發送成功',
+    'submit-error': '發送失敗',
+    'save': '儲存',
+    'save-loading': '儲存中...',
+    'save-success': '儲存成功',
+    'save-error': '儲存失敗',
+  },
   sidebar: {
     'appearance': '外觀',
     'theme': '主題',
@@ -48,9 +58,13 @@ const zhTw: Messages = {
     'already-have-an-account': '已經有帳號了嗎?',
     'authentication-failed': '身分驗證失敗',
     'unauthorized-access': '未授權的存取',
+    'name-description': '您的名稱用於顯示',
     'name-min': '名稱至少需要 {min} 個字元',
     'name-max': '名稱不能超過 {max} 個字元',
+    'email-description': '您的信箱用於帳號復原',
+    'email-info': '我們不會與任何人分享您的信箱',
     'email-invalid': '無效的信箱',
+    'username-description': '您的帳號用於身分驗證',
     'username-regex': '帳號只能包含小寫字母、數字、底線或中線且必須為小寫',
     'username-min': '帳號至少需要 {min} 個字元',
     'username-max': '帳號不能超過 {max} 個字元',

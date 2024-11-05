@@ -1,4 +1,14 @@
 const en = {
+  common: {
+    'submit': 'Submit',
+    'submit-loading': 'Submitting...',
+    'submit-success': 'Submitted!',
+    'submit-error': 'Submit error',
+    'save': 'Save',
+    'save-loading': 'Saving...',
+    'save-success': 'Saved!',
+    'save-error': 'Save error',
+  },
   sidebar: {
     'appearance': 'Appearance',
     'theme': 'Theme',
@@ -46,9 +56,13 @@ const en = {
     'already-have-an-account': 'Already have an account?',
     'authentication-failed': 'Authentication failed',
     'unauthorized-access': 'Unauthorized access',
+    'name-description': 'Your name is used for display purposes',
     'name-min': 'Name must be at least {min} characters long',
     'name-max': 'Name cannot exceed {max} characters',
+    'email-description': 'Your email is used for account recovery purposes',
+    'email-info': 'We will never share your email with anyone else',
     'email-invalid': 'Invalid email',
+    'username-description': 'Your username is used for authentication purposes',
     'username-regex': 'Username can only contain lowercase letters, numbers, underscores, or hyphens and must be lowercase',
     'username-min': 'Username must be at least {min} characters long',
     'username-max': 'Username cannot exceed {max} characters',
