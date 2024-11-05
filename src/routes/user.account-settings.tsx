@@ -23,7 +23,7 @@ function RouteComponent() {
     defaultValues: {
       username: authedQuery.data.user.username || undefined,
       name: authedQuery.data.user.name,
-      email: authedQuery.data.user.email,
+      // email: authedQuery.data.user.email,
     },
     onSubmit: async ({ value }) => {
       const setUserPromise = setUserMutation.mutateAsync(value)
@@ -57,13 +57,13 @@ function RouteComponent() {
         description: t('auth.name-description'),
         info: t('auth.name-max', { max: NAME_MAX }),
       },
-      {
-        type: 'text',
-        name: 'email',
-        label: t('auth.email'),
-        description: t('auth.email-description'),
-        info: t('auth.email-info'),
-      },
+      // {
+      //   type: 'text',
+      //   name: 'email',
+      //   label: t('auth.email'),
+      //   description: t('auth.email-description'),
+      //   info: t('auth.email-info'),
+      // },
     ],
   })
 
