@@ -35,6 +35,17 @@ function ThemeProvider({ children }: ThemeProviderProps) {
     _setResolvedTheme(getResolvedTheme(theme))
   }
 
+  useEffect(() => {
+    const storageListener = () => {
+      setTheme(getLocalTheme())
+    }
+
+    storageListener()
+
+    window.addEventListener('storage', storageListener)
+    return () => window.removeEventListener('storage', storageListener)
+  }, [])
+
   useDidUpdate(() => {
     localStorage.setItem('theme', theme)
   }, [theme])
@@ -54,17 +65,6 @@ function ThemeProvider({ children }: ThemeProviderProps) {
     set: setTheme,
     toggle: toggleTheme,
   }
-
-  useEffect(() => {
-    const storageListener = () => {
-      setTheme(getLocalTheme())
-    }
-
-    storageListener()
-
-    window.addEventListener('storage', storageListener)
-    return () => window.removeEventListener('storage', storageListener)
-  }, [])
 
   return (
     <ThemeContextProvider value={context}>
