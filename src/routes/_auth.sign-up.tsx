@@ -15,6 +15,7 @@ export const Route = createFileRoute('/_auth/sign-up')({
 
 function SignUpRoute() {
   const t = useTranslations()
+
   const signUpMutation = useSignUpMutation()
 
   const signUpForm = useForm(signUpSchema(t), {
