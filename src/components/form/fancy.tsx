@@ -47,7 +47,7 @@ function FancyFormTextInput<
         return (
           <FancyField>
             <FancyFieldBody>
-              <FieldLabel field={field} label={label} />
+              <FancyFieldLabel field={field} label={label} />
               <FancyFieldDesc>{description}</FancyFieldDesc>
               <Input
                 {...controller}
@@ -82,7 +82,7 @@ function FancyFormPasswordInput<
         return (
           <FancyField>
             <FancyFieldBody>
-              <FieldLabel field={field} label={label} />
+              <FancyFieldLabel field={field} label={label} />
               <FancyFieldDesc>{description}</FancyFieldDesc>
               <InputPassword
                 {...controller}
@@ -144,7 +144,7 @@ function FancyFormCheckbox<
 
 function FancyForm({ className, ...props }: FormProps) {
   return (
-    <Form className={cx('space-y-6 lg:max-w-lg', className)} {...props} />
+    <Form className={cx('space-y-6 lg:max-w-xl', className)} {...props} />
   )
 }
 
@@ -168,7 +168,7 @@ function FancyFieldBody({ className, ...props }: ComponentProps<'div'>) {
 
 function FancyFieldLabel({ className, ...props }: FieldLabelProps) {
   return (
-    <FieldLabel className={cx('text-xl font-semibold', className)} {...props} />
+    <FieldLabel className={cx('text-lg font-semibold', className)} {...props} />
   )
 }
 
