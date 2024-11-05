@@ -1,11 +1,9 @@
-// TODO: support submit props
-
-import type { ComponentProps, FunctionComponent } from 'react'
+import type { ComponentProps, FunctionComponent, ReactNode } from 'react'
 import type { Except, Simplify, UnknownRecord } from 'type-fest'
 
 import type { DeepKeyValueName, Form, FormFieldProps, Submit } from '~/components/ui/form'
 
-type BuilderBaseConfig = { submit: string }
+type BuilderBaseConfig<SubmitProps> = { submit: SubmitProps | ReactNode }
 
 type BuilderFieldsConfig = { type: string; name: string }[]
 
@@ -43,20 +41,25 @@ type InferBuilderConfig<
 >
 
 function createFormBuilderFactory<
+  TBaseComponents extends BuilderBaseComponents,
   TFiledComponents extends BuilderFieldComponents,
->(components: { base: BuilderBaseComponents; fields: TFiledComponents }) {
+>(components: { base: TBaseComponents; fields: TFiledComponents }) {
 
   return function createFormBuilder<
     TFormData,
     TName extends DeepKeyValueName<TFormData, any>,
-    TBuilderConfig extends BuilderFieldsConfig = InferBuilderConfig<
-      InferBuilderComponentsProps<TFiledComponents, TFormData, TName>
-    >[],
   >(form: FormFieldProps<TFormData, TName>['form']) {
 
     return function configResolver<
       TFormProps = Except<ComponentProps<BuilderBaseComponents['form']>, 'form'>,
-    >(config: { base: BuilderBaseConfig; fields: TBuilderConfig }) {
+      TSubmitProps = Except<ComponentProps<BuilderBaseComponents['submit']>, 'form'>,
+      TBuilderConfig extends BuilderFieldsConfig = InferBuilderConfig<
+        InferBuilderComponentsProps<TFiledComponents, TFormData, TName>
+      >[],
+    >(config: { base: BuilderBaseConfig<TSubmitProps>; fields: TBuilderConfig }) {
+      const submitProps = typeof config.base.submit !== 'object'
+        ? { children: config.base.submit as ReactNode }
+        : config.base.submit as TSubmitProps
 
       return function FormBuilder(formProps: TFormProps) {
         const FormComponent = components.base.form
@@ -69,9 +72,7 @@ function createFormBuilderFactory<
               if (!FieldComponent) throw new Error(`Can't find the field component: ${fieldConfig.type}.`)
               return <FieldComponent key={fieldConfig.name} form={form} {...fieldConfig} />
             })}
-            <SubmitComponent form={form}>
-              {config.base.submit}
-            </SubmitComponent>
+            <SubmitComponent form={form}{...submitProps} />
           </FormComponent>
         )
       }
