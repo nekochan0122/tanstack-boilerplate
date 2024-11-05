@@ -4,6 +4,7 @@ import type { UseSuspenseQueryResult } from '@tanstack/react-query'
 
 import { authClient } from '~/libs/auth-client'
 import { getAuth, signIn, signOut, signUp } from '~/services/auth.api'
+import type { SupportedOAuthProviderId } from '~/config/oauth'
 import type { Authed } from '~/libs/auth'
 
 export const authKeys = {
@@ -67,7 +68,15 @@ export const useSignInMutation = () => {
 
 export const useSignInOAuthMutation = () => {
   const signInMutation = useMutation({
-    mutationFn: authClient.signIn.social,
+    mutationFn: ({
+      provider,
+      callbackURL,
+    }: {
+      provider: SupportedOAuthProviderId
+      callbackURL: string
+    }) => {
+      return authClient.signIn.social({ provider, callbackURL })
+    },
   })
 
   return signInMutation
