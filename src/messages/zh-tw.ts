@@ -46,7 +46,6 @@ const zhTw: Messages = {
     'oauth-sign-in': '使用 {name} 登入',
     'dont-have-an-account': '還沒有帳號嗎?',
     'already-have-an-account': '已經有帳號了嗎?',
-    'already-authenticated': '用戶已登入',
     'authentication-failed': '身分驗證失敗',
     'unauthorized-access': '未授權的存取',
     'name-min': '名稱至少需要 {min} 個字元',

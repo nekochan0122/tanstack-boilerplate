@@ -44,7 +44,6 @@ const en = {
     'oauth-sign-in': 'Sign in with {name}',
     'dont-have-an-account': 'Don\'t have an account?',
     'already-have-an-account': 'Already have an account?',
-    'already-authenticated': 'You are already signed in',
     'authentication-failed': 'Authentication failed',
     'unauthorized-access': 'Unauthorized access',
     'name-min': 'Name must be at least {min} characters long',
