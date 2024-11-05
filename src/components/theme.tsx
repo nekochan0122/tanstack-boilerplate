@@ -35,6 +35,10 @@ function ThemeProvider({ children }: ThemeProviderProps) {
     _setResolvedTheme(getResolvedTheme(theme))
   }
 
+  const toggleTheme = () => {
+    setTheme(resolvedTheme === 'dark' ? 'light' : 'dark')
+  }
+
   useEffect(() => {
     const storageListener = () => {
       setTheme(getLocalTheme())
@@ -54,10 +58,6 @@ function ThemeProvider({ children }: ThemeProviderProps) {
     document.documentElement.dataset.theme = resolvedTheme
     document.documentElement.style.colorScheme = resolvedTheme
   }, [resolvedTheme])
-
-  const toggleTheme = () => {
-    setTheme(resolvedTheme === 'dark' ? 'light' : 'dark')
-  }
 
   const context: Context = {
     value: theme,
