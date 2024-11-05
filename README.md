@@ -42,7 +42,7 @@ A fully **type-safe** boilerplate with a focus on UX and DX, complete with multi
   - Router optional params for i18n
     - https://github.com/TanStack/router/discussions/146#discussioncomment-10917959
 - Virtual
-  - React 19 Support
+  - Compatibility with the React compiler
     - https://github.com/TanStack/virtual/issues/736
     - https://github.com/TanStack/virtual/pull/851
 - Vinxi
