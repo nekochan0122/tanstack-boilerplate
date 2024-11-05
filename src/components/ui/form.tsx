@@ -110,7 +110,7 @@ const fieldController = {
   }) satisfies ComponentProps<typeof Calendar>,
 } satisfies FieldController
 
-type FormProps = ComponentProps<'form'> & {
+type FormProps = Except<ComponentProps<'form'>, 'action'> & {
   form: AnyReactFormApiMerged
 }
 
