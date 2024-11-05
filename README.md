@@ -22,7 +22,7 @@ A fully **type-safe** boilerplate with a focus on UX and DX, complete with multi
 ## Utilities
 
 - File Upload *(TODO)* - Supports file uploads to any object storage service with a S3-compatible API.
-- Form Builder - A type-safe form builder powered by TanStack Form.
+- Form Builder *(WIP)* - A type-safe form builder powered by TanStack Form.
 - Custom Logger - A visually appealing logger compatible with both browser and Node environments.
 - Theme Switcher - A `next-themes`-like API that integrates seamlessly with TanStack Start.
 - Environment Variable Validation - Type-safe, runtime validation of environment variables for a more secure configuration.
