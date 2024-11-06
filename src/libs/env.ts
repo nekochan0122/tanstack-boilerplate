@@ -27,23 +27,25 @@ const privateSchema = createEnvSchema('Private', {
   RESEND_API_KEY: z.string(),
 })
 
-const result = await z.object({
-  ...publicSchema.shape,
-  ...privateSchema.shape,
-}).safeParseAsync({
-  ...import.meta.env,
-  ...process.env,
-})
+function parseEnv() {
+  const result = z.object({
+    ...publicSchema.shape,
+    ...privateSchema.shape,
+  }).safeParse({
+    ...import.meta.env,
+    ...process.env,
+  })
 
-if (result.error) {
-  handleZodErrors(result.error)
+  if (result.error) {
+    handleZodErrors(result.error)
 
-  throw new Error('Invalid environment variables')
+    throw new Error('Invalid environment variables')
+  }
+
+  const total = Object.keys(result.data).length
+
+  logger.info(`Environment variables parsed successfully (${total} variables)`)
 }
-
-const total = Object.keys(result.data).length
-
-logger.info(`Environment variables parsed successfully (${total} variables)`)
 
 function createEnvSchema<Shpae extends z.ZodRawShape>(type: 'Public' | 'Private', shape: Shpae) {
   for (const key in shape) {
@@ -78,3 +80,5 @@ declare global {
     interface ProcessEnv extends z.infer<typeof privateSchema> {}
   }
 }
+
+export { parseEnv }
