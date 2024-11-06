@@ -3,7 +3,7 @@ import animatePlugin from 'tailwindcss-plugin-animate'
 import type { Config } from 'tailwindcss'
 import type { SetOptional } from 'type-fest'
 
-import { theme } from './shadcn-theme'
+import theme from './shadcn-theme'
 import type { Color, ColorScheme, ColorVariables, Radius } from './shadcn-theme'
 
 type Preset = SetOptional<Config, 'content'>
@@ -113,4 +113,4 @@ function createShadcnPlugin(options?: Options) {
   )
 }
 
-export { shadcnPreset }
+export default shadcnPreset

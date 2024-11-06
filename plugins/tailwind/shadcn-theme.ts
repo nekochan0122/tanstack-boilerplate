@@ -889,5 +889,5 @@ const theme: Theme = {
   },
 }
 
-export { theme }
+export default theme
 export type { Color, ColorScheme, ColorVariables, Radius, Theme }

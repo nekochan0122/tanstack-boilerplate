@@ -1,7 +1,7 @@
 import defaultTheme from 'tailwindcss/defaultTheme'
 import type { Config } from 'tailwindcss'
 
-import { shadcnPreset } from './plugins/tailwind/shadcn-preset'
+import shadcnPreset from './plugins/tailwind/shadcn-preset'
 
 export default {
   presets: [shadcnPreset({ color: 'zinc' })],
