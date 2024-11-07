@@ -8,7 +8,7 @@ export const Route = createFileRoute('/admin')({
     if (!context.auth.isAuthenticated) {
       logger.info('Authentication failed, redirecting to sign-in page')
 
-      toast.error(context.i18n.t('auth.authentication-failed'))
+      toast.error(context.i18n.translator('auth.authentication-failed'))
 
       throw redirect({
         to: '/sign-in',
@@ -21,7 +21,7 @@ export const Route = createFileRoute('/admin')({
     if (context.auth.user.role !== 'admin') {
       logger.info('Unauthorized access, redirecting to home page')
 
-      toast.error(context.i18n.t('auth.unauthorized-access'))
+      toast.error(context.i18n.translator('auth.unauthorized-access'))
 
       throw redirect({
         to: '/',

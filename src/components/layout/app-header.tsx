@@ -1,4 +1,4 @@
-import { Link, useLocation } from '@tanstack/react-router'
+import { Link, useLocation, useRouteContext } from '@tanstack/react-router'
 import { Fragment } from 'react'
 import { useTranslations } from 'use-intl'
 
@@ -10,6 +10,7 @@ import type { TranslateKeys } from '~/libs/i18n'
 export function AppHeader() {
   const t = useTranslations()
 
+  const context = useRouteContext({ from: '__root__' })
   const location = useLocation()
 
   const paths = location.pathname.split('/').filter(Boolean)
@@ -36,20 +37,22 @@ export function AppHeader() {
               const isLast = idx === paths.length - 1
               const hasNext = idx + 1 < paths.length
 
-              const name = t(`navigation.${path}` as TranslateKeys)
-              const isTranslated = name !== `navigation.${path}`
+              const tKey = `navigation.${path}` as TranslateKeys
+              const hasTranslation = context.i18n.translator?.has(tKey)
+
+              const name = hasTranslation ? t(tKey) : path
 
               return (
                 <Fragment key={path}>
                   <BreadcrumbItem>
                     {isLast ? (
                       <BreadcrumbPage>
-                        {isTranslated ? name : path}
+                        {name}
                       </BreadcrumbPage>
                     ) : (
                       <BreadcrumbLink asChild>
                         <Link to={`/${path}`} >
-                          {isTranslated ? name : path}
+                          {name}
                         </Link>
                       </BreadcrumbLink>
                     )}

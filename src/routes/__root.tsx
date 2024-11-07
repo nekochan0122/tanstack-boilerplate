@@ -30,7 +30,7 @@ export const Route = createRootRouteWithContext<RouterContext>()({
       auth,
       i18n: {
         ...i18n,
-        t: translator,
+        translator,
       },
     }
   },

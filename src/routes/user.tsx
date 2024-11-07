@@ -8,7 +8,7 @@ export const Route = createFileRoute('/user')({
     if (!context.auth.isAuthenticated) {
       logger.info('Authentication failed, redirecting to sign-in page')
 
-      toast.error(context.i18n.t('auth.authentication-failed'))
+      toast.error(context.i18n.translator('auth.authentication-failed'))
 
       throw redirect({
         to: '/sign-in',
