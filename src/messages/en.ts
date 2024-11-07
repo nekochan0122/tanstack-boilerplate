@@ -54,7 +54,7 @@ const en = {
     'oauth-sign-in': 'Sign in with {name}',
     'dont-have-an-account': 'Don\'t have an account?',
     'already-have-an-account': 'Already have an account?',
-    'already-authenticated-redirect': 'Already authenticated, redirecting ...',
+    'already-authenticated-redirecting': 'Already authenticated, redirecting ...',
     'authentication-failed': 'Authentication failed',
     'unauthorized-access': 'Unauthorized access',
     'name-description': 'Your name is used for display purposes',

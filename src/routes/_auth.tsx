@@ -16,7 +16,7 @@ export const Route = createFileRoute('/_auth')({
 
       logger.info('Already authenticated, redirecting to callback URL')
 
-      toast.error(context.i18n.translator('auth.already-authenticated-redirect'))
+      toast.error(context.i18n.translator('auth.already-authenticated-redirecting'))
 
       throw redirect({
         to: search.callbackURL,
