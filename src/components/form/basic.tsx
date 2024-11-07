@@ -27,7 +27,6 @@ const createBasicFormBuilder = createFormBuilderFactory({
 
 type BasicFormFieldBaseProps = {
   label: string
-  disabled?: boolean
 }
 
 type BasicFormInputProps = BasicFormFieldBaseProps & {
@@ -37,7 +36,7 @@ type BasicFormInputProps = BasicFormFieldBaseProps & {
 function BasicFormTextInput<
   TFormData,
   TName extends DeepKeyValueName<TFormData, any>,
->({ name, form, label, disabled, inputProps, ...fieldProps }:
+>({ name, form, label, inputProps, ...fieldProps }:
   FormFieldProps<TFormData, TName> & BasicFormInputProps,
 ) {
   return (
@@ -53,7 +52,6 @@ function BasicFormTextInput<
             <Input
               {...controller}
               {...inputProps}
-              disabled={inputProps?.disabled || controller.disabled || disabled}
               className={cx(inputProps?.className)}
             />
             <FieldInfo field={field} placeholder='' />
@@ -71,7 +69,7 @@ type BasicFormPhoneInputProps = BasicFormFieldBaseProps & {
 function BasicFormPhoneInput<
   TFormData,
   TName extends DeepKeyValueName<TFormData, any>,
->({ name, form, label, disabled, inputPhoneProps, ...fieldProps }:
+>({ name, form, label, inputPhoneProps, ...fieldProps }:
   FormFieldProps<TFormData, TName> & BasicFormPhoneInputProps,
 ) {
   return (
@@ -88,7 +86,6 @@ function BasicFormPhoneInput<
               {...controller}
               {...inputPhoneProps}
               type='tel'
-              disabled={inputPhoneProps?.disabled || controller.disabled || disabled}
               className={cx(inputPhoneProps?.className)}
             />
             <FieldInfo field={field} />
@@ -102,7 +99,7 @@ function BasicFormPhoneInput<
 function BasicFormNumberInput<
   TFormData,
   TName extends DeepKeyValueName<TFormData, any>,
->({ name, form, label, disabled, inputProps, ...fieldProps }:
+>({ name, form, label, inputProps, ...fieldProps }:
   FormFieldProps<TFormData, TName> & BasicFormInputProps,
 ) {
   return (
@@ -119,7 +116,6 @@ function BasicFormNumberInput<
               {...controller}
               {...inputProps}
               type='number'
-              disabled={inputProps?.disabled || controller.disabled || disabled}
               className={cx(inputProps?.className)}
             />
             <FieldInfo field={field} placeholder='' />
@@ -133,7 +129,7 @@ function BasicFormNumberInput<
 function BasicFormPasswordInput<
   TFormData,
   TName extends DeepKeyValueName<TFormData, any>,
->({ name, form, label, disabled, inputProps, ...fieldProps }:
+>({ name, form, label, inputProps, ...fieldProps }:
   FormFieldProps<TFormData, TName> & BasicFormInputProps,
 ) {
   return (
@@ -149,7 +145,6 @@ function BasicFormPasswordInput<
             <InputPassword
               {...controller}
               {...inputProps}
-              disabled={inputProps?.disabled || controller.disabled || disabled}
               className={cx(inputProps?.className)}
             />
             <FieldInfo field={field} />
@@ -168,7 +163,7 @@ type BasicFormCheckboxProps = BasicFormFieldBaseProps & {
 function BasicFormCheckbox<
   TFormData,
   TName extends DeepKeyValueName<TFormData, any>,
->({ name, form, label, disabled, description, checkboxProps, ...fieldProps }:
+>({ name, form, label, description, checkboxProps, ...fieldProps }:
   FormFieldProps<TFormData, TName> & BasicFormCheckboxProps,
 ) {
   return (
@@ -185,7 +180,6 @@ function BasicFormCheckbox<
               <Checkbox
                 {...controller}
                 {...checkboxProps}
-                disabled={checkboxProps?.disabled || controller.disabled || disabled}
                 className={cx(checkboxProps?.className)}
               />
               <p
@@ -209,7 +203,7 @@ type BasicFormDatePickerProps = BasicFormFieldBaseProps & {
 function BasicFormDatePicker<
   TFormData,
   TName extends DeepKeyValueName<TFormData, any>,
->({ name, form, label, disabled, datePickerProps, ...fieldProps }:
+>({ name, form, label, datePickerProps, ...fieldProps }:
   FormFieldProps<TFormData, TName> & BasicFormDatePickerProps,
 ) {
   return (
@@ -217,20 +211,18 @@ function BasicFormDatePicker<
       {...fieldProps}
       name={name}
       children={(field) => {
-        const controller = fieldController.datePicker(form, field)
+        const controller = fieldController.calendar(form, field)
 
         return (
           <BasicField>
             <BasicFieldLabel field={field} label={label} />
             <DatePicker
-              // TODO: refactor
-              {...datePickerProps}
               id={controller.id}
               name={controller.name}
-              disabled={controller.disabled || disabled}
+              {...datePickerProps}
               calendar={{
+                ...fieldController.calendar(form, field),
                 ...datePickerProps?.calendar,
-                ...controller,
               }}
               className={cx(datePickerProps?.className)}
             />

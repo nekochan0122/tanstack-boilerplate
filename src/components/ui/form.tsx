@@ -103,7 +103,7 @@ const fieldController = {
     checked: field.state.value,
     onCheckedChange: field.handleChange,
   }) satisfies ComponentProps<typeof Checkbox>,
-  datePicker: (form, field) => ({
+  calendar: (form, field) => ({
     ...fieldControllerBase(form, field),
     selected: field.state.value,
     onSelect: field.handleChange,

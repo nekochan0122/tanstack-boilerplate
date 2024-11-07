@@ -24,7 +24,6 @@ type FancyFormFieldBaseProps = {
   label: string
   description: string
   info: string
-  disabled?: boolean
 }
 
 type FancyFormTextInputProps = FancyFormFieldBaseProps & {
@@ -34,7 +33,7 @@ type FancyFormTextInputProps = FancyFormFieldBaseProps & {
 function FancyFormTextInput<
   TFormData,
   TName extends DeepKeyValueName<TFormData, any>,
->({ name, form, label, disabled, description, info, inputProps, ...fieldProps }:
+>({ name, form, label, description, info, inputProps, ...fieldProps }:
   FormFieldProps<TFormData, TName> & FancyFormTextInputProps,
 ) {
   return (
@@ -52,7 +51,6 @@ function FancyFormTextInput<
               <Input
                 {...controller}
                 {...inputProps}
-                disabled={inputProps?.disabled || controller.disabled || disabled}
                 className={cx(inputProps?.className)}
               />
             </FancyFieldBody>
@@ -69,7 +67,7 @@ function FancyFormTextInput<
 function FancyFormPasswordInput<
   TFormData,
   TName extends DeepKeyValueName<TFormData, any>,
->({ name, form, label, disabled, description, info, inputProps, ...fieldProps }:
+>({ name, form, label, description, info, inputProps, ...fieldProps }:
   FormFieldProps<TFormData, TName> & FancyFormTextInputProps,
 ) {
   return (
@@ -87,7 +85,6 @@ function FancyFormPasswordInput<
               <InputPassword
                 {...controller}
                 {...inputProps}
-                disabled={inputProps?.disabled || controller.disabled || disabled}
                 className={cx(inputProps?.className)}
               />
             </FancyFieldBody>
@@ -108,7 +105,7 @@ type FancyFormCheckboxProps = FancyFormFieldBaseProps & {
 function FancyFormCheckbox<
   TFormData,
   TName extends DeepKeyValueName<TFormData, any>,
->({ name, form, label, disabled, description, info, checkboxProps, ...fieldProps }:
+>({ name, form, label, description, info, checkboxProps, ...fieldProps }:
   FormFieldProps<TFormData, TName> & FancyFormCheckboxProps,
 ) {
   return (
@@ -127,7 +124,6 @@ function FancyFormCheckbox<
                 <Checkbox
                   {...controller}
                   {...checkboxProps}
-                  disabled={checkboxProps?.disabled || controller.disabled || disabled}
                   className={cx( checkboxProps?.className)}
                 />
               </div>
