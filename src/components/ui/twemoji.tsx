@@ -52,7 +52,7 @@ function decodeUnicodeEscapes(inputStr: string) {
 }
 
 function countryCodeToEmoji(countryCode: Country): string {
-  if (countryCode.length !== 2) return countryCode
+  if (countryCode.length !== 2) throw new Error('Invalid country code')
 
   const codePoints = [...countryCode.toUpperCase()].map((char) =>
     0x1_F1_E6 + char.charCodeAt(0) - 65,
