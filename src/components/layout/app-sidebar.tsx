@@ -19,6 +19,7 @@ export function AppSidebar({ ...props }: ComponentProps<typeof Sidebar>) {
 
   const theme = useTheme()
   const sidebar = useSidebar()
+
   const authQuery = useAuthQuery()
   const i18nQuery = useI18nQuery()
   const signOutMutation = useSignOutMutation()
