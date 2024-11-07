@@ -5,11 +5,11 @@ import { useTranslations } from 'use-intl'
 import type { ComponentProps } from 'react'
 
 import { useTheme } from '~/components/theme'
-import { Twemoji } from '~/components/twemoji'
 import { Avatar, AvatarFallback, AvatarImage } from '~/components/ui/avatar'
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '~/components/ui/collapsible'
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '~/components/ui/dropdown-menu'
 import { Sidebar, SidebarContent, SidebarFooter, SidebarGroup, SidebarGroupLabel, SidebarHeader, SidebarMenu, SidebarMenuButton, SidebarMenuItem, SidebarMenuSub, SidebarMenuSubButton, SidebarMenuSubItem, useSidebar } from '~/components/ui/sidebar'
+import { TwemojiFlag } from '~/components/ui/twemoji'
 import { navigation } from '~/config/navigation'
 import { useAuthQuery, useSignOutMutation } from '~/services/auth.query'
 import { useI18nQuery, useSetLocaleMutation } from '~/services/i18n.query'
@@ -148,12 +148,12 @@ export function AppSidebar({ ...props }: ComponentProps<typeof Sidebar>) {
                   className='min-w-56 rounded-lg'
                 >
                   <DropdownMenuItem onClick={() => setLocaleMutation.mutate('en')}>
-                    <Twemoji emoji='🇺🇸' />
+                    <TwemojiFlag countryCode='US' />
                     English
                     {i18nQuery.data.locale === 'en' && <LuCheck className='ml-auto' />}
                   </DropdownMenuItem>
                   <DropdownMenuItem onClick={() => setLocaleMutation.mutate('zh-tw')}>
-                    <Twemoji emoji='🇹🇼' />
+                    <TwemojiFlag countryCode='TW' />
                     繁體中文
                     {i18nQuery.data.locale === 'zh-tw' && <LuCheck className='ml-auto' />}
                   </DropdownMenuItem>
