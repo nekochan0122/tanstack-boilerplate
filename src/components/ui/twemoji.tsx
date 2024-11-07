@@ -32,17 +32,10 @@ type TwemojiFlagProps = Except<TwemojiProps, 'emoji'> & {
   countryCode: Country
 }
 
-function TwemojiFlag ({ countryCode, format = 'svg', className, ...props }: TwemojiFlagProps) {
+function TwemojiFlag ({ countryCode, ...props }: TwemojiFlagProps) {
   const emoji = countryCodeToEmoji(countryCode)
 
-  return (
-    <Twemoji
-      emoji={emoji}
-      format={format}
-      className={className}
-      {...props}
-    />
-  )
+  return <Twemoji emoji={emoji} {...props} />
 }
 
 function decodeUnicodeEscapes(inputStr: string) {
