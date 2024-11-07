@@ -44,6 +44,9 @@ const app = defineConfig({
     },
   },
   vite: {
+    ssr: {
+      noExternal: ['@node-rs/argon2-wasm32-wasi'],
+    },
     plugins: [
       tsconfigPathsPlugin({
         projects: ['./tsconfig.json'],
