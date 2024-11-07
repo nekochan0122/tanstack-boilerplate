@@ -72,11 +72,11 @@ importers:
         specifier: npm:@tanstack/zod-form-adapter@^0.34.4
         version: '@tanstack/zod-form-adapter@0.34.4(zod@3.23.8)'
       '@tanstack/react-query':
-        specifier: ^5.59.19
-        version: 5.59.19(react@19.0.0-rc-66855b96-20241106)
+        specifier: ^5.59.20
+        version: 5.59.20(react@19.0.0-rc-66855b96-20241106)
       '@tanstack/react-query-devtools':
-        specifier: ^5.59.19
-        version: 5.59.19(@tanstack/react-query@5.59.19(react@19.0.0-rc-66855b96-20241106))(react@19.0.0-rc-66855b96-20241106)
+        specifier: ^5.59.20
+        version: 5.59.20(@tanstack/react-query@5.59.20(react@19.0.0-rc-66855b96-20241106))(react@19.0.0-rc-66855b96-20241106)
       '@tanstack/react-router':
         specifier: ^1.79.0
         version: 1.79.0(@tanstack/router-generator@1.79.0)(react-dom@19.0.0-rc-66855b96-20241106(react@19.0.0-rc-66855b96-20241106))(react@19.0.0-rc-66855b96-20241106)
@@ -85,7 +85,7 @@ importers:
         version: '@tanstack/router-devtools@1.79.0(@tanstack/react-router@1.79.0(@tanstack/router-generator@1.79.0)(react-dom@19.0.0-rc-66855b96-20241106(react@19.0.0-rc-66855b96-20241106))(react@19.0.0-rc-66855b96-20241106))(csstype@3.1.3)(react-dom@19.0.0-rc-66855b96-20241106(react@19.0.0-rc-66855b96-20241106))(react@19.0.0-rc-66855b96-20241106)'
       '@tanstack/react-router-with-query':
         specifier: ^1.79.0
-        version: 1.79.0(@tanstack/react-query@5.59.19(react@19.0.0-rc-66855b96-20241106))(@tanstack/react-router@1.79.0(@tanstack/router-generator@1.79.0)(react-dom@19.0.0-rc-66855b96-20241106(react@19.0.0-rc-66855b96-20241106))(react@19.0.0-rc-66855b96-20241106))(react-dom@19.0.0-rc-66855b96-20241106(react@19.0.0-rc-66855b96-20241106))(react@19.0.0-rc-66855b96-20241106)
+        version: 1.79.0(@tanstack/react-query@5.59.20(react@19.0.0-rc-66855b96-20241106))(@tanstack/react-router@1.79.0(@tanstack/router-generator@1.79.0)(react-dom@19.0.0-rc-66855b96-20241106(react@19.0.0-rc-66855b96-20241106))(react@19.0.0-rc-66855b96-20241106))(react-dom@19.0.0-rc-66855b96-20241106(react@19.0.0-rc-66855b96-20241106))(react@19.0.0-rc-66855b96-20241106)
       '@tanstack/react-router-zod-adapter':
         specifier: npm:@tanstack/router-zod-adapter@^1.79.0
         version: '@tanstack/router-zod-adapter@1.79.0(@tanstack/react-router@1.79.0(@tanstack/router-generator@1.79.0)(react-dom@19.0.0-rc-66855b96-20241106(react@19.0.0-rc-66855b96-20241106))(react@19.0.0-rc-66855b96-20241106))(zod@3.23.8)'
@@ -114,8 +114,8 @@ importers:
         specifier: ^1.7.7
         version: 1.7.7
       better-auth:
-        specifier: 0.7.3
-        version: 0.7.3(react@19.0.0-rc-66855b96-20241106)(solid-js@1.9.2)(vue@3.5.12(typescript@5.6.3))
+        specifier: 0.7.4
+        version: 0.7.4(react@19.0.0-rc-66855b96-20241106)(solid-js@1.9.2)(vue@3.5.12(typescript@5.6.3))
       class-variance-authority:
         specifier: ^0.7.0
         version: 0.7.0
@@ -235,8 +235,8 @@ importers:
         specifier: 3.17.5
         version: 3.17.5(tailwindcss@3.4.14)
       eslint-plugin-tanstack-query:
-        specifier: npm:@tanstack/eslint-plugin-query@^5.59.7
-        version: '@tanstack/eslint-plugin-query@5.59.7(eslint@9.14.0(jiti@2.4.0))(typescript@5.6.3)'
+        specifier: npm:@tanstack/eslint-plugin-query@^5.59.20
+        version: '@tanstack/eslint-plugin-query@5.59.20(eslint@9.14.0(jiti@2.4.0))(typescript@5.6.3)'
       eslint-plugin-tanstack-router:
         specifier: npm:@tanstack/eslint-plugin-router@^1.79.0
         version: '@tanstack/eslint-plugin-router@1.79.0(eslint@9.14.0(jiti@2.4.0))(typescript@5.6.3)'
@@ -2325,8 +2325,8 @@ packages:
     peerDependencies:
       eslint: '>=8.40.0'
 
-  '@tanstack/eslint-plugin-query@5.59.7':
-    resolution: {integrity: sha512-txQGX5yC+4gmbR81EXaum2tOxeDQkRCWnaLmaP/pSrbIVCUkbMbrxxsaoOgN+fBqqqGo9V3LoCVL6ez1tRUF7Q==}
+  '@tanstack/eslint-plugin-query@5.59.20':
+    resolution: {integrity: sha512-uZwF6N1Krcwrhx0+5wuLjU3E1zcb19bTJ5xhd38ZRvWbjrKQ3HAnf7OZ8w9lCAcdoPPSMEbyVrodgcmjAfZS8w==}
     peerDependencies:
       eslint: ^8.57.0 || ^9.0.0
 
@@ -2342,11 +2342,11 @@ packages:
     resolution: {integrity: sha512-2CqERleeqO3hkhJmyJm37tiL3LYgeOpmo8szqdjgtnnG0z7ZpvzkZz6HkfOr9Ca/ha7mhAiouSvLYuLkM37AMg==}
     engines: {node: '>=12'}
 
-  '@tanstack/query-core@5.59.17':
-    resolution: {integrity: sha512-jWdDiif8kaqnRGHNXAa9CnudtxY5v9DUxXhodgqX2Rwzj+1UwStDHEbBd9IA5C7VYAaJ2s+BxFR6PUBs8ERorA==}
+  '@tanstack/query-core@5.59.20':
+    resolution: {integrity: sha512-e8vw0lf7KwfGe1if4uPFhvZRWULqHjFcz3K8AebtieXvnMOz5FSzlZe3mTLlPuUBcydCnBRqYs2YJ5ys68wwLg==}
 
-  '@tanstack/query-devtools@5.59.19':
-    resolution: {integrity: sha512-Gw+3zsADpqiYgx/6MMr9bP1+x2LR8vOuGjo5Un/89qwwP3z7WAHPWFagLFDYkLq68NX7ekUpW/EOYlUMugMXGA==}
+  '@tanstack/query-devtools@5.59.20':
+    resolution: {integrity: sha512-vxhuQ+8VV4YWQSFxQLsuM+dnEKRY7VeRzpNabFXdhEwsBYLrjXlF1pM38A8WyKNLqZy8JjyRO8oP4Wd/oKHwuQ==}
 
   '@tanstack/react-cross-context@1.74.5':
     resolution: {integrity: sha512-a4BoKe1umpt4mmol2fUc7S11ilYIrn60ysoLot0NE+BeRsML83MvgPsLTAx7h1fTp0gmLjtpMjjubIJ8GlDIQg==}
@@ -2363,14 +2363,14 @@ packages:
       '@tanstack/start':
         optional: true
 
-  '@tanstack/react-query-devtools@5.59.19':
-    resolution: {integrity: sha512-mYFWTHLtJr2HdyYPZPzzvQ2ksCsSL6L04fCtusPFD3waskXrtmvWvyuDIGeEGdVAYS0Urwxw/0sYvcTVQZH+zQ==}
+  '@tanstack/react-query-devtools@5.59.20':
+    resolution: {integrity: sha512-AL/eQS1NFZhwwzq2Bq9Gd8wTTH+XhPNOJlDFpzPMu9NC5CQVgA0J8lWrte/sXpdWNo5KA4hgHnEdImZsF4h6Lw==}
     peerDependencies:
-      '@tanstack/react-query': ^5.59.19
+      '@tanstack/react-query': ^5.59.20
       react: ^18 || ^19
 
-  '@tanstack/react-query@5.59.19':
-    resolution: {integrity: sha512-xLRfyFyQOFcLltKCds0LijfC6/HQJrrTTnZB8ciyn74LIkVAm++vZJ6eUVG20RmJtdP8REdy7vSOYW4M3//XLA==}
+  '@tanstack/react-query@5.59.20':
+    resolution: {integrity: sha512-Zly0egsK0tFdfSbh5/mapSa+Zfc3Et0Zkar7Wo5sQkFzWyB3p3uZWOHR2wrlAEEV2L953eLuDBtbgFvMYiLvUw==}
     peerDependencies:
       react: ^18 || ^19
 
@@ -2880,8 +2880,8 @@ packages:
   base64-js@1.5.1:
     resolution: {integrity: sha512-AKpaYlHn8t4SVbOHCy+b5+KKgvR4vrsD8vbvrbiQJps7fKDTkjkDry6ji0rUJjC0kzbNePLwzxq8iypo41qeWA==}
 
-  better-auth@0.7.3:
-    resolution: {integrity: sha512-ycbYGsxyyWbkEQKxyv/Id15aMcQWwxeBMo7cSBGP0J2wJE48+xh5OTjs7pGEweeYTdnHWkOO3DnVltcWGwvr1w==}
+  better-auth@0.7.4:
+    resolution: {integrity: sha512-42lunZmlj9x6IvkxPedocWPNvOEtHxJXXywAEuoJekvKvISI2zxDeRGxc8ES8wOU3NoCgBSVfpFS6/hCwfhXiA==}
 
   better-call@0.2.14-beta.3:
     resolution: {integrity: sha512-lA54ETanzM0xUZnQt6lm3BdTr4gVDyAe1DNpCQSTYUnwnGGOmQG8ob0FYivVd0XHsHQK68r01GB5c6cUuu4llQ==}
@@ -4174,8 +4174,8 @@ packages:
     resolution: {integrity: sha512-+bT2uH4E5LGE7h/n3evcS/sQlJXCpIp6ym8OWJ5eV6+67Dsql/LaaT7qJBAt2rzfoa/5QBGBhxDix1dMt2kQKQ==}
     engines: {node: '>= 0.8.0'}
 
-  libphonenumber-js@1.11.12:
-    resolution: {integrity: sha512-QkJn9/D7zZ1ucvT++TQSvZuSA2xAWeUytU+DiEQwbPKLyrDpvbul2AFs1CGbRAPpSCCk47aRAb5DX5mmcayp4g==}
+  libphonenumber-js@1.11.13:
+    resolution: {integrity: sha512-LIJmXxgs7o1njVZPcX5fkbtcFgDnXXPvJQQBH5Ho/8+r6BFlJaEbJ+bAiaUGaChWUhFtvawwdmXIOz4wZBANCg==}
 
   lightningcss-darwin-arm64@1.27.0:
     resolution: {integrity: sha512-Gl/lqIXY+d+ySmMbgDf0pgaWSqrWYxVHoc88q+Vhf2YNzZ8DwoRzGt5NZDVqqIW5ScpSnmmjcgXP87Dn2ylSSQ==}
@@ -7430,7 +7430,7 @@ snapshots:
       - supports-color
       - typescript
 
-  '@tanstack/eslint-plugin-query@5.59.7(eslint@9.14.0(jiti@2.4.0))(typescript@5.6.3)':
+  '@tanstack/eslint-plugin-query@5.59.20(eslint@9.14.0(jiti@2.4.0))(typescript@5.6.3)':
     dependencies:
       '@typescript-eslint/utils': 8.13.0(eslint@9.14.0(jiti@2.4.0))(typescript@5.6.3)
       eslint: 9.14.0(jiti@2.4.0)
@@ -7452,9 +7452,9 @@ snapshots:
 
   '@tanstack/history@1.61.1': {}
 
-  '@tanstack/query-core@5.59.17': {}
+  '@tanstack/query-core@5.59.20': {}
 
-  '@tanstack/query-devtools@5.59.19': {}
+  '@tanstack/query-devtools@5.59.20': {}
 
   '@tanstack/react-cross-context@1.74.5(react-dom@19.0.0-rc-66855b96-20241106(react@19.0.0-rc-66855b96-20241106))(react@19.0.0-rc-66855b96-20241106)':
     dependencies:
@@ -7474,20 +7474,20 @@ snapshots:
       - react-dom
       - typescript
 
-  '@tanstack/react-query-devtools@5.59.19(@tanstack/react-query@5.59.19(react@19.0.0-rc-66855b96-20241106))(react@19.0.0-rc-66855b96-20241106)':
+  '@tanstack/react-query-devtools@5.59.20(@tanstack/react-query@5.59.20(react@19.0.0-rc-66855b96-20241106))(react@19.0.0-rc-66855b96-20241106)':
     dependencies:
-      '@tanstack/query-devtools': 5.59.19
-      '@tanstack/react-query': 5.59.19(react@19.0.0-rc-66855b96-20241106)
+      '@tanstack/query-devtools': 5.59.20
+      '@tanstack/react-query': 5.59.20(react@19.0.0-rc-66855b96-20241106)
       react: 19.0.0-rc-66855b96-20241106
 
-  '@tanstack/react-query@5.59.19(react@19.0.0-rc-66855b96-20241106)':
+  '@tanstack/react-query@5.59.20(react@19.0.0-rc-66855b96-20241106)':
     dependencies:
-      '@tanstack/query-core': 5.59.17
+      '@tanstack/query-core': 5.59.20
       react: 19.0.0-rc-66855b96-20241106
 
-  '@tanstack/react-router-with-query@1.79.0(@tanstack/react-query@5.59.19(react@19.0.0-rc-66855b96-20241106))(@tanstack/react-router@1.79.0(@tanstack/router-generator@1.79.0)(react-dom@19.0.0-rc-66855b96-20241106(react@19.0.0-rc-66855b96-20241106))(react@19.0.0-rc-66855b96-20241106))(react-dom@19.0.0-rc-66855b96-20241106(react@19.0.0-rc-66855b96-20241106))(react@19.0.0-rc-66855b96-20241106)':
+  '@tanstack/react-router-with-query@1.79.0(@tanstack/react-query@5.59.20(react@19.0.0-rc-66855b96-20241106))(@tanstack/react-router@1.79.0(@tanstack/router-generator@1.79.0)(react-dom@19.0.0-rc-66855b96-20241106(react@19.0.0-rc-66855b96-20241106))(react@19.0.0-rc-66855b96-20241106))(react-dom@19.0.0-rc-66855b96-20241106(react@19.0.0-rc-66855b96-20241106))(react@19.0.0-rc-66855b96-20241106)':
     dependencies:
-      '@tanstack/react-query': 5.59.19(react@19.0.0-rc-66855b96-20241106)
+      '@tanstack/react-query': 5.59.20(react@19.0.0-rc-66855b96-20241106)
       '@tanstack/react-router': 1.79.0(@tanstack/router-generator@1.79.0)(react-dom@19.0.0-rc-66855b96-20241106(react@19.0.0-rc-66855b96-20241106))(react@19.0.0-rc-66855b96-20241106)
       react: 19.0.0-rc-66855b96-20241106
       react-dom: 19.0.0-rc-66855b96-20241106(react@19.0.0-rc-66855b96-20241106)
@@ -8217,7 +8217,7 @@ snapshots:
 
   base64-js@1.5.1: {}
 
-  better-auth@0.7.3(react@19.0.0-rc-66855b96-20241106)(solid-js@1.9.2)(vue@3.5.12(typescript@5.6.3)):
+  better-auth@0.7.4(react@19.0.0-rc-66855b96-20241106)(solid-js@1.9.2)(vue@3.5.12(typescript@5.6.3)):
     dependencies:
       '@better-fetch/fetch': 1.1.12
       '@nanostores/query': 0.3.4(nanostores@0.11.3)
@@ -9705,7 +9705,7 @@ snapshots:
       prelude-ls: 1.2.1
       type-check: 0.4.0
 
-  libphonenumber-js@1.11.12: {}
+  libphonenumber-js@1.11.13: {}
 
   lightningcss-darwin-arm64@1.27.0:
     optional: true
@@ -10363,7 +10363,7 @@ snapshots:
       classnames: 2.5.1
       country-flag-icons: 1.5.13
       input-format: 0.3.10
-      libphonenumber-js: 1.11.12
+      libphonenumber-js: 1.11.13
       prop-types: 15.8.1
       react: 19.0.0-rc-66855b96-20241106
       react-dom: 19.0.0-rc-66855b96-20241106(react@19.0.0-rc-66855b96-20241106)
