@@ -1,4 +1,4 @@
-import { Link, useLocation, useRouteContext } from '@tanstack/react-router'
+import { Link, useLocation } from '@tanstack/react-router'
 import { Fragment } from 'react'
 import { useTranslations } from 'use-intl'
 
@@ -10,7 +10,6 @@ import type { TranslateKeys } from '~/libs/i18n'
 export function AppHeader() {
   const t = useTranslations()
 
-  const context = useRouteContext({ from: '__root__' })
   const location = useLocation()
 
   const paths = location.pathname.split('/').filter(Boolean)
@@ -37,10 +36,8 @@ export function AppHeader() {
               const isLast = idx === paths.length - 1
               const hasNext = idx + 1 < paths.length
 
-              const tKey = `navigation.${path}` as TranslateKeys
-              const hasTranslation = context.i18n.translator?.has(tKey)
-
-              const name = hasTranslation ? t(tKey) : path
+              const key = `navigation.${path}` as TranslateKeys
+              const name = t.has(key) ? t(key) : path
 
               return (
                 <Fragment key={path}>
