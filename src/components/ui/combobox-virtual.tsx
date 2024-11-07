@@ -1,13 +1,18 @@
+// FIXME: getVirtualItems() always returns an empty array with React Compiler
+
 import { useControllableState } from '@radix-ui/react-use-controllable-state'
+import { useVirtualizer } from '@tanstack/react-virtual'
 import { useState } from 'react'
 import { LuCheck, LuChevronsUpDown } from 'react-icons/lu'
+import type { Virtualizer } from '@tanstack/react-virtual'
 import type { PropsWithChildren } from 'react'
 
 import { Button } from '~/components/ui/button'
 import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList } from '~/components/ui/command'
 import { Drawer, DrawerContent, DrawerTitle, DrawerTrigger } from '~/components/ui/drawer'
 import { Popover, PopoverContent, PopoverTrigger } from '~/components/ui/popover'
-import { ScrollArea } from '~/components/ui/scroll-area'
+import { ScrollAreaRoot, ScrollBar, ScrollCorner, ScrollViewport } from '~/components/ui/scroll-area'
+import { useDynamicNode } from '~/hooks/use-dynamic-node'
 import { useIsMobile } from '~/hooks/use-is-mobile'
 import { createContextFactory, cx } from '~/libs/utils'
 
@@ -25,6 +30,8 @@ type ComboboxContext = {
   search: string
   setSearch: (value: string) => void
   filteredOptions: ComboboxOption[]
+  parentNodeRef: (node: HTMLDivElement) => void
+  virtualizer: Virtualizer<HTMLDivElement, Element>
 }
 
 type ComboboxProps = {
@@ -38,7 +45,7 @@ type ComboboxProps = {
 
 const [ContextProvider, useContext] = createContextFactory<ComboboxContext>()
 
-function Combobox({ options, disabled, ...props }: ComboboxProps) {
+function ComboboxVirtual({ options, disabled, ...props }: ComboboxProps) {
   const [selected, onSelectChange] = useControllableState({
     prop: props.selected,
     onChange: props.onSelectChange,
@@ -50,6 +57,14 @@ function Combobox({ options, disabled, ...props }: ComboboxProps) {
 
   const selectedOption = options.find((option) => option.value === selected)
   const filteredOptions = comboboxFilter(options, search)
+
+  const [parentNode, parentNodeRef] = useDynamicNode()
+  const virtualizer = useVirtualizer({
+    count: filteredOptions.length,
+    overscan: 5,
+    estimateSize: () => 32,
+    getScrollElement: () => parentNode,
+  })
 
   const isMobile = useIsMobile()
   const DynamicView = isMobile ? MobileView : DesktopView
@@ -63,6 +78,8 @@ function Combobox({ options, disabled, ...props }: ComboboxProps) {
     search,
     setSearch,
     filteredOptions,
+    parentNodeRef,
+    virtualizer,
   }
 
   return (
@@ -129,32 +146,61 @@ function ComboboxContent() {
         placeholder='Search option...'
       />
       <CommandList className='p-1'>
-        <ScrollArea className='h-72'>
-          <CommandEmpty>
-            No option found.
-          </CommandEmpty>
-          <CommandGroup>
-            {context.filteredOptions.map((option) => (
-              <CommandItem
-                key={option.value}
-                value={option.value}
-                onSelect={(currentValue) => {
-                  context.onSelectChange(currentValue === context.selected ? '' : currentValue)
-                  context.setOpen(false)
-                  context.setSearch('')
+        <ScrollAreaRoot className='h-72'>
+          <ScrollViewport ref={context.parentNodeRef}>
+            <div
+              style={{
+                position: 'relative',
+                width: '100%',
+                height: context.virtualizer.getTotalSize(),
+              }}
+            >
+              <CommandEmpty
+                style={{
+                  position: 'absolute',
+                  inset: 0,
                 }}
               >
-                <LuCheck
-                  className={cx(
-                    'mr-2 size-4',
-                    context.selected === option.value ? 'opacity-100' : 'opacity-0',
-                  )}
-                />
-                {option.label}
-              </CommandItem>
-            ))}
-          </CommandGroup>
-        </ScrollArea>
+                No option found.
+              </CommandEmpty>
+              <CommandGroup>
+                {context.virtualizer.getVirtualItems().map((virtualItem) => {
+                  const option = context.filteredOptions[virtualItem.index]
+
+                  return (
+                    <CommandItem
+                      key={virtualItem.key}
+                      value={option.value}
+                      onSelect={(currentValue) => {
+                        context.onSelectChange(currentValue === context.selected ? '' : currentValue)
+                        context.setSearch('')
+                        context.setOpen(false)
+                      }}
+                      style={{
+                        position: 'absolute',
+                        top: 0,
+                        left: 0,
+                        width: '100%',
+                        height: `${virtualItem.size}px`,
+                        transform: `translateY(${virtualItem.start}px)`,
+                      }}
+                      className='flex items-center gap-2'
+                    >
+                      <LuCheck
+                        className={cx('size-4 shrink-0',
+                          context.selected === option.value ? 'opacity-100' : 'opacity-0',
+                        )}
+                      />
+                      <span>{option.label}</span>
+                    </CommandItem>
+                  )
+                })}
+              </CommandGroup>
+            </div>
+          </ScrollViewport>
+          <ScrollBar />
+          <ScrollCorner />
+        </ScrollAreaRoot>
       </CommandList>
     </Command>
   )
@@ -164,5 +210,5 @@ function comboboxFilter(options: ComboboxOption[], search: string) {
   return options.filter((option) => option.label.toLowerCase().includes(search.trim().toLowerCase()))
 }
 
-export { Combobox }
+export { ComboboxVirtual }
 export type { ComboboxOption, ComboboxProps }
