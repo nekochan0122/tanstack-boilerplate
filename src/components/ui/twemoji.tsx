@@ -1,6 +1,7 @@
 import twemoji from '@twemoji/api'
 import type { ComponentProps } from 'react'
 import type { Country } from 'react-phone-number-input'
+import type { Except } from 'type-fest'
 
 import { cx } from '~/libs/utils'
 
@@ -27,9 +28,8 @@ function Twemoji({ emoji, format = 'svg', className, ...props }: TwemojiProps) {
   )
 }
 
-type TwemojiFlagProps = ComponentProps<'img'> & {
+type TwemojiFlagProps = Except<TwemojiProps, 'emoji'> & {
   countryCode: Country
-  format?: 'svg' | 'png'
 }
 
 function TwemojiFlag ({ countryCode, format = 'svg', className, ...props }: TwemojiFlagProps) {
