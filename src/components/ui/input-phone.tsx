@@ -1,9 +1,14 @@
 // https://shadcn-phone-input.vercel.app/
 
+// FIXME: getVirtualItems() always returns an empty array with React Compiler, 'use no memo' is a temporary solution
+'use no memo'
+
 import { useMediaQuery } from '@mantine/hooks'
+import { useVirtualizer } from '@tanstack/react-virtual'
 import { useState } from 'react'
 import { LuChevronsUpDown } from 'react-icons/lu'
 import * as PhoneInputPrimitive from 'react-phone-number-input'
+import type { Virtualizer } from '@tanstack/react-virtual'
 import type { ComponentProps, PropsWithChildren } from 'react'
 import type { Except, Simplify } from 'type-fest'
 
@@ -14,6 +19,7 @@ import { Input } from '~/components/ui/input'
 import { Popover, PopoverContent, PopoverTrigger } from '~/components/ui/popover'
 import { ScrollAreaRoot, ScrollBar, ScrollCorner, ScrollViewport } from '~/components/ui/scroll-area'
 import { TwemojiFlag } from '~/components/ui/twemoji'
+import { useDynamicNode } from '~/hooks/use-dynamic-node'
 import { createContextFactory, cx } from '~/libs/utils'
 
 type InputPhoneProps = Simplify<
@@ -77,6 +83,8 @@ type CountrySelectContext = {
   search: string
   setSearch: (value: string) => void
   countries: CountrySelectOption[]
+  parentNodeRef: (node: HTMLDivElement) => void
+  virtualizer: Virtualizer<HTMLDivElement, Element>
 }
 
 const [ContextProvider, useContext] = createContextFactory<CountrySelectContext>()
@@ -92,6 +100,14 @@ function CountrySelect({ disabled, value, options, onChange }: CountrySelectProp
       PhoneInputPrimitive.getCountryCallingCode(item.value).includes(search),
     )
 
+  const [parentNode, parentNodeRef] = useDynamicNode()
+
+  const virtualizer = useVirtualizer({
+    count: countries.length,
+    getScrollElement: () => parentNode,
+    estimateSize: () => 32,
+  })
+
   const isDesktop = useMediaQuery('(min-width: 768px)')
 
   const DynamicView = isDesktop ? DesktopView : MobileView
@@ -104,6 +120,8 @@ function CountrySelect({ disabled, value, options, onChange }: CountrySelectProp
     search,
     setSearch,
     countries,
+    parentNodeRef,
+    virtualizer,
   }
 
   return (
@@ -173,36 +191,59 @@ function CountrySelectCommand() {
       />
       <CommandList>
         <ScrollAreaRoot className='h-72'>
-          <ScrollViewport>
-            <CommandEmpty>
-              No country found.
-            </CommandEmpty>
-            <CommandGroup>
-              {context.countries.map((country) => {
-                return (
-                  <CommandItem
-                    key={country.value}
-                    onSelect={() => {
-                      context.onChange(country.value)
-                      context.setSearch('')
-                      context.setOpen(false)
-                    }}
-                    className={cx('gap-2', country.value === context.value && 'bg-accent/50')}
-                  >
-                    <FlagComponent
-                      country={country.value}
-                      countryName={country.label}
-                    />
-                    <span className='flex-1 text-sm'>
-                      {country.label}
-                    </span>
-                    <span className='text-sm text-foreground/50'>
-                      {`+${PhoneInputPrimitive.getCountryCallingCode(country.value)}`}
-                    </span>
-                  </CommandItem>
-                )
-              })}
-            </CommandGroup>
+          <ScrollViewport ref={context.parentNodeRef}>
+            <div
+              style={{
+                height: context.virtualizer.getTotalSize(),
+                width: '100%',
+                position: 'relative',
+              }}
+            >
+              <CommandEmpty
+                style={{
+                  position: 'absolute',
+                  inset: 0,
+                }}
+              >
+                No country found.
+              </CommandEmpty>
+              <CommandGroup>
+                {context.virtualizer.getVirtualItems().map((virtualItem) => {
+                  const country = context.countries[virtualItem.index]
+
+                  return (
+                    <CommandItem
+                      key={virtualItem.key}
+                      onSelect={() => {
+                        context.onChange(country.value)
+                        context.setSearch('')
+                        context.setOpen(false)
+                      }}
+                      style={{
+                        position: 'absolute',
+                        top: 0,
+                        left: 0,
+                        width: '100%',
+                        height: `${virtualItem.size}px`,
+                        transform: `translateY(${virtualItem.start}px)`,
+                      }}
+                      className={cx('gap-2', country.value === context.value && 'bg-accent/50')}
+                    >
+                      <FlagComponent
+                        country={country.value}
+                        countryName={country.label}
+                      />
+                      <span className='flex-1 text-sm'>
+                        {country.label}
+                      </span>
+                      <span className='text-sm text-foreground/50'>
+                        {`+${PhoneInputPrimitive.getCountryCallingCode(country.value)}`}
+                      </span>
+                    </CommandItem>
+                  )
+                })}
+              </CommandGroup>
+            </div>
           </ScrollViewport>
           <ScrollBar />
           <ScrollCorner />
