@@ -14,7 +14,7 @@ import { navigation } from '~/config/navigation'
 import { useAuthQuery, useSignOutMutation } from '~/services/auth.query'
 import { useI18nQuery, useSetLocaleMutation } from '~/services/i18n.query'
 
-export function AppSidebar({ ...props }: ComponentProps<typeof Sidebar>) {
+export function AppSidebar(props: ComponentProps<typeof Sidebar>) {
   const t = useTranslations()
 
   const theme = useTheme()
