@@ -51,7 +51,7 @@ const en = {
     'sign-out-success': 'Signed out successfully',
     'sign-out-error': 'Failed to sign out',
     'or': 'or',
-    'oauth-sign-in': 'Sign in with {name}',
+    'sign-in-social': 'Sign in with {name}',
     'dont-have-an-account': 'Don\'t have an account?',
     'already-have-an-account': 'Already have an account?',
     'already-authenticated-redirecting': 'Already authenticated, redirecting ...',

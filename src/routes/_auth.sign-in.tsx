@@ -7,11 +7,11 @@ import { Button } from '~/components/ui/button'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '~/components/ui/card'
 import { useForm } from '~/components/ui/form'
 import { Separator } from '~/components/ui/separator'
-import { oauthConfigs } from '~/config/oauth'
+import { socialProviders } from '~/config/social-provider'
 import { cx } from '~/libs/utils'
-import { useSignInMutation, useSignInOAuthMutation } from '~/services/auth.query'
+import { useSignInMutation, useSignInSocialMutation } from '~/services/auth.query'
 import { signInSchema } from '~/services/auth.schema'
-import type { SupportedOAuthProviderId } from '~/config/oauth'
+import type { SupportedSocialProviderId } from '~/config/social-provider'
 
 export const Route = createFileRoute('/_auth/sign-in')({
   component: SignInRoute,
@@ -23,7 +23,7 @@ function SignInRoute() {
   const search = useSearch({ from: '/_auth' })
 
   const signInMutation = useSignInMutation()
-  const signInOAuthMutation = useSignInOAuthMutation()
+  const signInSocialMutation = useSignInSocialMutation()
 
   const signInForm = useForm(signInSchema(t), {
     defaultValues: {
@@ -64,13 +64,13 @@ function SignInRoute() {
     ],
   })
 
-  function handleSignInOAuth({
+  function handleSignInSocial({
     provider,
   }: {
-    provider: SupportedOAuthProviderId
+    provider: SupportedSocialProviderId
   }) {
     return () =>
-      signInOAuthMutation.mutate({
+      signInSocialMutation.mutate({
         provider,
         callbackURL: search.callbackURL,
       })
@@ -93,21 +93,21 @@ function SignInRoute() {
         </div>
 
         <div className='w-full space-y-4'>
-          {oauthConfigs.map((oauth) => (
+          {socialProviders.map((socialProvider) => (
             <Button
-              key={oauth.id}
-              onClick={handleSignInOAuth({ provider: oauth.id })}
-              style={{ '--oauth-bg': oauth.backgroundColor }}
+              key={socialProvider.id}
+              onClick={handleSignInSocial({ provider: socialProvider.id })}
+              style={{ '--social-bg': socialProvider.backgroundColor }}
               className={cx(
                 'w-full items-center justify-center gap-2 border',
-                'bg-[var(--oauth-bg)] hover:bg-[var(--oauth-bg)] focus-visible:ring-[var(--oauth-bg)]',
+                'bg-[var(--social-bg)] hover:bg-[var(--social-bg)] focus-visible:ring-[var(--social-bg)]',
                 'brightness-100 hover:brightness-90',
-                oauth.id === 'google' && 'focus-visible:ring-ring',
+                socialProvider.id === 'google' && 'focus-visible:ring-ring',
               )}
             >
-              <oauth.icon size={oauth.size} color={oauth.logoColor} />
-              <span style={{ color: oauth.textColor }}>
-                {t('auth.oauth-sign-in', { name: oauth.name })}
+              <socialProvider.icon size={socialProvider.size} color={socialProvider.logoColor} />
+              <span style={{ color: socialProvider.textColor }}>
+                {t('auth.sign-in-social', { name: socialProvider.name })}
               </span>
             </Button>
           ))}

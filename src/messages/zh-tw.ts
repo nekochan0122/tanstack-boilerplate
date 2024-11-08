@@ -53,7 +53,7 @@ const zhTw: Messages = {
     'sign-out-success': '登出成功',
     'sign-out-error': '登出失敗',
     'or': '或是',
-    'oauth-sign-in': '使用 {name} 登入',
+    'sign-in-social': '使用 {name} 登入',
     'dont-have-an-account': '還沒有帳號嗎?',
     'already-have-an-account': '已經有帳號了嗎?',
     'already-authenticated-redirecting': '用戶已經登入，正在重新導向 ...',

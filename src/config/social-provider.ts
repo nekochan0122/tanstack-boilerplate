@@ -5,15 +5,15 @@ import type { IconBaseProps, IconType } from 'react-icons'
 import type { InferAuthOptions } from '~/libs/auth'
 import type { ExtractUnionStrict } from '~/libs/utils'
 
-export type AllOAuthProviderId = InferAuthOptions<'signInOAuth'>['body']['provider']
+export type SocialProviderId = InferAuthOptions<'signInSocial'>['body']['provider']
 
-export type SupportedOAuthProviderId = ExtractUnionStrict<
-  AllOAuthProviderId,
+export type SupportedSocialProviderId = ExtractUnionStrict<
+  SocialProviderId,
   'discord' | 'github' | 'google'
 >
 
-export type OAuthConfig = {
-  id: SupportedOAuthProviderId
+export type SocialProvider = {
+  id: SupportedSocialProviderId
   name: string
   icon: IconType
   size: IconBaseProps['size']
@@ -22,7 +22,7 @@ export type OAuthConfig = {
   backgroundColor: string
 }
 
-export const oauthConfigs: OAuthConfig[] = [
+export const socialProviders: SocialProvider[] = [
   {
     id: 'google',
     name: 'Google',
