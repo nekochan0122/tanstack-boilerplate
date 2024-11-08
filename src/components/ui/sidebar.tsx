@@ -32,15 +32,13 @@ type SidebarContext = {
   toggleSidebar: () => void
 }
 
-const [SidebarContextProvider, useSidebar] = createContextFactory<SidebarContext>(
-  null,
-  'useSidebar must be used within a SidebarProvider',
-)
+const [SidebarContextProvider, useSidebar] = createContextFactory<SidebarContext>({
+  errorMessage: 'useSidebar must be used within a SidebarProvider',
+})
 
 type SidebarProviderProps = ComponentProps<'div'> & {
   defaultOpen?: boolean
   open?: boolean
-  // onOpenChange?: (open: boolean) => void
   onOpenChange?: Dispatch<SetStateAction<boolean>>
 }
 

@@ -17,10 +17,10 @@ type Context = {
   set: (theme: Theme) => void
   toggle: () => void
 }
-const [ThemeContextProvider, useTheme] = createContextFactory<Context>(
-  null,
-  'useTheme must be used within a ThemeProvider',
-)
+
+const [ThemeContextProvider, useTheme] = createContextFactory<Context>({
+  errorMessage: 'useTheme must be used within a ThemeProvider',
+})
 
 type ThemeProviderProps = {
   children: ReactNode
