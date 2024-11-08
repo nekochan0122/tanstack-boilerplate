@@ -8,6 +8,10 @@ import type { App } from 'vinxi'
 const config = {
   appDirectory: 'src',
   autoOpenBrowser: false,
+  public: {
+    dir: './public',
+    base: '/',
+  },
 }
 
 const app = defineConfig({
@@ -88,4 +92,17 @@ function withMiddleware(app: App) {
   }
 }
 
-export default withMiddleware(app)
+function withCustomPublic(app: App) {
+  return {
+    ...app,
+    config: {
+      ...app.config,
+      routers: app.config.routers.map((router) => ({
+        ...router,
+        ...(router.name !== 'public' ? undefined : config.public),
+      })),
+    },
+  }
+}
+
+export default withCustomPublic(withMiddleware(app))
