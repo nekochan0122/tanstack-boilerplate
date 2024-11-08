@@ -19,7 +19,7 @@ function HomeRoute() {
         A fully <strong>type-safe</strong> boilerplate with a focus on UX and DX, complete with multiple examples.
       </Typography.P>
       <Button asChild>
-        <Link to='https://github.com/tanstack/boilerplate'>
+        <Link to='https://github.com/nekochan0122/tanstack-boilerplate'>
           <BsGithub />
           View on GitHub
         </Link>
