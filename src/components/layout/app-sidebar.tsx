@@ -1,20 +1,20 @@
 import { Link } from '@tanstack/react-router'
-import { LuCheck, LuChevronRight, LuChevronsUpDown, LuCommand, LuLanguages, LuLaptop, LuLogOut, LuMoon, LuMoreHorizontal, LuPalette, LuSun, LuUser } from 'react-icons/lu'
+import { LuCheck, LuChevronsUpDown, LuCommand, LuLanguages, LuLaptop, LuLogOut, LuMoon, LuMoreHorizontal, LuPalette, LuSun, LuUser } from 'react-icons/lu'
 import { toast } from 'sonner'
 import { useTranslations } from 'use-intl'
 import type { ComponentProps } from 'react'
 
 import { useTheme } from '~/components/theme'
 import { Avatar, AvatarFallback, AvatarImage } from '~/components/ui/avatar'
-import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '~/components/ui/collapsible'
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '~/components/ui/dropdown-menu'
-import { Sidebar, SidebarContent, SidebarFooter, SidebarGroup, SidebarGroupLabel, SidebarHeader, SidebarMenu, SidebarMenuButton, SidebarMenuItem, SidebarMenuSub, SidebarMenuSubButton, SidebarMenuSubItem, useSidebar } from '~/components/ui/sidebar'
+import { Sidebar, SidebarContent, SidebarFooter, SidebarGroup, SidebarGroupLabel, SidebarHeader, SidebarMenu, SidebarMenuButton, SidebarMenuItem, useSidebar } from '~/components/ui/sidebar'
+import { NavBuilder } from '~/components/ui/sidebar-nav-builder'
 import { TwemojiFlag } from '~/components/ui/twemoji'
 import { navigation } from '~/config/navigation'
 import { useAuthQuery, useSignOutMutation } from '~/services/auth.query'
 import { useI18nQuery, useSetLocaleMutation } from '~/services/i18n.query'
 
-export function AppSidebar(props: ComponentProps<typeof Sidebar>) {
+function AppSidebar(props: ComponentProps<typeof Sidebar>) {
   const t = useTranslations()
 
   const theme = useTheme()
@@ -55,41 +55,7 @@ export function AppSidebar(props: ComponentProps<typeof Sidebar>) {
         </SidebarMenu>
       </SidebarHeader>
       <SidebarContent>
-        {navigation.map((group) => (
-          <SidebarGroup key={group.name}>
-            <SidebarGroupLabel>
-              {t(group.name)}
-            </SidebarGroupLabel>
-            <SidebarMenu>
-              {group.items.map((menu) => (
-                <Collapsible key={menu.name} asChild defaultOpen className='group/collapsible'>
-                  <SidebarMenuItem>
-                    <CollapsibleTrigger asChild>
-                      <SidebarMenuButton>
-                        <menu.icon />
-                        <span>{t(menu.name)}</span>
-                        <LuChevronRight className='ml-auto transition-transform duration-200 group-data-[state=open]/collapsible:rotate-90' />
-                      </SidebarMenuButton>
-                    </CollapsibleTrigger>
-                    <CollapsibleContent>
-                      <SidebarMenuSub>
-                        {menu.items.map((item) => (
-                          <SidebarMenuSubItem key={item.name}>
-                            <SidebarMenuSubButton asChild>
-                              <Link to={item.link}>
-                                {t((item.name))}
-                              </Link>
-                            </SidebarMenuSubButton>
-                          </SidebarMenuSubItem>
-                        ))}
-                      </SidebarMenuSub>
-                    </CollapsibleContent>
-                  </SidebarMenuItem>
-                </Collapsible>
-              ))}
-            </SidebarMenu>
-          </SidebarGroup>
-        ))}
+        <NavBuilder navigation={navigation} />
         {/* <SidebarMenu>
           {Array.from({ length: 50 }).map((_, i) => (
             <SidebarMenuItem key={i}>
@@ -218,3 +184,5 @@ export function AppSidebar(props: ComponentProps<typeof Sidebar>) {
     </Sidebar>
   )
 }
+
+export { AppSidebar }
