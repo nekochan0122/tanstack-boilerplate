@@ -39,8 +39,8 @@ export function AppHeader() {
               const hasNext = idx + 1 < paths.length
 
               const key = `navigation.${path}` as TranslateKeys
+              const link = `/${path}` as InternalLink
               const name = t.has(key) ? t(key) : path
-              const lnik = `/${path}` as InternalLink
 
               return (
                 <Fragment key={path}>
@@ -51,7 +51,7 @@ export function AppHeader() {
                       </BreadcrumbPage>
                     ) : (
                       <BreadcrumbLink asChild>
-                        <Link to={lnik} >
+                        <Link to={link} >
                           {name}
                         </Link>
                       </BreadcrumbLink>
