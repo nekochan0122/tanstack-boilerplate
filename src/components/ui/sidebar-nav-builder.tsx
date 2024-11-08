@@ -1,17 +1,13 @@
-import { Link } from '@tanstack/react-router'
 import { LuChevronRight } from 'react-icons/lu'
 import { useTranslations } from 'use-intl'
 import type { IconType } from 'react-icons'
 import type { Simplify } from 'type-fest'
 
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '~/components/ui/collapsible'
+import { Link } from '~/components/ui/link'
 import { SidebarGroup, SidebarGroupLabel, SidebarMenu, SidebarMenuButton, SidebarMenuItem, SidebarMenuSub, SidebarMenuSubButton, SidebarMenuSubItem } from '~/components/ui/sidebar'
+import type { ValidLink } from '~/components/ui/link'
 import type { TranslateKeys } from '~/libs/i18n'
-import type { FileRouteTypes } from '~/route-tree.gen'
-
-type InternalLink = Exclude<FileRouteTypes['to'], ''>
-
-type ExternalLink = `http${'s' | ''}://${string}`
 
 type NavItem = NavItemGroup | NavItemMenu | NavItemLink
 
@@ -36,7 +32,7 @@ type NavItemMenu = NavItemBase<{
 
 type NavItemLink = NavItemBase<{
   type: 'link'
-  link: InternalLink | ExternalLink
+  link: ValidLink
 }>
 
 type SidebarNavBuilderProps = {
@@ -86,15 +82,9 @@ function SidebarNavBuilder({ navigation }: SidebarNavBuilderProps) {
             return (
               <SidebarMenuSubItem key={item.name}>
                 <SidebarMenuSubButton asChild>
-                  {isExternalLink(item.link) ? (
-                    <a href={item.link} target='_blank' rel='noreferrer noopener'>
-                      {t(item.name)}
-                    </a>
-                  ) : (
-                    <Link to={item.link}>
-                      {t(item.name)}
-                    </Link>
-                  )}
+                  <Link to={item.link}>
+                    {t(item.name)}
+                  </Link>
                 </SidebarMenuSubButton>
               </SidebarMenuSubItem>
             )
@@ -106,10 +96,6 @@ function SidebarNavBuilder({ navigation }: SidebarNavBuilderProps) {
       })}
     </>
   )
-}
-
-function isExternalLink(link: InternalLink | ExternalLink): link is ExternalLink {
-  return typeof link === 'string' && link.startsWith('http')
 }
 
 export { SidebarNavBuilder }

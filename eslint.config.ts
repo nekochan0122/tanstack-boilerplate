@@ -46,6 +46,7 @@ export default tseslint.config(
     ],
     rules: {
       'jsx-a11y/heading-has-content': 'off',
+      'jsx-a11y/anchor-has-content': 'off',
     },
   },
   {

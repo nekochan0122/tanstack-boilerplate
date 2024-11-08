@@ -1,4 +1,4 @@
-import { createFileRoute, Link, useSearch } from '@tanstack/react-router'
+import { createFileRoute, useSearch } from '@tanstack/react-router'
 import { toast } from 'sonner'
 import { useTranslations } from 'use-intl'
 
@@ -6,6 +6,7 @@ import { createBasicFormBuilder } from '~/components/form/basic'
 import { Button } from '~/components/ui/button'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '~/components/ui/card'
 import { useForm } from '~/components/ui/form'
+import { Link } from '~/components/ui/link'
 import { Separator } from '~/components/ui/separator'
 import { socialProviders } from '~/config/social-provider'
 import { cx } from '~/libs/utils'
