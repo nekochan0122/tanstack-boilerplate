@@ -24,7 +24,6 @@ const privateSchema = createEnvSchema('Private', {
   DISCORD_CLIENT_SECRET: z.string(),
   GITHUB_CLIENT_ID: z.string(),
   GITHUB_CLIENT_SECRET: z.string(),
-  RESEND_API_KEY: z.string(),
 })
 
 function parseEnv() {
