@@ -42,7 +42,7 @@ function AppSidebar(props: ComponentProps<typeof Sidebar>) {
       </SidebarHeader>
       <SidebarContent>
         <ScrollArea>
-          <SidebarNavBuilder navigation={navigation} />
+          <SidebarNavBuilder {...{ navigation }} />
         </ScrollArea>
       </SidebarContent>
       <SidebarFooter>
