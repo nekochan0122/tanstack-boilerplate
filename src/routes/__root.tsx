@@ -87,11 +87,11 @@ function RootComponent() {
       <SidebarProvider>
         <AppSidebar />
         <SidebarInset>
-          <div className='flex min-h-screen flex-col'>
+          <div className='flex h-full flex-col'>
             <AppHeader />
-            <main className='flex flex-1 flex-col items-center px-2 py-8'>
+            <div className='flex h-full flex-1 flex-col items-center px-2'>
               <Outlet />
-            </main>
+            </div>
           </div>
         </SidebarInset>
       </SidebarProvider>
