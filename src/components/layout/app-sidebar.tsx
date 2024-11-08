@@ -1,5 +1,5 @@
 import { Link } from '@tanstack/react-router'
-import { LuCheck, LuChevronsUpDown, LuCommand, LuLanguages, LuLaptop, LuLogOut, LuMoon, LuMoreHorizontal, LuPalette, LuSun, LuUser } from 'react-icons/lu'
+import { LuCheck, LuChevronsUpDown, LuCommand, LuKeyRound, LuLanguages, LuLaptop, LuLogOut, LuMoon, LuMoreHorizontal, LuPalette, LuShieldCheck, LuSun, LuUser } from 'react-icons/lu'
 import { toast } from 'sonner'
 import { useTranslations } from 'use-intl'
 import type { ComponentProps } from 'react'
@@ -13,10 +13,10 @@ import { ScrollArea } from '~/components/ui/scroll-area'
 import { Sidebar, SidebarContent, SidebarFooter, SidebarGroup, SidebarGroupLabel, SidebarHeader, SidebarMenu, SidebarMenuButton, SidebarMenuItem, useSidebar } from '~/components/ui/sidebar'
 import { SidebarNavBuilder } from '~/components/ui/sidebar-nav-builder'
 import { TwemojiFlag } from '~/components/ui/twemoji'
-import { navigation } from '~/config/navigation'
 import { useAuthQuery, useSignOutMutation } from '~/services/auth.query'
 import { useI18nQuery, useSetLocaleMutation } from '~/services/i18n.query'
 import type { Theme } from '~/components/theme'
+import type { NavItem } from '~/components/ui/sidebar-nav-builder'
 import type { SupportedLocales } from '~/libs/i18n'
 
 type ThemeOption = { value: Theme; Icon: IconType }
@@ -32,6 +32,66 @@ const themeOptions: ThemeOption[] = [
 const languageOptions: LanguageOption[] = [
   { locale: 'en', countryCode: 'US', label: 'English' },
   { locale: 'zh-tw', countryCode: 'TW', label: '繁體中文' },
+]
+
+const navigation: NavItem[] = [
+  {
+    type: 'group',
+    name: 'navigation.playground',
+    items: [
+      {
+        type: 'menu',
+        name: 'navigation.authentication',
+        icon: LuKeyRound,
+        items: [
+          {
+            type: 'link',
+            name: 'navigation.sign-in',
+            link: '/sign-in',
+          },
+          {
+            type: 'link',
+            name: 'navigation.sign-up',
+            link: '/sign-up',
+          },
+        ],
+      },
+      {
+        type: 'menu',
+        name: 'navigation.user',
+        icon: LuUser,
+        items: [
+          {
+            type: 'link',
+            name: 'navigation.profile',
+            link: '/user/profile',
+          },
+          {
+            type: 'link',
+            name: 'navigation.account-settings',
+            link: '/user/account-settings',
+          },
+        ],
+      },
+      {
+        type: 'menu',
+        name: 'navigation.admin',
+        icon: LuShieldCheck,
+        items: [
+          {
+            type: 'link',
+            name: 'navigation.dashboard',
+            link: '/admin/dashboard',
+          },
+          {
+            type: 'link',
+            name: 'navigation.user-management',
+            link: '/admin/user-management',
+          },
+        ],
+      },
+    ],
+  },
 ]
 
 function AppSidebar(props: ComponentProps<typeof Sidebar>) {
