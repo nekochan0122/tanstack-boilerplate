@@ -19,9 +19,16 @@ import type { Theme } from '~/components/theme'
 import type { NavItem } from '~/components/ui/sidebar-nav-builder'
 import type { SupportedLocales } from '~/libs/i18n'
 
-type ThemeOption = { value: Theme; Icon: IconType }
+type ThemeOption = {
+  value: Theme
+  Icon: IconType
+}
 
-type LanguageOption = { locale: SupportedLocales; countryCode: Country; label: string }
+type LanguageOption = {
+  locale: SupportedLocales
+  countryCode: Country
+  label: string
+}
 
 const themeOptions: ThemeOption[] = [
   { value: 'system', Icon: LuLaptop },
