@@ -19,7 +19,7 @@ export type Messages = typeof enMessages
 
 export type SupportedLocales = typeof supportedLocales[number]
 
-export type Translator = InferRouteContext<'/'>['i18n']['t']
+export type Translator = InferRouteContext<'/'>['i18n']['translator']
 
 export type TranslateKeys = Parameters<Translator>[0]
 
