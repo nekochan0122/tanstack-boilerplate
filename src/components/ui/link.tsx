@@ -21,13 +21,13 @@ type LinkProps<To extends ValidLink> = (
 
 function Link<To extends ValidLink>(props: LinkProps<To>) {
   switch (true) {
-    case isInternalLink(props):
+    case isInternalLinkProps(props):
       return <RouterLink {...props} />
 
-    case isExternalLink(props):
+    case isExternalLinkProps(props):
       return <a href={props.to} target='_blank' rel='noopener noreferrer' {...props} />
 
-    case isAnchorLink(props):
+    case isAnchorLinkProps(props):
       return <a href={props.to} {...props} />
 
     default:
@@ -35,17 +35,30 @@ function Link<To extends ValidLink>(props: LinkProps<To>) {
   }
 }
 
-function isInternalLink(props: LinkProps<ValidLink>): props is LinkProps<InternalLink> {
-  return typeof props.to === 'string' && props.to.startsWith('/')
+function isInternalLink(to: ValidLink): to is InternalLink {
+  return typeof to === 'string' && to.startsWith('/')
 }
 
-function isExternalLink(props: LinkProps<ValidLink>): props is LinkProps<ExternalLink> {
-  return typeof props.to === 'string' && props.to.startsWith('http')
+function isExternalLink(to: ValidLink): to is ExternalLink {
+  return typeof to === 'string' && to.startsWith('http')
 }
 
-function isAnchorLink(props: LinkProps<ValidLink>): props is LinkProps<AnchorLink> {
-  return typeof props.to === 'string' && props.to.startsWith('#')
+function isAnchorLink(to: ValidLink): to is AnchorLink {
+  return typeof to === 'string' && to.startsWith('#')
+}
+
+function isInternalLinkProps(props: LinkProps<ValidLink>): props is LinkProps<InternalLink> {
+  return isInternalLink(props.to)
+}
+
+function isExternalLinkProps(props: LinkProps<ValidLink>): props is LinkProps<ExternalLink> {
+  return isExternalLink(props.to)
+}
+
+function isAnchorLinkProps(props: LinkProps<ValidLink>): props is LinkProps<AnchorLink> {
+  return isAnchorLink(props.to)
 }
 
 export { Link }
+export { isAnchorLink, isExternalLink, isInternalLink }
 export type { AnchorLink, ExternalLink, InternalLink, ValidLink }
