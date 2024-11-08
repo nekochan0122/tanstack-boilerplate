@@ -29,6 +29,9 @@ function Link<To extends ValidLink>(props: LinkProps<To>) {
 
     case isAnchorLink(props):
       return <a href={props.to} {...props} />
+
+    default:
+      throw new Error(`Invalid link type: ${props.to}`)
   }
 }
 
