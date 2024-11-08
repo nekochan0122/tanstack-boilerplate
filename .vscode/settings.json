@@ -6,6 +6,12 @@
     "source.fixAll.eslint": "always"
   },
 
+  "eslint.options": {
+    "flags": ["unstable_ts_config"]
+  },
+
+  "typescript.tsdk": "node_modules/typescript/lib",
+
   "files.watcherExclude": {
     "**/route-tree.gen.ts": true
   },
@@ -31,8 +37,4 @@
     ["cva\\(([^)]*)\\)", "[\"'`]([^\"'`]*).*?[\"'`]"],
     ["cx\\(([^)]*)\\)", "(?:'|\"|`)([^']*)(?:'|\"|`)"]
   ],
-
-  "eslint.options": {
-    "flags": ["unstable_ts_config"]
-  }
 }
