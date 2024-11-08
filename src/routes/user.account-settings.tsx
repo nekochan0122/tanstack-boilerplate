@@ -10,10 +10,10 @@ import { useSetUserMutation } from '~/services/user.query'
 import { setUserSchema } from '~/services/user.schema'
 
 export const Route = createFileRoute('/user/account-settings')({
-  component: RouteComponent,
+  component: AccountSettingsRoute,
 })
 
-function RouteComponent() {
+function AccountSettingsRoute() {
   const t = useTranslations()
 
   const authedQuery = useAuthedQuery()

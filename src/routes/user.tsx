@@ -24,9 +24,9 @@ export const Route = createFileRoute('/user')({
       })
     }
   },
-  component: RouteComponent,
+  component: UserLayout,
 })
 
-function RouteComponent() {
+function UserLayout() {
   return <Outlet />
 }

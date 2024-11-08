@@ -34,9 +34,9 @@ export const Route = createFileRoute('/admin')({
       })
     }
   },
-  component: RouteComponent,
+  component: AdminLayout,
 })
 
-function RouteComponent() {
+function AdminLayout() {
   return <Outlet />
 }

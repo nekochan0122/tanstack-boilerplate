@@ -4,10 +4,10 @@ import { Avatar, AvatarFallback, AvatarImage } from '~/components/ui/avatar'
 import { useAuthedQuery } from '~/services/auth.query'
 
 export const Route = createFileRoute('/user/profile')({
-  component: RouteComponent,
+  component: ProfileRoute,
 })
 
-function RouteComponent() {
+function ProfileRoute() {
   const authedQuery = useAuthedQuery()
 
   return (
