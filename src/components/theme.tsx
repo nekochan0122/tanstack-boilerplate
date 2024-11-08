@@ -11,14 +11,14 @@ type Theme = 'dark' | 'light' | 'system'
 
 type ResolvedTheme = Exclude<Theme, 'system'>
 
-type Context = {
+type ThemeContext = {
   value: Theme
   resolved: ResolvedTheme
   set: (theme: Theme) => void
   toggle: () => void
 }
 
-const [ThemeContextProvider, useTheme] = createContextFactory<Context>({
+const [ThemeContextProvider, useTheme] = createContextFactory<ThemeContext>({
   errorMessage: 'useTheme must be used within a ThemeProvider',
 })
 
@@ -59,7 +59,7 @@ function ThemeProvider({ children }: ThemeProviderProps) {
     document.documentElement.style.colorScheme = resolvedTheme
   }, [resolvedTheme])
 
-  const context: Context = {
+  const context: ThemeContext = {
     value: theme,
     resolved: resolvedTheme,
     set: setTheme,

@@ -4,7 +4,9 @@ import type { Config } from 'tailwindcss'
 import shadcnPreset from './plugins/tailwind/shadcn-preset'
 
 export default {
-  presets: [shadcnPreset({ color: 'zinc' })],
+  presets: [
+    shadcnPreset({ color: 'zinc' }),
+  ],
   content: [
     './src/components/**/*.tsx',
     './src/routes/**/*.tsx',

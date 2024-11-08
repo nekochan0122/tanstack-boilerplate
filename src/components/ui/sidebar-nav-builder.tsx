@@ -39,11 +39,11 @@ type NavItemLink = NavItemBase<{
   link: InternalLink | ExternalLink
 }>
 
-type NavBuilderProps = {
+type SidebarNavBuilderProps = {
   navigation: NavItem[]
 }
 
-function NavBuilder({ navigation }: NavBuilderProps) {
+function SidebarNavBuilder({ navigation }: SidebarNavBuilderProps) {
   const t = useTranslations()
 
   return (
@@ -57,7 +57,7 @@ function NavBuilder({ navigation }: NavBuilderProps) {
                   {t(item.name)}
                 </SidebarGroupLabel>
                 <SidebarMenu>
-                  <NavBuilder navigation={item.items} />
+                  <SidebarNavBuilder navigation={item.items} />
                 </SidebarMenu>
               </SidebarGroup>
             )
@@ -75,7 +75,7 @@ function NavBuilder({ navigation }: NavBuilderProps) {
                   </CollapsibleTrigger>
                   <CollapsibleContent>
                     <SidebarMenuSub>
-                      <NavBuilder navigation={item.items} />
+                      <SidebarNavBuilder navigation={item.items} />
                     </SidebarMenuSub>
                   </CollapsibleContent>
                 </SidebarMenuItem>
@@ -112,5 +112,5 @@ function isExternalLink(link: InternalLink | ExternalLink): link is ExternalLink
   return typeof link === 'string' && link.startsWith('http')
 }
 
-export { NavBuilder }
+export { SidebarNavBuilder }
 export type { NavItem }
