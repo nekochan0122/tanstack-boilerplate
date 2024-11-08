@@ -48,4 +48,4 @@ function isAnchorLink(props: LinkProps<ValidLink>): props is LinkProps<AnchorLin
 }
 
 export { Link }
-export type { ValidLink }
+export type { AnchorLink, ExternalLink, InternalLink, ValidLink }
