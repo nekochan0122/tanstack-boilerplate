@@ -13,6 +13,7 @@ A fully **type-safe** boilerplate with a focus on UX and DX, complete with multi
 - [TanStack Router](https://tanstack.com/router/latest)
 - [TanStack Query](https://tanstack.com/query/latest)
 - [TanStack Form](https://tanstack.com/form/latest)
+= [TanStack Virtual](https://tanstack.com/virtual/latest)
 - [Better Auth](https://www.better-auth.com/)
 - [Shadcn UI](https://ui.shadcn.com/)
 - [Prisma](https://www.prisma.io/)
