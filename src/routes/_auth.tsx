@@ -1,5 +1,5 @@
 import { createFileRoute, Outlet, redirect } from '@tanstack/react-router'
-import { zodSearchValidator } from '@tanstack/react-router-zod-adapter'
+import { zodSearchValidator } from '@tanstack/router-zod-adapter'
 import { toast } from 'sonner'
 import { z } from 'zod'
 

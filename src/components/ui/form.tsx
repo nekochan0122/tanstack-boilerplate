@@ -1,7 +1,7 @@
 // https://github.com/TanStack/form/blob/demo-internal-components/examples/react/custom-component-wrapper/src/index.tsx
 
 import { useForm } from '@tanstack/react-form'
-import { zodValidator } from '@tanstack/react-form-zod-adapter'
+import { zodValidator } from '@tanstack/zod-form-adapter'
 import { isEqual } from 'es-toolkit'
 import type { DeepKeys, DeepValue, FieldApi, FieldOptions, FormApi, FormOptions, ReactFormApi, Validator } from '@tanstack/react-form'
 import type { ComponentProps } from 'react'
