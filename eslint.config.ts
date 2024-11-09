@@ -1,9 +1,9 @@
 import module from 'node:module'
 
 import nekoConfig from '@nekochan0122/config/eslint'
-import eslintPluginTanStackQuery from '@tanstack/eslint-plugin-query'
-import eslintPluginTanStackRouter from '@tanstack/eslint-plugin-router'
 import eslintPluginTailwind from 'eslint-plugin-tailwindcss'
+import eslintPluginTanStackQuery from 'eslint-plugin-tanstack-query'
+import eslintPluginTanStackRouter from 'eslint-plugin-tanstack-router'
 import globals from 'globals'
 import tseslint from 'typescript-eslint'
 

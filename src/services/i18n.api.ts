@@ -1,5 +1,5 @@
 import { createServerFn } from '@tanstack/start'
-import { lookup } from 'doc999tor-fast-geoip'
+// import { lookup } from 'geoip'
 import { getHeader } from 'vinxi/http'
 
 import { defaultLocale, defaultTimeZone, detectLocale, parseAcceptLanguage } from '~/libs/i18n'
@@ -21,9 +21,10 @@ export const getI18n = createServerFn('GET', async () => {
   }
 
   if (!session.data['timeZone']) {
-    const ip = getHeader('x-forwarded-for')
-    const geo = await lookup(ip ?? '')
-    const timeZone = geo?.timezone || defaultTimeZone
+    // const ip = getHeader('x-forwarded-for')
+    // const geo = await lookup(ip ?? '')
+    // const timeZone = geo?.timezone || defaultTimeZone
+    const timeZone = defaultTimeZone
 
     await session.update({ timeZone })
   }
