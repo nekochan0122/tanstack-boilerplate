@@ -28,9 +28,13 @@ function SignInRoute() {
 
   const signInForm = useForm(signInSchema(t), {
     defaultValues: {
-      username: 'nekochan',
-      password: '12345678Ab!',
+      username: '',
+      password: '',
       dontRememberMe: false,
+      ...(import.meta.env.DEV && {
+        username: 'nekochan',
+        password: '12345678Ab!',
+      }),
     },
     onSubmit: async ({ value }) => {
       // TODO: error handling

@@ -23,10 +23,16 @@ function SignUpRoute() {
 
   const signUpForm = useForm(signUpSchema(t), {
     defaultValues: {
-      name: 'NekoChan',
-      username: 'nekochan',
-      password: '12345678Ab!',
-      email: 'example@example.com',
+      name: '',
+      username: '',
+      password: '',
+      email: '',
+      ...(import.meta.env.DEV && {
+        name: 'NekoChan',
+        username: 'nekochan',
+        password: '12345678Ab!',
+        email: 'example@example.com',
+      }),
     },
     onSubmit: async ({ value }) => {
       // TODO: error handling
