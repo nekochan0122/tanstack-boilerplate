@@ -32,20 +32,29 @@ export const useAuthedQuery = () => {
   return authQuery as UseSuspenseQueryResult<Authed>
 }
 
-export const useInvalidateAuth = () => {
+type InvalidateOptions = {
+  callbackURL?: string
+}
+
+export const useAuthInvalidate = (invalidateOptions?: InvalidateOptions) => {
   const router = useRouter()
   const queryClient = useQueryClient()
 
-  async function invalidateAuth() {
+  async function invalidate() {
     await queryClient.invalidateQueries(getAuthQueryOptions())
+
+    if (invalidateOptions?.callbackURL) {
+      await router.navigate({ to: invalidateOptions?.callbackURL })
+    }
+
     await router.invalidate()
   }
 
-  return invalidateAuth
+  return invalidate
 }
 
-export const useSignUpMutation = () => {
-  const invalidateAuth = useInvalidateAuth()
+export const useSignUpMutation = (invalidateOptions?: InvalidateOptions) => {
+  const invalidateAuth = useAuthInvalidate(invalidateOptions)
 
   const signUpMutation = useMutation({
     mutationFn: signUp,
@@ -55,8 +64,8 @@ export const useSignUpMutation = () => {
   return signUpMutation
 }
 
-export const useSignInMutation = () => {
-  const invalidateAuth = useInvalidateAuth()
+export const useSignInMutation = (invalidateOptions?: InvalidateOptions) => {
+  const invalidateAuth = useAuthInvalidate(invalidateOptions)
 
   const signInMutation = useMutation({
     mutationFn: signIn,
@@ -82,8 +91,8 @@ export const useSignInSocialMutation = () => {
   return signInMutation
 }
 
-export const useSignOutMutation = () => {
-  const invalidateAuth = useInvalidateAuth()
+export const useSignOutMutation = (invalidateOptions?: InvalidateOptions) => {
+  const invalidateAuth = useAuthInvalidate(invalidateOptions)
 
   const signOutMutation = useMutation({
     mutationFn: signOut,

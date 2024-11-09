@@ -23,7 +23,7 @@ function SignInRoute() {
 
   const search = useSearch({ from: '/_auth' })
 
-  const signInMutation = useSignInMutation()
+  const signInMutation = useSignInMutation(search)
   const signInSocialMutation = useSignInSocialMutation()
 
   const signInForm = useForm(signInSchema(t), {

@@ -1,4 +1,4 @@
-import { createFileRoute } from '@tanstack/react-router'
+import { createFileRoute, useSearch } from '@tanstack/react-router'
 import { toast } from 'sonner'
 import { useTranslations } from 'use-intl'
 
@@ -17,7 +17,9 @@ export const Route = createFileRoute('/_auth/sign-up')({
 function SignUpRoute() {
   const t = useTranslations()
 
-  const signUpMutation = useSignUpMutation()
+  const search = useSearch({ from: '/_auth' })
+
+  const signUpMutation = useSignUpMutation(search)
 
   const signUpForm = useForm(signUpSchema(t), {
     defaultValues: {
