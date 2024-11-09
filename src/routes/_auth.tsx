@@ -11,12 +11,12 @@ export const Route = createFileRoute('/_auth')({
       callbackURL: z.string().default('/'),
     }),
   ),
-  beforeLoad: ({ context, search }) => {
+  beforeLoad: ({ context, search, preload }) => {
     if (context.auth.isAuthenticated) {
-
-      logger.info('Already authenticated, redirecting to callback URL')
-
-      toast.error(context.i18n.translator('auth.already-authenticated-redirecting'))
+      if (!preload) {
+        logger.info('Already authenticated, redirecting to callback URL')
+        toast.error(context.i18n.translator('auth.already-authenticated-redirecting'))
+      }
 
       throw redirect({
         to: search.callbackURL,

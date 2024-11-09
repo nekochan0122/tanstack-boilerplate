@@ -28,6 +28,7 @@ export function createRouter() {
     search: {
       strict: true,
     },
+    defaultPreload: 'intent',
   })
 
   return routerWithQueryClient(router, queryClient)
