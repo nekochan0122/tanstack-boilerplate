@@ -69,7 +69,7 @@ export const Route = createRootRouteWithContext<RouterContext>()({
   scripts: () => import.meta.env.PROD ? [] : [{
     type: 'module',
     children: /* js */ `
-      import RefreshRuntime from "/_build/@react-refresh";
+      import RefreshRuntime from "/_build/@react-refresh"
       RefreshRuntime.injectIntoGlobalHook(window)
       window.$RefreshReg$ = () => {}
       window.$RefreshSig$ = () => (type) => type
