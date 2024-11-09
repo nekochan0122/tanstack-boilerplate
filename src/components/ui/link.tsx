@@ -1,4 +1,5 @@
 import { Link as RouterLink } from '@tanstack/react-router'
+import type { LinkComponentProps, RegisteredRouter } from '@tanstack/react-router'
 import type { ComponentProps } from 'react'
 
 import type { FileRouteTypes } from '~/route-tree.gen'
@@ -13,7 +14,7 @@ type ValidLink = InternalLink | ExternalLink | AnchorLink
 
 type LinkProps<To extends ValidLink> = (
   To extends InternalLink
-    ? ComponentProps<typeof RouterLink>
+    ? LinkComponentProps<'a', RegisteredRouter, string, To>
     : ComponentProps<'a'>
 ) & {
   to: To
