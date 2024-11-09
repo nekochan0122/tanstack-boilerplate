@@ -35,16 +35,16 @@ function Link<To extends ValidLink>(props: LinkProps<To>) {
   }
 }
 
-function isInternalLink(to: string): to is InternalLink {
-  return typeof to === 'string' && to.startsWith('/')
+function isInternalLink(link: string): link is InternalLink {
+  return typeof link === 'string' && link.startsWith('/')
 }
 
-function isExternalLink(to: string): to is ExternalLink {
-  return typeof to === 'string' && to.startsWith('http')
+function isExternalLink(link: string): link is ExternalLink {
+  return typeof link === 'string' && link.startsWith('http')
 }
 
-function isAnchorLink(to: string): to is AnchorLink {
-  return typeof to === 'string' && to.startsWith('#')
+function isAnchorLink(link: string): link is AnchorLink {
+  return typeof link === 'string' && link.startsWith('#')
 }
 
 function isInternalLinkProps(props: LinkProps<ValidLink>): props is LinkProps<InternalLink> {
