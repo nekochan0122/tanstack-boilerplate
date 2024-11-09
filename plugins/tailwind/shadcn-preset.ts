@@ -1,5 +1,5 @@
 import plugin from 'tailwindcss/plugin.js'
-import animatePlugin from 'tailwindcss-plugin-animate'
+import animatePlugin from 'tailwindcss-animate'
 import type { Config } from 'tailwindcss'
 import type { SetOptional } from 'type-fest'
 

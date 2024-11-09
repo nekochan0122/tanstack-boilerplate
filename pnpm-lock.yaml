@@ -261,9 +261,9 @@ importers:
       tailwindcss:
         specifier: 3.4.14
         version: 3.4.14
-      tailwindcss-plugin-animate:
-        specifier: npm:tailwindcss-animate@^1.0.7
-        version: tailwindcss-animate@1.0.7(tailwindcss@3.4.14)
+      tailwindcss-animate:
+        specifier: ^1.0.7
+        version: 1.0.7(tailwindcss@3.4.14)
       type-fest:
         specifier: ^4.26.1
         version: 4.26.1
