@@ -17,8 +17,7 @@ export type InferAuthResponse<API extends AuthAPI> = SimplifyDeep<Awaited<Return
 
 export const auth = betterAuth({
   secret: process.env.AUTH_SECRET,
-  // FIXME: shouldn't be hardcoded
-  baseURL: 'http://localhost:3000',
+  baseURL: import.meta.env.VITE_APP_URL,
   database: prismaAdapter(prisma, {
     provider: 'postgresql',
   }),

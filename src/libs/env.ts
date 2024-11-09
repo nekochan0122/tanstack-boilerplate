@@ -11,6 +11,7 @@ const PUBLIC_ENV_PREFIX = 'VITE_' as const
 
 const publicSchema = createEnvSchema('Public', {
   VITE_APP_NAME: z.string(),
+  VITE_APP_URL: z.string(),
 })
 
 const privateSchema = createEnvSchema('Private', {
