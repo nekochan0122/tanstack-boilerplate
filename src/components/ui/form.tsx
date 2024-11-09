@@ -134,8 +134,7 @@ type SubmitProps = Except<ButtonProps, 'form'> & {
   allowDefaultValues?: boolean
 }
 
-function Submit({ form, allowDefaultValues = true, ...props }: SubmitProps) {
-  // eslint-disable-next-line react-compiler/react-compiler
+function Submit({ form, allowDefaultValues = import.meta.env.DEV, ...props }: SubmitProps) {
   const store = form.useStore()
   const isDefaultValues = isEqual(form.options.defaultValues, store.values)
 
