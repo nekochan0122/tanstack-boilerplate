@@ -35,15 +35,15 @@ function Link<To extends ValidLink>(props: LinkProps<To>) {
   }
 }
 
-function isInternalLink(to: ValidLink): to is InternalLink {
+function isInternalLink(to: string): to is InternalLink {
   return typeof to === 'string' && to.startsWith('/')
 }
 
-function isExternalLink(to: ValidLink): to is ExternalLink {
+function isExternalLink(to: string): to is ExternalLink {
   return typeof to === 'string' && to.startsWith('http')
 }
 
-function isAnchorLink(to: ValidLink): to is AnchorLink {
+function isAnchorLink(to: string): to is AnchorLink {
   return typeof to === 'string' && to.startsWith('#')
 }
 
