@@ -11,7 +11,6 @@ import type { z } from 'zod'
 import { Button } from '~/components/ui/button'
 import { Label } from '~/components/ui/label'
 import { cx } from '~/libs/utils'
-import type { ButtonProps } from '~/components/ui/button'
 import type { Calendar } from '~/components/ui/calendar'
 import type { Checkbox } from '~/components/ui/checkbox'
 import type { Input } from '~/components/ui/input'
@@ -124,7 +123,7 @@ function Form({ form, className, ...props }: FormProps) {
   )
 }
 
-type SubmitProps = Except<ButtonProps, 'form'> & {
+type SubmitProps = Except<ComponentProps<typeof Button>, 'form'> & {
   form: AnyReactFormApiMerged
   allowDefaultValues?: boolean
 }

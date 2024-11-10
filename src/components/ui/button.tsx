@@ -53,4 +53,3 @@ function Button({ asChild, variant, size, className, ...props }: ButtonProps) {
 
 export { buttonVariants }
 export { Button }
-export type { ButtonProps }
