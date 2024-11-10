@@ -45,7 +45,7 @@ const app = defineConfig({
   },
   vite: {
     ssr: {
-      noExternal: [
+      external: [
         '@node-rs/argon2-wasm32-wasi',
       ],
     },

@@ -114,8 +114,8 @@ importers:
         specifier: ^1.7.7
         version: 1.7.7
       better-auth:
-        specifier: 0.8.1-beta.4
-        version: 0.8.1-beta.4
+        specifier: 0.8.1
+        version: 0.8.1
       class-variance-authority:
         specifier: ^0.7.0
         version: 0.7.0
@@ -129,8 +129,8 @@ importers:
         specifier: ^4.1.0
         version: 4.1.0
       es-toolkit:
-        specifier: ^1.26.1
-        version: 1.26.1
+        specifier: ^1.27.0
+        version: 1.27.0
       geoip:
         specifier: npm:doc999tor-fast-geoip@^1.1.273
         version: doc999tor-fast-geoip@1.1.273
@@ -2818,8 +2818,8 @@ packages:
   base64-js@1.5.1:
     resolution: {integrity: sha512-AKpaYlHn8t4SVbOHCy+b5+KKgvR4vrsD8vbvrbiQJps7fKDTkjkDry6ji0rUJjC0kzbNePLwzxq8iypo41qeWA==}
 
-  better-auth@0.8.1-beta.4:
-    resolution: {integrity: sha512-l+gIsr8lfkyue9dX+scpoZoLLyg9y0e6mfhEvrvxsok7vIdnHn8EMUiMaPebY9bqdfw90pQoKFNv7HFHiUbM/A==}
+  better-auth@0.8.1:
+    resolution: {integrity: sha512-AQRTiVyZ2gJiq2cZIXAHeLeEcXDyQvKkbpoJl4o+6cjJe1eJeP9hOwrxST+DfMqrSgklCgXN4pxcRsiCR7blrA==}
 
   better-call@0.2.14-beta.3:
     resolution: {integrity: sha512-lA54ETanzM0xUZnQt6lm3BdTr4gVDyAe1DNpCQSTYUnwnGGOmQG8ob0FYivVd0XHsHQK68r01GB5c6cUuu4llQ==}
@@ -3284,8 +3284,8 @@ packages:
     resolution: {integrity: sha512-QCOllgZJtaUo9miYBcLChTUaHNjJF3PYs1VidD7AwiEj1kYxKeQTctLAezAOH5ZKRH0g2IgPn6KwB4IT8iRpvA==}
     engines: {node: '>= 0.4'}
 
-  es-toolkit@1.26.1:
-    resolution: {integrity: sha512-E3H14lHWk8JpupVpIRA1gfNF4r953abHTFW+X1Rp7zl7eG37ksuthfEA4FinyVF/Y807vzzfQS1nubeZk2LTVA==}
+  es-toolkit@1.27.0:
+    resolution: {integrity: sha512-ETSFA+ZJArcuSCpzD2TjAy6UHpx4E4uqFsoDg9F/nTLogrLmVVZQ+zNxco5h7cWnA1nNak07IXsLcaSMih+ZPQ==}
 
   esbuild@0.20.2:
     resolution: {integrity: sha512-WdOOppmUNU+IbZ0PaDiTst80zjnrOkyJNHoKupIcVyU8Lvla3Ugx94VzkQ32Ijqd7UhHJy75gNWDMUekcrSJ6g==}
@@ -8052,7 +8052,7 @@ snapshots:
 
   base64-js@1.5.1: {}
 
-  better-auth@0.8.1-beta.4:
+  better-auth@0.8.1:
     dependencies:
       '@better-fetch/fetch': 1.1.12
       '@noble/ciphers': 0.6.0
@@ -8537,7 +8537,7 @@ snapshots:
       is-date-object: 1.0.5
       is-symbol: 1.0.4
 
-  es-toolkit@1.26.1: {}
+  es-toolkit@1.27.0: {}
 
   esbuild@0.20.2:
     optionalDependencies:
