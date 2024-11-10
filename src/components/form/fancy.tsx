@@ -48,11 +48,7 @@ function FancyFormTextInput<
             <FancyFieldBody>
               <FancyFieldLabel field={field} label={label} />
               <FancyFieldDesc>{description}</FancyFieldDesc>
-              <Input
-                {...controller}
-                {...inputProps}
-                className={cx(inputProps?.className)}
-              />
+              <Input {...controller} {...inputProps} />
             </FancyFieldBody>
             <FancyFieldFooter>
               <FieldInfo field={field} placeholder={info} />
@@ -82,11 +78,7 @@ function FancyFormPasswordInput<
             <FancyFieldBody>
               <FancyFieldLabel field={field} label={label} />
               <FancyFieldDesc>{description}</FancyFieldDesc>
-              <InputPassword
-                {...controller}
-                {...inputProps}
-                className={cx(inputProps?.className)}
-              />
+              <InputPassword {...controller} {...inputProps} />
             </FancyFieldBody>
             <FancyFieldFooter>
               <FieldInfo field={field} placeholder={info} />
@@ -121,11 +113,7 @@ function FancyFormCheckbox<
               <FancyFieldLabel field={field} label={label} />
               <div className='flex flex-row-reverse items-center justify-end gap-3'>
                 <FancyFieldDesc>{description}</FancyFieldDesc>
-                <Checkbox
-                  {...controller}
-                  {...checkboxProps}
-                  className={cx( checkboxProps?.className)}
-                />
+                <Checkbox {...controller} {...checkboxProps} />
               </div>
             </FancyFieldBody>
             <FancyFieldFooter>

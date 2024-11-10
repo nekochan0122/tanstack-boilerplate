@@ -49,11 +49,7 @@ function BasicFormTextInput<
         return (
           <BasicField>
             <BasicFieldLabel field={field} label={label} />
-            <Input
-              {...controller}
-              {...inputProps}
-              className={cx(inputProps?.className)}
-            />
+            <Input {...controller} {...inputProps} />
             <FieldInfo field={field} placeholder='' />
           </BasicField>
         )
@@ -82,12 +78,7 @@ function BasicFormPhoneInput<
         return (
           <BasicField>
             <BasicFieldLabel field={field} label={label} />
-            <InputPhone
-              {...controller}
-              {...inputPhoneProps}
-              type='tel'
-              className={cx(inputPhoneProps?.className)}
-            />
+            <InputPhone type='tel' {...controller} {...inputPhoneProps} />
             <FieldInfo field={field} />
           </BasicField>
         )
@@ -112,12 +103,7 @@ function BasicFormNumberInput<
         return (
           <BasicField>
             <BasicFieldLabel field={field} label={label} />
-            <Input
-              {...controller}
-              {...inputProps}
-              type='number'
-              className={cx(inputProps?.className)}
-            />
+            <Input type='number' {...controller} {...inputProps} />
             <FieldInfo field={field} placeholder='' />
           </BasicField>
         )
@@ -142,11 +128,7 @@ function BasicFormPasswordInput<
         return (
           <BasicField>
             <BasicFieldLabel field={field} label={label} />
-            <InputPassword
-              {...controller}
-              {...inputProps}
-              className={cx(inputProps?.className)}
-            />
+            <InputPassword {...controller} {...inputProps} />
             <FieldInfo field={field} />
           </BasicField>
         )
@@ -177,14 +159,8 @@ function BasicFormCheckbox<
           <BasicField>
             <BasicFieldLabel field={field} label={label} />
             <div className='flex items-center gap-3'>
-              <Checkbox
-                {...controller}
-                {...checkboxProps}
-                className={cx(checkboxProps?.className)}
-              />
-              <p
-                className='text-muted-foreground'
-              >
+              <Checkbox {...controller} {...checkboxProps} />
+              <p className='text-muted-foreground'>
                 {description}
               </p>
             </div>
