@@ -85,12 +85,7 @@ const fieldController = {
         }
       })()
 
-      if (isOptional) {
-        field.handleChange(isEmpty ? undefined : inputValue)
-      }
-      else {
-        field.handleChange(inputValue)
-      }
+      field.handleChange(isOptional && isEmpty ? undefined : inputValue)
     },
   }) satisfies ComponentProps<typeof Input>,
   phone: (form, field) => ({
