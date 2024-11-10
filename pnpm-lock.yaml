@@ -134,6 +134,9 @@ importers:
       geoip:
         specifier: npm:doc999tor-fast-geoip@^1.1.273
         version: doc999tor-fast-geoip@1.1.273
+      http-status:
+        specifier: ^2.0.0
+        version: 2.0.0
       react:
         specifier: 19.0.0-rc-5c56b873-20241107
         version: 19.0.0-rc-5c56b873-20241107
@@ -3750,6 +3753,10 @@ packages:
   http-shutdown@1.2.2:
     resolution: {integrity: sha512-S9wWkJ/VSY9/k4qcjG318bqJNruzE4HySUhFYknwmu6LBP97KLLfwNf+n4V1BHurvFNkSKLFnK/RsuUnRTf9Vw==}
     engines: {iojs: '>= 1.0.0', node: '>= 0.12.0'}
+
+  http-status@2.0.0:
+    resolution: {integrity: sha512-fmtDiMjseYigum9OwVYJD2RD6tRYV4tzRrT92/aLSOS2bNPvz3jx8aHFqJ4Nq4ZLydalwuyh2Q6VuHg7qbCbJQ==}
+    engines: {node: '>= 0.4.0'}
 
   https-proxy-agent@5.0.1:
     resolution: {integrity: sha512-dFcAjpTQFgoLMzC2VwU+C/CbS7uRL0lWmxDITmqm7C+7F0Odmj6s9l6alZc6AELXhrnggM2CeWSXHGOdX2YtwA==}
@@ -9198,6 +9205,8 @@ snapshots:
       - debug
 
   http-shutdown@1.2.2: {}
+
+  http-status@2.0.0: {}
 
   https-proxy-agent@5.0.1:
     dependencies:

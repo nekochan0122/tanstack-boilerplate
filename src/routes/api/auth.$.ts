@@ -1,4 +1,5 @@
 import { createAPIFileRoute } from '@tanstack/start/api'
+import { status } from 'http-status'
 import type { StartAPIMethodCallback } from '@tanstack/start/api'
 
 import { auth } from '~/libs/auth'
@@ -21,7 +22,7 @@ function createAuthHandler() {
 
     if (!isAllowed) {
       return new Response('Not allowed', {
-        status: 403,
+        status: status.FORBIDDEN,
       })
     }
 
