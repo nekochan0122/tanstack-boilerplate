@@ -2,6 +2,7 @@ import { createFileRoute, Outlet, redirect } from '@tanstack/react-router'
 import { toast } from 'sonner'
 
 import { logger } from '~/libs/logger'
+import { useAuthQuery } from '~/services/auth.query'
 
 export const Route = createFileRoute('/admin')({
   beforeLoad: ({ context, location, preload }) => {
@@ -40,5 +41,7 @@ export const Route = createFileRoute('/admin')({
 })
 
 function AdminLayout() {
-  return <Outlet />
+  const authQuery = useAuthQuery()
+
+  return authQuery.data.isAuthenticated && authQuery.data.user.role === 'admin' ? <Outlet /> : null
 }

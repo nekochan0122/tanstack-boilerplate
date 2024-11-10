@@ -2,6 +2,7 @@ import { createFileRoute, Outlet, redirect } from '@tanstack/react-router'
 import { toast } from 'sonner'
 
 import { logger } from '~/libs/logger'
+import { useAuthQuery } from '~/services/auth.query'
 
 export const Route = createFileRoute('/user')({
   beforeLoad: ({ context, location, preload }) => {
@@ -29,5 +30,7 @@ export const Route = createFileRoute('/user')({
 })
 
 function UserLayout() {
-  return <Outlet />
+  const authQuery = useAuthQuery()
+
+  return authQuery.data.isAuthenticated ? <Outlet /> : null
 }
