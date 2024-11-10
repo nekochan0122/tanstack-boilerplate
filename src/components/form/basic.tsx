@@ -49,7 +49,7 @@ function BasicFormTextInput<
           <BasicField>
             <BasicFieldLabel {...({ field, label })} />
             <Input {...controller} {...inputProps} />
-            <FieldInfo field={field} placeholder='' />
+            <FieldInfo field={field} />
           </BasicField>
         )
       }}
@@ -101,7 +101,7 @@ function BasicFormNumberInput<
           <BasicField>
             <BasicFieldLabel {...({ field, label })} />
             <Input type='number' {...controller} {...inputProps} />
-            <FieldInfo field={field} placeholder='' />
+            <FieldInfo field={field} />
           </BasicField>
         )
       }}
