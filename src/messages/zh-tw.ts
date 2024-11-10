@@ -38,6 +38,7 @@ const zhTw: Messages = {
     'email': '信箱',
     'username': '帳號',
     'password': '密碼',
+    'password-confirm': '確認密碼',
     'sign-up': '註冊',
     'sign-up-description': '請輸入以下資訊來註冊',
     'sign-up-loading': '註冊中...',
@@ -75,6 +76,7 @@ const zhTw: Messages = {
     'password-one-special-regex': '密碼必須包含至少一個特殊字元',
     'password-min': '密碼至少需要 {min} 個字元',
     'password-max': '密碼不能超過 {max} 個字元',
+    'password-must-match': '密碼必須匹配',
   },
 }
 

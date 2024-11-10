@@ -36,6 +36,7 @@ const en = {
     'email': 'Email',
     'username': 'Username',
     'password': 'Password',
+    'password-confirm': 'Confirm Password',
     'sign-up': 'Sign up',
     'sign-up-description': 'Enter the information below to sign up',
     'sign-up-loading': 'Signing up...',
@@ -73,6 +74,7 @@ const en = {
     'password-one-special-regex': 'Password must contain at least one special character',
     'password-min': 'Password must be at least {min} characters long',
     'password-max': 'Password cannot exceed {max} characters',
+    'password-must-match': 'Passwords must match',
   },
 }
 

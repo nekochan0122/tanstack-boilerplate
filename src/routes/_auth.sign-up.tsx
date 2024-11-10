@@ -7,12 +7,22 @@ import { Button } from '~/components/ui/button'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '~/components/ui/card'
 import { useForm } from '~/components/ui/form'
 import { Link } from '~/components/ui/link'
+import { translateKey } from '~/libs/i18n'
 import { useSignUpMutation } from '~/services/auth.query'
-import { signUpSchema } from '~/services/auth.schema'
+import { passwordSchema, signUpSchema } from '~/services/auth.schema'
 
 export const Route = createFileRoute('/_auth/sign-up')({
   component: SignUpRoute,
 })
+
+const signUpWithPasswordConfirmSchema = (t = translateKey) => signUpSchema()
+  .extend({
+    passwordConfirm: passwordSchema(t),
+  })
+  .refine((values) => values.password === values.passwordConfirm, {
+    path: ['passwordConfirm'],
+    message: t('auth.password-must-match'),
+  })
 
 function SignUpRoute() {
   const t = useTranslations()
@@ -21,16 +31,18 @@ function SignUpRoute() {
 
   const signUpMutation = useSignUpMutation(search)
 
-  const signUpForm = useForm(signUpSchema(t), {
+  const signUpForm = useForm(signUpWithPasswordConfirmSchema(t), {
     defaultValues: {
       name: '',
       username: '',
       password: '',
+      passwordConfirm: '',
       email: '',
       ...(import.meta.env.DEV && {
         name: 'NekoChan',
         username: 'nekochan',
         password: '12345678Ab!',
+        passwordConfirm: '12345678Ab!',
         email: 'example@example.com',
       }),
     },
@@ -73,6 +85,11 @@ function SignUpRoute() {
         type: 'password',
         name: 'password',
         label: t('auth.password'),
+      },
+      {
+        type: 'password',
+        name: 'passwordConfirm',
+        label: t('auth.password-confirm'),
       },
     ],
   })
