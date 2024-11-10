@@ -2,7 +2,7 @@ import themeScript from '~/scripts/theme?raw'
 
 import { useDidUpdate } from '@mantine/hooks'
 import { useEffect, useState } from 'react'
-import type { ReactNode } from 'react'
+import type { PropsWithChildren } from 'react'
 
 import { Script } from '~/components/script'
 import { createContextFactory } from '~/libs/utils'
@@ -22,11 +22,7 @@ const [ThemeContextProvider, useTheme] = createContextFactory<ThemeContext>({
   errorMessage: 'useTheme must be used within a ThemeProvider',
 })
 
-type ThemeProviderProps = {
-  children: ReactNode
-}
-
-function ThemeProvider({ children }: ThemeProviderProps) {
+function ThemeProvider({ children }: PropsWithChildren) {
   const [theme, _setTheme] = useState<Theme>('system')
   const [resolvedTheme, _setResolvedTheme] = useState<ResolvedTheme>(getResolvedTheme(theme))
 
