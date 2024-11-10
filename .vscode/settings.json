@@ -13,13 +13,16 @@
   "typescript.tsdk": "node_modules/typescript/lib",
 
   "files.watcherExclude": {
-    "**/route-tree.gen.ts": true
+    "**/route-tree.gen.ts": true,
+    "pnpm-lock.yaml": true,
   },
   "search.exclude": {
-    "**/route-tree.gen.ts": true
+    "**/route-tree.gen.ts": true,
+    "pnpm-lock.yaml": true,
   },
   "files.readonlyInclude": {
-    "**/route-tree.gen.ts": true
+    "**/route-tree.gen.ts": true,
+    "pnpm-lock.yaml": true,
   },
 
   "[json]": {
