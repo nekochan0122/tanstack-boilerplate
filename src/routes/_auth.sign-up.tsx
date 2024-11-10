@@ -7,22 +7,12 @@ import { Button } from '~/components/ui/button'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '~/components/ui/card'
 import { useForm } from '~/components/ui/form'
 import { Link } from '~/components/ui/link'
-import { tKey } from '~/libs/i18n'
 import { useSignUpMutation } from '~/services/auth.query'
-import { passwordSchema, signUpSchema } from '~/services/auth.schema'
+import { signUpSchema } from '~/services/auth.schema'
 
 export const Route = createFileRoute('/_auth/sign-up')({
   component: SignUpRoute,
 })
-
-const signUpWithPasswordConfirmSchema = (t = tKey) => signUpSchema()
-  .extend({
-    passwordConfirm: passwordSchema(t),
-  })
-  .refine((values) => values.password === values.passwordConfirm, {
-    path: ['passwordConfirm'],
-    message: t('auth.password-must-match'),
-  })
 
 function SignUpRoute() {
   const t = useTranslations()
@@ -31,7 +21,7 @@ function SignUpRoute() {
 
   const signUpMutation = useSignUpMutation(search)
 
-  const signUpForm = useForm(signUpWithPasswordConfirmSchema(t), {
+  const signUpForm = useForm(signUpSchema(t), {
     defaultValues: {
       name: '',
       username: '',

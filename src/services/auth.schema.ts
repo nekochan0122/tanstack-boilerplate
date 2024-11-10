@@ -1,14 +1,7 @@
 import { z } from 'zod'
-import type { Except, UnknownRecord } from 'type-fest'
 
 import { tKey } from '~/libs/i18n'
-import type { AuthAPI, InferAuthOptions } from '~/libs/auth'
-import type { InferZodObjectShape } from '~/libs/zod'
-
-type InferZodAuthAPIShape<API extends AuthAPI> =
-  InferAuthOptions<API> extends { body: UnknownRecord }
-    ? InferZodObjectShape<Except<InferAuthOptions<API>['body'], 'callbackURL' | 'image'>>
-    : never
+import type { InferAuthAPIZodShape } from '~/libs/auth'
 
 export const NAME_MIN = 2
 export const NAME_MAX = 10
@@ -49,15 +42,22 @@ export const passwordSchema = (t = tKey) => z
   .max(PASSWORD_MAX, t('auth.password-max', { max: PASSWORD_MAX }))
 
 export const signUpSchema = (t = tKey) => z
-  .object<InferZodAuthAPIShape<'signUpEmail'>>({
+  .object<InferAuthAPIZodShape<'signUpEmail'>>({
     name: nameSchema(t),
     email: emailSchema(t),
     username: usernameSchema(t),
     password: passwordSchema(t),
   })
+  .extend({
+    passwordConfirm: passwordSchema(t),
+  })
+  .refine((values) => values.password === values.passwordConfirm, {
+    path: ['passwordConfirm'],
+    message: t('auth.password-must-match'),
+  })
 
 export const signInSchema = (t = tKey) => z
-  .object<InferZodAuthAPIShape<'signInUsername'>>({
+  .object<InferAuthAPIZodShape<'signInUsername'>>({
     username: usernameSchema(t),
     password: passwordSchema(t),
     rememberMe: z.boolean().optional(),
