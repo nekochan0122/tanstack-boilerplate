@@ -46,7 +46,7 @@ function FancyFormTextInput<
         return (
           <FancyField>
             <FancyFieldBody>
-              <FancyFieldLabel field={field} label={label} />
+              <FancyFieldLabel {...({ field, label })} />
               <FancyFieldDesc>{description}</FancyFieldDesc>
               <Input {...controller} {...inputProps} />
             </FancyFieldBody>
@@ -76,7 +76,7 @@ function FancyFormPasswordInput<
         return (
           <FancyField>
             <FancyFieldBody>
-              <FancyFieldLabel field={field} label={label} />
+              <FancyFieldLabel {...({ field, label })} />
               <FancyFieldDesc>{description}</FancyFieldDesc>
               <InputPassword {...controller} {...inputProps} />
             </FancyFieldBody>
@@ -110,7 +110,7 @@ function FancyFormCheckbox<
         return (
           <FancyField>
             <FancyFieldBody>
-              <FancyFieldLabel field={field} label={label} />
+              <FancyFieldLabel {...({ field, label })} />
               <div className='flex flex-row-reverse items-center justify-end gap-3'>
                 <FancyFieldDesc>{description}</FancyFieldDesc>
                 <Checkbox {...controller} {...checkboxProps} />
