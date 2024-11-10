@@ -36,13 +36,12 @@ type BasicFormInputProps = BasicFormFieldBaseProps & {
 function BasicFormTextInput<
   TFormData,
   TName extends DeepKeyValueName<TFormData, any>,
->({ name, form, label, inputProps, ...fieldProps }:
+>({ form, label, inputProps, ...fieldProps }:
   FormFieldProps<TFormData, TName> & BasicFormInputProps,
 ) {
   return (
     <form.Field<TName, any, any>
       {...fieldProps}
-      name={name}
       children={(field) => {
         const controller = fieldController.input(form, field)
 
@@ -65,13 +64,12 @@ type BasicFormPhoneInputProps = BasicFormFieldBaseProps & {
 function BasicFormPhoneInput<
   TFormData,
   TName extends DeepKeyValueName<TFormData, any>,
->({ name, form, label, inputPhoneProps, ...fieldProps }:
+>({ form, label, inputPhoneProps, ...fieldProps }:
   FormFieldProps<TFormData, TName> & BasicFormPhoneInputProps,
 ) {
   return (
     <form.Field<TName, any, any>
       {...fieldProps}
-      name={name}
       children={(field) => {
         const controller = fieldController.phone(form, field)
 
@@ -90,13 +88,12 @@ function BasicFormPhoneInput<
 function BasicFormNumberInput<
   TFormData,
   TName extends DeepKeyValueName<TFormData, any>,
->({ name, form, label, inputProps, ...fieldProps }:
+>({ form, label, inputProps, ...fieldProps }:
   FormFieldProps<TFormData, TName> & BasicFormInputProps,
 ) {
   return (
     <form.Field<TName, any, any>
       {...fieldProps}
-      name={name}
       children={(field) => {
         const controller = fieldController.input(form, field)
 
@@ -115,13 +112,12 @@ function BasicFormNumberInput<
 function BasicFormPasswordInput<
   TFormData,
   TName extends DeepKeyValueName<TFormData, any>,
->({ name, form, label, inputProps, ...fieldProps }:
+>({ form, label, inputProps, ...fieldProps }:
   FormFieldProps<TFormData, TName> & BasicFormInputProps,
 ) {
   return (
     <form.Field<TName, any, any>
       {...fieldProps}
-      name={name}
       children={(field) => {
         const controller = fieldController.input(form, field)
 
@@ -145,13 +141,12 @@ type BasicFormCheckboxProps = BasicFormFieldBaseProps & {
 function BasicFormCheckbox<
   TFormData,
   TName extends DeepKeyValueName<TFormData, any>,
->({ name, form, label, description, checkboxProps, ...fieldProps }:
+>({ form, label, description, checkboxProps, ...fieldProps }:
   FormFieldProps<TFormData, TName> & BasicFormCheckboxProps,
 ) {
   return (
     <form.Field<TName, any, any>
       {...fieldProps}
-      name={name}
       children={(field) => {
         const controller = fieldController.checkbox(form, field)
 
@@ -179,13 +174,12 @@ type BasicFormDatePickerProps = BasicFormFieldBaseProps & {
 function BasicFormDatePicker<
   TFormData,
   TName extends DeepKeyValueName<TFormData, any>,
->({ name, form, label, datePickerProps, ...fieldProps }:
+>({ form, label, datePickerProps, ...fieldProps }:
   FormFieldProps<TFormData, TName> & BasicFormDatePickerProps,
 ) {
   return (
     <form.Field<TName, any, any>
       {...fieldProps}
-      name={name}
       children={(field) => {
         const controller = fieldController.calendar(form, field)
 

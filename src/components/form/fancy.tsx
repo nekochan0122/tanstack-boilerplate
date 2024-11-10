@@ -33,13 +33,12 @@ type FancyFormTextInputProps = FancyFormFieldBaseProps & {
 function FancyFormTextInput<
   TFormData,
   TName extends DeepKeyValueName<TFormData, any>,
->({ name, form, label, description, info, inputProps, ...fieldProps }:
+>({ form, label, description, info, inputProps, ...fieldProps }:
   FormFieldProps<TFormData, TName> & FancyFormTextInputProps,
 ) {
   return (
     <form.Field<TName, any, any>
       {...fieldProps}
-      name={name}
       children={(field) => {
         const controller = fieldController.input(form, field)
 
@@ -63,13 +62,12 @@ function FancyFormTextInput<
 function FancyFormPasswordInput<
   TFormData,
   TName extends DeepKeyValueName<TFormData, any>,
->({ name, form, label, description, info, inputProps, ...fieldProps }:
+>({ form, label, description, info, inputProps, ...fieldProps }:
   FormFieldProps<TFormData, TName> & FancyFormTextInputProps,
 ) {
   return (
     <form.Field<TName, any, any>
       {...fieldProps}
-      name={name}
       children={(field) => {
         const controller = fieldController.input(form, field)
 
@@ -97,13 +95,12 @@ type FancyFormCheckboxProps = FancyFormFieldBaseProps & {
 function FancyFormCheckbox<
   TFormData,
   TName extends DeepKeyValueName<TFormData, any>,
->({ name, form, label, description, info, checkboxProps, ...fieldProps }:
+>({ form, label, description, info, checkboxProps, ...fieldProps }:
   FormFieldProps<TFormData, TName> & FancyFormCheckboxProps,
 ) {
   return (
     <form.Field<TName, any, any>
       {...fieldProps}
-      name={name}
       children={(field) => {
         const controller = fieldController.checkbox(form, field)
 
