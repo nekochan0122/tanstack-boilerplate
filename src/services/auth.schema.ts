@@ -1,7 +1,7 @@
 import { z } from 'zod'
 import type { Except, UnknownRecord } from 'type-fest'
 
-import { translateKey } from '~/libs/i18n'
+import { tKey } from '~/libs/i18n'
 import type { AuthAPI, InferAuthOptions } from '~/libs/auth'
 import type { InferZodObjectShape } from '~/libs/zod'
 
@@ -24,22 +24,22 @@ export const PASSWORD_ONE_LOWERCASE_REGEX = /.*[a-z].*/
 export const PASSWORD_ONE_NUMBER_REGEX = /.*\d.*/
 export const PASSWORD_ONE_SPECIAL_REGEX = /.*[!"#$%&'()*+,./:;<=>?@[\\\]^_{|}~-].*/
 
-export const nameSchema = (t = translateKey) => z
+export const nameSchema = (t = tKey) => z
   .string()
   .min(NAME_MIN, t('auth.name-min', { min: NAME_MIN }))
   .max(NAME_MAX, t('auth.name-max', { max: NAME_MAX }))
 
-export const emailSchema = (t = translateKey) => z
+export const emailSchema = (t = tKey) => z
   .string()
   .email(t('auth.email-invalid'))
 
-export const usernameSchema = (t = translateKey) => z
+export const usernameSchema = (t = tKey) => z
   .string()
   .regex(USERNAME_REGEX, t('auth.username-regex'))
   .min(USERNAME_MIN, t('auth.username-min', { min: USERNAME_MIN }))
   .max(USERNAME_MAX, t('auth.username-max', { max: USERNAME_MAX }))
 
-export const passwordSchema = (t = translateKey) => z
+export const passwordSchema = (t = tKey) => z
   .string()
   .regex(PASSWORD_ONE_UPPERCASE_REGEX, t('auth.password-one-uppercase-regex'))
   .regex(PASSWORD_ONE_LOWERCASE_REGEX, t('auth.password-one-lowercase-regex'))
@@ -48,7 +48,7 @@ export const passwordSchema = (t = translateKey) => z
   .min(PASSWORD_MIN, t('auth.password-min', { min: PASSWORD_MIN }))
   .max(PASSWORD_MAX, t('auth.password-max', { max: PASSWORD_MAX }))
 
-export const signUpSchema = (t = translateKey) => z
+export const signUpSchema = (t = tKey) => z
   .object<InferZodAuthAPIShape<'signUpEmail'>>({
     name: nameSchema(t),
     email: emailSchema(t),
@@ -56,9 +56,9 @@ export const signUpSchema = (t = translateKey) => z
     password: passwordSchema(t),
   })
 
-export const signInSchema = (t = translateKey) => z
+export const signInSchema = (t = tKey) => z
   .object<InferZodAuthAPIShape<'signInUsername'>>({
     username: usernameSchema(t),
     password: passwordSchema(t),
-    dontRememberMe: z.boolean().optional(),
+    rememberMe: z.boolean().optional(),
   })

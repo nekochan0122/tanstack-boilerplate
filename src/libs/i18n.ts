@@ -23,7 +23,7 @@ export type Translator = InferRouteContext<'/'>['i18n']['translator']
 
 export type TranslateKeys = Parameters<Translator>[0]
 
-export const translateKey = ((key: TranslateKeys) => key) as Translator
+export const tKey = ((key: TranslateKeys) => key) as Translator
 
 export function detectLocale(acceptLanguages: string[]): SupportedLocales | undefined {
   for (const acceptLanguage of acceptLanguages) {

@@ -30,7 +30,7 @@ function SignInRoute() {
     defaultValues: {
       username: '',
       password: '',
-      dontRememberMe: false,
+      rememberMe: true,
       ...(import.meta.env.DEV && {
         username: 'nekochan',
         password: '12345678Ab!',

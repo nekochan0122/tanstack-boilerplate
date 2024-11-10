@@ -7,7 +7,7 @@ import { Button } from '~/components/ui/button'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '~/components/ui/card'
 import { useForm } from '~/components/ui/form'
 import { Link } from '~/components/ui/link'
-import { translateKey } from '~/libs/i18n'
+import { tKey } from '~/libs/i18n'
 import { useSignUpMutation } from '~/services/auth.query'
 import { passwordSchema, signUpSchema } from '~/services/auth.schema'
 
@@ -15,7 +15,7 @@ export const Route = createFileRoute('/_auth/sign-up')({
   component: SignUpRoute,
 })
 
-const signUpWithPasswordConfirmSchema = (t = translateKey) => signUpSchema()
+const signUpWithPasswordConfirmSchema = (t = tKey) => signUpSchema()
   .extend({
     passwordConfirm: passwordSchema(t),
   })
