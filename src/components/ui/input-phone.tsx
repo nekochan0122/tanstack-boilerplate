@@ -3,7 +3,6 @@
 // FIXME: getVirtualItems() always returns an empty array with React Compiler, 'use no memo' is a temporary solution
 'use no memo'
 
-import { useMediaQuery } from '@mantine/hooks'
 import { useVirtualizer } from '@tanstack/react-virtual'
 import { useState } from 'react'
 import { LuChevronsUpDown } from 'react-icons/lu'
@@ -20,6 +19,7 @@ import { Popover, PopoverContent, PopoverTrigger } from '~/components/ui/popover
 import { ScrollAreaRoot, ScrollBar, ScrollCorner, ScrollViewport } from '~/components/ui/scroll-area'
 import { TwemojiFlag } from '~/components/ui/twemoji'
 import { useDynamicNode } from '~/hooks/use-dynamic-node'
+import { useIsMobile } from '~/hooks/use-is-mobile'
 import { createContextFactory, cx } from '~/libs/utils'
 
 type InputPhoneProps = Simplify<
@@ -108,9 +108,9 @@ function CountrySelect({ disabled, value, options, onChange }: CountrySelectProp
     estimateSize: () => 32,
   })
 
-  const isDesktop = useMediaQuery('(min-width: 768px)')
+  const isMobile = useIsMobile()
 
-  const DynamicView = isDesktop ? DesktopView : MobileView
+  const DynamicView = isMobile ? MobileView : DesktopView
 
   const context: CountrySelectContext = {
     value,
