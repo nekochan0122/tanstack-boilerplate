@@ -15,7 +15,6 @@ import { Route as UserImport } from './routes/user'
 import { Route as AdminImport } from './routes/admin'
 import { Route as AuthImport } from './routes/_auth'
 import { Route as IndexImport } from './routes/index'
-import { Route as UserProfileImport } from './routes/user.profile'
 import { Route as UserChangePasswordImport } from './routes/user.change-password'
 import { Route as UserAccountSettingsImport } from './routes/user.account-settings'
 import { Route as AdminUserManagementImport } from './routes/admin.user-management'
@@ -46,12 +45,6 @@ const IndexRoute = IndexImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRoute,
-} as any)
-
-const UserProfileRoute = UserProfileImport.update({
-  id: '/profile',
-  path: '/profile',
-  getParentRoute: () => UserRoute,
 } as any)
 
 const UserChangePasswordRoute = UserChangePasswordImport.update({
@@ -164,13 +157,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof UserChangePasswordImport
       parentRoute: typeof UserImport
     }
-    '/user/profile': {
-      id: '/user/profile'
-      path: '/profile'
-      fullPath: '/user/profile'
-      preLoaderRoute: typeof UserProfileImport
-      parentRoute: typeof UserImport
-    }
   }
 }
 
@@ -203,13 +189,11 @@ const AdminRouteWithChildren = AdminRoute._addFileChildren(AdminRouteChildren)
 interface UserRouteChildren {
   UserAccountSettingsRoute: typeof UserAccountSettingsRoute
   UserChangePasswordRoute: typeof UserChangePasswordRoute
-  UserProfileRoute: typeof UserProfileRoute
 }
 
 const UserRouteChildren: UserRouteChildren = {
   UserAccountSettingsRoute: UserAccountSettingsRoute,
   UserChangePasswordRoute: UserChangePasswordRoute,
-  UserProfileRoute: UserProfileRoute,
 }
 
 const UserRouteWithChildren = UserRoute._addFileChildren(UserRouteChildren)
@@ -225,7 +209,6 @@ export interface FileRoutesByFullPath {
   '/admin/user-management': typeof AdminUserManagementRoute
   '/user/account-settings': typeof UserAccountSettingsRoute
   '/user/change-password': typeof UserChangePasswordRoute
-  '/user/profile': typeof UserProfileRoute
 }
 
 export interface FileRoutesByTo {
@@ -239,7 +222,6 @@ export interface FileRoutesByTo {
   '/admin/user-management': typeof AdminUserManagementRoute
   '/user/account-settings': typeof UserAccountSettingsRoute
   '/user/change-password': typeof UserChangePasswordRoute
-  '/user/profile': typeof UserProfileRoute
 }
 
 export interface FileRoutesById {
@@ -254,7 +236,6 @@ export interface FileRoutesById {
   '/admin/user-management': typeof AdminUserManagementRoute
   '/user/account-settings': typeof UserAccountSettingsRoute
   '/user/change-password': typeof UserChangePasswordRoute
-  '/user/profile': typeof UserProfileRoute
 }
 
 export interface FileRouteTypes {
@@ -270,7 +251,6 @@ export interface FileRouteTypes {
     | '/admin/user-management'
     | '/user/account-settings'
     | '/user/change-password'
-    | '/user/profile'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -283,7 +263,6 @@ export interface FileRouteTypes {
     | '/admin/user-management'
     | '/user/account-settings'
     | '/user/change-password'
-    | '/user/profile'
   id:
     | '__root__'
     | '/'
@@ -296,7 +275,6 @@ export interface FileRouteTypes {
     | '/admin/user-management'
     | '/user/account-settings'
     | '/user/change-password'
-    | '/user/profile'
   fileRoutesById: FileRoutesById
 }
 
@@ -351,8 +329,7 @@ export const routeTree = rootRoute
       "filePath": "user.tsx",
       "children": [
         "/user/account-settings",
-        "/user/change-password",
-        "/user/profile"
+        "/user/change-password"
       ]
     },
     "/_auth/sign-in": {
@@ -377,10 +354,6 @@ export const routeTree = rootRoute
     },
     "/user/change-password": {
       "filePath": "user.change-password.tsx",
-      "parent": "/user"
-    },
-    "/user/profile": {
-      "filePath": "user.profile.tsx",
       "parent": "/user"
     }
   }

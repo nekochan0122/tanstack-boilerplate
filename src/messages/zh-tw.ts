@@ -27,7 +27,6 @@ const zhTW: Messages = {
     'sign-in': '登入頁面',
     'sign-up': '註冊頁面',
     'user': '受保護的用戶頁面',
-    'profile': '個人檔案',
     'account-settings': '帳戶設置',
     'change-password': '更改密碼',
     'admin': '受保護的管理員頁面',

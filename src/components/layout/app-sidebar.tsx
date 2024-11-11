@@ -70,11 +70,6 @@ const navigation: NavItem[] = [
         items: [
           {
             type: 'link',
-            name: 'navigation.profile',
-            link: '/user/profile',
-          },
-          {
-            type: 'link',
             name: 'navigation.account-settings',
             link: '/user/account-settings',
           },

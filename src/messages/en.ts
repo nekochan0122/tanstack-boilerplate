@@ -25,7 +25,6 @@ const en = {
     'sign-in': 'Sign in Route',
     'sign-up': 'Sign up Route',
     'user': 'Protected User Route',
-    'profile': 'Profile',
     'account-settings': 'Account Settings',
     'change-password': 'Change Password',
     'admin': 'Protected Admin Route',
