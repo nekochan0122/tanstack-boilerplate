@@ -1,9 +1,11 @@
 import { queryOptions, useMutation, useQueryClient, useSuspenseQuery } from '@tanstack/react-query'
 import { useRouter } from '@tanstack/react-router'
 import type { UseSuspenseQueryResult } from '@tanstack/react-query'
+import type { LiteralUnion } from 'type-fest'
 
 import { authClient } from '~/libs/auth-client'
 import { getAuth, signIn, signOut, signUp } from '~/services/auth.api'
+import type { InternalLink } from '~/components/ui/link'
 import type { SupportedSocialProviderId } from '~/config/social-provider'
 import type { Authed } from '~/libs/auth'
 
@@ -32,8 +34,8 @@ export const useAuthedQuery = () => {
   return authQuery as UseSuspenseQueryResult<Authed>
 }
 
-type InvalidateOptions = {
-  callbackURL?: string
+export type InvalidateOptions = {
+  callbackURL?: LiteralUnion<InternalLink, string>
 }
 
 export const useAuthInvalidate = (invalidateOptions?: InvalidateOptions) => {
