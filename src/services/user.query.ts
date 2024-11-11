@@ -1,26 +1,26 @@
 import { useMutation } from '@tanstack/react-query'
 
 import { useAuthInvalidate } from '~/services/auth.query'
-import { changePassword, setUser } from '~/services/user.api'
+import { changePassword, updateUser } from '~/services/user.api'
 
-export const useSetUserMutation = () => {
+export const useUpdateUserMutation = () => {
   const invalidateAuth = useAuthInvalidate()
 
-  const setUserMutation = useMutation({
-    mutationFn: setUser,
+  const updateUserMutation = useMutation({
+    mutationFn: updateUser,
     onSuccess: invalidateAuth,
   })
 
-  return setUserMutation
+  return updateUserMutation
 }
 
 export const useChangePasswordMutation = () => {
   const invalidateAuth = useAuthInvalidate()
 
-  const setUserMutation = useMutation({
+  const changePasswordMutation = useMutation({
     mutationFn: changePassword,
     onSuccess: invalidateAuth,
   })
 
-  return setUserMutation
+  return changePasswordMutation
 }

@@ -1,14 +1,13 @@
 import { z } from 'zod'
 
 import { tKey } from '~/libs/i18n'
-import { emailSchema, nameSchema, passwordSchema, usernameSchema } from '~/services/auth.schema'
+import { nameSchema, passwordSchema, usernameSchema } from '~/services/auth.schema'
 import type { InferAuthAPIZodShape } from '~/libs/auth'
 
-export const setUserSchema = (t = tKey) => z
+export const updateUserSchema = (t = tKey) => z
   .object({
     username: usernameSchema(t).optional(),
     name: nameSchema(t).optional(),
-    email: emailSchema(t).optional(),
   })
 
 export const changePasswordSchema = (t = tKey) => z

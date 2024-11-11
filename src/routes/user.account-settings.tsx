@@ -6,8 +6,8 @@ import { createFancyFormBuilder } from '~/components/form/fancy'
 import { useForm } from '~/components/ui/form'
 import { useAuthedQuery } from '~/services/auth.query'
 import { NAME_MAX, USERNAME_MAX } from '~/services/auth.schema'
-import { useSetUserMutation } from '~/services/user.query'
-import { setUserSchema } from '~/services/user.schema'
+import { useUpdateUserMutation } from '~/services/user.query'
+import { updateUserSchema } from '~/services/user.schema'
 
 export const Route = createFileRoute('/user/account-settings')({
   component: AccountSettingsRoute,
@@ -17,24 +17,23 @@ function AccountSettingsRoute() {
   const t = useTranslations()
 
   const authedQuery = useAuthedQuery()
-  const setUserMutation = useSetUserMutation()
+  const updateUserMutation = useUpdateUserMutation()
 
-  const accountSettingsForm = useForm(setUserSchema(t), {
+  const accountSettingsForm = useForm(updateUserSchema(t), {
     defaultValues: {
       username: authedQuery.data.user.username || undefined,
       name: authedQuery.data.user.name,
-      // email: authedQuery.data.user.email,
     },
     onSubmit: async ({ value }) => {
-      const setUserPromise = setUserMutation.mutateAsync(value)
+      const updateUserPromise = updateUserMutation.mutateAsync(value)
 
-      toast.promise(setUserPromise, {
+      toast.promise(updateUserPromise, {
         loading: t('common.save-loading'),
         success: t('common.save-success'),
         error: t('common.save-error'),
       })
 
-      await setUserPromise
+      await updateUserPromise
     },
   })
 
@@ -57,13 +56,6 @@ function AccountSettingsRoute() {
         description: t('auth.name-description'),
         info: t('auth.name-max', { max: NAME_MAX }),
       },
-      // {
-      //   type: 'text',
-      //   name: 'email',
-      //   label: t('auth.email'),
-      //   description: t('auth.email-description'),
-      //   info: t('auth.email-info'),
-      // },
     ],
   })
 

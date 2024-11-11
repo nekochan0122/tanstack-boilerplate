@@ -5,7 +5,7 @@ import { auth } from '~/libs/auth'
 import { prisma } from '~/libs/db'
 import { tryCatchAsync } from '~/libs/utils'
 import { getAuth } from '~/services/auth.api'
-import type { changePasswordSchema, setUserSchema } from '~/services/user.schema'
+import type { changePasswordSchema, updateUserSchema } from '~/services/user.schema'
 
 export const protectedUserProcedure = createServerFn('GET', async () => {
   const auth = await getAuth()
@@ -19,7 +19,7 @@ export const protectedUserProcedure = createServerFn('GET', async () => {
   }
 })
 
-export const setUser = createServerFn('POST', async (input: z.infer<ReturnType<typeof setUserSchema>>) => {
+export const updateUser = createServerFn('POST', async (input: z.infer<ReturnType<typeof updateUserSchema>>) => {
   const procedure = await protectedUserProcedure()
 
   const user = await prisma.user.update({
