@@ -5,7 +5,7 @@ import { zodValidator } from '@tanstack/react-form-zod-adapter'
 import { isEqual } from 'es-toolkit'
 import type { DeepKeys, DeepValue, FieldApi, FieldOptions, FormApi, FormOptions, ReactFormApi, Validator } from '@tanstack/react-form'
 import type { ComponentProps } from 'react'
-import type { Except, UnknownRecord } from 'type-fest'
+import type { Except, LiteralUnion, UnknownRecord } from 'type-fest'
 import type { z } from 'zod'
 
 import { Button } from '~/components/ui/button'
@@ -160,10 +160,12 @@ type FieldBaseProps = {
 }
 
 type FieldLabelProps = ComponentProps<typeof Label> & FieldBaseProps & {
-  label: string
+  label: LiteralUnion<'ForAccessibility', string>
 }
 
 function FieldLabel({ field, label, className, ...props }: FieldLabelProps) {
+  if (label === 'ForAccessibility') return null
+
   const isDefaultValue = field.form.options.defaultValues[field.name] === field.state.value
 
   return (

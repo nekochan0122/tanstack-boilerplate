@@ -21,7 +21,7 @@ const createFancyFormBuilder = createFormBuilderFactory({
 })
 
 type FancyFormFieldBaseProps = {
-  label: string
+  label: ComponentProps<typeof FieldLabel>['label']
   description: string
   info: string
 }

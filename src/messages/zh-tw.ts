@@ -1,6 +1,6 @@
 import type { Messages } from '~/libs/i18n'
 
-const zhTw: Messages = {
+const zhTW: Messages = {
   common: {
     'submit': '發送',
     'submit-loading': '發送中...',
@@ -29,6 +29,7 @@ const zhTw: Messages = {
     'user': '受保護的用戶頁面',
     'profile': '個人檔案',
     'account-settings': '帳戶設置',
+    'change-password': '更改密碼',
     'admin': '受保護的管理員頁面',
     'dashboard': '儀表板',
     'user-management': '用戶管理',
@@ -39,6 +40,9 @@ const zhTw: Messages = {
     'username': '帳號',
     'password': '密碼',
     'password-confirm': '確認密碼',
+    'current-password': '目前密碼',
+    'new-password': '新密碼',
+    'new-password-confirm': '確認新密碼',
     'sign-up': '註冊',
     'sign-up-description': '請輸入以下資訊來註冊',
     'sign-up-loading': '註冊中...',
@@ -77,7 +81,8 @@ const zhTw: Messages = {
     'password-min': '密碼至少需要 {min} 個字元',
     'password-max': '密碼不能超過 {max} 個字元',
     'password-must-match': '密碼必須匹配',
+    'password-must-different': '新密碼必須不同於目前密碼',
   },
 }
 
-export default zhTw
+export default zhTW

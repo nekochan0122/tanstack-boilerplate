@@ -78,6 +78,11 @@ const navigation: NavItem[] = [
             name: 'navigation.account-settings',
             link: '/user/account-settings',
           },
+          {
+            type: 'link',
+            name: 'navigation.change-password',
+            link: '/user/change-password',
+          },
         ],
       },
       {

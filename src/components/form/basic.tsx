@@ -26,7 +26,7 @@ const createBasicFormBuilder = createFormBuilderFactory({
 })
 
 type BasicFormFieldBaseProps = {
-  label: string
+  label: ComponentProps<typeof FieldLabel>['label']
 }
 
 type BasicFormInputProps = BasicFormFieldBaseProps & {

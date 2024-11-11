@@ -16,6 +16,7 @@ import { Route as AdminImport } from './routes/admin'
 import { Route as AuthImport } from './routes/_auth'
 import { Route as IndexImport } from './routes/index'
 import { Route as UserProfileImport } from './routes/user.profile'
+import { Route as UserChangePasswordImport } from './routes/user.change-password'
 import { Route as UserAccountSettingsImport } from './routes/user.account-settings'
 import { Route as AdminUserManagementImport } from './routes/admin.user-management'
 import { Route as AdminDashboardImport } from './routes/admin.dashboard'
@@ -50,6 +51,12 @@ const IndexRoute = IndexImport.update({
 const UserProfileRoute = UserProfileImport.update({
   id: '/profile',
   path: '/profile',
+  getParentRoute: () => UserRoute,
+} as any)
+
+const UserChangePasswordRoute = UserChangePasswordImport.update({
+  id: '/change-password',
+  path: '/change-password',
   getParentRoute: () => UserRoute,
 } as any)
 
@@ -150,6 +157,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof UserAccountSettingsImport
       parentRoute: typeof UserImport
     }
+    '/user/change-password': {
+      id: '/user/change-password'
+      path: '/change-password'
+      fullPath: '/user/change-password'
+      preLoaderRoute: typeof UserChangePasswordImport
+      parentRoute: typeof UserImport
+    }
     '/user/profile': {
       id: '/user/profile'
       path: '/profile'
@@ -188,11 +202,13 @@ const AdminRouteWithChildren = AdminRoute._addFileChildren(AdminRouteChildren)
 
 interface UserRouteChildren {
   UserAccountSettingsRoute: typeof UserAccountSettingsRoute
+  UserChangePasswordRoute: typeof UserChangePasswordRoute
   UserProfileRoute: typeof UserProfileRoute
 }
 
 const UserRouteChildren: UserRouteChildren = {
   UserAccountSettingsRoute: UserAccountSettingsRoute,
+  UserChangePasswordRoute: UserChangePasswordRoute,
   UserProfileRoute: UserProfileRoute,
 }
 
@@ -208,6 +224,7 @@ export interface FileRoutesByFullPath {
   '/admin/dashboard': typeof AdminDashboardRoute
   '/admin/user-management': typeof AdminUserManagementRoute
   '/user/account-settings': typeof UserAccountSettingsRoute
+  '/user/change-password': typeof UserChangePasswordRoute
   '/user/profile': typeof UserProfileRoute
 }
 
@@ -221,6 +238,7 @@ export interface FileRoutesByTo {
   '/admin/dashboard': typeof AdminDashboardRoute
   '/admin/user-management': typeof AdminUserManagementRoute
   '/user/account-settings': typeof UserAccountSettingsRoute
+  '/user/change-password': typeof UserChangePasswordRoute
   '/user/profile': typeof UserProfileRoute
 }
 
@@ -235,6 +253,7 @@ export interface FileRoutesById {
   '/admin/dashboard': typeof AdminDashboardRoute
   '/admin/user-management': typeof AdminUserManagementRoute
   '/user/account-settings': typeof UserAccountSettingsRoute
+  '/user/change-password': typeof UserChangePasswordRoute
   '/user/profile': typeof UserProfileRoute
 }
 
@@ -250,6 +269,7 @@ export interface FileRouteTypes {
     | '/admin/dashboard'
     | '/admin/user-management'
     | '/user/account-settings'
+    | '/user/change-password'
     | '/user/profile'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -262,6 +282,7 @@ export interface FileRouteTypes {
     | '/admin/dashboard'
     | '/admin/user-management'
     | '/user/account-settings'
+    | '/user/change-password'
     | '/user/profile'
   id:
     | '__root__'
@@ -274,6 +295,7 @@ export interface FileRouteTypes {
     | '/admin/dashboard'
     | '/admin/user-management'
     | '/user/account-settings'
+    | '/user/change-password'
     | '/user/profile'
   fileRoutesById: FileRoutesById
 }
@@ -329,6 +351,7 @@ export const routeTree = rootRoute
       "filePath": "user.tsx",
       "children": [
         "/user/account-settings",
+        "/user/change-password",
         "/user/profile"
       ]
     },
@@ -350,6 +373,10 @@ export const routeTree = rootRoute
     },
     "/user/account-settings": {
       "filePath": "user.account-settings.tsx",
+      "parent": "/user"
+    },
+    "/user/change-password": {
+      "filePath": "user.change-password.tsx",
       "parent": "/user"
     },
     "/user/profile": {
