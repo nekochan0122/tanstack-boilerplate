@@ -9,6 +9,7 @@ import type { InternalLink } from '~/components/ui/link'
 import type { SupportedSocialProviderId } from '~/config/social-provider'
 import type { Authed } from '~/libs/auth'
 
+// TODO: refactor https://discord.com/channels/719702312431386674/1100437019857014895/1305593589505462293
 export const authKeys = {
   getAuth: () => ['getAuth'],
 }
@@ -38,6 +39,7 @@ export type InvalidateOptions = {
   callbackURL?: LiteralUnion<InternalLink, string>
 }
 
+// TODO: refactor
 export const useAuthInvalidate = (invalidateOptions?: InvalidateOptions) => {
   const router = useRouter()
   const queryClient = useQueryClient()
