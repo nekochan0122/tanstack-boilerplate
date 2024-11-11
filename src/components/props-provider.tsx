@@ -10,7 +10,7 @@ type PropsProviderProps<ComponentOrProps> = PropsWithChildren<
 function PropsProvider<ComponentOrProps>({ children, ...props }: PropsProviderProps<ComponentOrProps>) {
   const newChildren = Children.map(children, (child) => {
     return isValidElement(child)
-      ? cloneElement(child, { ...props })
+      ? cloneElement(child, props)
       : child
   })
 

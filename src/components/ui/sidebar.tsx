@@ -587,7 +587,7 @@ function SidebarMenuSub({ className, ...props }: ComponentProps<'ul'>) {
   )
 }
 
-function SidebarMenuSubItem({ ...props }: ComponentProps<'li'>) {
+function SidebarMenuSubItem(props: ComponentProps<'li'>) {
   return (
     <li {...props} />
   )
