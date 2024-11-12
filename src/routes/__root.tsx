@@ -68,7 +68,7 @@ export const Route = createRootRouteWithContext<RouterContext>()({
   // https://github.com/TanStack/router/issues/1992#issuecomment-2397896356
   scripts: () => import.meta.env.PROD ? [] : [{
     type: 'module',
-    children: /* js */ `
+    children: `
       import RefreshRuntime from "/_build/@react-refresh"
       RefreshRuntime.injectIntoGlobalHook(window)
       window.$RefreshReg$ = () => {}
