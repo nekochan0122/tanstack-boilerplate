@@ -38,6 +38,7 @@ export default tseslint.config(
       'react-refresh/only-export-components': 'off',
       'unicorn/no-useless-undefined': 'off', // a quickfix for server function
       'jsx-a11y/no-autofocus': ['error', { ignoreNonDOM: true }], // for react-day-picker autoFocus prop
+      'react/no-children-prop': 'off', // for tanstack form
     },
   },
   {
@@ -56,7 +57,6 @@ export default tseslint.config(
       'src/components/form/**/*',
     ],
     rules: {
-      'react/no-children-prop': 'off',
       '@typescript-eslint/no-explicit-any': 'off',
     },
   },
