@@ -20,7 +20,7 @@ A fully **type-safe** boilerplate with a focus on UX and DX, complete with multi
 - [Prisma](https://www.prisma.io/)
 - [Zod](https://zod.dev/)
 - [next-intl core library](https://next-intl-docs.vercel.app/docs/environments/core-library)
-- [Nodemailer](https://nodemailer.com/) + [React Email](https://www.nodemailer.com/)
+- [Nodemailer](https://nodemailer.com/) + [React Email](https://react.email/)
 
 ## Utilities
 
