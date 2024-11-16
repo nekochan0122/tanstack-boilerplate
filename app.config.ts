@@ -3,7 +3,6 @@ import { join } from 'node:path'
 
 import { defineConfig } from '@tanstack/start/config'
 import tsconfigPathsPlugin from 'vite-plugin-tsconfig-paths'
-import type { App } from 'vinxi'
 
 const config = {
   appDirectory: 'src',
@@ -13,7 +12,7 @@ const config = {
 const app = defineConfig({
   server: {
     preset: 'node-server',
-    compatibilityDate: '2024-11-15',
+    compatibilityDate: '2024-11-16',
   },
   routers: {
     api: {
@@ -76,19 +75,5 @@ app.hooks.hook('app:dev:server:listener:created', ({ listener }) => {
   if (!config.autoOpenBrowser) return
   exec(`start ${listener.url}`)
 })
-
-// https://discord.com/channels/719702312431386674/1238170697650405547/1300589573080092723
-// function withMiddleware(app: App) {
-//   return {
-//     ...app,
-//     config: {
-//       ...app.config,
-//       routers: app.config.routers.map((router) => ({
-//         ...router,
-//         middleware: router.target !== 'server' ? undefined : join(config.appDirectory, 'middleware.ts'),
-//       })),
-//     },
-//   }
-// }
 
 export default app
