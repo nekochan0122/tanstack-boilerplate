@@ -10,6 +10,7 @@ export const Route = createAPIFileRoute('/api/auth/$')({
 })
 
 const allowedPaths = [
+  /^\/api\/auth\/verify-email$/,
   /^\/api\/auth\/sign-in\/social$/,
   /^\/api\/auth\/callback\/.+$/,
 ]

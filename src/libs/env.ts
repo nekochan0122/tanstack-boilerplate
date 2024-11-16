@@ -11,7 +11,8 @@ const PUBLIC_ENV_PREFIX = 'VITE_' as const
 
 const publicSchema = createEnvSchema('Public', {
   VITE_APP_NAME: z.string(),
-  VITE_APP_URL: z.string(),
+  VITE_APP_EMAIL: z.string().email(),
+  VITE_APP_BASE_URL: z.string(),
 })
 
 const privateSchema = createEnvSchema('Private', {
@@ -25,6 +26,7 @@ const privateSchema = createEnvSchema('Private', {
   DISCORD_CLIENT_SECRET: z.string(),
   GITHUB_CLIENT_ID: z.string(),
   GITHUB_CLIENT_SECRET: z.string(),
+  EMAIL_APP_PASSWORD: z.string(),
 })
 
 function parseEnv() {

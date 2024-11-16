@@ -75,8 +75,18 @@ const navigation: NavItem[] = [
           },
           {
             type: 'link',
+            name: 'navigation.change-email',
+            link: '/user/change-email',
+          },
+          {
+            type: 'link',
             name: 'navigation.change-password',
             link: '/user/change-password',
+          },
+          {
+            type: 'link',
+            name: 'navigation.email-verification',
+            link: '/user/email-verification',
           },
         ],
       },

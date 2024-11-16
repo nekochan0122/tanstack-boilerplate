@@ -15,10 +15,12 @@ A fully **type-safe** boilerplate with a focus on UX and DX, complete with multi
 - [TanStack Form](https://tanstack.com/form/latest)
 - [TanStack Virtual](https://tanstack.com/virtual/latest)
 - [Better Auth](https://www.better-auth.com/)
+- [Tailwind CSS](https://tailwindcss.com/)
 - [Shadcn UI](https://ui.shadcn.com/)
 - [Prisma](https://www.prisma.io/)
 - [Zod](https://zod.dev/)
 - [next-intl core library](https://next-intl-docs.vercel.app/docs/environments/core-library)
+- [Nodemailer](https://nodemailer.com/) + [React Email](https://www.nodemailer.com/)
 
 ## Utilities
 

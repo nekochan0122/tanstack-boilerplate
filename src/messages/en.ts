@@ -26,7 +26,9 @@ const en = {
     'sign-up': 'Sign up Route',
     'user': 'Protected User Route',
     'account-settings': 'Account Settings',
+    'change-email': 'Change Email',
     'change-password': 'Change Password',
+    'email-verification': 'Email Verification',
     'admin': 'Protected Admin Route',
     'dashboard': 'Dashboard',
     'user-management': 'User Management',
@@ -38,6 +40,7 @@ const en = {
     'password': 'Password',
     'password-confirm': 'Confirm Password',
     'current-password': 'Current Password',
+    'new-email': 'New Email',
     'new-password': 'New Password',
     'new-password-confirm': 'Confirm New Password',
     'sign-up': 'Sign up',
@@ -79,6 +82,7 @@ const en = {
     'password-max': 'Password cannot exceed {max} characters',
     'password-must-match': 'Passwords must match',
     'password-must-different': 'New password must be different from current password',
+    'email-must-different': 'New email must be different from current email',
   },
 }
 

@@ -33,7 +33,7 @@ function SignUpRoute() {
         username: 'nekochan',
         password: '12345678Ab!',
         passwordConfirm: '12345678Ab!',
-        email: 'example@example.com',
+        email: import.meta.env.VITE_APP_EMAIL,
       }),
     },
     onSubmit: async ({ value }) => {
@@ -62,7 +62,7 @@ function SignUpRoute() {
         label: t('auth.name'),
       },
       {
-        type: 'text',
+        type: 'email',
         name: 'email',
         label: t('auth.email'),
       },

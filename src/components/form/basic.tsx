@@ -17,8 +17,9 @@ const createBasicFormBuilder = createFormBuilderFactory({
   },
   fields: {
     text: BasicFormTextInput,
-    phone: BasicFormPhoneInput,
+    email: BasicFormEmailInput,
     number: BasicFormNumberInput,
+    phone: BasicFormPhoneInput,
     password: BasicFormPasswordInput,
     checkbox: BasicFormCheckbox,
     date: BasicFormDatePicker,
@@ -57,26 +58,22 @@ function BasicFormTextInput<
   )
 }
 
-type BasicFormPhoneInputProps = BasicFormFieldBaseProps & {
-  inputPhoneProps?: ComponentProps<typeof InputPhone>
-}
-
-function BasicFormPhoneInput<
+function BasicFormEmailInput<
   TFormData,
   TName extends DeepKeyValueName<TFormData, any>,
->({ form, label, inputPhoneProps, ...fieldProps }:
-  FormFieldProps<TFormData, TName> & BasicFormPhoneInputProps,
+>({ form, label, inputProps, ...fieldProps }:
+  FormFieldProps<TFormData, TName> & BasicFormInputProps,
 ) {
   return (
     <form.Field<TName, any, any>
       {...fieldProps}
       children={(field) => {
-        const controller = fieldController.phone(form, field)
+        const controller = fieldController.input(form, field)
 
         return (
           <BasicField>
             <BasicFieldLabel {...({ field, label })} />
-            <InputPhone type='tel' {...controller} {...inputPhoneProps} />
+            <Input type='email' {...controller} {...inputProps} />
             <FieldInfo field={field} />
           </BasicField>
         )
@@ -101,6 +98,34 @@ function BasicFormNumberInput<
           <BasicField>
             <BasicFieldLabel {...({ field, label })} />
             <Input type='number' {...controller} {...inputProps} />
+            <FieldInfo field={field} />
+          </BasicField>
+        )
+      }}
+    />
+  )
+}
+
+type BasicFormPhoneInputProps = BasicFormFieldBaseProps & {
+  inputPhoneProps?: ComponentProps<typeof InputPhone>
+}
+
+function BasicFormPhoneInput<
+  TFormData,
+  TName extends DeepKeyValueName<TFormData, any>,
+>({ form, label, inputPhoneProps, ...fieldProps }:
+  FormFieldProps<TFormData, TName> & BasicFormPhoneInputProps,
+) {
+  return (
+    <form.Field<TName, any, any>
+      {...fieldProps}
+      children={(field) => {
+        const controller = fieldController.phone(form, field)
+
+        return (
+          <BasicField>
+            <BasicFieldLabel {...({ field, label })} />
+            <InputPhone type='tel' {...controller} {...inputPhoneProps} />
             <FieldInfo field={field} />
           </BasicField>
         )
@@ -229,5 +254,5 @@ function BasicFieldLabel({ className, ...props }: FieldLabelProps) {
 }
 
 export { createBasicFormBuilder }
-export { BasicFormCheckbox, BasicFormDatePicker, BasicFormPasswordInput, BasicFormPhoneInput, BasicFormTextInput }
+export { BasicFormCheckbox, BasicFormDatePicker, BasicFormEmailInput, BasicFormPasswordInput, BasicFormPhoneInput, BasicFormTextInput }
 export { BaseFormSubmit, BasicField, BasicFieldLabel, BasicForm }

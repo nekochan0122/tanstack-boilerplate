@@ -28,7 +28,9 @@ const zhTW: Messages = {
     'sign-up': '註冊頁面',
     'user': '受保護的用戶頁面',
     'account-settings': '帳戶設置',
+    'change-email': '更改信箱',
     'change-password': '更改密碼',
+    'email-verification': '信箱驗證',
     'admin': '受保護的管理員頁面',
     'dashboard': '儀表板',
     'user-management': '用戶管理',
@@ -40,6 +42,7 @@ const zhTW: Messages = {
     'password': '密碼',
     'password-confirm': '確認密碼',
     'current-password': '目前密碼',
+    'new-email': '新信箱',
     'new-password': '新密碼',
     'new-password-confirm': '確認新密碼',
     'sign-up': '註冊',
@@ -81,6 +84,7 @@ const zhTW: Messages = {
     'password-max': '密碼不能超過 {max} 個字元',
     'password-must-match': '密碼必須匹配',
     'password-must-different': '新密碼必須不同於目前密碼',
+    'email-must-different': '新信箱必須不同於目前信箱',
   },
 }
 
