@@ -45,7 +45,6 @@
     "@tanstack/react-router": "^1.81.14",
     "@tanstack/react-router-devtools": "npm:@tanstack/router-devtools@^1.81.14",
     "@tanstack/react-router-with-query": "^1.81.14",
-    "@tanstack/react-store": "^0.5.6",
     "@tanstack/react-virtual": "^3.10.9",
     "@tanstack/start": "^1.81.16",
     "@tanstack/zod-adapter": "^1.81.14",
