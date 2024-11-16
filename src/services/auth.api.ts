@@ -2,7 +2,6 @@
 // FIXME: return raw response - https://github.com/TanStack/router/issues/2779
 
 import { createServerFn } from '@tanstack/start'
-import { zodValidator } from '@tanstack/zod-adapter'
 import { getEvent, getWebRequest, setHeaders } from 'vinxi/http'
 import type { APIError } from 'better-auth/api'
 
@@ -53,7 +52,7 @@ export const getAuth = createServerFn({ method: 'GET' })
   })
 
 export const signUp = createServerFn({ method: 'POST' })
-  .validator(zodValidator(signUpSchema()))
+  .validator(signUpSchema())
   .handler(async ({ data }) => {
     const request = getWebRequest()
 
@@ -73,7 +72,7 @@ export const signUp = createServerFn({ method: 'POST' })
   })
 
 export const signIn = createServerFn({ method: 'POST' })
-  .validator(zodValidator(signInSchema()))
+  .validator(signInSchema())
   .handler(async ({ data }) => {
     const request = getWebRequest()
 

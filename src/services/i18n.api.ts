@@ -1,5 +1,4 @@
 import { createServerFn } from '@tanstack/start'
-import { zodValidator } from '@tanstack/zod-adapter'
 import { lookup } from 'geoip'
 import { getHeader } from 'vinxi/http'
 
@@ -40,7 +39,7 @@ export const getI18n = createServerFn({ method: 'GET' })
   })
 
 export const setLocale = createServerFn({ method: 'POST' })
-  .validator(zodValidator(supportedLocalesSchema))
+  .validator(supportedLocalesSchema)
   .handler(async ({ data }) => {
     const session = await getVinxiSessionHelper()
     await session.update({ locale: data })

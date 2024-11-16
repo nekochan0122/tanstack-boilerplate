@@ -1,5 +1,4 @@
 import { createServerFn } from '@tanstack/start'
-import { zodValidator } from '@tanstack/zod-adapter'
 import { getWebRequest } from 'vinxi/http'
 
 import { auth } from '~/libs/auth'
@@ -23,7 +22,7 @@ export const protectedUserProcedure = createServerFn({ method: 'GET' })
   })
 
 export const updateUser = createServerFn({ method: 'POST' })
-  .validator(zodValidator(updateUserSchema()))
+  .validator(updateUserSchema())
   .handler(async ({ data }) => {
     await protectedUserProcedure()
 
@@ -36,7 +35,7 @@ export const updateUser = createServerFn({ method: 'POST' })
   })
 
 export const changeEmail = createServerFn({ method: 'POST' })
-  .validator(zodValidator(changeEmailSchema()))
+  .validator(changeEmailSchema())
   .handler(async ({ data }) => {
     const procedure = await protectedUserProcedure()
 
@@ -85,7 +84,7 @@ export const changeEmail = createServerFn({ method: 'POST' })
   })
 
 export const changePassword = createServerFn({ method: 'POST' })
-  .validator(zodValidator(changePasswordSchema()))
+  .validator(changePasswordSchema())
   .handler(async ({ data }) => {
     await protectedUserProcedure()
 
