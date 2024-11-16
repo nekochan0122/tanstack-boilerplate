@@ -6,7 +6,7 @@ import type { FileRouteTypes } from '~/route-tree.gen'
 
 type InternalLink = '.' | '..' | Exclude<FileRouteTypes['to'], ''>
 
-type ExternalLink = `http${'s' | ''}://${string}`
+type ExternalLink = `http${'s' | ''}://${string}.${string}`
 
 type AnchorLink = `#${string}`
 
