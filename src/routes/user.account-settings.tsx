@@ -25,7 +25,7 @@ function AccountSettingsRoute() {
       name: authedQuery.data.user.name,
     },
     onSubmit: async ({ value }) => {
-      const updateUserPromise = updateUserMutation.mutateAsync(value)
+      const updateUserPromise = updateUserMutation.mutateAsync({ data: value })
 
       toast.promise(updateUserPromise, {
         loading: t('common.save-loading'),

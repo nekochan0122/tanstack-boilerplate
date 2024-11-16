@@ -1,10 +1,13 @@
 import type { LiteralUnion } from 'type-fest'
 import type { IntlConfig } from 'use-intl'
 
+import { constructZodLiteralUnionType } from '~/libs/zod'
 import type { InferRouteContext } from '~/libs/router'
 import type enMessages from '~/messages/en'
 
 export const supportedLocales = ['en', 'zh-tw'] as const
+
+export const supportedLocalesSchema = constructZodLiteralUnionType(supportedLocales)
 
 export const defaultLocale: SupportedLocales = supportedLocales[0]
 

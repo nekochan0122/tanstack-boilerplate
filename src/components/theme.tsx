@@ -1,10 +1,8 @@
-import themeScript from '~/scripts/theme?raw'
-
 import { useDidUpdate } from '@mantine/hooks'
+import { ScriptOnce } from '@tanstack/react-router'
 import { useEffect, useState } from 'react'
 import type { PropsWithChildren } from 'react'
 
-import { Script } from '~/components/script'
 import { createContextFactory } from '~/libs/utils'
 
 type Theme = 'dark' | 'light' | 'system'
@@ -64,7 +62,26 @@ function ThemeProvider({ children }: PropsWithChildren) {
 
   return (
     <ThemeContextProvider value={context}>
-      <Script content={themeScript} />
+      <ScriptOnce>
+        { /* js */ `
+          function initTheme() {
+            if (typeof localStorage === 'undefined') return
+
+            const localTheme = localStorage.getItem('theme')
+            const preferTheme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'
+            const resolvedTheme = localTheme === null || localTheme === 'system' ? preferTheme : localTheme
+
+            if (localTheme === null) {
+              localStorage.setItem('theme', 'system')
+            }
+
+            document.documentElement.dataset.theme = resolvedTheme
+            document.documentElement.style.colorScheme = resolvedTheme
+          }
+
+          initTheme()
+        `}
+      </ScriptOnce>
       {children}
     </ThemeContextProvider>
   )

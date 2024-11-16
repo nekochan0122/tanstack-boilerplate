@@ -78,17 +78,17 @@ app.hooks.hook('app:dev:server:listener:created', ({ listener }) => {
 })
 
 // https://discord.com/channels/719702312431386674/1238170697650405547/1300589573080092723
-function withMiddleware(app: App) {
-  return {
-    ...app,
-    config: {
-      ...app.config,
-      routers: app.config.routers.map((router) => ({
-        ...router,
-        middleware: router.target !== 'server' ? undefined : join(config.appDirectory, 'middleware.ts'),
-      })),
-    },
-  }
-}
+// function withMiddleware(app: App) {
+//   return {
+//     ...app,
+//     config: {
+//       ...app.config,
+//       routers: app.config.routers.map((router) => ({
+//         ...router,
+//         middleware: router.target !== 'server' ? undefined : join(config.appDirectory, 'middleware.ts'),
+//       })),
+//     },
+//   }
+// }
 
-export default withMiddleware(app)
+export default app

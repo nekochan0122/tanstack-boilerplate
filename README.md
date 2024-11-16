@@ -35,8 +35,8 @@ A fully **type-safe** boilerplate with a focus on UX and DX, complete with multi
 - Start
   - HMR
     - https://github.com/TanStack/router/pull/2316
-  - Chained Server Fn Syntax, ServerFn Middleware
-    - https://github.com/TanStack/router/pull/2513
+  - Server functions can't serialize error objects
+    - https://github.com/TanStack/router/issues/2535
   - Server functions can't serialize error objects
     - https://github.com/TanStack/router/issues/2535
   - Flash of Unstyled Content for quickstart plus a CSS file

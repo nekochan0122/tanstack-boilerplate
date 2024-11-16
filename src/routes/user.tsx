@@ -22,7 +22,7 @@ export const Route = createFileRoute('/user')({
 
     if (['/user', '/user/'].includes(location.pathname)) {
       throw redirect({
-        to: '/user/profile',
+        to: '/user/account-settings',
       })
     }
   },

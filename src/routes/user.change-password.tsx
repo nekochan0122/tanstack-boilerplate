@@ -25,7 +25,7 @@ function ChangePasswordRoute() {
       revokeOtherSessions: true,
     },
     onSubmit: async ({ value }) => {
-      const changePasswordPromise = changePasswordMutation.mutateAsync(value)
+      const changePasswordPromise = changePasswordMutation.mutateAsync({ data: value })
 
       toast.promise(changePasswordPromise, {
         loading: t('common.submit-loading'),

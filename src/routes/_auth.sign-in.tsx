@@ -39,7 +39,7 @@ function SignInRoute() {
     onSubmit: async ({ value }) => {
       // TODO: error handling
 
-      const signInPromise = signInMutation.mutateAsync(value)
+      const signInPromise = signInMutation.mutateAsync({ data: value })
 
       toast.promise(signInPromise, {
         loading: t('auth.sign-in-loading'),

@@ -204,7 +204,7 @@ function SidebarAppearance() {
               className='min-w-56 rounded-lg'
             >
               {languageOptions.map(({ locale, countryCode, label }) => (
-                <DropdownMenuItem key={locale} onClick={() => setLocaleMutation.mutate(locale)}>
+                <DropdownMenuItem key={locale} onClick={() => setLocaleMutation.mutate({ data: { locale } })}>
                   <TwemojiFlag countryCode={countryCode} />
                   {label}
                   {i18nQuery.data.locale === locale && <LuCheck className='ml-auto' />}

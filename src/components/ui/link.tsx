@@ -4,7 +4,7 @@ import type { ComponentProps } from 'react'
 
 import type { FileRouteTypes } from '~/route-tree.gen'
 
-type InternalLink = Exclude<FileRouteTypes['to'], ''>
+type InternalLink = '.' | '..' | Exclude<FileRouteTypes['to'], ''>
 
 type ExternalLink = `http${'s' | ''}://${string}`
 
@@ -37,7 +37,7 @@ function Link<To extends ValidLink>(props: LinkProps<To>) {
 }
 
 function isInternalLink(link: string): link is InternalLink {
-  return link.startsWith('/')
+  return link.startsWith('/') || link.startsWith('.')
 }
 
 function isExternalLink(link: string): link is ExternalLink {

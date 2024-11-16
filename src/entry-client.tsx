@@ -8,7 +8,7 @@ import { createRouter } from '~/libs/router'
 
 const router = createRouter()
 
-hydrateRoot(window.root, (
+hydrateRoot(window.document, (
   <StrictMode>
     <StartClient router={router} />
   </StrictMode>

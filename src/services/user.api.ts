@@ -1,106 +1,124 @@
 import { createServerFn } from '@tanstack/start'
-import type { z } from 'zod'
+import { zodValidator } from '@tanstack/zod-adapter'
+import { getWebRequest } from 'vinxi/http'
 
 import { auth } from '~/libs/auth'
 import { prisma } from '~/libs/db'
 import { tryCatchAsync } from '~/libs/utils'
 import { getAuth } from '~/services/auth.api'
-import type { changeEmailSchema, changePasswordSchema, updateUserSchema } from '~/services/user.schema'
+import { changeEmailSchema, changePasswordSchema, updateUserSchema } from '~/services/user.schema'
 
-export const protectedUserProcedure = createServerFn('GET', async () => {
-  const auth = await getAuth()
+// TODO: use createMiddleware
+export const protectedUserProcedure = createServerFn({ method: 'GET' })
+  .handler(async () => {
+    const auth = await getAuth()
 
-  if (!auth.isAuthenticated) {
-    throw new Error('Unauthorized')
-  }
+    if (!auth.isAuthenticated) {
+      throw new Error('Unauthorized')
+    }
 
-  return {
-    auth,
-  }
-})
-
-export const updateUser = createServerFn('POST', async (input: z.infer<ReturnType<typeof updateUserSchema>>, ctx) => {
-  await protectedUserProcedure()
-
-  await auth.api.updateUser({
-    headers: ctx.request.headers,
-    body: input,
-  })
-})
-
-export const changeEmail = createServerFn('POST', async (input: z.infer<ReturnType<typeof changeEmailSchema>>, ctx) => {
-  const procedure = await protectedUserProcedure()
-
-  if (input.newEmail === procedure.auth.user.email) {
-    // TODO: i18n
-    throw new Error('New email is the same as the current email')
-  }
-
-  const isEmailExists = await prisma.user.findUnique({
-    where: {
-      email: input.newEmail,
-    },
+    return {
+      auth,
+    }
   })
 
-  if (isEmailExists) {
-    // TODO: i18n
-    throw new Error('Email already exists')
-  }
+export const updateUser = createServerFn({ method: 'POST' })
+  .validator(zodValidator(updateUserSchema()))
+  .handler(async ({ data }) => {
+    await protectedUserProcedure()
 
-  // make sure to unverify the email, so we can send a new verification email
-  if (procedure.auth.user.emailVerified) {
-    await prisma.user.update({
+    const request = getWebRequest()
+
+    await auth.api.updateUser({
+      headers: request.headers,
+      body: data,
+    })
+  })
+
+export const changeEmail = createServerFn({ method: 'POST' })
+  .validator(zodValidator(changeEmailSchema()))
+  .handler(async ({ data }) => {
+    const procedure = await protectedUserProcedure()
+
+    if (data.newEmail === procedure.auth.user.email) {
+    // TODO: i18n
+      throw new Error('New email is the same as the current email')
+    }
+
+    const isEmailExists = await prisma.user.findUnique({
       where: {
-        id: procedure.auth.user.id,
-      },
-      data: {
-        emailVerified: false,
+        email: data.newEmail,
       },
     })
-  }
 
-  await auth.api.changeEmail({
-    headers: ctx.request.headers,
-    body: input,
+    if (isEmailExists) {
+    // TODO: i18n
+      throw new Error('Email already exists')
+    }
+
+    // make sure to unverify the email, so we can send a new verification email
+    if (procedure.auth.user.emailVerified) {
+      await prisma.user.update({
+        where: {
+          id: procedure.auth.user.id,
+        },
+        data: {
+          emailVerified: false,
+        },
+      })
+    }
+
+    const request = getWebRequest()
+
+    await auth.api.changeEmail({
+      headers: request.headers,
+      body: data,
+    })
+
+    await auth.api.sendVerificationEmail({
+      headers: request.headers,
+      body: {
+        email: data.newEmail,
+        callbackURL: '/',
+      },
+    })
   })
 
-  await auth.api.sendVerificationEmail({
-    headers: ctx.request.headers,
-    body: {
-      email: input.newEmail,
-      callbackURL: '/',
-    },
+export const changePassword = createServerFn({ method: 'POST' })
+  .validator(zodValidator(changePasswordSchema()))
+  .handler(async ({ data }) => {
+    await protectedUserProcedure()
+
+    const request = getWebRequest()
+
+    const [changePasswordError, changePasswordResult] = await tryCatchAsync(
+      auth.api.changePassword({
+        headers: request.headers,
+        body: data,
+      }),
+    )
+
+    if (changePasswordError) {
+      throw new Error('TODO: error handling')
+    }
+
+    return {
+      result: changePasswordResult,
+      revokeOtherSessions: Boolean(data.revokeOtherSessions),
+    }
   })
-})
 
-export const changePassword = createServerFn('POST', async (input: z.infer<ReturnType<typeof changePasswordSchema>>, ctx) => {
-  await protectedUserProcedure()
+export const sendVerificationEmail = createServerFn({ method: 'POST' })
+  .handler(async () => {
+    const procedure = await protectedUserProcedure()
 
-  const [changePasswordError, changePasswordResult] = await tryCatchAsync(
-    auth.api.changePassword({
-      headers: ctx.request.headers,
-      body: input,
-    }),
-  )
+    const request = getWebRequest()
 
-  if (changePasswordError) {
-    throw new Error('TODO: error handling')
-  }
-
-  return {
-    result: changePasswordResult,
-    revokeOtherSessions: Boolean(input.revokeOtherSessions),
-  }
-})
-
-export const sendVerificationEmail = createServerFn('POST', async (_, ctx) => {
-  const procedure = await protectedUserProcedure()
-
-  await auth.api.sendVerificationEmail({
-    headers: ctx.request.headers,
-    body: {
-      email: procedure.auth.user.email,
-      callbackURL: '/',
-    },
+    await auth.api.sendVerificationEmail({
+      headers: request.headers,
+      body: {
+        email: procedure.auth.user.email,
+        callbackURL: '/',
+      },
+    })
   })
-})

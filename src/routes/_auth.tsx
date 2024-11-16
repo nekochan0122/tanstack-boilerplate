@@ -1,16 +1,14 @@
 import { createFileRoute, Outlet, redirect } from '@tanstack/react-router'
-import { zodSearchValidator } from '@tanstack/react-router-zod-adapter'
+import { zodValidator } from '@tanstack/zod-adapter'
 import { toast } from 'sonner'
 import { z } from 'zod'
 
 import { logger } from '~/libs/logger'
 
 export const Route = createFileRoute('/_auth')({
-  validateSearch: zodSearchValidator(
-    z.object({
-      callbackURL: z.string().default('/'),
-    }),
-  ),
+  validateSearch: zodValidator(z.object({
+    callbackURL: z.string().default('/'),
+  })),
   beforeLoad: ({ context, search, preload }) => {
     if (context.auth.isAuthenticated) {
       if (!preload) {

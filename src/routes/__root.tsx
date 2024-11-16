@@ -3,7 +3,7 @@ import fontsourceNotoSansTC from '@fontsource-variable/noto-sans-tc?url'
 import globalStyle from '~/styles/global.css?url'
 
 import { createRootRouteWithContext, Outlet, ScrollRestoration } from '@tanstack/react-router'
-import { Body, Head, Html, Meta, Scripts } from '@tanstack/start'
+import { Meta, Scripts } from '@tanstack/start'
 import { createTranslator, IntlProvider } from 'use-intl'
 import type { ErrorComponentProps } from '@tanstack/react-router'
 import type { PropsWithChildren } from 'react'
@@ -66,15 +66,18 @@ export const Route = createRootRouteWithContext<RouterContext>()({
     },
   ],
   // https://github.com/TanStack/router/issues/1992#issuecomment-2397896356
-  scripts: () => import.meta.env.PROD ? [] : [{
-    type: 'module',
-    children: `
-      import RefreshRuntime from "/_build/@react-refresh"
-      RefreshRuntime.injectIntoGlobalHook(window)
-      window.$RefreshReg$ = () => {}
-      window.$RefreshSig$ = () => (type) => type
-    `,
-  }],
+  // 2024-11-15: I think HMR is fixed?
+  scripts: () => import.meta.env.PROD ? [] : [
+    {
+      type: 'module',
+      children: /* js */ `
+        import RefreshRuntime from "/_build/@react-refresh"
+        RefreshRuntime.injectIntoGlobalHook(window)
+        window.$RefreshReg$ = () => {}
+        window.$RefreshSig$ = () => (type) => type
+      `,
+    },
+  ],
   component: RootComponent,
   errorComponent: ErrorComponent,
   pendingComponent: PendingComponent,
@@ -138,11 +141,11 @@ function RootDocument({ children }: PropsWithChildren) {
   const i18nQuery = useI18nQuery()
 
   return (
-    <Html>
-      <Head>
+    <html lang={i18nQuery.data.locale} suppressHydrationWarning>
+      <head>
         <Meta />
-      </Head>
-      <Body>
+      </head>
+      <body>
         <IntlProvider {...i18nQuery.data}>
           <ThemeProvider>
             {children}
@@ -153,7 +156,7 @@ function RootDocument({ children }: PropsWithChildren) {
         {/* <RouterDevtools position='bottom-right' /> */}
         <ScrollRestoration />
         <Scripts />
-      </Body>
-    </Html>
+      </body>
+    </html>
   )
 }
