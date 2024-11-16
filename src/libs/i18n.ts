@@ -11,16 +11,18 @@ export const supportedLocalesSchema = constructZodLiteralUnionType(supportedLoca
 
 export const defaultLocale: SupportedLocales = supportedLocales[0]
 
-export const defaultTimeZone: IntlConfig['timeZone'] = 'Asia/Taipei'
+export const defaultTimeZone: TimeZone = 'Asia/Taipei'
 
 export type I18nSession = {
   locale: SupportedLocales
-  timeZone: string
+  timeZone: TimeZone
 }
 
 export type Messages = typeof enMessages
 
 export type SupportedLocales = typeof supportedLocales[number]
+
+export type TimeZone = Required<IntlConfig>['timeZone']
 
 export type Translator = InferRouteContext<'/'>['i18n']['translator']
 

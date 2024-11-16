@@ -2,12 +2,11 @@ import { createServerFn } from '@tanstack/start'
 import { zodValidator } from '@tanstack/zod-adapter'
 import { lookup } from 'geoip'
 import { getHeader } from 'vinxi/http'
-import { z } from 'zod'
 
 import { defaultLocale, defaultTimeZone, detectLocale, parseAcceptLanguage, supportedLocalesSchema } from '~/libs/i18n'
 import { logger } from '~/libs/logger'
 import { getVinxiSessionHelper } from '~/libs/session'
-import type { Messages, SupportedLocales } from '~/libs/i18n'
+import type { Messages, SupportedLocales, TimeZone } from '~/libs/i18n'
 
 export const getI18n = createServerFn({ method: 'GET' })
   .handler(async () => {
@@ -41,23 +40,15 @@ export const getI18n = createServerFn({ method: 'GET' })
   })
 
 export const setLocale = createServerFn({ method: 'POST' })
-  .validator(zodValidator(
-    z.object({
-      locale: supportedLocalesSchema,
-    }),
-  ))
+  .validator(zodValidator(supportedLocalesSchema))
   .handler(async ({ data }) => {
     const session = await getVinxiSessionHelper()
-    await session.update(data)
+    await session.update({ locale: data })
   })
 
 export const setTimeZone = createServerFn({ method: 'POST' })
-  .validator(zodValidator(
-    z.object({
-      timeZone: z.string(),
-    }),
-  ))
+  .validator((timeZone: TimeZone) => timeZone as string)
   .handler(async ({ data }) => {
     const session = await getVinxiSessionHelper()
-    await session.update(data)
+    await session.update({ timeZone: data })
   })
