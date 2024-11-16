@@ -48,18 +48,18 @@ const navigation: NavItem[] = [
     items: [
       {
         type: 'menu',
-        name: 'navigation.authentication',
+        name: 'navigation.auth',
         icon: LuKeyRound,
         items: [
           {
             type: 'link',
             name: 'navigation.sign-in',
-            link: '/sign-in',
+            link: '/auth/sign-in',
           },
           {
             type: 'link',
             name: 'navigation.sign-up',
-            link: '/sign-up',
+            link: '/auth/sign-up',
           },
         ],
       },
@@ -271,7 +271,7 @@ function SidebarUser() {
           </DropdownMenu>
         ) : (
           <SidebarMenuButton size='lg' asChild>
-            <Link to='/sign-in'>
+            <Link to='/auth/sign-in'>
               <Avatar className='size-8 rounded-lg'>
                 <AvatarFallback className='rounded-lg'>
                   <LuUser />

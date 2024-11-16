@@ -10,14 +10,14 @@ import { Link } from '~/components/ui/link'
 import { useSignUpMutation } from '~/services/auth.query'
 import { signUpSchema } from '~/services/auth.schema'
 
-export const Route = createFileRoute('/_auth/sign-up')({
+export const Route = createFileRoute('/auth/sign-up')({
   component: SignUpRoute,
 })
 
 function SignUpRoute() {
   const t = useTranslations()
 
-  const search = useSearch({ from: '/_auth' })
+  const search = useSearch({ from: '/auth' })
 
   const signUpMutation = useSignUpMutation(search)
 
@@ -97,7 +97,7 @@ function SignUpRoute() {
         <div className='flex items-center justify-center gap-2'>
           <p>{t('auth.already-have-an-account')}</p>
           <Button asChild variant='link' className='h-auto p-0 text-base'>
-            <Link to='/sign-in'>{t('auth.sign-in')}</Link>
+            <Link to='/auth/sign-in'>{t('auth.sign-in')}</Link>
           </Button>
         </div>
       </CardContent>

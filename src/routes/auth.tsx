@@ -5,19 +5,29 @@ import { z } from 'zod'
 
 import { logger } from '~/libs/logger'
 
-export const Route = createFileRoute('/_auth')({
-  validateSearch: zodValidator(z.object({
-    callbackURL: z.string().default('/'),
-  })),
-  beforeLoad: ({ context, search, preload }) => {
+export const Route = createFileRoute('/auth')({
+  validateSearch: zodValidator(
+    z.object({
+      callbackURL: z.string().default('/'),
+    }),
+  ),
+  beforeLoad: ({ context, search, location, preload }) => {
     if (context.auth.isAuthenticated) {
       if (!preload) {
         logger.info('Already authenticated, redirecting to callback URL')
-        toast.error(context.i18n.translator('auth.already-authenticated-redirecting'))
+        toast.error(
+          context.i18n.translator('auth.already-authenticated-redirecting'),
+        )
       }
 
       throw redirect({
         to: search.callbackURL,
+      })
+    }
+
+    if (['/auth', '/auth/'].includes(location.pathname)) {
+      throw redirect({
+        to: '/auth/sign-in',
       })
     }
   },

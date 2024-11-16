@@ -21,7 +21,7 @@ const en = {
   navigation: {
     'home': 'Home',
     'playground': 'Playground',
-    'authentication': 'Authentication',
+    'auth': 'Authentication',
     'sign-in': 'Sign in Route',
     'sign-up': 'Sign up Route',
     'user': 'Protected User Route',

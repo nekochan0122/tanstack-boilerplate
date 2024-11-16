@@ -23,7 +23,7 @@ const zhTW: Messages = {
   navigation: {
     'home': '首頁',
     'playground': '實驗室',
-    'authentication': '身分驗證',
+    'auth': '身分驗證',
     'sign-in': '登入頁面',
     'sign-up': '註冊頁面',
     'user': '受保護的用戶頁面',

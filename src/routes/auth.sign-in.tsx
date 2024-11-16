@@ -14,14 +14,14 @@ import { useSignInMutation, useSignInSocialMutation } from '~/services/auth.quer
 import { signInSchema } from '~/services/auth.schema'
 import type { SupportedSocialProviderId } from '~/config/social-provider'
 
-export const Route = createFileRoute('/_auth/sign-in')({
+export const Route = createFileRoute('/auth/sign-in')({
   component: SignInRoute,
 })
 
 function SignInRoute() {
   const t = useTranslations()
 
-  const search = useSearch({ from: '/_auth' })
+  const search = useSearch({ from: '/auth' })
 
   const signInMutation = useSignInMutation(search)
   const signInSocialMutation = useSignInSocialMutation()
@@ -110,7 +110,10 @@ function SignInRoute() {
                 socialProvider.id === 'google' && 'focus-visible:ring-ring',
               )}
             >
-              <socialProvider.icon size={socialProvider.size} color={socialProvider.logoColor} />
+              <socialProvider.icon
+                size={socialProvider.size}
+                color={socialProvider.logoColor}
+              />
               <span style={{ color: socialProvider.textColor }}>
                 {t('auth.sign-in-social', { name: socialProvider.name })}
               </span>
@@ -121,7 +124,7 @@ function SignInRoute() {
         <div className='flex items-center justify-center gap-2'>
           <p>{t('auth.dont-have-an-account')}</p>
           <Button asChild variant='link' className='h-auto p-0 text-base'>
-            <Link to='/sign-up'>{t('auth.sign-up')}</Link>
+            <Link to='/auth/sign-in'>{t('auth.sign-up')}</Link>
           </Button>
         </div>
       </CardContent>

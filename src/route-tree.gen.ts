@@ -12,17 +12,17 @@
 
 import { Route as rootRoute } from './routes/__root'
 import { Route as UserImport } from './routes/user'
+import { Route as AuthImport } from './routes/auth'
 import { Route as AdminImport } from './routes/admin'
-import { Route as AuthImport } from './routes/_auth'
 import { Route as IndexImport } from './routes/index'
 import { Route as UserEmailVerificationImport } from './routes/user.email-verification'
 import { Route as UserChangePasswordImport } from './routes/user.change-password'
 import { Route as UserChangeEmailImport } from './routes/user.change-email'
 import { Route as UserAccountSettingsImport } from './routes/user.account-settings'
+import { Route as AuthSignUpImport } from './routes/auth.sign-up'
+import { Route as AuthSignInImport } from './routes/auth.sign-in'
 import { Route as AdminUserManagementImport } from './routes/admin.user-management'
 import { Route as AdminDashboardImport } from './routes/admin.dashboard'
-import { Route as AuthSignUpImport } from './routes/_auth.sign-up'
-import { Route as AuthSignInImport } from './routes/_auth.sign-in'
 
 // Create/Update Routes
 
@@ -32,14 +32,15 @@ const UserRoute = UserImport.update({
   getParentRoute: () => rootRoute,
 } as any)
 
-const AdminRoute = AdminImport.update({
-  id: '/admin',
-  path: '/admin',
+const AuthRoute = AuthImport.update({
+  id: '/auth',
+  path: '/auth',
   getParentRoute: () => rootRoute,
 } as any)
 
-const AuthRoute = AuthImport.update({
-  id: '/_auth',
+const AdminRoute = AdminImport.update({
+  id: '/admin',
+  path: '/admin',
   getParentRoute: () => rootRoute,
 } as any)
 
@@ -73,18 +74,6 @@ const UserAccountSettingsRoute = UserAccountSettingsImport.update({
   getParentRoute: () => UserRoute,
 } as any)
 
-const AdminUserManagementRoute = AdminUserManagementImport.update({
-  id: '/user-management',
-  path: '/user-management',
-  getParentRoute: () => AdminRoute,
-} as any)
-
-const AdminDashboardRoute = AdminDashboardImport.update({
-  id: '/dashboard',
-  path: '/dashboard',
-  getParentRoute: () => AdminRoute,
-} as any)
-
 const AuthSignUpRoute = AuthSignUpImport.update({
   id: '/sign-up',
   path: '/sign-up',
@@ -95,6 +84,18 @@ const AuthSignInRoute = AuthSignInImport.update({
   id: '/sign-in',
   path: '/sign-in',
   getParentRoute: () => AuthRoute,
+} as any)
+
+const AdminUserManagementRoute = AdminUserManagementImport.update({
+  id: '/user-management',
+  path: '/user-management',
+  getParentRoute: () => AdminRoute,
+} as any)
+
+const AdminDashboardRoute = AdminDashboardImport.update({
+  id: '/dashboard',
+  path: '/dashboard',
+  getParentRoute: () => AdminRoute,
 } as any)
 
 // Populate the FileRoutesByPath interface
@@ -108,18 +109,18 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexImport
       parentRoute: typeof rootRoute
     }
-    '/_auth': {
-      id: '/_auth'
-      path: ''
-      fullPath: ''
-      preLoaderRoute: typeof AuthImport
-      parentRoute: typeof rootRoute
-    }
     '/admin': {
       id: '/admin'
       path: '/admin'
       fullPath: '/admin'
       preLoaderRoute: typeof AdminImport
+      parentRoute: typeof rootRoute
+    }
+    '/auth': {
+      id: '/auth'
+      path: '/auth'
+      fullPath: '/auth'
+      preLoaderRoute: typeof AuthImport
       parentRoute: typeof rootRoute
     }
     '/user': {
@@ -128,20 +129,6 @@ declare module '@tanstack/react-router' {
       fullPath: '/user'
       preLoaderRoute: typeof UserImport
       parentRoute: typeof rootRoute
-    }
-    '/_auth/sign-in': {
-      id: '/_auth/sign-in'
-      path: '/sign-in'
-      fullPath: '/sign-in'
-      preLoaderRoute: typeof AuthSignInImport
-      parentRoute: typeof AuthImport
-    }
-    '/_auth/sign-up': {
-      id: '/_auth/sign-up'
-      path: '/sign-up'
-      fullPath: '/sign-up'
-      preLoaderRoute: typeof AuthSignUpImport
-      parentRoute: typeof AuthImport
     }
     '/admin/dashboard': {
       id: '/admin/dashboard'
@@ -156,6 +143,20 @@ declare module '@tanstack/react-router' {
       fullPath: '/admin/user-management'
       preLoaderRoute: typeof AdminUserManagementImport
       parentRoute: typeof AdminImport
+    }
+    '/auth/sign-in': {
+      id: '/auth/sign-in'
+      path: '/sign-in'
+      fullPath: '/auth/sign-in'
+      preLoaderRoute: typeof AuthSignInImport
+      parentRoute: typeof AuthImport
+    }
+    '/auth/sign-up': {
+      id: '/auth/sign-up'
+      path: '/sign-up'
+      fullPath: '/auth/sign-up'
+      preLoaderRoute: typeof AuthSignUpImport
+      parentRoute: typeof AuthImport
     }
     '/user/account-settings': {
       id: '/user/account-settings'
@@ -190,18 +191,6 @@ declare module '@tanstack/react-router' {
 
 // Create and export the route tree
 
-interface AuthRouteChildren {
-  AuthSignInRoute: typeof AuthSignInRoute
-  AuthSignUpRoute: typeof AuthSignUpRoute
-}
-
-const AuthRouteChildren: AuthRouteChildren = {
-  AuthSignInRoute: AuthSignInRoute,
-  AuthSignUpRoute: AuthSignUpRoute,
-}
-
-const AuthRouteWithChildren = AuthRoute._addFileChildren(AuthRouteChildren)
-
 interface AdminRouteChildren {
   AdminDashboardRoute: typeof AdminDashboardRoute
   AdminUserManagementRoute: typeof AdminUserManagementRoute
@@ -213,6 +202,18 @@ const AdminRouteChildren: AdminRouteChildren = {
 }
 
 const AdminRouteWithChildren = AdminRoute._addFileChildren(AdminRouteChildren)
+
+interface AuthRouteChildren {
+  AuthSignInRoute: typeof AuthSignInRoute
+  AuthSignUpRoute: typeof AuthSignUpRoute
+}
+
+const AuthRouteChildren: AuthRouteChildren = {
+  AuthSignInRoute: AuthSignInRoute,
+  AuthSignUpRoute: AuthSignUpRoute,
+}
+
+const AuthRouteWithChildren = AuthRoute._addFileChildren(AuthRouteChildren)
 
 interface UserRouteChildren {
   UserAccountSettingsRoute: typeof UserAccountSettingsRoute
@@ -232,13 +233,13 @@ const UserRouteWithChildren = UserRoute._addFileChildren(UserRouteChildren)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
-  '': typeof AuthRouteWithChildren
   '/admin': typeof AdminRouteWithChildren
+  '/auth': typeof AuthRouteWithChildren
   '/user': typeof UserRouteWithChildren
-  '/sign-in': typeof AuthSignInRoute
-  '/sign-up': typeof AuthSignUpRoute
   '/admin/dashboard': typeof AdminDashboardRoute
   '/admin/user-management': typeof AdminUserManagementRoute
+  '/auth/sign-in': typeof AuthSignInRoute
+  '/auth/sign-up': typeof AuthSignUpRoute
   '/user/account-settings': typeof UserAccountSettingsRoute
   '/user/change-email': typeof UserChangeEmailRoute
   '/user/change-password': typeof UserChangePasswordRoute
@@ -247,13 +248,13 @@ export interface FileRoutesByFullPath {
 
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
-  '': typeof AuthRouteWithChildren
   '/admin': typeof AdminRouteWithChildren
+  '/auth': typeof AuthRouteWithChildren
   '/user': typeof UserRouteWithChildren
-  '/sign-in': typeof AuthSignInRoute
-  '/sign-up': typeof AuthSignUpRoute
   '/admin/dashboard': typeof AdminDashboardRoute
   '/admin/user-management': typeof AdminUserManagementRoute
+  '/auth/sign-in': typeof AuthSignInRoute
+  '/auth/sign-up': typeof AuthSignUpRoute
   '/user/account-settings': typeof UserAccountSettingsRoute
   '/user/change-email': typeof UserChangeEmailRoute
   '/user/change-password': typeof UserChangePasswordRoute
@@ -263,13 +264,13 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRoute
   '/': typeof IndexRoute
-  '/_auth': typeof AuthRouteWithChildren
   '/admin': typeof AdminRouteWithChildren
+  '/auth': typeof AuthRouteWithChildren
   '/user': typeof UserRouteWithChildren
-  '/_auth/sign-in': typeof AuthSignInRoute
-  '/_auth/sign-up': typeof AuthSignUpRoute
   '/admin/dashboard': typeof AdminDashboardRoute
   '/admin/user-management': typeof AdminUserManagementRoute
+  '/auth/sign-in': typeof AuthSignInRoute
+  '/auth/sign-up': typeof AuthSignUpRoute
   '/user/account-settings': typeof UserAccountSettingsRoute
   '/user/change-email': typeof UserChangeEmailRoute
   '/user/change-password': typeof UserChangePasswordRoute
@@ -280,13 +281,13 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
-    | ''
     | '/admin'
+    | '/auth'
     | '/user'
-    | '/sign-in'
-    | '/sign-up'
     | '/admin/dashboard'
     | '/admin/user-management'
+    | '/auth/sign-in'
+    | '/auth/sign-up'
     | '/user/account-settings'
     | '/user/change-email'
     | '/user/change-password'
@@ -294,13 +295,13 @@ export interface FileRouteTypes {
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
-    | ''
     | '/admin'
+    | '/auth'
     | '/user'
-    | '/sign-in'
-    | '/sign-up'
     | '/admin/dashboard'
     | '/admin/user-management'
+    | '/auth/sign-in'
+    | '/auth/sign-up'
     | '/user/account-settings'
     | '/user/change-email'
     | '/user/change-password'
@@ -308,13 +309,13 @@ export interface FileRouteTypes {
   id:
     | '__root__'
     | '/'
-    | '/_auth'
     | '/admin'
+    | '/auth'
     | '/user'
-    | '/_auth/sign-in'
-    | '/_auth/sign-up'
     | '/admin/dashboard'
     | '/admin/user-management'
+    | '/auth/sign-in'
+    | '/auth/sign-up'
     | '/user/account-settings'
     | '/user/change-email'
     | '/user/change-password'
@@ -324,15 +325,15 @@ export interface FileRouteTypes {
 
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
-  AuthRoute: typeof AuthRouteWithChildren
   AdminRoute: typeof AdminRouteWithChildren
+  AuthRoute: typeof AuthRouteWithChildren
   UserRoute: typeof UserRouteWithChildren
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
-  AuthRoute: AuthRouteWithChildren,
   AdminRoute: AdminRouteWithChildren,
+  AuthRoute: AuthRouteWithChildren,
   UserRoute: UserRouteWithChildren,
 }
 
@@ -347,26 +348,26 @@ export const routeTree = rootRoute
       "filePath": "__root.tsx",
       "children": [
         "/",
-        "/_auth",
         "/admin",
+        "/auth",
         "/user"
       ]
     },
     "/": {
       "filePath": "index.tsx"
     },
-    "/_auth": {
-      "filePath": "_auth.tsx",
-      "children": [
-        "/_auth/sign-in",
-        "/_auth/sign-up"
-      ]
-    },
     "/admin": {
       "filePath": "admin.tsx",
       "children": [
         "/admin/dashboard",
         "/admin/user-management"
+      ]
+    },
+    "/auth": {
+      "filePath": "auth.tsx",
+      "children": [
+        "/auth/sign-in",
+        "/auth/sign-up"
       ]
     },
     "/user": {
@@ -378,14 +379,6 @@ export const routeTree = rootRoute
         "/user/email-verification"
       ]
     },
-    "/_auth/sign-in": {
-      "filePath": "_auth.sign-in.tsx",
-      "parent": "/_auth"
-    },
-    "/_auth/sign-up": {
-      "filePath": "_auth.sign-up.tsx",
-      "parent": "/_auth"
-    },
     "/admin/dashboard": {
       "filePath": "admin.dashboard.tsx",
       "parent": "/admin"
@@ -393,6 +386,14 @@ export const routeTree = rootRoute
     "/admin/user-management": {
       "filePath": "admin.user-management.tsx",
       "parent": "/admin"
+    },
+    "/auth/sign-in": {
+      "filePath": "auth.sign-in.tsx",
+      "parent": "/auth"
+    },
+    "/auth/sign-up": {
+      "filePath": "auth.sign-up.tsx",
+      "parent": "/auth"
     },
     "/user/account-settings": {
       "filePath": "user.account-settings.tsx",

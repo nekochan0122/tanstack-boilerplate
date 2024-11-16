@@ -13,7 +13,7 @@ export const Route = createFileRoute('/admin')({
       }
 
       throw redirect({
-        to: '/sign-in',
+        to: '/auth/sign-in',
         search: {
           callbackURL: location.pathname,
         },
