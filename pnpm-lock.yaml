@@ -73,7 +73,7 @@ importers:
         version: 0.0.28(react-dom@19.0.0-rc.1(react@19.0.0-rc.1))(react@19.0.0-rc.1)
       '@tanstack/react-form':
         specifier: ^0.36.0
-        version: 0.36.0(@tanstack/start@1.81.16(@types/node@22.9.0)(ioredis@5.4.1)(lightningcss@1.27.0)(react-dom@19.0.0-rc.1(react@19.0.0-rc.1))(react@19.0.0-rc.1)(terser@5.36.0)(typescript@5.6.3)(vite@5.4.11(@types/node@22.9.0)(lightningcss@1.27.0)(terser@5.36.0)))(react-dom@19.0.0-rc.1(react@19.0.0-rc.1))(react@19.0.0-rc.1)(typescript@5.6.3)
+        version: 0.36.0(@tanstack/start@1.81.18(@types/node@22.9.0)(ioredis@5.4.1)(lightningcss@1.27.0)(react-dom@19.0.0-rc.1(react@19.0.0-rc.1))(react@19.0.0-rc.1)(terser@5.36.0)(typescript@5.6.3)(vite@5.4.11(@types/node@22.9.0)(lightningcss@1.27.0)(terser@5.36.0)))(react-dom@19.0.0-rc.1(react@19.0.0-rc.1))(react@19.0.0-rc.1)(typescript@5.6.3)
       '@tanstack/react-form-zod-adapter':
         specifier: npm:@tanstack/zod-form-adapter@^0.35.0
         version: '@tanstack/zod-form-adapter@0.35.0(zod@3.23.8)'
@@ -96,8 +96,8 @@ importers:
         specifier: ^3.10.9
         version: 3.10.9(react-dom@19.0.0-rc.1(react@19.0.0-rc.1))(react@19.0.0-rc.1)
       '@tanstack/start':
-        specifier: ^1.81.16
-        version: 1.81.16(@types/node@22.9.0)(ioredis@5.4.1)(lightningcss@1.27.0)(react-dom@19.0.0-rc.1(react@19.0.0-rc.1))(react@19.0.0-rc.1)(terser@5.36.0)(typescript@5.6.3)(vite@5.4.11(@types/node@22.9.0)(lightningcss@1.27.0)(terser@5.36.0))
+        specifier: ^1.81.18
+        version: 1.81.18(@types/node@22.9.0)(ioredis@5.4.1)(lightningcss@1.27.0)(react-dom@19.0.0-rc.1(react@19.0.0-rc.1))(react@19.0.0-rc.1)(terser@5.36.0)(typescript@5.6.3)(vite@5.4.11(@types/node@22.9.0)(lightningcss@1.27.0)(terser@5.36.0))
       '@tanstack/zod-adapter':
         specifier: ^1.81.14
         version: 1.81.14(@tanstack/react-router@1.81.14(@tanstack/router-generator@1.81.9)(react-dom@19.0.0-rc.1(react@19.0.0-rc.1))(react@19.0.0-rc.1))(zod@3.23.8)
@@ -2759,8 +2759,8 @@ packages:
     resolution: {integrity: sha512-kiD8z6W/nZsx3A83DXBSQCLisXkZ2FpEneQRNk+62V828LbttWZ/6SkeRiO1pP9DklfZiCFjm9/LoBY95biHkQ==}
     engines: {node: '>=12'}
 
-  '@tanstack/start@1.81.16':
-    resolution: {integrity: sha512-usIuG30O2n2w0tq7LJ1Yw8qEvRUVZI1c5lxVqAbrogL70VqrJQ9AhR4izPvZjmmTY7hxglwjPgTPxWvj503s9w==}
+  '@tanstack/start@1.81.18':
+    resolution: {integrity: sha512-CwywrkdJ57IBDYLnmeZCDAPq9mnJ2QYquzjKhdH4moc3YOYIU7189RAbNY555qUJ/XlHbEgpewoMFFFi9qY+0w==}
     engines: {node: '>=12'}
     peerDependencies:
       react: '>=18.0.0 || >=19.0.0'
@@ -8261,7 +8261,7 @@ snapshots:
       react: 19.0.0-rc.1
       react-dom: 19.0.0-rc.1(react@19.0.0-rc.1)
 
-  '@tanstack/react-form@0.36.0(@tanstack/start@1.81.16(@types/node@22.9.0)(ioredis@5.4.1)(lightningcss@1.27.0)(react-dom@19.0.0-rc.1(react@19.0.0-rc.1))(react@19.0.0-rc.1)(terser@5.36.0)(typescript@5.6.3)(vite@5.4.11(@types/node@22.9.0)(lightningcss@1.27.0)(terser@5.36.0)))(react-dom@19.0.0-rc.1(react@19.0.0-rc.1))(react@19.0.0-rc.1)(typescript@5.6.3)':
+  '@tanstack/react-form@0.36.0(@tanstack/start@1.81.18(@types/node@22.9.0)(ioredis@5.4.1)(lightningcss@1.27.0)(react-dom@19.0.0-rc.1(react@19.0.0-rc.1))(react@19.0.0-rc.1)(terser@5.36.0)(typescript@5.6.3)(vite@5.4.11(@types/node@22.9.0)(lightningcss@1.27.0)(terser@5.36.0)))(react-dom@19.0.0-rc.1(react@19.0.0-rc.1))(react@19.0.0-rc.1)(typescript@5.6.3)':
     dependencies:
       '@remix-run/node': 2.14.0(typescript@5.6.3)
       '@tanstack/form-core': 0.35.0
@@ -8269,7 +8269,7 @@ snapshots:
       decode-formdata: 0.8.0
       react: 19.0.0-rc.1
     optionalDependencies:
-      '@tanstack/start': 1.81.16(@types/node@22.9.0)(ioredis@5.4.1)(lightningcss@1.27.0)(react-dom@19.0.0-rc.1(react@19.0.0-rc.1))(react@19.0.0-rc.1)(terser@5.36.0)(typescript@5.6.3)(vite@5.4.11(@types/node@22.9.0)(lightningcss@1.27.0)(terser@5.36.0))
+      '@tanstack/start': 1.81.18(@types/node@22.9.0)(ioredis@5.4.1)(lightningcss@1.27.0)(react-dom@19.0.0-rc.1(react@19.0.0-rc.1))(react@19.0.0-rc.1)(terser@5.36.0)(typescript@5.6.3)(vite@5.4.11(@types/node@22.9.0)(lightningcss@1.27.0)(terser@5.36.0))
     transitivePeerDependencies:
       - react-dom
       - typescript
@@ -8380,7 +8380,7 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  '@tanstack/start@1.81.16(@types/node@22.9.0)(ioredis@5.4.1)(lightningcss@1.27.0)(react-dom@19.0.0-rc.1(react@19.0.0-rc.1))(react@19.0.0-rc.1)(terser@5.36.0)(typescript@5.6.3)(vite@5.4.11(@types/node@22.9.0)(lightningcss@1.27.0)(terser@5.36.0))':
+  '@tanstack/start@1.81.18(@types/node@22.9.0)(ioredis@5.4.1)(lightningcss@1.27.0)(react-dom@19.0.0-rc.1(react@19.0.0-rc.1))(react@19.0.0-rc.1)(terser@5.36.0)(typescript@5.6.3)(vite@5.4.11(@types/node@22.9.0)(lightningcss@1.27.0)(terser@5.36.0))':
     dependencies:
       '@tanstack/react-cross-context': 1.81.9(react-dom@19.0.0-rc.1(react@19.0.0-rc.1))(react@19.0.0-rc.1)
       '@tanstack/react-router': 1.81.14(@tanstack/router-generator@1.81.9)(react-dom@19.0.0-rc.1(react@19.0.0-rc.1))(react@19.0.0-rc.1)
