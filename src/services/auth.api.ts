@@ -19,7 +19,7 @@ async function handleResponse<ResponseBody = unknown>(response: Response): Promi
 
   switch (response.headers.get('Content-Type')) {
     case 'application/json':
-      return await response.json() as ResponseBody
+      return response.json() as ResponseBody
 
     default:
       return response.body as ResponseBody
@@ -68,7 +68,7 @@ export const signUp = createServerFn({ method: 'POST' })
       throw new Error('TODO: error handling')
     }
 
-    return await handleResponse<InferAuthResult<'signUpEmail'>>(signUpResponse)
+    return handleResponse<InferAuthResult<'signUpEmail'>>(signUpResponse)
   })
 
 export const signIn = createServerFn({ method: 'POST' })
@@ -88,7 +88,7 @@ export const signIn = createServerFn({ method: 'POST' })
       throw new Error('TODO: error handling')
     }
 
-    return await handleResponse<InferAuthResult<'signInUsername'>>(signInResponse)
+    return handleResponse<InferAuthResult<'signInUsername'>>(signInResponse)
   })
 
 export const signOut = createServerFn({ method: 'POST' })
@@ -106,5 +106,5 @@ export const signOut = createServerFn({ method: 'POST' })
       throw new Error('TODO: error handling')
     }
 
-    return await handleResponse<InferAuthResult<'signOut'>>(signOutResponse)
+    return handleResponse<InferAuthResult<'signOut'>>(signOutResponse)
   })
