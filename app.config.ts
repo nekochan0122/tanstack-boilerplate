@@ -3,10 +3,12 @@ import { join } from 'node:path'
 
 import { defineConfig } from '@tanstack/start/config'
 import tsconfigPathsPlugin from 'vite-plugin-tsconfig-paths'
+import type { App } from 'vinxi'
 
 const config = {
   appDirectory: 'src',
   autoOpenBrowser: false,
+  globalMiddleware: 'global-middleware.ts',
 }
 
 const app = defineConfig({
@@ -76,4 +78,18 @@ app.hooks.hook('app:dev:server:listener:created', ({ listener }) => {
   exec(`start ${listener.url}`)
 })
 
-export default app
+// https://discord.com/channels/719702312431386674/1238170697650405547/1300589573080092723
+function withGlobalMiddleware(app: App) {
+  return {
+    ...app,
+    config: {
+      ...app.config,
+      routers: app.config.routers.map((router) => ({
+        ...router,
+        middleware: router.target !== 'server' ? undefined : join(config.appDirectory, config.globalMiddleware),
+      })),
+    },
+  }
+}
+
+export default withGlobalMiddleware(app)

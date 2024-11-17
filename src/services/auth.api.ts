@@ -5,10 +5,9 @@ import { createServerFn } from '@tanstack/start'
 import { getEvent, getWebRequest, setHeaders } from 'vinxi/http'
 import type { APIError } from 'better-auth/api'
 
-import { auth, authSchema } from '~/libs/auth'
+import { auth } from '~/libs/auth'
 import { logger } from '~/libs/logger'
 import { tryCatchAsync } from '~/libs/utils'
-import { handleZodErrors } from '~/libs/zod'
 import { signInSchema, signUpSchema } from '~/services/auth.schema'
 import type { InferAuthResult } from '~/libs/auth'
 
@@ -30,25 +29,9 @@ export const getAuth = createServerFn({ method: 'GET' })
   .handler(async () => {
     logger.info('Getting auth...')
 
-    const request = getWebRequest()
+    const event = getEvent()
 
-    const authSession = await auth.api.getSession({
-      headers: request.headers,
-    })
-
-    const authResult = await authSchema.safeParseAsync(
-      authSession === null
-        ? { isAuthenticated: false, user: null, session: null }
-        : { isAuthenticated: true, user: authSession.user, session: authSession.session },
-    )
-
-    if (authResult.error) {
-      handleZodErrors(authResult.error)
-
-      throw new Error('Unexpected auth schema')
-    }
-
-    return authResult.data
+    return event.context.auth
   })
 
 export const signUp = createServerFn({ method: 'POST' })
