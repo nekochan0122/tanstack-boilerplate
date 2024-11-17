@@ -1,4 +1,4 @@
-import { createServerFn } from '@tanstack/start'
+import { createMiddleware, createServerFn } from '@tanstack/start'
 import { getWebRequest } from 'vinxi/http'
 
 import { auth } from '~/libs/auth'
@@ -7,25 +7,25 @@ import { tryCatchAsync } from '~/libs/utils'
 import { getAuth } from '~/services/auth.api'
 import { changeEmailSchema, changePasswordSchema, updateUserSchema } from '~/services/user.schema'
 
-// TODO: use createMiddleware
-export const protectedUserProcedure = createServerFn({ method: 'GET' })
-  .handler(async () => {
+export const userMiddleware = createMiddleware()
+  .server(async ({ next }) => {
     const auth = await getAuth()
 
     if (!auth.isAuthenticated) {
       throw new Error('Unauthorized')
     }
 
-    return {
-      auth,
-    }
+    return next({
+      context: {
+        auth,
+      },
+    })
   })
 
 export const updateUser = createServerFn({ method: 'POST' })
+  .middleware([userMiddleware])
   .validator(updateUserSchema())
   .handler(async ({ data }) => {
-    await protectedUserProcedure()
-
     const request = getWebRequest()
 
     await auth.api.updateUser({
@@ -35,11 +35,10 @@ export const updateUser = createServerFn({ method: 'POST' })
   })
 
 export const changeEmail = createServerFn({ method: 'POST' })
+  .middleware([userMiddleware])
   .validator(changeEmailSchema())
-  .handler(async ({ data }) => {
-    const procedure = await protectedUserProcedure()
-
-    if (data.newEmail === procedure.auth.user.email) {
+  .handler(async ({ data, context }) => {
+    if (data.newEmail === context.auth.user.email) {
     // TODO: i18n
       throw new Error('New email is the same as the current email')
     }
@@ -56,10 +55,10 @@ export const changeEmail = createServerFn({ method: 'POST' })
     }
 
     // make sure to unverify the email, so we can send a new verification email
-    if (procedure.auth.user.emailVerified) {
+    if (context.auth.user.emailVerified) {
       await prisma.user.update({
         where: {
-          id: procedure.auth.user.id,
+          id: context.auth.user.id,
         },
         data: {
           emailVerified: false,
@@ -84,10 +83,9 @@ export const changeEmail = createServerFn({ method: 'POST' })
   })
 
 export const changePassword = createServerFn({ method: 'POST' })
+  .middleware([userMiddleware])
   .validator(changePasswordSchema())
   .handler(async ({ data }) => {
-    await protectedUserProcedure()
-
     const request = getWebRequest()
 
     const [changePasswordError, changePasswordResult] = await tryCatchAsync(
@@ -108,15 +106,14 @@ export const changePassword = createServerFn({ method: 'POST' })
   })
 
 export const sendVerificationEmail = createServerFn({ method: 'POST' })
-  .handler(async () => {
-    const procedure = await protectedUserProcedure()
-
+  .middleware([userMiddleware])
+  .handler(async ({ context }) => {
     const request = getWebRequest()
 
     await auth.api.sendVerificationEmail({
       headers: request.headers,
       body: {
-        email: procedure.auth.user.email,
+        email: context.auth.user.email,
         callbackURL: '/',
       },
     })
