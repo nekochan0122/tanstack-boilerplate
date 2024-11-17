@@ -8,7 +8,6 @@ import type { App } from 'vinxi'
 const config = {
   appDirectory: 'src',
   autoOpenBrowser: false,
-  globalMiddleware: 'global-middleware.ts',
 }
 
 const app = defineConfig({
@@ -86,7 +85,7 @@ function withGlobalMiddleware(app: App) {
       ...app.config,
       routers: app.config.routers.map((router) => ({
         ...router,
-        middleware: router.target !== 'server' ? undefined : join(config.appDirectory, config.globalMiddleware),
+        middleware: router.target !== 'server' ? undefined : join(config.appDirectory, 'global-middleware.ts'),
       })),
     },
   }
