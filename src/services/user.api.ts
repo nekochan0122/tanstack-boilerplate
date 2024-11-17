@@ -15,9 +15,12 @@ export const userMiddleware = createMiddleware()
       throw new Error('Unauthorized')
     }
 
+    const request = getWebRequest()
+
     return next({
       context: {
         auth,
+        request,
       },
     })
   })
@@ -25,11 +28,9 @@ export const userMiddleware = createMiddleware()
 export const updateUser = createServerFn({ method: 'POST' })
   .middleware([userMiddleware])
   .validator(updateUserSchema())
-  .handler(async ({ data }) => {
-    const request = getWebRequest()
-
+  .handler(async ({ data, context }) => {
     await auth.api.updateUser({
-      headers: request.headers,
+      headers: context.request.headers,
       body: data,
     })
   })
@@ -66,15 +67,13 @@ export const changeEmail = createServerFn({ method: 'POST' })
       })
     }
 
-    const request = getWebRequest()
-
     await auth.api.changeEmail({
-      headers: request.headers,
+      headers: context.request.headers,
       body: data,
     })
 
     await auth.api.sendVerificationEmail({
-      headers: request.headers,
+      headers: context.request.headers,
       body: {
         email: data.newEmail,
         callbackURL: '/',
@@ -85,12 +84,10 @@ export const changeEmail = createServerFn({ method: 'POST' })
 export const changePassword = createServerFn({ method: 'POST' })
   .middleware([userMiddleware])
   .validator(changePasswordSchema())
-  .handler(async ({ data }) => {
-    const request = getWebRequest()
-
+  .handler(async ({ data, context }) => {
     const [changePasswordError, changePasswordResult] = await tryCatchAsync(
       auth.api.changePassword({
-        headers: request.headers,
+        headers: context.request.headers,
         body: data,
       }),
     )
@@ -108,10 +105,8 @@ export const changePassword = createServerFn({ method: 'POST' })
 export const sendVerificationEmail = createServerFn({ method: 'POST' })
   .middleware([userMiddleware])
   .handler(async ({ context }) => {
-    const request = getWebRequest()
-
     await auth.api.sendVerificationEmail({
-      headers: request.headers,
+      headers: context.request.headers,
       body: {
         email: context.auth.user.email,
         callbackURL: '/',
