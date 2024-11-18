@@ -36,7 +36,7 @@ export const useAuthInvalidate = () => {
   const router = useRouter()
   const queryClient = useQueryClient()
 
-  function invalidate(invalidateOptions?: InvalidateOptions) {
+  return function invalidate(invalidateOptions?: InvalidateOptions) {
     return async () => {
       await queryClient.invalidateQueries(authQueryOptions())
 
@@ -48,34 +48,28 @@ export const useAuthInvalidate = () => {
       await router.invalidate()
     }
   }
-
-  return invalidate
 }
 
 export const useSignUpMutation = (invalidateOptions?: InvalidateOptions) => {
   const invalidateAuth = useAuthInvalidate()
 
-  const signUpMutation = useMutation({
+  return useMutation({
     mutationFn: signUp,
     onSuccess: invalidateAuth(invalidateOptions),
   })
-
-  return signUpMutation
 }
 
 export const useSignInMutation = (invalidateOptions?: InvalidateOptions) => {
   const invalidateAuth = useAuthInvalidate()
 
-  const signInMutation = useMutation({
+  return useMutation({
     mutationFn: signIn,
     onSuccess: invalidateAuth(invalidateOptions),
   })
-
-  return signInMutation
 }
 
 export const useSignInSocialMutation = () => {
-  const signInMutation = useMutation({
+  return useMutation({
     mutationFn: ({
       provider,
       callbackURL,
@@ -87,16 +81,13 @@ export const useSignInSocialMutation = () => {
     },
   })
 
-  return signInMutation
 }
 
 export const useSignOutMutation = (invalidateOptions?: InvalidateOptions) => {
   const invalidateAuth = useAuthInvalidate()
 
-  const signOutMutation = useMutation({
+  return useMutation({
     mutationFn: signOut,
     onSuccess: invalidateAuth(invalidateOptions),
   })
-
-  return signOutMutation
 }
