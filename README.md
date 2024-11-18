@@ -37,8 +37,8 @@ A fully **type-safe** boilerplate with a focus on UX and DX, complete with multi
     - https://github.com/TanStack/router/pull/2316
   - Server functions can't serialize error objects
     - https://github.com/TanStack/router/issues/2535
-  - Server functions can't serialize error objects
-    - https://github.com/TanStack/router/issues/2535
+  - Start: createServerFn cannot return raw response objects
+    - https://github.com/TanStack/router/issues/2779
   - Flash of Unstyled Content for quickstart plus a CSS file
     - https://github.com/TanStack/router/issues/2700
 - Router
