@@ -36,48 +36,46 @@ export const Route = createRootRouteWithContext<RouterContext>()({
       },
     }
   },
-  meta: () => [
-    ...createMetadata({
-      charSet: 'utf-8',
-      viewport: 'width=device-width, initial-scale=1',
-      title: 'TanStack Boilerplate',
-      description: 'A fully type-safe boilerplate with a focus on UX and DX, complete with multiple examples.',
-      robots: 'index, follow',
-    }),
-  ],
-  // TODO: dynamic import font depending on locale
-  // https://github.com/TanStack/router/pull/2571
-  links: () => [
-    {
-      rel: 'icon',
-      href: '/favicon.ico',
-    },
-    {
-      rel: 'stylesheet',
-      href: fontsourceInter,
-    },
-    {
-      rel: 'stylesheet',
-      href: fontsourceNotoSansTC,
-    },
-    {
-      rel: 'stylesheet',
-      href: globalStyle,
-    },
-  ],
-  // https://github.com/TanStack/router/issues/1992#issuecomment-2397896356
-  // 2024-11-15: I think HMR is fixed?
-  scripts: () => import.meta.env.PROD ? [] : [
-    {
-      type: 'module',
-      children: /* js */ `
-        import RefreshRuntime from "/_build/@react-refresh"
-        RefreshRuntime.injectIntoGlobalHook(window)
-        window.$RefreshReg$ = () => {}
-        window.$RefreshSig$ = () => (type) => type
-      `,
-    },
-  ],
+  head: () => {
+    return {
+      meta: createMetadata({
+        charSet: 'utf-8',
+        viewport: 'width=device-width, initial-scale=1',
+        title: 'TanStack Boilerplate',
+        description: 'A fully type-safe boilerplate with a focus on UX and DX, complete with multiple examples.',
+        robots: 'index, follow',
+      }),
+      links: [
+        {
+          rel: 'icon',
+          href: '/favicon.ico',
+        },
+        {
+          rel: 'stylesheet',
+          href: globalStyle,
+        },
+        {
+          rel: 'stylesheet',
+          href: fontsourceInter,
+        },
+        {
+          rel: 'stylesheet',
+          href: fontsourceNotoSansTC,
+        },
+      ],
+      scripts: import.meta.env.PROD ? [] : [
+        {
+          type: 'module',
+          children: /* js */ `
+            import RefreshRuntime from "/_build/@react-refresh"
+            RefreshRuntime.injectIntoGlobalHook(window)
+            window.$RefreshReg$ = () => {}
+            window.$RefreshSig$ = () => (type) => type
+          `,
+        },
+      ],
+    }
+  },
   component: RootComponent,
   errorComponent: ErrorComponent,
   pendingComponent: PendingComponent,
