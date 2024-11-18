@@ -1,3 +1,4 @@
+// pnpm dlx @better-auth/cli generate --config src/libs/auth.ts
 // https://www.better-auth.com/docs/concepts/database#core-schema
 // https://www.better-auth.com/docs/plugins/username#schema
 // https://www.better-auth.com/docs/plugins/admin#schema
@@ -61,10 +62,11 @@ model Account {
 }
 
 model Verification {
-  id         String   @id
+  id         String    @id
   identifier String
   value      String
   expiresAt  DateTime
+  createdAt  DateTime?
 
   @@map("verification")
 }
