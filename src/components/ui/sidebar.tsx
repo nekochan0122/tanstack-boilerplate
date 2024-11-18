@@ -4,12 +4,12 @@ import { cva } from 'class-variance-authority'
 import { useCallback, useEffect, useState } from 'react'
 import { LuPanelLeft } from 'react-icons/lu'
 import type { VariantProps } from 'class-variance-authority'
-import type { ComponentProps, CSSProperties, Dispatch, SetStateAction } from 'react'
+import type { ComponentProps, Dispatch, SetStateAction } from 'react'
 
 import { Button } from '~/components/ui/button'
 import { Input } from '~/components/ui/input'
 import { Separator } from '~/components/ui/separator'
-import { Sheet, SheetContent } from '~/components/ui/sheet'
+import { Sheet, SheetContent, SheetTitle } from '~/components/ui/sheet'
 import { Skeleton } from '~/components/ui/skeleton'
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '~/components/ui/tooltip'
 import { useIsMobile } from '~/hooks/use-is-mobile'
@@ -118,13 +118,11 @@ function SidebarProvider({
     <SidebarContextProvider value={contextValue}>
       <TooltipProvider delayDuration={0}>
         <div
-          style={
-            {
-              '--sidebar-width': SIDEBAR_WIDTH,
-              '--sidebar-width-icon': SIDEBAR_WIDTH_ICON,
-              ...style,
-            } as CSSProperties
-          }
+          style={{
+            '--sidebar-width': SIDEBAR_WIDTH,
+            '--sidebar-width-icon': SIDEBAR_WIDTH_ICON,
+            ...style,
+          }}
           className={cx(
             'group/sidebar-wrapper flex min-h-svh w-full has-[[data-variant=inset]]:bg-sidebar',
             className,
@@ -171,15 +169,12 @@ function Sidebar({
   if (isMobile) {
     return (
       <Sheet open={openMobile} onOpenChange={setOpenMobile} {...props}>
+        <SheetTitle className='sr-only' />
         <SheetContent
           data-sidebar='sidebar'
           data-mobile='true'
           className='w-[--sidebar-width] bg-sidebar p-0 text-sidebar-foreground [&>button]:hidden'
-          style={
-            {
-              '--sidebar-width': SIDEBAR_WIDTH_MOBILE,
-            } as CSSProperties
-          }
+          style={{ '--sidebar-width': SIDEBAR_WIDTH_MOBILE }}
           side={side}
         >
           <div className='flex size-full flex-col'>{children}</div>
