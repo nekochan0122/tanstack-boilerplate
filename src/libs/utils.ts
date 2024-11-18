@@ -7,6 +7,9 @@ import type { ClassArray } from 'clsx'
 import type { JSX } from 'react'
 import type { LiteralUnion } from 'type-fest'
 
+export type StringNumber = `${number}`
+export type StringBoolean = `${boolean}`
+
 /**
  * Strict version of Extract for literal union types
  *
@@ -169,6 +172,19 @@ export async function tryCatchErrorsAsync<
 
 type Meta = JSX.IntrinsicElements['meta']
 
+type ViewportWidthHeightValues = StringNumber | 'device-width' | 'device-height'
+
+type Viewport = {
+  'width'?: ViewportWidthHeightValues
+  'height'?: ViewportWidthHeightValues
+  'initial-scale'?: StringNumber
+  'minimum-scale'?: StringNumber
+  'maximum-scale'?: StringNumber
+  'user-scalable'?: 'yes' | 'no' | '1' | '0'
+  'viewport-fit'?: 'auto' | 'contain' | 'cover'
+  [key: string]: unknown
+}
+
 type ImageMetadata = {
   width?: number
   height?: number
@@ -194,7 +210,7 @@ type Metadata = {
   charSet?: LiteralUnion<'utf-8', string>
   title?: string
   description?: string
-  viewport?: string
+  viewport?: Viewport
   author?: string
   robots?: string
   keywords?: string
@@ -221,8 +237,16 @@ export function createMetadata(metadata: Metadata): Meta[] {
     meta.push({ title: metadata.title })
   }
 
+  if (metadata.viewport) {
+    const viewport = Object
+      .entries(metadata.viewport)
+      .map(([key, value]) => `${key}=${value}`)
+      .join(', ')
+
+    meta.push({ name: 'viewport', content: viewport })
+  }
+
   addMetaTag('name', 'description', metadata.description)
-  addMetaTag('name', 'viewport', metadata.viewport)
   addMetaTag('name', 'author', metadata.author)
   addMetaTag('name', 'robots', metadata.robots)
   addMetaTag('name', 'keywords', metadata.keywords)
