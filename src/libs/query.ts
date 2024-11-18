@@ -16,7 +16,7 @@ export function createQueryClient() {
 }
 
 export const QueryDevtools = import.meta.env.PROD ? () => null : lazy(() =>
-  import('@tanstack/react-query-devtools').then((res) => ({
-    default: res.ReactQueryDevtools,
+  import('@tanstack/react-query-devtools').then((mod) => ({
+    default: mod.ReactQueryDevtools,
   })),
 )
