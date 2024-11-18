@@ -41,7 +41,6 @@ export const useAuthInvalidate = () => {
       await queryClient.invalidateQueries(authQueryOptions())
 
       if (invalidateOptions?.callbackURL) {
-        console.log(' ===== callbackURL ===== ', invalidateOptions.callbackURL)
         await router.navigate({ to: invalidateOptions?.callbackURL })
       }
 
