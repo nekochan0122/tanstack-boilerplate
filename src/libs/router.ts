@@ -1,4 +1,4 @@
-import { createRouter as createTanStackRouter } from '@tanstack/react-router'
+import { createRouter as createTanStackRouter, isRedirect } from '@tanstack/react-router'
 import { routerWithQueryClient } from '@tanstack/react-router-with-query'
 import { lazy } from 'react'
 import type { QueryClient } from '@tanstack/react-query'
@@ -31,6 +31,21 @@ export function createRouter() {
     defaultPreload: 'intent',
   })
 
+  // handle redirect without useServerFn when using tanstack query
+  queryClient.getQueryCache().config.onError = handleRedirectError
+  queryClient.getMutationCache().config.onError = handleRedirectError
+
+  function handleRedirectError(error: Error) {
+    if (isRedirect(error)) {
+      router.navigate(
+        router.resolveRedirect({
+          ...error,
+          _fromLocation: router.state.location,
+        }),
+      )
+    }
+  }
+
   return routerWithQueryClient(router, queryClient)
 }
 
@@ -41,7 +56,7 @@ declare module '@tanstack/react-router' {
 }
 
 export const RouterDevtools = import.meta.env.PROD ? () => null : lazy(() =>
-  import('@tanstack/react-router-devtools').then((res) => ({
-    default: res.TanStackRouterDevtools,
+  import('@tanstack/react-router-devtools').then((mod) => ({
+    default: mod.TanStackRouterDevtools,
   })),
 )
