@@ -3,13 +3,13 @@ import { useRouter } from '@tanstack/react-router'
 
 import { getI18n, setLocale } from '~/services/i18n.api'
 
-export const getI18nQueryOptions = () => queryOptions({
+export const i18nQueryOptions = () => queryOptions({
   queryKey: ['i18n'],
   queryFn: () => getI18n(),
 })
 
 export const useI18nQuery = () => {
-  return useSuspenseQuery(getI18nQueryOptions())
+  return useSuspenseQuery(i18nQueryOptions())
 }
 
 export const useSetLocaleMutation = () => {
@@ -19,7 +19,7 @@ export const useSetLocaleMutation = () => {
   return useMutation({
     mutationFn: setLocale,
     onSuccess: async () => {
-      await queryClient.invalidateQueries(getI18nQueryOptions())
+      await queryClient.invalidateQueries(i18nQueryOptions())
       await router.invalidate()
     },
   })

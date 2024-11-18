@@ -15,15 +15,15 @@ import { SidebarInset, SidebarProvider } from '~/components/ui/sidebar'
 import { Toaster } from '~/components/ui/sonner'
 import { Typography } from '~/components/ui/typography'
 import { createMetadata } from '~/libs/seo'
-import { getAuthQueryOptions } from '~/services/auth.query'
-import { getI18nQueryOptions, useI18nQuery } from '~/services/i18n.query'
+import { authQueryOptions } from '~/services/auth.query'
+import { i18nQueryOptions, useI18nQuery } from '~/services/i18n.query'
 import type { RouterContext } from '~/libs/router'
 
 export const Route = createRootRouteWithContext<RouterContext>()({
   beforeLoad: async ({ context }) => {
     const [auth, i18n] = await Promise.all([
-      context.queryClient.ensureQueryData(getAuthQueryOptions()),
-      context.queryClient.ensureQueryData(getI18nQueryOptions()),
+      context.queryClient.ensureQueryData(authQueryOptions()),
+      context.queryClient.ensureQueryData(i18nQueryOptions()),
     ])
 
     const translator = createTranslator(i18n)

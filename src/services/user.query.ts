@@ -8,7 +8,7 @@ export const useUpdateUserMutation = () => {
 
   return useMutation({
     mutationFn: updateUser,
-    onSuccess: invalidateAuth,
+    onSuccess: invalidateAuth(),
   })
 }
 
@@ -17,7 +17,7 @@ export const useChangeEmailMutation = () => {
 
   return useMutation({
     mutationFn: changeEmail,
-    onSuccess: invalidateAuth,
+    onSuccess: invalidateAuth(),
   })
 }
 
@@ -26,7 +26,7 @@ export const useChangePasswordMutation = () => {
 
   return useMutation({
     mutationFn: changePassword,
-    onSuccess: invalidateAuth,
+    onSuccess: invalidateAuth(),
   })
 }
 

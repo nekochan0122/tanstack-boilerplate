@@ -5,24 +5,17 @@ import type { LiteralUnion } from 'type-fest'
 
 import { authClient } from '~/libs/auth-client'
 import { getAuth, signIn, signOut, signUp } from '~/services/auth.api'
-import type { InternalLink } from '~/components/ui/link'
+import type { ValidLink } from '~/components/ui/link'
 import type { SupportedSocialProviderId } from '~/config/social-provider'
 import type { Authed } from '~/libs/auth'
 
-// TODO: refactor https://discord.com/channels/719702312431386674/1100437019857014895/1305593589505462293
-export const authKeys = {
-  getAuth: () => ['getAuth'],
-}
-
-export const getAuthQueryOptions = () => {
-  return queryOptions({
-    queryKey: authKeys.getAuth(),
-    queryFn: () => getAuth(),
-  })
-}
+export const authQueryOptions = () => queryOptions({
+  queryKey: ['getAuth'],
+  queryFn: () => getAuth(),
+})
 
 export const useAuthQuery = () => {
-  return useSuspenseQuery(getAuthQueryOptions())
+  return useSuspenseQuery(authQueryOptions())
 }
 
 export const useAuthedQuery = () => {
@@ -36,44 +29,46 @@ export const useAuthedQuery = () => {
 }
 
 export type InvalidateOptions = {
-  callbackURL?: LiteralUnion<InternalLink, string>
+  callbackURL?: LiteralUnion<ValidLink, string>
 }
 
-// TODO: refactor
-export const useAuthInvalidate = (invalidateOptions?: InvalidateOptions) => {
+export const useAuthInvalidate = () => {
   const router = useRouter()
   const queryClient = useQueryClient()
 
-  async function invalidate() {
-    await queryClient.invalidateQueries(getAuthQueryOptions())
+  function invalidate(invalidateOptions?: InvalidateOptions) {
+    return async () => {
+      await queryClient.invalidateQueries(authQueryOptions())
 
-    if (invalidateOptions?.callbackURL) {
-      await router.navigate({ to: invalidateOptions?.callbackURL })
+      if (invalidateOptions?.callbackURL) {
+        console.log(' ===== callbackURL ===== ', invalidateOptions.callbackURL)
+        await router.navigate({ to: invalidateOptions?.callbackURL })
+      }
+
+      await router.invalidate()
     }
-
-    await router.invalidate()
   }
 
   return invalidate
 }
 
 export const useSignUpMutation = (invalidateOptions?: InvalidateOptions) => {
-  const invalidateAuth = useAuthInvalidate(invalidateOptions)
+  const invalidateAuth = useAuthInvalidate()
 
   const signUpMutation = useMutation({
     mutationFn: signUp,
-    onSuccess: invalidateAuth,
+    onSuccess: invalidateAuth(invalidateOptions),
   })
 
   return signUpMutation
 }
 
 export const useSignInMutation = (invalidateOptions?: InvalidateOptions) => {
-  const invalidateAuth = useAuthInvalidate(invalidateOptions)
+  const invalidateAuth = useAuthInvalidate()
 
   const signInMutation = useMutation({
     mutationFn: signIn,
-    onSuccess: invalidateAuth,
+    onSuccess: invalidateAuth(invalidateOptions),
   })
 
   return signInMutation
@@ -96,11 +91,11 @@ export const useSignInSocialMutation = () => {
 }
 
 export const useSignOutMutation = (invalidateOptions?: InvalidateOptions) => {
-  const invalidateAuth = useAuthInvalidate(invalidateOptions)
+  const invalidateAuth = useAuthInvalidate()
 
   const signOutMutation = useMutation({
     mutationFn: signOut,
-    onSuccess: invalidateAuth,
+    onSuccess: invalidateAuth(invalidateOptions),
   })
 
   return signOutMutation
