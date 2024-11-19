@@ -47,7 +47,7 @@ export const Route = createRootRouteWithContext<RouterContext>()({
           'user-scalable': 'no',
           'viewport-fit': 'cover',
         },
-        title: 'TanStack Boilerplate',
+        title: import.meta.env.VITE_APP_NAME,
         description: 'A fully type-safe boilerplate with a focus on UX and DX, complete with multiple examples.',
         robots: 'index, follow',
       }),
