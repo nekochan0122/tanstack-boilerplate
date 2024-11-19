@@ -72,11 +72,11 @@ importers:
         specifier: ^0.0.28
         version: 0.0.28(react-dom@19.0.0-rc.1(react@19.0.0-rc.1))(react@19.0.0-rc.1)
       '@tanstack/react-form':
-        specifier: ^0.36.1
-        version: 0.36.1(@tanstack/start@1.82.1(@types/node@22.9.1)(ioredis@5.4.1)(lightningcss@1.27.0)(react-dom@19.0.0-rc.1(react@19.0.0-rc.1))(react@19.0.0-rc.1)(terser@5.36.0)(typescript@5.6.3)(vite@5.4.11(@types/node@22.9.1)(lightningcss@1.27.0)(terser@5.36.0)))(react-dom@19.0.0-rc.1(react@19.0.0-rc.1))(react@19.0.0-rc.1)(typescript@5.6.3)
+        specifier: ^0.36.2
+        version: 0.36.2(@tanstack/start@1.82.1(@types/node@22.9.1)(ioredis@5.4.1)(lightningcss@1.27.0)(react-dom@19.0.0-rc.1(react@19.0.0-rc.1))(react@19.0.0-rc.1)(terser@5.36.0)(typescript@5.6.3)(vite@5.4.11(@types/node@22.9.1)(lightningcss@1.27.0)(terser@5.36.0)))(react-dom@19.0.0-rc.1(react@19.0.0-rc.1))(react@19.0.0-rc.1)(typescript@5.6.3)
       '@tanstack/react-form-zod-adapter':
-        specifier: npm:@tanstack/zod-form-adapter@^0.36.1
-        version: '@tanstack/zod-form-adapter@0.36.1(zod@3.23.8)'
+        specifier: npm:@tanstack/zod-form-adapter@^0.36.2
+        version: '@tanstack/zod-form-adapter@0.36.2(zod@3.23.8)'
       '@tanstack/react-query':
         specifier: ^5.60.6
         version: 5.60.6(react@19.0.0-rc.1)
@@ -108,8 +108,8 @@ importers:
         specifier: ^4.1.3
         version: 4.1.3
       better-auth:
-        specifier: 0.8.7
-        version: 0.8.7
+        specifier: 0.8.8-beta.2
+        version: 0.8.8-beta.2
       class-variance-authority:
         specifier: ^0.7.0
         version: 0.7.0
@@ -211,8 +211,8 @@ importers:
         specifier: ^10.4.20
         version: 10.4.20(postcss@8.4.49)
       babel-plugin-react-compiler:
-        specifier: 19.0.0-beta-a7bf2bd-20241110
-        version: 19.0.0-beta-a7bf2bd-20241110
+        specifier: 19.0.0-beta-0dec889-20241115
+        version: 19.0.0-beta-0dec889-20241115
       eslint:
         specifier: ^9.15.0
         version: 9.15.0(jiti@2.4.0)
@@ -226,8 +226,8 @@ importers:
         specifier: ^7.37.2
         version: 7.37.2(eslint@9.15.0(jiti@2.4.0))
       eslint-plugin-react-compiler:
-        specifier: 19.0.0-beta-a7bf2bd-20241110
-        version: 19.0.0-beta-a7bf2bd-20241110(eslint@9.15.0(jiti@2.4.0))
+        specifier: 19.0.0-beta-0dec889-20241115
+        version: 19.0.0-beta-0dec889-20241115(eslint@9.15.0(jiti@2.4.0))
       eslint-plugin-react-hooks:
         specifier: 5.1.0-rc-d5bba18b-20241009
         version: 5.1.0-rc-d5bba18b-20241009(eslint@9.15.0(jiti@2.4.0))
@@ -280,8 +280,8 @@ importers:
         specifier: ^8.15.0
         version: 8.15.0(eslint@9.15.0(jiti@2.4.0))(typescript@5.6.3)
       vite-plugin-tsconfig-paths:
-        specifier: npm:vite-tsconfig-paths@^5.1.2
-        version: vite-tsconfig-paths@5.1.2(typescript@5.6.3)(vite@5.4.11(@types/node@22.9.1)(lightningcss@1.27.0)(terser@5.36.0))
+        specifier: npm:vite-tsconfig-paths@^5.1.3
+        version: vite-tsconfig-paths@5.1.3(typescript@5.6.3)(vite@5.4.11(@types/node@22.9.1)(lightningcss@1.27.0)(terser@5.36.0))
 
 packages:
 
@@ -2660,8 +2660,8 @@ packages:
     peerDependencies:
       eslint: ^8.57.0 || ^9.0.0
 
-  '@tanstack/form-core@0.36.1':
-    resolution: {integrity: sha512-s2LorpcdW7h158I0qGdUjGYWzHjLnKYvR9AK2RLE2eyYCWj60oShAoo35e3lDe4vK4H+7jj+P3uHaG/x4z3iYg==}
+  '@tanstack/form-core@0.36.2':
+    resolution: {integrity: sha512-KFzGvZe7yAAyGbYaQ+67jeQAuzaDALwicRZVymxQFVPGnLffUX9XYGLv9uxyYCioXduwpZxj+GuBytVyiDkBlA==}
 
   '@tanstack/history@1.81.9':
     resolution: {integrity: sha512-9MPknhhnvZKifK4jSvva6NDqYQwsNaptrRzO4ejk6yCLyi4koVG4u3C4VCeClYZY5etLEQbO8wXU9knEFZpMeg==}
@@ -2679,8 +2679,8 @@ packages:
       react: '>=18'
       react-dom: '>=18'
 
-  '@tanstack/react-form@0.36.1':
-    resolution: {integrity: sha512-RarvdSrHI6l9F/iSZ+fkQPRf1l7mXaa5w6G919v0LWCKh0zL5C+z7PDwyEhC2nUZncJpn6tMcDKqOHl99mUsKA==}
+  '@tanstack/react-form@0.36.2':
+    resolution: {integrity: sha512-PFrS5p5M/QCcmUgkCn8nUrVbcUskUl1BxiTLJuQh7sIVWQcH869dtikgQnKxOWkO4JtltYTGryx6mpgVlwTYbA==}
     peerDependencies:
       '@tanstack/start': ^1.43.13
       react: ^17.0.0 || ^18.0.0 || ^19.0.0
@@ -2786,8 +2786,8 @@ packages:
       '@tanstack/react-router': '>=1.43.2'
       zod: ^3.23.8
 
-  '@tanstack/zod-form-adapter@0.36.1':
-    resolution: {integrity: sha512-cJfbR2M//Ofzs1na9wDRA0J0vA0Z7W3GgwdbaU2VKKgEzdl8asrEtWLkFORz/gHKC82oRxVaHSCGDL8z3sYm1w==}
+  '@tanstack/zod-form-adapter@0.36.2':
+    resolution: {integrity: sha512-6ZvrpIStwC6kEmA9xfx+Nx8l0SMOOlqzQay2bA1AsCH2PDYIYZw8BRrkQ2m0lgTWop+6LtGuholRKdpd3/OawQ==}
     peerDependencies:
       zod: ^3.x
 
@@ -3176,8 +3176,8 @@ packages:
   babel-dead-code-elimination@1.0.6:
     resolution: {integrity: sha512-JxFi9qyRJpN0LjEbbjbN8g0ux71Qppn9R8Qe3k6QzHg2CaKsbUQtbn307LQGiDLGjV6JCtEFqfxzVig9MyDCHQ==}
 
-  babel-plugin-react-compiler@19.0.0-beta-a7bf2bd-20241110:
-    resolution: {integrity: sha512-WdxXtLxsV4gh/GlEK4fuFDGkcED0Wb9UJEBB6Uc1SFqRFEmJNFKboW+Z4NUS5gYrPImqrjh4IwHAmgS6ZBg4Cg==}
+  babel-plugin-react-compiler@19.0.0-beta-0dec889-20241115:
+    resolution: {integrity: sha512-sB912UbBt/vYl+6w40VO+LzWVnAt1Ty/XCDKs2qT5Fopljm+WpJNHVVkNESsX0IjU3sM5T5KvN31uuPpraUi7A==}
 
   balanced-match@1.0.2:
     resolution: {integrity: sha512-3oSeUO0TMV67hN1AmbXsK4yaqU7tjiHlbxRDZOpH0KW9+CeX4bRAaX0Anxt0tx2MrpRpWwQaPwIlISEJhYU5Pw==}
@@ -3192,8 +3192,8 @@ packages:
     resolution: {integrity: sha512-lGe34o6EHj9y3Kts9R4ZYs/Gr+6N7MCaMlIFA3F1R2O5/m7K06AxfSeO5530PEERE6/WyEg3lsuyw4GHlPZHog==}
     engines: {node: ^4.5.0 || >= 5.9}
 
-  better-auth@0.8.7:
-    resolution: {integrity: sha512-4mDz9DPE4zoXf2m4zUwJ1D6+1f7Fb+HNx3BDMcFSPsuh0Vs4Ti37sjigf5QmUMTzhkuOqmNyn1c9+jNd5Y384g==}
+  better-auth@0.8.8-beta.2:
+    resolution: {integrity: sha512-ODl7SLPK9M/eEMEw7tVwPVb5ria5dORj/SqhT/4kBPopr35Q1Lr8hgBFGFu8LzyNrXnJZPJcfc9ODwPCMR42aw==}
 
   better-call@0.2.15-beta.6:
     resolution: {integrity: sha512-IIpVe7z7xW5pNOOhOj3u7cEde53v3Duzs4bstDJfLVqdmEiYRUCfy+1w2apf3MqYOHY8gYcd7DbTsvFeBqg4CA==}
@@ -3836,8 +3836,8 @@ packages:
     peerDependencies:
       eslint: ^3 || ^4 || ^5 || ^6 || ^7 || ^8 || ^9
 
-  eslint-plugin-react-compiler@19.0.0-beta-a7bf2bd-20241110:
-    resolution: {integrity: sha512-b5/hRnOQlnH9CEnJQ6UrPoIAG4y/wIGv+OVEHTeAkbq+1uojfcuQyLToYvK1T9a6vz5WQHeMjQqFOZk3mtWorg==}
+  eslint-plugin-react-compiler@19.0.0-beta-0dec889-20241115:
+    resolution: {integrity: sha512-jTjEHuE8/R6qD/CD2d+5YvWMy1q9/tX3kft4WDyg42/HktjHtHXrEToyZ6THEQf8t/YWMY1RGeCkykePbACtFA==}
     engines: {node: ^14.17.0 || ^16.0.0 || >= 18.0.0}
     peerDependencies:
       eslint: '>=7'
@@ -6085,8 +6085,8 @@ packages:
     resolution: {integrity: sha512-RgJz7RWftML5h/qfPsp3QKVc2FSlvV4+HevpE0yEY2j+PS/I2ULjoSsZDXaR8Ks2WYuFFDzQr8yrox7v8aqkng==}
     hasBin: true
 
-  vite-tsconfig-paths@5.1.2:
-    resolution: {integrity: sha512-gEIbKfJzSEv0yR3XS2QEocKetONoWkbROj6hGx0FHM18qKUojhvcokQsxQx5nMkelZq2n37zbSGCJn+FSODSjA==}
+  vite-tsconfig-paths@5.1.3:
+    resolution: {integrity: sha512-0bz+PDlLpGfP2CigeSKL9NFTF1KtXkeHGZSSaGQSuPZH77GhoiQaA8IjYgOaynSuwlDTolSUEU0ErVvju3NURg==}
     peerDependencies:
       vite: '*'
     peerDependenciesMeta:
@@ -6275,7 +6275,7 @@ snapshots:
       '@babel/helper-compilation-targets': 7.25.9
       '@babel/helper-module-transforms': 7.26.0(@babel/core@7.24.5)
       '@babel/helpers': 7.26.0
-      '@babel/parser': 7.24.5
+      '@babel/parser': 7.26.2
       '@babel/template': 7.25.9
       '@babel/traverse': 7.25.9
       '@babel/types': 7.26.0
@@ -8260,7 +8260,7 @@ snapshots:
       - supports-color
       - typescript
 
-  '@tanstack/form-core@0.36.1':
+  '@tanstack/form-core@0.36.2':
     dependencies:
       '@tanstack/store': 0.5.5
 
@@ -8275,10 +8275,10 @@ snapshots:
       react: 19.0.0-rc.1
       react-dom: 19.0.0-rc.1(react@19.0.0-rc.1)
 
-  '@tanstack/react-form@0.36.1(@tanstack/start@1.82.1(@types/node@22.9.1)(ioredis@5.4.1)(lightningcss@1.27.0)(react-dom@19.0.0-rc.1(react@19.0.0-rc.1))(react@19.0.0-rc.1)(terser@5.36.0)(typescript@5.6.3)(vite@5.4.11(@types/node@22.9.1)(lightningcss@1.27.0)(terser@5.36.0)))(react-dom@19.0.0-rc.1(react@19.0.0-rc.1))(react@19.0.0-rc.1)(typescript@5.6.3)':
+  '@tanstack/react-form@0.36.2(@tanstack/start@1.82.1(@types/node@22.9.1)(ioredis@5.4.1)(lightningcss@1.27.0)(react-dom@19.0.0-rc.1(react@19.0.0-rc.1))(react@19.0.0-rc.1)(terser@5.36.0)(typescript@5.6.3)(vite@5.4.11(@types/node@22.9.1)(lightningcss@1.27.0)(terser@5.36.0)))(react-dom@19.0.0-rc.1(react@19.0.0-rc.1))(react@19.0.0-rc.1)(typescript@5.6.3)':
     dependencies:
       '@remix-run/node': 2.14.0(typescript@5.6.3)
-      '@tanstack/form-core': 0.36.1
+      '@tanstack/form-core': 0.36.2
       '@tanstack/react-store': 0.5.6(react-dom@19.0.0-rc.1(react@19.0.0-rc.1))(react@19.0.0-rc.1)
       decode-formdata: 0.8.0
       react: 19.0.0-rc.1
@@ -8462,9 +8462,9 @@ snapshots:
       '@tanstack/react-router': 1.82.1(@tanstack/router-generator@1.81.9)(react-dom@19.0.0-rc.1(react@19.0.0-rc.1))(react@19.0.0-rc.1)
       zod: 3.23.8
 
-  '@tanstack/zod-form-adapter@0.36.1(zod@3.23.8)':
+  '@tanstack/zod-form-adapter@0.36.2(zod@3.23.8)':
     dependencies:
-      '@tanstack/form-core': 0.36.1
+      '@tanstack/form-core': 0.36.2
       zod: 3.23.8
 
   '@total-typescript/ts-reset@0.6.1': {}
@@ -8975,7 +8975,7 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  babel-plugin-react-compiler@19.0.0-beta-a7bf2bd-20241110:
+  babel-plugin-react-compiler@19.0.0-beta-0dec889-20241115:
     dependencies:
       '@babel/types': 7.26.0
 
@@ -8988,7 +8988,7 @@ snapshots:
 
   base64id@2.0.0: {}
 
-  better-auth@0.8.7:
+  better-auth@0.8.8-beta.2:
     dependencies:
       '@better-fetch/fetch': 1.1.12
       '@noble/ciphers': 0.6.0
@@ -9791,7 +9791,7 @@ snapshots:
       safe-regex-test: 1.0.3
       string.prototype.includes: 2.0.1
 
-  eslint-plugin-react-compiler@19.0.0-beta-a7bf2bd-20241110(eslint@9.15.0(jiti@2.4.0)):
+  eslint-plugin-react-compiler@19.0.0-beta-0dec889-20241115(eslint@9.15.0(jiti@2.4.0)):
     dependencies:
       '@babel/core': 7.26.0
       '@babel/parser': 7.26.2
@@ -10212,7 +10212,7 @@ snapshots:
   h3@1.13.0:
     dependencies:
       cookie-es: 1.2.2
-      crossws: 0.2.4
+      crossws: 0.3.1
       defu: 6.1.4
       destr: 2.0.3
       iron-webcrypto: 1.2.1
@@ -10221,8 +10221,6 @@ snapshots:
       ufo: 1.5.4
       uncrypto: 0.1.3
       unenv: 1.10.0
-    transitivePeerDependencies:
-      - uWebSockets.js
 
   has-bigints@1.0.2: {}
 
@@ -10711,7 +10709,7 @@ snapshots:
       citty: 0.1.6
       clipboardy: 4.0.0
       consola: 3.2.3
-      crossws: 0.2.4
+      crossws: 0.3.1
       defu: 6.1.4
       get-port-please: 3.1.2
       h3: 1.13.0
@@ -10724,8 +10722,6 @@ snapshots:
       ufo: 1.5.4
       untun: 0.1.3
       uqr: 0.1.2
-    transitivePeerDependencies:
-      - uWebSockets.js
 
   local-pkg@0.5.1:
     dependencies:
@@ -11015,7 +11011,6 @@ snapshots:
       - mysql2
       - supports-color
       - typescript
-      - uWebSockets.js
 
   node-addon-api@7.1.1: {}
 
@@ -12175,8 +12170,6 @@ snapshots:
       ufo: 1.5.4
     optionalDependencies:
       ioredis: 5.4.1
-    transitivePeerDependencies:
-      - uWebSockets.js
 
   untun@0.1.3:
     dependencies:
@@ -12342,7 +12335,7 @@ snapshots:
       - uWebSockets.js
       - xml2js
 
-  vite-tsconfig-paths@5.1.2(typescript@5.6.3)(vite@5.4.11(@types/node@22.9.1)(lightningcss@1.27.0)(terser@5.36.0)):
+  vite-tsconfig-paths@5.1.3(typescript@5.6.3)(vite@5.4.11(@types/node@22.9.1)(lightningcss@1.27.0)(terser@5.36.0)):
     dependencies:
       debug: 4.3.7(supports-color@9.4.0)
       globrex: 0.1.2
