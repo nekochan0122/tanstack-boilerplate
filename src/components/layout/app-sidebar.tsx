@@ -1,9 +1,7 @@
-import { LuCheck, LuChevronsUpDown, LuCommand, LuKeyRound, LuLanguages, LuLaptop, LuLogOut, LuMoon, LuMoreHorizontal, LuPalette, LuShieldCheck, LuSun, LuUser } from 'react-icons/lu'
+import { LuCheck, LuChevronsUpDown, LuCommand, LuLanguages, LuLogOut, LuMoreHorizontal, LuPalette, LuUser } from 'react-icons/lu'
 import { toast } from 'sonner'
 import { useTranslations } from 'use-intl'
 import type { ComponentProps } from 'react'
-import type { IconType } from 'react-icons'
-import type { Country } from 'react-phone-number-input'
 
 import { useTheme } from '~/components/theme'
 import { Avatar, AvatarFallback, AvatarImage } from '~/components/ui/avatar'
@@ -13,103 +11,9 @@ import { ScrollArea } from '~/components/ui/scroll-area'
 import { Sidebar, SidebarContent, SidebarFooter, SidebarGroup, SidebarGroupLabel, SidebarHeader, SidebarMenu, SidebarMenuButton, SidebarMenuItem, useSidebar } from '~/components/ui/sidebar'
 import { SidebarNavBuilder } from '~/components/ui/sidebar-nav-builder'
 import { TwemojiFlag } from '~/components/ui/twemoji'
+import { languageOptions, navigation, themeOptions } from '~/config/sidebar'
 import { useAuthQuery, useSignOutMutation } from '~/services/auth.query'
 import { useI18nQuery, useSetLocaleMutation } from '~/services/i18n.query'
-import type { Theme } from '~/components/theme'
-import type { NavItem } from '~/components/ui/sidebar-nav-builder'
-import type { SupportedLocales } from '~/libs/i18n'
-
-type ThemeOption = {
-  value: Theme
-  Icon: IconType
-}
-
-type LanguageOption = {
-  locale: SupportedLocales
-  countryCode: Country
-  label: string
-}
-
-const themeOptions: ThemeOption[] = [
-  { value: 'system', Icon: LuLaptop },
-  { value: 'light', Icon: LuSun },
-  { value: 'dark', Icon: LuMoon },
-]
-
-const languageOptions: LanguageOption[] = [
-  { locale: 'en', countryCode: 'US', label: 'English' },
-  { locale: 'zh-tw', countryCode: 'TW', label: '繁體中文' },
-]
-
-const navigation: NavItem[] = [
-  {
-    type: 'group',
-    name: 'navigation.playground',
-    items: [
-      {
-        type: 'menu',
-        name: 'navigation.auth',
-        icon: LuKeyRound,
-        items: [
-          {
-            type: 'link',
-            name: 'navigation.sign-in',
-            link: '/auth/sign-in',
-          },
-          {
-            type: 'link',
-            name: 'navigation.sign-up',
-            link: '/auth/sign-up',
-          },
-        ],
-      },
-      {
-        type: 'menu',
-        name: 'navigation.user',
-        icon: LuUser,
-        items: [
-          {
-            type: 'link',
-            name: 'navigation.account-settings',
-            link: '/user/account-settings',
-          },
-          {
-            type: 'link',
-            name: 'navigation.change-email',
-            link: '/user/change-email',
-          },
-          {
-            type: 'link',
-            name: 'navigation.change-password',
-            link: '/user/change-password',
-          },
-          {
-            type: 'link',
-            name: 'navigation.email-verification',
-            link: '/user/email-verification',
-          },
-        ],
-      },
-      {
-        type: 'menu',
-        name: 'navigation.admin',
-        icon: LuShieldCheck,
-        items: [
-          {
-            type: 'link',
-            name: 'navigation.dashboard',
-            link: '/admin/dashboard',
-          },
-          {
-            type: 'link',
-            name: 'navigation.user-management',
-            link: '/admin/user-management',
-          },
-        ],
-      },
-    ],
-  },
-]
 
 function AppSidebar(props: ComponentProps<typeof Sidebar>) {
   return (
