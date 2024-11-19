@@ -9,7 +9,7 @@ import type { ComponentProps, Dispatch, SetStateAction } from 'react'
 import { Button } from '~/components/ui/button'
 import { Input } from '~/components/ui/input'
 import { Separator } from '~/components/ui/separator'
-import { Sheet, SheetContent, SheetTitle } from '~/components/ui/sheet'
+import { Sheet, SheetContent, SheetDescription, SheetTitle } from '~/components/ui/sheet'
 import { Skeleton } from '~/components/ui/skeleton'
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '~/components/ui/tooltip'
 import { useIsMobile } from '~/hooks/use-is-mobile'
@@ -169,7 +169,8 @@ function Sidebar({
   if (isMobile) {
     return (
       <Sheet open={openMobile} onOpenChange={setOpenMobile} {...props}>
-        <SheetTitle className='sr-only' />
+        <SheetTitle className='hidden' />
+        <SheetDescription className='hidden' />
         <SheetContent
           data-sidebar='sidebar'
           data-mobile='true'
