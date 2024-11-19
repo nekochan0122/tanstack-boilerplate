@@ -2,14 +2,9 @@ import { createRouter as createTanStackRouter, isRedirect } from '@tanstack/reac
 import { routerWithQueryClient } from '@tanstack/react-router-with-query'
 import { lazy } from 'react'
 import type { QueryClient } from '@tanstack/react-query'
-import type { RegisteredRouter, useRouteContext } from '@tanstack/react-router'
 
 import { createQueryClient } from '~/libs/query'
 import { routeTree } from '~/route-tree.gen'
-import type { FileRouteTypes } from '~/route-tree.gen'
-
-export type InferRouteContext<Route extends FileRouteTypes['to']> =
-  ReturnType<typeof useRouteContext<RegisteredRouter, Route>>
 
 export type RouterContext = {
   queryClient: QueryClient

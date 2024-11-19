@@ -1,6 +1,4 @@
-import type { Messages } from '~/libs/i18n'
-
-const zhTW: Messages = {
+const zhTW: IntlMessages = {
   common: {
     'submit': '發送',
     'submit-loading': '發送中...',

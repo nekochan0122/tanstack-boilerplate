@@ -1,8 +1,7 @@
 import type { LiteralUnion } from 'type-fest'
-import type { IntlConfig } from 'use-intl'
+import type { IntlConfig, NamespaceKeys, NestedKeyOf, useTranslations } from 'use-intl'
 
 import { constructZodLiteralUnionType } from '~/libs/zod'
-import type { InferRouteContext } from '~/libs/router'
 import type enMessages from '~/messages/en'
 
 export const supportedLocales = ['en', 'zh-tw'] as const
@@ -24,9 +23,17 @@ export type SupportedLocales = typeof supportedLocales[number]
 
 export type TimeZone = Required<IntlConfig>['timeZone']
 
-export type Translator = InferRouteContext<'/'>['i18n']['translator']
+export type MessageNamespace = NamespaceKeys<
+  Messages, NestedKeyOf<Messages>
+>
 
-export type TranslateKeys = Parameters<Translator>[0]
+export type Translator<
+  NestedKey extends MessageNamespace = never,
+> = ReturnType<typeof useTranslations<NestedKey>>
+
+export type TranslateKeys<
+  NestedKey extends MessageNamespace = never,
+> = Parameters<Translator<NestedKey>>[0]
 
 export const tKey = ((key: TranslateKeys) => key) as Translator
 
