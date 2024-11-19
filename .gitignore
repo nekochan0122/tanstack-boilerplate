@@ -11,8 +11,6 @@
 # Others
 app.config.timestamp_*
 
-# https://github.com/github/gitignore/blob/main/Node.gitignore
-
 # Logs
 logs
 *.log
