@@ -4,15 +4,16 @@
 // https://www.better-auth.com/docs/plugins/admin#schema
 
 generator client {
-  provider = "prisma-client-js"
+  provider        = "prisma-client-js"
+  previewFeatures = ["driverAdapters"]
 }
 
 datasource db {
-  provider  = "postgresql"
-  url       = env("DATABASE_URL")
-  directUrl = env("DIRECT_URL")
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
 }
 
+// Better Auth
 model User {
   id            String    @id
   name          String
@@ -34,6 +35,7 @@ model User {
   @@map("user")
 }
 
+// Better Auth
 model Session {
   id             String   @id
   expiresAt      DateTime
@@ -46,6 +48,7 @@ model Session {
   @@map("session")
 }
 
+// Better Auth
 model Account {
   id           String    @id
   accountId    String
@@ -61,6 +64,7 @@ model Account {
   @@map("account")
 }
 
+// Better Auth
 model Verification {
   id         String    @id
   identifier String
