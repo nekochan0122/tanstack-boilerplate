@@ -5,11 +5,9 @@ import { constructZodLiteralUnionType } from '~/libs/zod'
 import type enMessages from '~/messages/en'
 
 export const supportedLocales = ['en', 'zh-tw'] as const
-
 export const supportedLocalesSchema = constructZodLiteralUnionType(supportedLocales)
 
 export const defaultLocale: SupportedLocales = supportedLocales[0]
-
 export const defaultTimeZone: TimeZone = 'Asia/Taipei'
 
 export type I18nSession = {
@@ -18,9 +16,7 @@ export type I18nSession = {
 }
 
 export type Messages = typeof enMessages
-
 export type SupportedLocales = typeof supportedLocales[number]
-
 export type TimeZone = Required<IntlConfig>['timeZone']
 
 export type MessageNamespace = NamespaceKeys<
@@ -29,11 +25,14 @@ export type MessageNamespace = NamespaceKeys<
 
 export type Translator<
   NestedKey extends MessageNamespace = never,
-> = ReturnType<typeof useTranslations<NestedKey>>
-
+> = ReturnType<
+  typeof useTranslations<NestedKey>
+>
 export type TranslateKeys<
   NestedKey extends MessageNamespace = never,
-> = Parameters<Translator<NestedKey>>[0]
+> = Parameters<
+  Translator<NestedKey>
+>[0]
 
 export const tKey = ((key: TranslateKeys) => key) as Translator
 

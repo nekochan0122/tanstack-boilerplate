@@ -45,12 +45,10 @@ type DeepKeyValueName<TFormData, TField = any> = SelfKeys<{
 }>
 
 type AnyFormApi = FormApi<any, any>
+type AnyFieldApi = FieldApi<any, any, any, any>
 
 type AnyReactFormApi = ReactFormApi<any, any>
-
 type AnyReactFormApiMerged = AnyFormApi & AnyReactFormApi
-
-type AnyFieldApi = FieldApi<any, any, any, any>
 
 type FieldController = Record<string, (form: AnyReactFormApiMerged, field: AnyFieldApi) => UnknownRecord>
 

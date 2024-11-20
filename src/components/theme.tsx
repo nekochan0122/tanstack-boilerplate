@@ -6,7 +6,6 @@ import type { PropsWithChildren } from 'react'
 import { createContextFactory } from '~/libs/utils'
 
 type Theme = 'dark' | 'light' | 'system'
-
 type ResolvedTheme = Exclude<Theme, 'system'>
 
 type ThemeContext = {
