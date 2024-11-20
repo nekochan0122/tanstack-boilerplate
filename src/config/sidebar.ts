@@ -4,10 +4,10 @@ import type { Country } from 'react-phone-number-input'
 
 import type { Theme } from '~/components/theme'
 import type { NavItem } from '~/components/ui/sidebar-nav-builder'
-import type { SupportedLocales } from '~/libs/i18n'
+import type { Locale } from '~/libs/i18n'
 
 export type LanguageOption = {
-  locale: SupportedLocales
+  locale: Locale
   countryCode: Country
   label: string
 }

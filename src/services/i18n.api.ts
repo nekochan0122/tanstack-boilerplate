@@ -2,10 +2,10 @@ import { createServerFn } from '@tanstack/start'
 import { lookup } from 'geoip'
 import { getHeader } from 'vinxi/http'
 
-import { defaultLocale, defaultTimeZone, detectLocale, parseAcceptLanguage, supportedLocalesSchema } from '~/libs/i18n'
+import { defaultLocale, defaultTimeZone, detectLocale, parseAcceptLanguage, localeSchema } from '~/libs/i18n'
 import { logger } from '~/libs/logger'
 import { getVinxiSessionHelper } from '~/libs/session'
-import type { Messages, SupportedLocales, TimeZone } from '~/libs/i18n'
+import type { Messages, Locale, TimeZone } from '~/libs/i18n'
 
 export const getI18n = createServerFn({ method: 'GET' })
   .handler(async () => {
@@ -32,14 +32,14 @@ export const getI18n = createServerFn({ method: 'GET' })
     const messages = await import(`../messages/${session.data['locale']}.ts`)
 
     return {
-      locale: session.data['locale'] as SupportedLocales,
+      locale: session.data['locale'] as Locale,
       timeZone: session.data['timeZone'] as string,
       messages: messages.default as Messages,
     }
   })
 
 export const setLocale = createServerFn({ method: 'POST' })
-  .validator(supportedLocalesSchema)
+  .validator(localeSchema)
   .handler(async ({ data }) => {
     const session = await getVinxiSessionHelper()
     await session.update({ locale: data })

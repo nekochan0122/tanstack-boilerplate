@@ -4,19 +4,19 @@ import type { IntlConfig, NamespaceKeys, NestedKeyOf, useTranslations } from 'us
 import { constructZodLiteralUnionType } from '~/libs/zod'
 import type enMessages from '~/messages/en'
 
-export const supportedLocales = ['en', 'zh-tw'] as const
-export const supportedLocalesSchema = constructZodLiteralUnionType(supportedLocales)
+export const locales = ['en', 'zh-tw'] as const
+export const localeSchema = constructZodLiteralUnionType(locales)
 
-export const defaultLocale: SupportedLocales = supportedLocales[0]
+export const defaultLocale: Locale = locales[0]
 export const defaultTimeZone: TimeZone = 'Asia/Taipei'
 
 export type I18nSession = {
-  locale: SupportedLocales
+  locale: Locale
   timeZone: TimeZone
 }
 
 export type Messages = typeof enMessages
-export type SupportedLocales = typeof supportedLocales[number]
+export type Locale = typeof locales[number]
 export type TimeZone = Required<IntlConfig>['timeZone']
 
 export type MessageNamespace = NamespaceKeys<
@@ -36,7 +36,7 @@ export type TranslateKeys<
 
 export const tKey = ((key: TranslateKeys) => key) as Translator
 
-export function detectLocale(acceptLanguages: string[]): SupportedLocales | undefined {
+export function detectLocale(acceptLanguages: string[]): Locale | undefined {
   for (const acceptLanguage of acceptLanguages) {
     // Exact match
     if (isSupportedLocale(acceptLanguage)) return acceptLanguage
@@ -46,15 +46,15 @@ export function detectLocale(acceptLanguages: string[]): SupportedLocales | unde
     if (isSupportedLocale(baseLanguage)) return baseLanguage
 
     // Base language fallback to region that is available
-    const supportedRegionsLanguage = supportedLocales.filter(
+    const supportedRegionsLanguage = locales.filter(
       (lang) => new Intl.Locale(lang).language === baseLanguage,
     )
     if (supportedRegionsLanguage.length > 0) return supportedRegionsLanguage[0]
   }
 }
 
-export function isSupportedLocale(locale: LiteralUnion<SupportedLocales, string>): locale is SupportedLocales {
-  return supportedLocales.includes(locale as SupportedLocales)
+export function isSupportedLocale(locale: LiteralUnion<Locale, string>): locale is Locale {
+  return locale.includes(locale as Locale)
 }
 
 export function parseAcceptLanguage(acceptLanguageHeader?: string) {

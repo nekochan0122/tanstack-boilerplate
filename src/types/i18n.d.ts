@@ -1,7 +1,8 @@
-/* eslint-disable @typescript-eslint/no-empty-object-type */
+import type { Locale, Messages } from '~/libs/i18n'
 
-import type { Messages } from '~/libs/i18n'
-
-declare global {
-  interface IntlMessages extends Messages {}
+declare module 'use-intl' {
+  interface AppConfig {
+    Locale: Locale
+    Messages: Messages
+  }
 }
