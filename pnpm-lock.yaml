@@ -137,6 +137,9 @@ importers:
       nodemailer:
         specifier: ^6.9.16
         version: 6.9.16
+      outdent:
+        specifier: ^0.8.0
+        version: 0.8.0
       react:
         specifier: 19.0.0-rc.1
         version: 19.0.0-rc.1
@@ -5088,6 +5091,9 @@ packages:
 
   oslo@1.2.1:
     resolution: {integrity: sha512-HfIhB5ruTdQv0XX2XlncWQiJ5SIHZ7NHZhVyHth0CSZ/xzge00etRyYy/3wp/Dsu+PkxMC+6+B2lS/GcKoewkA==}
+
+  outdent@0.8.0:
+    resolution: {integrity: sha512-KiOAIsdpUTcAXuykya5fnVVT+/5uS0Q1mrkRHcF89tpieSmY33O/tmc54CqwA+bfhbtEfZUNLHaPUiB9X3jt1A==}
 
   p-limit@2.3.0:
     resolution: {integrity: sha512-//88mFWSJx8lxCzwdAABTJL2MyWB12+eIY7MDL2SqLmAkeKU9qxRvWuSyTjm3FUmpBEMuFfckAIqEaVGUDxb6w==}
@@ -11174,6 +11180,8 @@ snapshots:
     dependencies:
       '@node-rs/argon2': 1.7.0
       '@node-rs/bcrypt': 1.9.0
+
+  outdent@0.8.0: {}
 
   p-limit@2.3.0:
     dependencies:

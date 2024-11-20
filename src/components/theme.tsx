@@ -1,5 +1,6 @@
 import { useDidUpdate } from '@mantine/hooks'
 import { ScriptOnce } from '@tanstack/react-router'
+import { outdent } from 'outdent'
 import { useEffect, useState } from 'react'
 import type { PropsWithChildren } from 'react'
 
@@ -62,7 +63,7 @@ function ThemeProvider({ children }: PropsWithChildren) {
   return (
     <ThemeContextProvider value={context}>
       <ScriptOnce>
-        { /* js */ `
+        {outdent /* js */ `
           function initTheme() {
             if (typeof localStorage === 'undefined') return
 

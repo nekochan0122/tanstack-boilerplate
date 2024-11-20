@@ -60,6 +60,7 @@
     "geoip": "npm:doc999tor-fast-geoip@^1.1.275",
     "http-status": "^2.0.0",
     "nodemailer": "^6.9.16",
+    "outdent": "^0.8.0",
     "react": "19.0.0-rc.1",
     "react-day-picker": "^9.3.2",
     "react-dom": "19.0.0-rc.1",

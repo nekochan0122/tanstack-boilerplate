@@ -4,6 +4,7 @@ import globalStyle from '~/styles/global.css?url'
 
 import { createRootRouteWithContext, Outlet, ScrollRestoration } from '@tanstack/react-router'
 import { Meta, Scripts } from '@tanstack/start'
+import { outdent } from 'outdent'
 import { createTranslator, IntlProvider } from 'use-intl'
 import type { ErrorComponentProps } from '@tanstack/react-router'
 import type { PropsWithChildren } from 'react'
@@ -72,7 +73,7 @@ export const Route = createRootRouteWithContext<RouterContext>()({
       scripts: import.meta.env.PROD ? [] : [
         {
           type: 'module',
-          children: /* js */ `
+          children: outdent /* js */ `
             import RefreshRuntime from "/_build/@react-refresh"
             RefreshRuntime.injectIntoGlobalHook(window)
             window.$RefreshReg$ = () => {}
