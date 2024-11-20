@@ -124,7 +124,9 @@ function SignInRoute() {
         <div className='flex items-center justify-center gap-2'>
           <p>{t('auth.dont-have-an-account')}</p>
           <Button asChild variant='link' className='h-auto p-0 text-base'>
-            <Link to='/auth/sign-in'>{t('auth.sign-up')}</Link>
+            <Link to='/auth/sign-up'>
+              {t('auth.sign-up')}
+            </Link>
           </Button>
         </div>
       </CardContent>
