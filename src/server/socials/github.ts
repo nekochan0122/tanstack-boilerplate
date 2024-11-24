@@ -7,7 +7,6 @@ import { GitHub } from 'arctic'
 import { z } from 'zod'
 
 import { ky } from '~/libs/ky'
-import { objectKeyCamelCase } from '~/libs/utils'
 import type { SocialProviderConfig } from '~/server/social'
 
 export const githubProfileSchema = z
@@ -16,7 +15,6 @@ export const githubProfileSchema = z
     login: z.string(),
     name: z.string().nullable(),
   })
-  .transform(objectKeyCamelCase)
 
 export const githubEmailsSchema = z.array(
   z.object({

@@ -5,7 +5,6 @@
 import { decodeIdToken, Google } from 'arctic'
 import { z } from 'zod'
 
-import { objectKeyCamelCase } from '~/libs/utils'
 import type { SocialProviderConfig } from '~/server/social'
 
 export const googleProfileSchema = z
@@ -13,7 +12,6 @@ export const googleProfileSchema = z
     name: z.string(), // User's full name
     sub: z.string(), // Subject identifier (unique to Google accounts)
   })
-  .transform(objectKeyCamelCase)
 
 export const googleConfig = {
   arcticInstance: new Google(
