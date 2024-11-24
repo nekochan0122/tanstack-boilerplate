@@ -25,18 +25,16 @@ export const Route = createRootRouteWithContext<RouterContext>()({
   beforeLoad: async ({ context }) => {
     const [
       auth,
-      preference,
+      i18n,
     ] = await Promise.all([
       context.queryClient.ensureQueryData(authQueryOptions()),
-      context.queryClient.ensureQueryData(preferenceQueryOptions()),
+      context.queryClient.ensureQueryData(i18nQueryOptions()),
     ])
 
-    const i18n = await context.queryClient.ensureQueryData(i18nQueryOptions())
     const translator = createTranslator(i18n)
 
     return {
       auth,
-      preference,
       translator,
     }
   },
