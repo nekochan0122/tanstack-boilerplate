@@ -13,27 +13,7 @@ export const discordProfileSchema = z
   .object({
     id: z.string(),
     username: z.string(),
-    discriminator: z.string(),
     global_name: z.string().nullable(),
-    avatar: z.string().nullable(),
-    bot: z.boolean().optional(),
-    system: z.boolean().optional(),
-    mfa_enabled: z.boolean().optional(),
-    banner: z.string().nullable().optional(),
-    accent_color: z.number().nullable().optional(),
-    locale: z.string().optional(),
-    verified: z.boolean().optional(),
-    email: z.string().optional(),
-    flags: z.number().optional(),
-    premium_type: z.number().optional(),
-    public_flags: z.number().optional(),
-    avatar_decoration_data: z
-      .object({
-        asset: z.string(),
-        sku_id: z.string(),
-      })
-      .nullable()
-      .optional(),
   })
   .transform(objectKeyCamelCase)
 
