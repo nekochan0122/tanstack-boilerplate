@@ -13,8 +13,8 @@ export const PASSWORD_MIN = 8
 export const PASSWORD_MAX = 100
 export const PASSWORD_ONE_UPPERCASE_REGEX = /.*[A-Z].*/
 export const PASSWORD_ONE_LOWERCASE_REGEX = /.*[a-z].*/
-export const PASSWORD_ONE_NUMBER_REGEX = /.*\d.*/
 export const PASSWORD_ONE_SPECIAL_REGEX = /.*[!"#$%&'()*+,./:;<=>?@[\\\]^_{|}~-].*/
+export const PASSWORD_ONE_NUMBER_REGEX = /.*\d.*/
 
 export const nameSchema = (t = tKey) => z
   .string()
@@ -38,8 +38,8 @@ export const passwordSchema = (t = tKey) => z
   .string()
   .regex(PASSWORD_ONE_UPPERCASE_REGEX, t('auth.password-one-uppercase-regex'))
   .regex(PASSWORD_ONE_LOWERCASE_REGEX, t('auth.password-one-lowercase-regex'))
-  .regex(PASSWORD_ONE_NUMBER_REGEX, t('auth.password-one-number-regex'))
   .regex(PASSWORD_ONE_SPECIAL_REGEX, t('auth.password-one-special-regex'))
+  .regex(PASSWORD_ONE_NUMBER_REGEX, t('auth.password-one-number-regex'))
   .min(PASSWORD_MIN, t('auth.password-min', { min: PASSWORD_MIN }))
   .max(PASSWORD_MAX, t('auth.password-max', { max: PASSWORD_MAX }))
   .trim()
@@ -61,5 +61,4 @@ export const signInSchema = (t = tKey) => z
   .object({
     username: usernameSchema(t),
     password: passwordSchema(t),
-    rememberMe: z.boolean().optional(),
   })

@@ -28,10 +28,9 @@ function SignInRoute() {
     defaultValues: {
       username: '',
       password: '',
-      rememberMe: true,
       ...(import.meta.env.DEV && {
-        username: 'nekochan',
-        password: '12345678Ab!',
+        username: 'user',
+        password: '!Ab12345',
       }),
     },
     onSubmit: async ({ value }) => {
