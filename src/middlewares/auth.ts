@@ -8,6 +8,7 @@ import type { Auth } from '~/server/session'
 
 export const authMiddleware = createMiddleware()
   .server(async ({ next }) => {
+    // FIXME: for some reason, I can't use `getAuth` server function in here
     const token = getSessionTokenCookie()
     const auth = await validateSessionToken(token)
     if (token && auth.isAuthenticated) {
