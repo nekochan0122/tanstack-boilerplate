@@ -36,7 +36,7 @@ type NavItemLink = NavItemBase<{
 }>
 
 type SidebarNavBuilderProps = {
-  navigation: NavItem[]
+  navigation: readonly NavItem[]
 }
 
 function SidebarNavBuilder({ navigation }: SidebarNavBuilderProps) {

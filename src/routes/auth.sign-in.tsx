@@ -8,11 +8,10 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '~/com
 import { useForm } from '~/components/ui/form'
 import { Link } from '~/components/ui/link'
 import { Separator } from '~/components/ui/separator'
-import { socialProviders } from '~/config/social-provider'
+import { socialProviderThemes } from '~/config/social'
 import { cx } from '~/libs/utils'
-import { useSignInMutation, useSignInSocialMutation } from '~/services/auth.query'
+import { useSignInMutation } from '~/services/auth.query'
 import { signInSchema } from '~/services/auth.schema'
-import type { SupportedSocialProviderId } from '~/config/social-provider'
 
 export const Route = createFileRoute('/auth/sign-in')({
   component: SignInRoute,
@@ -24,7 +23,6 @@ function SignInRoute() {
   const search = useSearch({ from: '/auth' })
 
   const signInMutation = useSignInMutation(search)
-  const signInSocialMutation = useSignInSocialMutation()
 
   const signInForm = useForm(signInSchema(t), {
     defaultValues: {
@@ -69,18 +67,6 @@ function SignInRoute() {
     ],
   })
 
-  function handleSignInSocial({
-    provider,
-  }: {
-    provider: SupportedSocialProviderId
-  }) {
-    return () =>
-      signInSocialMutation.mutate({
-        provider,
-        callbackURL: search.callbackURL,
-      })
-  }
-
   return (
     <Card className='w-full lg:max-w-md'>
       <CardHeader>
@@ -98,10 +84,10 @@ function SignInRoute() {
         </div>
 
         <div className='w-full space-y-4'>
-          {socialProviders.map((socialProvider) => (
+          {socialProviderThemes.map((socialProvider) => (
             <Button
+              asChild
               key={socialProvider.id}
-              onClick={handleSignInSocial({ provider: socialProvider.id })}
               style={{ '--social-bg': socialProvider.backgroundColor }}
               className={cx(
                 'w-full items-center justify-center gap-2 border',
@@ -110,13 +96,15 @@ function SignInRoute() {
                 socialProvider.id === 'google' && 'focus-visible:ring-ring',
               )}
             >
-              <socialProvider.icon
-                size={socialProvider.size}
-                color={socialProvider.logoColor}
-              />
-              <span style={{ color: socialProvider.textColor }}>
-                {t('auth.sign-in-social', { name: socialProvider.name })}
-              </span>
+              <Link to={`/api/auth/connect/${socialProvider.id}`}>
+                <socialProvider.icon
+                  size={socialProvider.size}
+                  color={socialProvider.logoColor}
+                />
+                <span style={{ color: socialProvider.textColor }}>
+                  {t('auth.sign-in-social', { name: socialProvider.name })}
+                </span>
+              </Link>
             </Button>
           ))}
         </div>

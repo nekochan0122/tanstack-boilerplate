@@ -1,7 +1,6 @@
 import { z } from 'zod'
 
 import { tKey } from '~/libs/i18n'
-import type { InferAuthAPIZodShape } from '~/libs/auth'
 
 export const NAME_MIN = 2
 export const NAME_MAX = 10
@@ -21,16 +20,19 @@ export const nameSchema = (t = tKey) => z
   .string()
   .min(NAME_MIN, t('auth.name-min', { min: NAME_MIN }))
   .max(NAME_MAX, t('auth.name-max', { max: NAME_MAX }))
+  .trim()
 
 export const emailSchema = (t = tKey) => z
   .string()
   .email(t('auth.email-invalid'))
+  .trim()
 
 export const usernameSchema = (t = tKey) => z
   .string()
   .regex(USERNAME_REGEX, t('auth.username-regex'))
   .min(USERNAME_MIN, t('auth.username-min', { min: USERNAME_MIN }))
   .max(USERNAME_MAX, t('auth.username-max', { max: USERNAME_MAX }))
+  .trim()
 
 export const passwordSchema = (t = tKey) => z
   .string()
@@ -40,15 +42,14 @@ export const passwordSchema = (t = tKey) => z
   .regex(PASSWORD_ONE_SPECIAL_REGEX, t('auth.password-one-special-regex'))
   .min(PASSWORD_MIN, t('auth.password-min', { min: PASSWORD_MIN }))
   .max(PASSWORD_MAX, t('auth.password-max', { max: PASSWORD_MAX }))
+  .trim()
 
 export const signUpSchema = (t = tKey) => z
-  .object<InferAuthAPIZodShape<'signUpEmail'>>({
+  .object({
     name: nameSchema(t),
     email: emailSchema(t),
     username: usernameSchema(t),
     password: passwordSchema(t),
-  })
-  .extend({
     passwordConfirm: passwordSchema(t),
   })
   .refine((values) => values.password === values.passwordConfirm, {
@@ -57,7 +58,7 @@ export const signUpSchema = (t = tKey) => z
   })
 
 export const signInSchema = (t = tKey) => z
-  .object<InferAuthAPIZodShape<'signInUsername'>>({
+  .object({
     username: usernameSchema(t),
     password: passwordSchema(t),
     rememberMe: z.boolean().optional(),

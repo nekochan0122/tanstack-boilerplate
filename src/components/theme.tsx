@@ -5,9 +5,13 @@ import { useEffect, useState } from 'react'
 import type { PropsWithChildren } from 'react'
 
 import { createContextFactory } from '~/libs/utils'
+import type { ExcludeUnionStrict } from '~/libs/utils'
 
-type Theme = 'dark' | 'light' | 'system'
-type ResolvedTheme = Exclude<Theme, 'system'>
+const AVAILABLE_THEMES = ['dark', 'light', 'system'] as const
+const DEFAULT_THEME = 'system' as const
+
+type Theme = typeof AVAILABLE_THEMES[number]
+type ResolvedTheme = ExcludeUnionStrict<Theme, 'system'>
 
 type ThemeContext = {
   value: Theme
@@ -21,7 +25,7 @@ const [ThemeContextProvider, useTheme] = createContextFactory<ThemeContext>({
 })
 
 function ThemeProvider({ children }: PropsWithChildren) {
-  const [theme, _setTheme] = useState<Theme>('system')
+  const [theme, _setTheme] = useState<Theme>(DEFAULT_THEME)
   const [resolvedTheme, _setResolvedTheme] = useState<ResolvedTheme>(getResolvedTheme(theme))
 
   const setTheme = (theme: Theme) => {
@@ -110,5 +114,6 @@ function getResolvedTheme(theme: Theme): ResolvedTheme {
   return theme === 'system' ? getPreferTheme() : theme
 }
 
+export { AVAILABLE_THEMES, DEFAULT_THEME }
 export { ThemeProvider, useTheme }
 export type { ResolvedTheme, Theme }

@@ -13,7 +13,7 @@ import { SidebarNavBuilder } from '~/components/ui/sidebar-nav-builder'
 import { TwemojiFlag } from '~/components/ui/twemoji'
 import { languageOptions, navigation, themeOptions } from '~/config/sidebar'
 import { useAuthQuery, useSignOutMutation } from '~/services/auth.query'
-import { useI18nQuery, useSetLocaleMutation } from '~/services/i18n.query'
+import { usePreferenceQuery, useUpdatePreferenceMutation } from '~/services/preference.query'
 
 function AppSidebar(props: ComponentProps<typeof Sidebar>) {
   return (
@@ -60,8 +60,8 @@ function SidebarAppearance() {
   const theme = useTheme()
   const sidebar = useSidebar()
 
-  const i18nQuery = useI18nQuery()
-  const setLocaleMutation = useSetLocaleMutation()
+  const preferenceQuery = usePreferenceQuery()
+  const updatePreferenceMutation = useUpdatePreferenceMutation()
 
   return (
     <SidebarGroup>
@@ -108,10 +108,13 @@ function SidebarAppearance() {
               className='min-w-56 rounded-lg'
             >
               {languageOptions.map(({ locale, countryCode, label }) => (
-                <DropdownMenuItem key={locale} onClick={() => setLocaleMutation.mutate({ data: locale })}>
+                <DropdownMenuItem
+                  key={locale}
+                  onClick={() => updatePreferenceMutation.mutate({ data: { locale } })}
+                >
                   <TwemojiFlag countryCode={countryCode} />
                   {label}
-                  {i18nQuery.data.locale === locale && <LuCheck className='ml-auto' />}
+                  {preferenceQuery.data.locale === locale && <LuCheck className='ml-auto' />}
                 </DropdownMenuItem>
               ))}
             </DropdownMenuContent>

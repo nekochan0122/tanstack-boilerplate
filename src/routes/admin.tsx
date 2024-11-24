@@ -1,3 +1,4 @@
+import { Role } from '@prisma/client'
 import { createFileRoute, Outlet, redirect } from '@tanstack/react-router'
 import { toast } from 'sonner'
 
@@ -9,7 +10,7 @@ export const Route = createFileRoute('/admin')({
     if (!context.auth.isAuthenticated) {
       if (!preload) {
         logger.info('Authentication failed, redirecting to sign-in page')
-        toast.error(context.i18n.translator('auth.authentication-failed'))
+        toast.error(context.translator('auth.authentication-failed'))
       }
 
       throw redirect({
@@ -20,10 +21,10 @@ export const Route = createFileRoute('/admin')({
       })
     }
 
-    if (context.auth.user.role !== 'admin') {
+    if (context.auth.user.role !== Role.Admin) {
       if (!preload) {
         logger.info('Unauthorized access, redirecting to home page')
-        toast.error(context.i18n.translator('auth.unauthorized-access'))
+        toast.error(context.translator('auth.unauthorized-access'))
       }
 
       throw redirect({
@@ -43,5 +44,5 @@ export const Route = createFileRoute('/admin')({
 function AdminLayout() {
   const authQuery = useAuthQuery()
 
-  return authQuery.data.isAuthenticated && authQuery.data.user.role === 'admin' ? <Outlet /> : null
+  return authQuery.data.isAuthenticated && authQuery.data.user.role === Role.Admin ? <Outlet /> : null
 }

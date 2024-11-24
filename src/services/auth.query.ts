@@ -3,11 +3,9 @@ import { useRouter } from '@tanstack/react-router'
 import type { UseSuspenseQueryResult } from '@tanstack/react-query'
 import type { LiteralUnion } from 'type-fest'
 
-import { authClient } from '~/libs/auth-client'
-import { getAuth, signIn, signOut, signUp } from '~/services/auth.api'
+import { getAuth, signInUsername, signOut, signUp } from '~/services/auth.api'
 import type { ValidLink } from '~/components/ui/link'
-import type { SupportedSocialProviderId } from '~/config/social-provider'
-import type { Authed } from '~/libs/auth'
+import type { Auth } from '~/server/session'
 
 export const authQueryOptions = () => queryOptions({
   queryKey: ['getAuth'],
@@ -25,7 +23,7 @@ export const useAuthedQuery = () => {
     throw new Error('Not authenticated')
   }
 
-  return authQuery as UseSuspenseQueryResult<Authed>
+  return authQuery as UseSuspenseQueryResult<Extract<Auth, { isAuthenticated: true }>>
 }
 
 export type InvalidateOptions = {
@@ -62,24 +60,9 @@ export const useSignInMutation = (invalidateOptions?: InvalidateOptions) => {
   const invalidateAuth = useAuthInvalidate()
 
   return useMutation({
-    mutationFn: signIn,
+    mutationFn: signInUsername,
     onSuccess: invalidateAuth(invalidateOptions),
   })
-}
-
-export const useSignInSocialMutation = () => {
-  return useMutation({
-    mutationFn: ({
-      provider,
-      callbackURL,
-    }: {
-      provider: SupportedSocialProviderId
-      callbackURL: string
-    }) => {
-      return authClient.signIn.social({ provider, callbackURL })
-    },
-  })
-
 }
 
 export const useSignOutMutation = (invalidateOptions?: InvalidateOptions) => {

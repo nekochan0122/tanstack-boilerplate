@@ -3,7 +3,6 @@ import { join } from 'node:path'
 
 import { defineConfig } from '@tanstack/start/config'
 import tsconfigPathsPlugin from 'vite-plugin-tsconfig-paths'
-import type { App } from 'vinxi'
 
 const config = {
   appDirectory: 'src',
@@ -50,6 +49,12 @@ const app = defineConfig({
         '@node-rs/argon2-wasm32-wasi',
       ],
     },
+    resolve: {
+      alias: {
+        // https://github.com/prisma/prisma/issues/12504#issuecomment-2094394268
+        '.prisma/client/index-browser': './node_modules/.prisma/client/index-browser.js',
+      },
+    },
     plugins: [
       tsconfigPathsPlugin({
         projects: ['./tsconfig.json'],
@@ -77,18 +82,4 @@ app.hooks.hook('app:dev:server:listener:created', ({ listener }) => {
   exec(`start ${listener.url}`)
 })
 
-// https://discord.com/channels/719702312431386674/1238170697650405547/1300589573080092723
-function withGlobalMiddleware(app: App) {
-  return {
-    ...app,
-    config: {
-      ...app.config,
-      routers: app.config.routers.map((router) => ({
-        ...router,
-        middleware: router.target !== 'server' ? undefined : join(config.appDirectory, 'global-middleware.ts'),
-      })),
-    },
-  }
-}
-
-export default withGlobalMiddleware(app)
+export default app

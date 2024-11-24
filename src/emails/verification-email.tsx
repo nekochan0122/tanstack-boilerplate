@@ -1,24 +1,28 @@
-import { Section } from '@react-email/components'
+import { Section, Text } from '@react-email/components'
 
-import { EmailButton, EmailHeading, EmailLayout } from '~/emails/base'
+import { EmailHeading, EmailLayout } from '~/emails/base'
 
 type VerificationEmailProps = {
-  url: string
+  code: string
 }
 
-export function VerificationEmail({ url }: VerificationEmailProps) {
+export function VerificationEmail({ code }: VerificationEmailProps) {
   return (
     <EmailLayout>
       <Section className='text-center'>
         <EmailHeading>
           Verify your email
         </EmailHeading>
-        <EmailButton href={url}>
-          Click here to verify
-        </EmailButton>
+        <Text>
+          {code}
+        </Text>
       </Section>
     </EmailLayout>
   )
 }
+
+VerificationEmail.PreviewProps = {
+  code: '123456',
+} satisfies VerificationEmailProps
 
 export default VerificationEmail

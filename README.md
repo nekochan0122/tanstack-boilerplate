@@ -14,13 +14,13 @@ A fully **type-safe** boilerplate with a focus on UX and DX, complete with multi
 - [TanStack Query](https://tanstack.com/query/latest)
 - [TanStack Form](https://tanstack.com/form/latest)
 - [TanStack Virtual](https://tanstack.com/virtual/latest)
-- [Better Auth](https://www.better-auth.com/)
 - [Tailwind CSS](https://tailwindcss.com/)
 - [Shadcn UI](https://ui.shadcn.com/)
 - [Prisma](https://www.prisma.io/)
 - [Zod](https://zod.dev/)
 - [next-intl core library](https://next-intl-docs.vercel.app/docs/environments/core-library)
 - [Nodemailer](https://nodemailer.com/) + [React Email](https://react.email/)
+- [Lucia Auth](https://lucia-auth.com/)
 
 ## Utilities
 
@@ -41,6 +41,8 @@ A fully **type-safe** boilerplate with a focus on UX and DX, complete with multi
     - https://github.com/TanStack/router/issues/2779
   - Flash of Unstyled Content for quickstart plus a CSS file
     - https://github.com/TanStack/router/issues/2700
+  - Start: middleware context property type gets merged instead of overridden
+    - https://github.com/TanStack/router/issues/2780
 - Router
   - Router optional params for i18n
     - https://github.com/TanStack/router/discussions/146#discussioncomment-10917959

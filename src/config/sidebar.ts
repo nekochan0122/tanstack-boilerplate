@@ -12,7 +12,7 @@ export type LanguageOption = {
   label: string
 }
 
-export const languageOptions: LanguageOption[] = [
+export const languageOptions: readonly LanguageOption[] = [
   { locale: 'en', countryCode: 'US', label: 'English' },
   { locale: 'zh-tw', countryCode: 'TW', label: '繁體中文' },
 ]
@@ -22,13 +22,13 @@ export type ThemeOption = {
   Icon: IconType
 }
 
-export const themeOptions: ThemeOption[] = [
+export const themeOptions: readonly ThemeOption[] = [
   { value: 'system', Icon: LuLaptop },
   { value: 'light', Icon: LuSun },
   { value: 'dark', Icon: LuMoon },
 ]
 
-export const navigation: NavItem[] = [
+export const navigation: readonly NavItem[] = [
   {
     type: 'group',
     name: 'navigation.playground',

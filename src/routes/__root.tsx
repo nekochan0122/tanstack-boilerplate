@@ -18,23 +18,26 @@ import { Typography } from '~/components/ui/typography'
 import { createMetadata } from '~/libs/utils'
 import { authQueryOptions } from '~/services/auth.query'
 import { i18nQueryOptions, useI18nQuery } from '~/services/i18n.query'
+import { preferenceQueryOptions } from '~/services/preference.query'
 import type { RouterContext } from '~/libs/router'
 
 export const Route = createRootRouteWithContext<RouterContext>()({
   beforeLoad: async ({ context }) => {
-    const [auth, i18n] = await Promise.all([
+    const [
+      auth,
+      preference,
+    ] = await Promise.all([
       context.queryClient.ensureQueryData(authQueryOptions()),
-      context.queryClient.ensureQueryData(i18nQueryOptions()),
+      context.queryClient.ensureQueryData(preferenceQueryOptions()),
     ])
 
+    const i18n = await context.queryClient.ensureQueryData(i18nQueryOptions())
     const translator = createTranslator(i18n)
 
     return {
       auth,
-      i18n: {
-        ...i18n,
-        translator,
-      },
+      preference,
+      translator,
     }
   },
   head: () => {
@@ -157,8 +160,6 @@ function RootDocument({ children }: PropsWithChildren) {
             <Toaster />
           </ThemeProvider>
         </IntlProvider>
-        {/* <QueryDevtools buttonPosition='bottom-left' /> */}
-        {/* <RouterDevtools position='bottom-right' /> */}
         <ScrollRestoration />
         <Scripts />
       </body>

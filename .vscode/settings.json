@@ -11,6 +11,7 @@
   },
 
   "typescript.tsdk": "node_modules/typescript/lib",
+  "typescript.preferences.importModuleSpecifier": "non-relative",
 
   "files.watcherExclude": {
     "**/route-tree.gen.ts": true,

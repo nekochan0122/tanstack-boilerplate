@@ -3,6 +3,7 @@ import type { LinkComponentProps, RegisteredRouter } from '@tanstack/react-route
 import type { ComponentProps } from 'react'
 
 import type { FileRouteTypes } from '~/route-tree.gen'
+import type { SocialProviderLink } from '~/server/social'
 
 type InternalLink = '.' | '..' | Exclude<FileRouteTypes['to'], ''>
 
@@ -10,7 +11,7 @@ type ExternalLink = `http${'s' | ''}://${string}.${string}`
 
 type AnchorLink = `#${string}`
 
-type ValidLink = InternalLink | ExternalLink | AnchorLink
+type ValidLink = InternalLink | ExternalLink | AnchorLink | SocialProviderLink
 
 type LinkProps<To extends ValidLink> = (
   To extends InternalLink
@@ -32,12 +33,12 @@ function Link<To extends ValidLink>(props: LinkProps<To>) {
       return <a href={props.to} {...props} />
 
     default:
-      throw new Error(`Invalid link type: ${props.to}`)
+      return <a href={props.to} {...props} />
   }
 }
 
 function isInternalLink(link: string): link is InternalLink {
-  return link.startsWith('/') || link.startsWith('.')
+  return (link.startsWith('/') && !link.startsWith('/api')) || link.startsWith('.')
 }
 
 function isExternalLink(link: string): link is ExternalLink {

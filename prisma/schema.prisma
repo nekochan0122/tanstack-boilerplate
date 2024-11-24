@@ -1,8 +1,3 @@
-// pnpm dlx @better-auth/cli generate --config src/libs/auth.ts
-// https://www.better-auth.com/docs/concepts/database#core-schema
-// https://www.better-auth.com/docs/plugins/username#schema
-// https://www.better-auth.com/docs/plugins/admin#schema
-
 generator client {
   provider        = "prisma-client-js"
   previewFeatures = ["driverAdapters"]
@@ -13,64 +8,68 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-// Better Auth
+enum Role {
+  User
+  Admin
+}
+
 model User {
-  id            String    @id
+  id            String         @id @default(uuid())
   name          String
-  email         String
-  emailVerified Boolean
+  username      String         @unique
+  email         String         @unique
+  emailVerified Boolean        @default(false)
+  role          Role           @default(User)
   image         String?
-  createdAt     DateTime
-  updatedAt     DateTime
-  username      String?
-  role          String?
-  banned        Boolean?
-  banReason     String?
-  banExpires    DateTime?
-  Session       Session[]
-  Account       Account[]
-
-  @@unique([email])
-  @@unique([username])
-  @@map("user")
+  createdAt     DateTime       @default(now())
+  updatedAt     DateTime       @updatedAt
+  sessions      Session[]
+  accounts      Account[]
+  verifications Verification[]
+  preference    Preference?
 }
 
-// Better Auth
 model Session {
-  id             String   @id
-  expiresAt      DateTime
-  ipAddress      String?
-  userAgent      String?
-  userId         String
-  user           User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-  impersonatedBy String?
-
-  @@map("session")
+  id        String   @id
+  userId    String
+  userAgent String?
+  ipAddress String?
+  expiresAt DateTime
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
-// Better Auth
 model Account {
-  id           String    @id
-  accountId    String
-  providerId   String
-  userId       String
-  user         User      @relation(fields: [userId], references: [id], onDelete: Cascade)
-  accessToken  String?
-  refreshToken String?
-  idToken      String?
-  expiresAt    DateTime?
-  password     String?
-
-  @@map("account")
+  id             String   @id @default(uuid())
+  userId         String
+  accountId      String
+  providerId     String
+  providerUser   String
+  hashedPassword String?
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+  user           User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
-// Better Auth
 model Verification {
-  id         String    @id
-  identifier String
-  value      String
-  expiresAt  DateTime
-  createdAt  DateTime?
+  id        String   @id @default(uuid())
+  userId    String
+  type      String
+  code      String
+  email     String
+  attempts  Int      @default(0)
+  expiresAt DateTime
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
 
-  @@map("verification")
+model Preference {
+  id        String   @id @default(uuid())
+  userId    String   @unique
+  data      Json
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
