@@ -12,12 +12,28 @@ import type { SocialProviderConfig } from '~/server/social'
 export const discordProfileSchema = z
   .object({
     id: z.string(),
-    username: z.string(), // User's username (not unique)
-    discriminator: z.string(), // User's Discord tag
-    global_name: z.string().optional(), // Display name if set
-    avatar: z.string().optional(), // Avatar hash
-    verified: z.boolean(), // Email verified
-    email: z.string(), // User's email
+    username: z.string(),
+    discriminator: z.string(),
+    global_name: z.string().nullable(),
+    avatar: z.string().nullable(),
+    bot: z.boolean().optional(),
+    system: z.boolean().optional(),
+    mfa_enabled: z.boolean().optional(),
+    banner: z.string().nullable().optional(),
+    accent_color: z.number().nullable().optional(),
+    locale: z.string().optional(),
+    verified: z.boolean().optional(),
+    email: z.string().optional(),
+    flags: z.number().optional(),
+    premium_type: z.number().optional(),
+    public_flags: z.number().optional(),
+    avatar_decoration_data: z
+      .object({
+        asset: z.string(),
+        sku_id: z.string(),
+      })
+      .nullable()
+      .optional(),
   })
   .transform(objectKeyCamelCase)
 
@@ -39,24 +55,9 @@ export const discordConfig = {
       .json()
       .then(discordProfileSchema.parse)
 
-    let imageUrl: string
-    if (profile.avatar === undefined) {
-      const defaultAvatarNumber = profile.discriminator === '0'
-        ? Number(BigInt(profile.id) >> BigInt(22)) % 6
-        : parseInt(profile.discriminator) % 5
-      imageUrl = `https://cdn.discordapp.com/embed/avatars/${defaultAvatarNumber}.png`
-    }
-    else {
-      const format = profile.avatar.startsWith('a_') ? 'gif' : 'png'
-      imageUrl = `https://cdn.discordapp.com/avatars/${profile.id}/${profile.avatar}.${format}`
-    }
-
     return {
       id: profile.id,
       name: profile.globalName || profile.username,
-      email: profile.email,
-      emailVerified: profile.verified,
-      image: imageUrl,
     }
   },
 } satisfies SocialProviderConfig

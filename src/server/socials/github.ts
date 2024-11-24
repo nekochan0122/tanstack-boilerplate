@@ -1,5 +1,6 @@
 // http://localhost:3000/api/auth/connect/github
 // https://arcticjs.dev/providers/github
+// https://docs.github.com/en/rest/users/users
 // https://docs.github.com/en/apps/oauth-apps/building-oauth-apps/scopes-for-oauth-apps#available-scopes
 
 import { GitHub } from 'arctic'
@@ -11,14 +12,51 @@ import type { SocialProviderConfig } from '~/server/social'
 
 export const githubProfileSchema = z
   .object({
-    login: z.string(), // GitHub username
-    id: z.number(), // User's unique ID
-    avatar_url: z.string(), // Avatar URL
-    type: z.string(), // Type of user (User or Organization)
-    name: z.string(), // User's full name
-    email: z.string().nullable(), // User's email
-    created_at: z.string(), // Account creation date
-    updated_at: z.string(), // Last account update date
+    login: z.string(),
+    id: z.number(),
+    node_id: z.string(),
+    avatar_url: z.string().url(),
+    gravatar_id: z.string().nullable(),
+    url: z.string().url(),
+    html_url: z.string().url(),
+    followers_url: z.string().url(),
+    following_url: z.string(),
+    gists_url: z.string(),
+    starred_url: z.string(),
+    subscriptions_url: z.string().url(),
+    organizations_url: z.string().url(),
+    repos_url: z.string().url(),
+    events_url: z.string(),
+    received_events_url: z.string().url(),
+    type: z.string(),
+    site_admin: z.boolean(),
+    name: z.string().nullable(),
+    company: z.string().nullable(),
+    blog: z.string().nullable(),
+    location: z.string().nullable(),
+    email: z.string().email().nullable(),
+    hireable: z.boolean().nullable(),
+    bio: z.string().nullable(),
+    twitter_username: z.string().nullable(),
+    notification_email: z.string().nullable(),
+    public_repos: z.number(),
+    public_gists: z.number(),
+    followers: z.number(),
+    following: z.number(),
+    created_at: z.string().datetime(),
+    updated_at: z.string().datetime(),
+    private_gists: z.number(),
+    total_private_repos: z.number(),
+    owned_private_repos: z.number(),
+    disk_usage: z.number(),
+    collaborators: z.number(),
+    two_factor_authentication: z.boolean(),
+    plan: z.object({
+      name: z.string(),
+      space: z.number(),
+      collaborators: z.number(),
+      private_repos: z.number(),
+    }),
   })
   .transform(objectKeyCamelCase)
 
@@ -37,7 +75,7 @@ export const githubConfig = {
     `${import.meta.env.VITE_APP_BASE_URL}/api/auth/callback/github`,
   ),
   requiresPKCE: false,
-  scopes: ['user:email'],
+  scopes: ['read:user'],
   getProfile: async (tokens) => {
     const profile = await ky
       .get('https://api.github.com/user', {
@@ -48,24 +86,9 @@ export const githubConfig = {
       .json()
       .then(githubProfileSchema.parse)
 
-    const emails = await ky
-      .get('https://api.github.com/user/emails', {
-        headers: {
-          Authorization: `Bearer ${tokens.accessToken()}`,
-        },
-      })
-      .json()
-      .then(githubEmailsSchema.parse)
-
-    const email = profile.email || emails.find((e) => e.primary)!.email
-    const emailVerified = emails.find((e) => e.email === email)!.verified
-
     return {
       id: profile.id.toString(),
       name: profile.name || profile.login,
-      email: email,
-      emailVerified: emailVerified,
-      image: profile.avatarUrl,
     }
   },
 } satisfies SocialProviderConfig

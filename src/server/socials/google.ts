@@ -12,8 +12,6 @@ export const googleProfileSchema = z
   .object({
     aud: z.string(), // Audience the ID token is intended for
     azp: z.string(), // Authorized party
-    email: z.string(), // User's email address
-    email_verified: z.boolean(), // Whether the email address is verified
     name: z.string(), // User's full name
     given_name: z.string(), // User's given (first) name
     family_name: z.string(), // User's family (last) name
@@ -26,6 +24,7 @@ export const googleProfileSchema = z
     hd: z.string().optional(), // Hosted domain (if applicable)
     locale: z.string().optional(), // User's locale preference
     jti: z.string().optional(), // Token identifier
+    at_hash: z.string().optional(), // Hash of the ID token
   })
   .transform(objectKeyCamelCase)
 
@@ -37,7 +36,7 @@ export const googleConfig = {
 
   ),
   requiresPKCE: true,
-  scopes: ['openid', 'profile', 'email'],
+  scopes: ['openid', 'profile'],
   getProfile: async (tokens) => {
     const claims = decodeIdToken(tokens.idToken())
     const profile = googleProfileSchema.parse(claims)
@@ -45,9 +44,6 @@ export const googleConfig = {
     return {
       id: profile.sub,
       name: profile.name,
-      email: profile.email,
-      emailVerified: profile.emailVerified,
-      image: profile.picture,
     }
   },
 } satisfies SocialProviderConfig
