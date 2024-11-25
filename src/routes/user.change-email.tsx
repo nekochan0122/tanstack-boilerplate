@@ -27,8 +27,10 @@ function ChangeEmailRoute() {
       defaultValues: {
         newEmail: '',
       },
-      onSubmit: async ({ value }) => {
-        const changeEmailPromise = changeEmailMutation.mutateAsync({ data: value })
+      onSubmit: async ({ value, formApi }) => {
+        const changeEmailPromise = changeEmailMutation.mutateAsync({ data: value }, {
+          onSuccess: () => formApi.reset(),
+        })
 
         toast.promise(changeEmailPromise, {
           loading: t('common.submit-loading'),
