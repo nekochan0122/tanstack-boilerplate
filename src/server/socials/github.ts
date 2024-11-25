@@ -47,4 +47,4 @@ export const githubConfig = {
       name: profile.name || profile.login,
     }
   },
-} satisfies SocialProviderConfig
+} as const satisfies SocialProviderConfig

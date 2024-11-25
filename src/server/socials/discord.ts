@@ -40,4 +40,4 @@ export const discordConfig = {
       name: profile.globalName || profile.username,
     }
   },
-} satisfies SocialProviderConfig
+} as const satisfies SocialProviderConfig

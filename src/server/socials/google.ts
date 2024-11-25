@@ -31,4 +31,4 @@ export const googleConfig = {
       name: profile.name,
     }
   },
-} satisfies SocialProviderConfig
+} as const satisfies SocialProviderConfig
