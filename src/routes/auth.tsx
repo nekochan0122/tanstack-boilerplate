@@ -13,12 +13,9 @@ export const Route = createFileRoute('/auth')({
   ),
   beforeLoad: ({ context, search, location, preload }) => {
     if (context.auth.isAuthenticated) {
-
       if (!preload) {
         logger.info('Already authenticated, redirecting to callback URL')
-        toast.error(
-          context.translator('auth.already-authenticated-redirecting'),
-        )
+        toast.error(context.translator('auth.already-authenticated-redirecting'))
       }
 
       throw redirect({

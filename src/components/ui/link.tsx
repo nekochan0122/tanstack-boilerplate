@@ -6,11 +6,8 @@ import type { FileRouteTypes } from '~/route-tree.gen'
 import type { SocialProviderLink } from '~/server/social'
 
 type InternalLink = '.' | '..' | Exclude<FileRouteTypes['to'], ''>
-
 type ExternalLink = `http${'s' | ''}://${string}.${string}`
-
 type AnchorLink = `#${string}`
-
 type ValidLink = InternalLink | ExternalLink | AnchorLink | SocialProviderLink
 
 type LinkProps<To extends ValidLink> = (
