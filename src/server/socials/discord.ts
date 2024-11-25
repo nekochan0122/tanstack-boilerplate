@@ -6,7 +6,7 @@ import { Discord } from 'arctic'
 import { z } from 'zod'
 
 import { ky } from '~/libs/ky'
-import { objectKeyCamelCase } from '~/libs/utils'
+import { keysToCamelCase } from '~/libs/utils'
 import type { SocialProviderConfig } from '~/server/social'
 
 export const discordProfileSchema = z
@@ -15,7 +15,7 @@ export const discordProfileSchema = z
     username: z.string(),
     global_name: z.string().nullable(),
   })
-  .transform(objectKeyCamelCase)
+  .transform(keysToCamelCase)
 
 export const discordConfig = {
   arcticInstance: new Discord(

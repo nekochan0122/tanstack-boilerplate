@@ -49,7 +49,7 @@ type CamelCasedProperties<T> = Simplify<{
   [K in keyof T as CamelCase<K>]: T[K]
 }>
 
-export function objectKeyCamelCase<T extends Record<string, any>>(obj: T): CamelCasedProperties<T> {
+export function keysToCamelCase<T extends Record<string, any>>(obj: T): CamelCasedProperties<T> {
   return Object.fromEntries(
     Object.entries(obj)
       .map(([key, value]) => [camelCase(key), value]),
