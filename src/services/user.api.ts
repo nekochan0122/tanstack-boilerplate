@@ -64,6 +64,11 @@ export const changeEmail = createServerFn({ method: 'POST' })
   .middleware([authedMiddleware])
   .validator(zodValidator(changeEmailSchema()))
   .handler(async ({ context, data }) => {
+    // @ts-expect-error https://github.com/TanStack/router/issues/2780
+    if (data.newEmail === context.auth.user.email) {
+      throw new Error('New email must be different from current email')
+    }
+
     const user = await prisma.user.update({
       where: {
         // @ts-expect-error https://github.com/TanStack/router/issues/2780

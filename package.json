@@ -116,7 +116,7 @@
     "tailwindcss-plugin-animate": "npm:tailwindcss-animate@^1.0.7",
     "type-fest": "^4.28.0",
     "typescript": "^5.7.2",
-    "typescript-eslint": "^8.15.0",
+    "typescript-eslint": "^8.16.0",
     "vite-plugin-tsconfig-paths": "npm:vite-tsconfig-paths@^5.1.3"
   },
   "overrides": {
