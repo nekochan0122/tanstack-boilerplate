@@ -19,9 +19,9 @@ export const useUpdatePreferenceMutation = () => {
 
   return useMutation({
     mutationFn: updatePreference,
-    onSuccess: async () => {
+    onSuccess: async (preference) => {
       await queryClient.invalidateQueries(preferenceQueryOptions())
-      await queryClient.invalidateQueries(i18nQueryOptions())
+      await queryClient.invalidateQueries(i18nQueryOptions(preference.locale))
       await router.invalidate()
     },
   })
