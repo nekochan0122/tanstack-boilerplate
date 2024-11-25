@@ -1,6 +1,7 @@
 import { Link as RouterLink } from '@tanstack/react-router'
 import type { LinkComponentProps, RegisteredRouter } from '@tanstack/react-router'
 import type { ComponentProps } from 'react'
+import type { Except } from 'type-fest'
 
 import type { FileRouteTypes } from '~/route-tree.gen'
 import type { SocialProviderLink } from '~/server/social'
@@ -12,8 +13,8 @@ type ValidLink = InternalLink | ExternalLink | AnchorLink | SocialProviderLink
 
 type LinkProps<To extends ValidLink> = (
   To extends InternalLink
-    ? LinkComponentProps<'a', RegisteredRouter, string, To>
-    : ComponentProps<'a'>
+    ? Except<LinkComponentProps<'a', RegisteredRouter, string, To>, 'href'>
+    : Except<ComponentProps<'a'>, 'href'>
 ) & {
   to: To
 }
