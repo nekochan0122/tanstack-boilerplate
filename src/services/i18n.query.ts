@@ -4,7 +4,7 @@ import { getI18n } from '~/services/i18n.api'
 import type { Locale } from '~/libs/i18n'
 
 export const i18nQueryOptions = (locale: Locale) => queryOptions({
-  queryKey: ['message', locale],
+  queryKey: ['i18n', { locale }],
   queryFn: () => getI18n({ data: locale }),
 })
 
