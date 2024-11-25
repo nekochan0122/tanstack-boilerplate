@@ -24,8 +24,10 @@ function ChangePasswordRoute() {
       newPasswordConfirm: '',
       revokeOtherSessions: true,
     },
-    onSubmit: async ({ value }) => {
-      const changePasswordPromise = changePasswordMutation.mutateAsync({ data: value })
+    onSubmit: async ({ value, formApi }) => {
+      const changePasswordPromise = changePasswordMutation.mutateAsync({ data: value }, {
+        onSuccess: () => formApi.reset(),
+      })
 
       toast.promise(changePasswordPromise, {
         loading: t('common.submit-loading'),

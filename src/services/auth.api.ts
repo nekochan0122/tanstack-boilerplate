@@ -103,6 +103,7 @@ export const signInUsername = createServerFn({ method: 'POST' })
     }
 
     const isPasswordValid = await verifyPassword(user.hashedPassword, data.password)
+
     if (isPasswordValid === false) {
       throw new Error('Username or password is incorrect')
     }
