@@ -1,7 +1,9 @@
 import { sha256 } from '@oslojs/crypto/sha2'
 import { encodeBase32LowerCaseNoPadding, encodeHexLowerCase } from '@oslojs/encoding'
+import { omit } from 'es-toolkit'
 import { deleteCookie, getCookie, setCookie } from 'vinxi/http'
 import type { Session, User } from '@prisma/client'
+import type { Except } from 'type-fest'
 
 import { prisma } from '~/server/db'
 import { COOKIE_OPTIONS_BASE, generateRandomBytes } from '~/server/utils'
@@ -12,7 +14,7 @@ const SESSION_EXPIRES_AFTER_DAYS = 30
 const MS_PER_DAY = 1000 * 60 * 60 * 24
 
 export type Auth =
-  | { isAuthenticated: true; session: Session; user: User }
+  | { isAuthenticated: true; session: Session; user: Except<User, 'hashedPassword'> }
   | { isAuthenticated: false; session: null; user: null }
 
 export function generateSessionToken(): string {
@@ -86,7 +88,9 @@ export async function validateSessionToken(token: string | null): Promise<Auth> 
     })
   }
 
-  return { isAuthenticated: true, session, user }
+  const userWithoutPassword = omit(user, ['hashedPassword'])
+
+  return { isAuthenticated: true, session, user: userWithoutPassword }
 }
 
 export async function invalidateSession(sessionId: string): Promise<void> {
