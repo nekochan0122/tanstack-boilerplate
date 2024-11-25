@@ -54,44 +54,29 @@ export const signUp = createServerFn({ method: 'POST' })
       }
     }
 
-    const hashedPassword = await hashPassword(data.password)
-
-    const result = await prisma.$transaction(async (prisma) => {
-      const user = await prisma.user.create({
-        data: {
-          name: data.name,
-          email: data.email,
-          username: data.username,
-        },
-      })
-
-      const account = await prisma.account.create({
-        data: {
-          userId: user.id,
-          accountId: user.id,
-          providerId: 'credentials',
-          providerUser: user.username,
-          hashedPassword,
-        },
-      })
-
-      return { user, account }
+    const user = await prisma.user.create({
+      data: {
+        name: data.name,
+        email: data.email,
+        username: data.username,
+        hashedPassword: await hashPassword(data.password),
+      },
     })
 
     const emailVerification = await createVerification(
       'EMAIL_VERIFICATION',
-      result.user.id,
-      result.user.email,
+      user.id,
+      user.email,
     )
 
     sendEmail({
-      to: result.user.email,
+      to: user.email,
       subject: 'Verify your email address',
       react: VerificationEmail({ code: emailVerification.code }),
     })
 
     const sessionToken = generateSessionToken()
-    const session = await createSession(sessionToken, result.user.id)
+    const session = await createSession(sessionToken, user.id)
 
     setSessionTokenCookie(sessionToken, session.expiresAt)
   })
@@ -107,27 +92,17 @@ export const signInUsername = createServerFn({ method: 'POST' })
     const user = await prisma.user.findUnique({
       where: {
         username: data.username,
-        accounts: {
-          some: {
-            providerId: 'credentials',
-          },
-        },
       },
       include: {
         accounts: true,
       },
     })
 
-    if (
-      user === null ||
-      user.accounts.length === 0 ||
-      user.accounts[0].providerId !== 'credentials' ||
-      user.accounts[0].hashedPassword === null
-    ) {
+    if (user === null) {
       throw new Error('Username or password is incorrect')
     }
 
-    const isPasswordValid = await verifyPassword(user.accounts[0].hashedPassword, data.password)
+    const isPasswordValid = await verifyPassword(user.hashedPassword, data.password)
     if (isPasswordValid === false) {
       throw new Error('Username or password is incorrect')
     }
