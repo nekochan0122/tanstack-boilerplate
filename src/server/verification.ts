@@ -1,11 +1,12 @@
 import type { User, Verification } from '@prisma/client'
 
 import { prisma } from '~/server/db'
-import { generateRandomOTP } from '~/server/utils'
+import { generateRandomBase32 } from '~/server/secure'
 
-export const EXPIRES_AFTER_MS = 1000 * 60 * 10
+const CODE_LENGTH = 6
+const EXPIRES_AFTER_MS = 1000 * 60 * 10
 
-export type VerificationType = 'EMAIL_VERIFICATION' | 'PASSWORD_RESET'
+type VerificationType = 'EMAIL_VERIFICATION' | 'PASSWORD_RESET'
 
 export async function createVerification(
   type: VerificationType,
@@ -14,7 +15,7 @@ export async function createVerification(
 ): Promise<Verification> {
   await deleteVerification(type, id)
 
-  const code = generateRandomOTP()
+  const code = generateRandomBase32(CODE_LENGTH)
   const expiresAt = new Date(Date.now() + EXPIRES_AFTER_MS)
 
   const verification = await prisma.verification.create({

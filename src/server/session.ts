@@ -1,15 +1,17 @@
 import { sha256 } from '@oslojs/crypto/sha2'
-import { encodeBase32LowerCaseNoPadding, encodeHexLowerCase } from '@oslojs/encoding'
+import { encodeHexLowerCase } from '@oslojs/encoding'
 import { omit } from 'es-toolkit'
 import { deleteCookie, getCookie, setCookie } from 'vinxi/http'
 import type { Session, User } from '@prisma/client'
 import type { Except } from 'type-fest'
 
 import { prisma } from '~/server/db'
-import { COOKIE_OPTIONS_BASE, generateRandomBytes } from '~/server/utils'
+import { generateRandomBase32 } from '~/server/secure'
+import { COOKIE_OPTIONS_BASE } from '~/server/utils'
 
-const SESSION_COOKIE_NAME = 'session'
-const SESSION_EXPIRES_AFTER_DAYS = 30
+const COOKIE_NAME = 'session'
+const TOKEN_LENGTH = 32
+const EXPIRES_AFTER_DAYS = 30
 
 const MS_PER_DAY = 1000 * 60 * 60 * 24
 
@@ -18,9 +20,7 @@ export type Auth =
   | { isAuthenticated: false; session: null; user: null }
 
 export function generateSessionToken(): string {
-  const bytes = generateRandomBytes(20)
-  const token = encodeBase32LowerCaseNoPadding(bytes)
-  return token
+  return generateRandomBase32(TOKEN_LENGTH)
 }
 
 export function generateSessionId(token: string): string {
@@ -36,7 +36,7 @@ export async function createSession(token: string, userId: string, userAgent?: s
       userId,
       userAgent,
       ipAddress,
-      expiresAt: new Date(Date.now() + MS_PER_DAY * SESSION_EXPIRES_AFTER_DAYS),
+      expiresAt: new Date(Date.now() + MS_PER_DAY * EXPIRES_AFTER_DAYS),
     },
   })
 
@@ -75,8 +75,8 @@ export async function validateSessionToken(token: string | null): Promise<Auth> 
     return { isAuthenticated: false, session: null, user: null }
   }
 
-  if (Date.now() >= session.expiresAt.getTime() - MS_PER_DAY * (SESSION_EXPIRES_AFTER_DAYS / 2)) {
-    session.expiresAt = new Date(Date.now() + MS_PER_DAY * SESSION_EXPIRES_AFTER_DAYS)
+  if (Date.now() >= session.expiresAt.getTime() - MS_PER_DAY * (EXPIRES_AFTER_DAYS / 2)) {
+    session.expiresAt = new Date(Date.now() + MS_PER_DAY * EXPIRES_AFTER_DAYS)
 
     await prisma.session.update({
       where: {
@@ -110,16 +110,16 @@ export async function invalidateUserSessions(userId: User['id']): Promise<void> 
 }
 
 export function getSessionTokenCookie(): string | null {
-  return getCookie(SESSION_COOKIE_NAME) ?? null
+  return getCookie(COOKIE_NAME) ?? null
 }
 
 export function setSessionTokenCookie(token: string, expiresAt: Date): void {
-  setCookie(SESSION_COOKIE_NAME, token, {
+  setCookie(COOKIE_NAME, token, {
     ...COOKIE_OPTIONS_BASE,
     expires: expiresAt,
   })
 }
 
 export function deleteSessionTokenCookie(): void {
-  deleteCookie(SESSION_COOKIE_NAME, COOKIE_OPTIONS_BASE)
+  deleteCookie(COOKIE_NAME, COOKIE_OPTIONS_BASE)
 }
