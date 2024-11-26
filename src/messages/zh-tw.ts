@@ -87,9 +87,13 @@ const zhTW: Messages = {
     'email-must-different': '新信箱必須不同於目前信箱',
     'email-verification-code': '驗證碼',
     'email-verification-code-must-filled': '請填寫驗證碼',
-    'email-verification-loading': '驗證信中...',
-    'email-verification-success': '信箱驗證成功',
-    'email-verification-error': '驗證信失敗',
+    'email-verification-loading': '驗證中...',
+    'email-verification-success': '驗證成功',
+    'email-verification-error': '驗證失敗',
+    'email-verification-resend': '重新發送驗證碼',
+    'email-verification-resend-loading': '重新發送中...',
+    'email-verification-resend-success': '重新發送成功',
+    'email-verification-resend-error': '重新發送失敗',
   },
 }
 

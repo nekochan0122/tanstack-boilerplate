@@ -33,13 +33,11 @@ export async function createVerification(
 
 export async function getVerification(
   type: VerificationType,
-  code: string,
   userId: User['id'],
 ) {
   const verification = await prisma.verification.findFirst({
     where: {
       type,
-      code,
       userId: userId,
     },
   })

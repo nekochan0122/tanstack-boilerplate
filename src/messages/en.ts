@@ -88,6 +88,10 @@ const en = {
     'email-verification-loading': 'Verifying email...',
     'email-verification-success': 'Email verified successfully',
     'email-verification-error': 'Failed to verify email',
+    'email-verification-resend': 'Resend verification email',
+    'email-verification-resend-loading': 'Resending verification email...',
+    'email-verification-resend-success': 'Verification email sent successfully',
+    'email-verification-resend-error': 'Failed to send verification email',
   },
 }
 

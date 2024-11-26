@@ -3,8 +3,10 @@ import { toast } from 'sonner'
 import { useTranslations } from 'use-intl'
 
 import { createBasicFormBuilder } from '~/components/form/basic'
+import { Button } from '~/components/ui/button'
 import { useForm } from '~/components/ui/form'
-import { useVerifyEmailMutation } from '~/services/user.query'
+import { Separator } from '~/components/ui/separator'
+import { useResendEmailVerifMutation, useVerifyEmailMutation } from '~/services/user.query'
 import { verifyEmailSchema } from '~/services/user.schema'
 
 export const Route = createFileRoute('/user/verify-email')({
@@ -15,6 +17,7 @@ function EmailVerificationRoute() {
   const t = useTranslations()
 
   const verifyEmailMutation = useVerifyEmailMutation()
+  const resendEmailVerifMutation = useResendEmailVerifMutation()
 
   const verifyEmailForm = useForm(verifyEmailSchema(t), {
     defaultValues: {
@@ -48,5 +51,27 @@ function EmailVerificationRoute() {
     ],
   })
 
-  return <VerifyEmailFormBuilder />
+  async function resendEmailVerif() {
+    const resendEmailVerifPromise = resendEmailVerifMutation.mutateAsync(undefined)
+
+    toast.promise(resendEmailVerifPromise, {
+      loading: t('auth.email-verification-resend-loading'),
+      success: t('auth.email-verification-resend-success'),
+      error: t('auth.email-verification-resend-error'),
+    })
+  }
+
+  return (
+    <div className='flex w-full max-w-sm flex-col items-center justify-between space-y-4'>
+      <VerifyEmailFormBuilder />
+      <Separator />
+      <Button
+        variant='secondary'
+        className='w-full'
+        onClick={resendEmailVerif}
+      >
+        {t('auth.email-verification-resend')}
+      </Button>
+    </div>
+  )
 }

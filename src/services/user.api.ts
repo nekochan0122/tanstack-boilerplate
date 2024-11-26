@@ -104,7 +104,6 @@ export const verifyEmail = createServerFn({ method: 'POST' })
 
     const verification = await getVerification(
       'EMAIL_VERIFICATION',
-      data.code,
       // @ts-expect-error https://github.com/TanStack/router/issues/2780
       context.auth.user.id,
     )
@@ -151,5 +150,42 @@ export const verifyEmail = createServerFn({ method: 'POST' })
       data: {
         emailVerified: true,
       },
+    })
+  })
+
+export const resendEmailVerif = createServerFn({ method: 'POST' })
+  .middleware([authedMiddleware])
+  .handler(async ({ context }) => {
+    // @ts-expect-error https://github.com/TanStack/router/issues/2780
+    if (context.auth.user.emailVerified) {
+      throw new Error('Email already verified')
+    }
+
+    const emailVerification = await getVerification(
+      'EMAIL_VERIFICATION',
+      // @ts-expect-error https://github.com/TanStack/router/issues/2780
+      context.auth.user.id,
+    )
+
+    if (emailVerification !== null && emailVerification.expiresAt > new Date()) {
+      throw new Error('Verification code has already been sent')
+    }
+
+    // @ts-expect-error https://github.com/TanStack/router/issues/2780
+    await deleteVerification('EMAIL_VERIFICATION', context.auth.user.id)
+
+    const newEmailVerification = await createVerification(
+      'EMAIL_VERIFICATION',
+      // @ts-expect-error https://github.com/TanStack/router/issues/2780
+      context.auth.user.email,
+      // @ts-expect-error https://github.com/TanStack/router/issues/2780
+      context.auth.user.id,
+    )
+
+    sendEmail({
+      // @ts-expect-error https://github.com/TanStack/router/issues/2780
+      to: context.auth.user.email,
+      subject: 'Verify your email address',
+      react: VerificationEmail({ code: newEmailVerification.code }),
     })
   })
