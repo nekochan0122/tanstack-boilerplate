@@ -9,18 +9,11 @@ export const updateUserSchema = (t = tKey) => z
     name: nameSchema(t).optional(),
   })
 
-export const changeEmailSchema = (t = tKey) => z
-  .object({
-    newEmail: emailSchema(t),
-  })
-
 export const changePasswordSchema = (t = tKey) => z
   .object({
     revokeOtherSessions: z.boolean().optional(),
     currentPassword: passwordSchema(t),
     newPassword: passwordSchema(t),
-  })
-  .extend({
     newPasswordConfirm: passwordSchema(t),
   })
   .refine((values) => values.newPassword !== values.currentPassword, {
@@ -30,4 +23,14 @@ export const changePasswordSchema = (t = tKey) => z
   .refine((values) => values.newPassword === values.newPasswordConfirm, {
     path: ['newPasswordConfirm'],
     message: t('auth.password-must-match'),
+  })
+
+export const changeEmailSchema = (t = tKey) => z
+  .object({
+    newEmail: emailSchema(t),
+  })
+
+export const verifyEmailSchema = (t = tKey) => z
+  .object({
+    code: z.string().min(1, t('auth.email-verification-code-must-filled')),
   })

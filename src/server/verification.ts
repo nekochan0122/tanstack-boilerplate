@@ -4,27 +4,43 @@ import { prisma } from '~/server/db'
 import { generateRandomBase32 } from '~/server/secure'
 
 const CODE_LENGTH = 6
-const EXPIRES_AFTER_MS = 1000 * 60 * 10
+const EXPIRES_AFTER_MS = 1000 * 60 * 5
 
 type VerificationType = 'EMAIL_VERIFICATION' | 'PASSWORD_RESET'
 
 export async function createVerification(
   type: VerificationType,
-  id: User['id'],
   email: string,
+  userId: User['id'],
 ): Promise<Verification> {
-  await deleteVerification(type, id)
+  await deleteVerification(type, userId)
 
   const code = generateRandomBase32(CODE_LENGTH)
   const expiresAt = new Date(Date.now() + EXPIRES_AFTER_MS)
 
   const verification = await prisma.verification.create({
     data: {
-      userId: id,
+      type,
+      email,
+      code,
+      userId: userId,
+      expiresAt,
+    },
+  })
+
+  return verification
+}
+
+export async function getVerification(
+  type: VerificationType,
+  code: string,
+  userId: User['id'],
+) {
+  const verification = await prisma.verification.findFirst({
+    where: {
       type,
       code,
-      email,
-      expiresAt,
+      userId: userId,
     },
   })
 

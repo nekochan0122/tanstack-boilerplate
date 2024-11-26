@@ -15,7 +15,7 @@ import { Route as UserImport } from './routes/user'
 import { Route as AuthImport } from './routes/auth'
 import { Route as AdminImport } from './routes/admin'
 import { Route as IndexImport } from './routes/index'
-import { Route as UserEmailVerificationImport } from './routes/user.email-verification'
+import { Route as UserVerifyEmailImport } from './routes/user.verify-email'
 import { Route as UserChangePasswordImport } from './routes/user.change-password'
 import { Route as UserChangeEmailImport } from './routes/user.change-email'
 import { Route as UserAccountSettingsImport } from './routes/user.account-settings'
@@ -50,9 +50,9 @@ const IndexRoute = IndexImport.update({
   getParentRoute: () => rootRoute,
 } as any)
 
-const UserEmailVerificationRoute = UserEmailVerificationImport.update({
-  id: '/email-verification',
-  path: '/email-verification',
+const UserVerifyEmailRoute = UserVerifyEmailImport.update({
+  id: '/verify-email',
+  path: '/verify-email',
   getParentRoute: () => UserRoute,
 } as any)
 
@@ -179,11 +179,11 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof UserChangePasswordImport
       parentRoute: typeof UserImport
     }
-    '/user/email-verification': {
-      id: '/user/email-verification'
-      path: '/email-verification'
-      fullPath: '/user/email-verification'
-      preLoaderRoute: typeof UserEmailVerificationImport
+    '/user/verify-email': {
+      id: '/user/verify-email'
+      path: '/verify-email'
+      fullPath: '/user/verify-email'
+      preLoaderRoute: typeof UserVerifyEmailImport
       parentRoute: typeof UserImport
     }
   }
@@ -219,14 +219,14 @@ interface UserRouteChildren {
   UserAccountSettingsRoute: typeof UserAccountSettingsRoute
   UserChangeEmailRoute: typeof UserChangeEmailRoute
   UserChangePasswordRoute: typeof UserChangePasswordRoute
-  UserEmailVerificationRoute: typeof UserEmailVerificationRoute
+  UserVerifyEmailRoute: typeof UserVerifyEmailRoute
 }
 
 const UserRouteChildren: UserRouteChildren = {
   UserAccountSettingsRoute: UserAccountSettingsRoute,
   UserChangeEmailRoute: UserChangeEmailRoute,
   UserChangePasswordRoute: UserChangePasswordRoute,
-  UserEmailVerificationRoute: UserEmailVerificationRoute,
+  UserVerifyEmailRoute: UserVerifyEmailRoute,
 }
 
 const UserRouteWithChildren = UserRoute._addFileChildren(UserRouteChildren)
@@ -243,7 +243,7 @@ export interface FileRoutesByFullPath {
   '/user/account-settings': typeof UserAccountSettingsRoute
   '/user/change-email': typeof UserChangeEmailRoute
   '/user/change-password': typeof UserChangePasswordRoute
-  '/user/email-verification': typeof UserEmailVerificationRoute
+  '/user/verify-email': typeof UserVerifyEmailRoute
 }
 
 export interface FileRoutesByTo {
@@ -258,7 +258,7 @@ export interface FileRoutesByTo {
   '/user/account-settings': typeof UserAccountSettingsRoute
   '/user/change-email': typeof UserChangeEmailRoute
   '/user/change-password': typeof UserChangePasswordRoute
-  '/user/email-verification': typeof UserEmailVerificationRoute
+  '/user/verify-email': typeof UserVerifyEmailRoute
 }
 
 export interface FileRoutesById {
@@ -274,7 +274,7 @@ export interface FileRoutesById {
   '/user/account-settings': typeof UserAccountSettingsRoute
   '/user/change-email': typeof UserChangeEmailRoute
   '/user/change-password': typeof UserChangePasswordRoute
-  '/user/email-verification': typeof UserEmailVerificationRoute
+  '/user/verify-email': typeof UserVerifyEmailRoute
 }
 
 export interface FileRouteTypes {
@@ -291,7 +291,7 @@ export interface FileRouteTypes {
     | '/user/account-settings'
     | '/user/change-email'
     | '/user/change-password'
-    | '/user/email-verification'
+    | '/user/verify-email'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -305,7 +305,7 @@ export interface FileRouteTypes {
     | '/user/account-settings'
     | '/user/change-email'
     | '/user/change-password'
-    | '/user/email-verification'
+    | '/user/verify-email'
   id:
     | '__root__'
     | '/'
@@ -319,7 +319,7 @@ export interface FileRouteTypes {
     | '/user/account-settings'
     | '/user/change-email'
     | '/user/change-password'
-    | '/user/email-verification'
+    | '/user/verify-email'
   fileRoutesById: FileRoutesById
 }
 
@@ -376,7 +376,7 @@ export const routeTree = rootRoute
         "/user/account-settings",
         "/user/change-email",
         "/user/change-password",
-        "/user/email-verification"
+        "/user/verify-email"
       ]
     },
     "/admin/dashboard": {
@@ -407,8 +407,8 @@ export const routeTree = rootRoute
       "filePath": "user.change-password.tsx",
       "parent": "/user"
     },
-    "/user/email-verification": {
-      "filePath": "user.email-verification.tsx",
+    "/user/verify-email": {
+      "filePath": "user.verify-email.tsx",
       "parent": "/user"
     }
   }

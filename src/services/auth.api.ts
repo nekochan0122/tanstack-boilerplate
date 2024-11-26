@@ -65,8 +65,8 @@ export const signUp = createServerFn({ method: 'POST' })
 
     const emailVerification = await createVerification(
       'EMAIL_VERIFICATION',
-      user.id,
       user.email,
+      user.id,
     )
 
     sendEmail({

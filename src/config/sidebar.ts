@@ -72,8 +72,8 @@ export const navigation: readonly NavItem[] = [
           },
           {
             type: 'link',
-            name: 'navigation.email-verification',
-            link: '/user/email-verification',
+            name: 'navigation.verify-email',
+            link: '/user/verify-email',
           },
         ],
       },

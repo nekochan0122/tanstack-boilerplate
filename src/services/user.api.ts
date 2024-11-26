@@ -6,8 +6,8 @@ import { authedMiddleware } from '~/middlewares/auth'
 import { prisma } from '~/server/db'
 import { sendEmail } from '~/server/email'
 import { hashPassword, verifyPassword } from '~/server/password'
-import { createVerification } from '~/server/verification'
-import { changeEmailSchema, changePasswordSchema, updateUserSchema } from '~/services/user.schema'
+import { createVerification, deleteVerification, getVerification } from '~/server/verification'
+import { changeEmailSchema, changePasswordSchema, updateUserSchema, verifyEmailSchema } from '~/services/user.schema'
 
 export const updateUser = createServerFn({ method: 'POST' })
   .middleware([authedMiddleware])
@@ -82,8 +82,8 @@ export const changeEmail = createServerFn({ method: 'POST' })
 
     const emailVerification = await createVerification(
       'EMAIL_VERIFICATION',
-      user.id,
       user.email,
+      user.id,
     )
 
     sendEmail({
@@ -93,8 +93,63 @@ export const changeEmail = createServerFn({ method: 'POST' })
     })
   })
 
-export const sendVerificationEmail = createServerFn({ method: 'POST' })
+export const verifyEmail = createServerFn({ method: 'POST' })
   .middleware([authedMiddleware])
-  .handler(async ({ context }) => {
-    // TODO:
+  .validator(zodValidator(verifyEmailSchema()))
+  .handler(async ({ context, data }) => {
+    // @ts-expect-error https://github.com/TanStack/router/issues/2780
+    if (context.auth.user.emailVerified) {
+      throw new Error('Email already verified')
+    }
+
+    const verification = await getVerification(
+      'EMAIL_VERIFICATION',
+      data.code,
+      // @ts-expect-error https://github.com/TanStack/router/issues/2780
+      context.auth.user.id,
+    )
+
+    if (verification === null) {
+      throw new Error('Invalid verification code')
+    }
+
+    if (verification.attempts >= 3) {
+      // @ts-expect-error https://github.com/TanStack/router/issues/2780
+      await deleteVerification('EMAIL_VERIFICATION', context.auth.user.id)
+
+      throw new Error('Verification code has expired')
+    }
+
+    if (verification.code !== data.code) {
+      await prisma.verification.update({
+        where: {
+          id: verification.id,
+        },
+        data: {
+          attempts: verification.attempts + 1,
+        },
+      })
+
+      throw new Error('Invalid verification code')
+    }
+
+    if (verification.expiresAt < new Date()) {
+      // @ts-expect-error https://github.com/TanStack/router/issues/2780
+      await deleteVerification('EMAIL_VERIFICATION', context.auth.user.id)
+
+      throw new Error('Verification code has expired')
+    }
+
+    // @ts-expect-error https://github.com/TanStack/router/issues/2780
+    await deleteVerification('EMAIL_VERIFICATION', context.auth.user.id)
+
+    await prisma.user.update({
+      where: {
+        // @ts-expect-error https://github.com/TanStack/router/issues/2780
+        id: context.auth.user.id,
+      },
+      data: {
+        emailVerified: true,
+      },
+    })
   })

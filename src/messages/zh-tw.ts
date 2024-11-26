@@ -30,7 +30,7 @@ const zhTW: Messages = {
     'account-settings': '帳戶設置',
     'change-email': '更改信箱',
     'change-password': '更改密碼',
-    'email-verification': '信箱驗證',
+    'verify-email': '驗證信箱',
     'admin': '受保護的管理員頁面',
     'dashboard': '儀表板',
     'user-management': '用戶管理',
@@ -85,6 +85,11 @@ const zhTW: Messages = {
     'password-must-match': '密碼必須匹配',
     'password-must-different': '新密碼必須不同於目前密碼',
     'email-must-different': '新信箱必須不同於目前信箱',
+    'email-verification-code': '驗證碼',
+    'email-verification-code-must-filled': '請填寫驗證碼',
+    'email-verification-loading': '驗證信中...',
+    'email-verification-success': '信箱驗證成功',
+    'email-verification-error': '驗證信失敗',
   },
 }
 

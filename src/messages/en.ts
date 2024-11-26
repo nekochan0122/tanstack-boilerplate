@@ -28,7 +28,7 @@ const en = {
     'account-settings': 'Account Settings',
     'change-email': 'Change Email',
     'change-password': 'Change Password',
-    'email-verification': 'Email Verification',
+    'verify-email': 'Verify Email',
     'admin': 'Protected Admin Route',
     'dashboard': 'Dashboard',
     'user-management': 'User Management',
@@ -83,6 +83,11 @@ const en = {
     'password-must-match': 'Passwords must match',
     'password-must-different': 'New password must be different from current password',
     'email-must-different': 'New email must be different from current email',
+    'email-verification-code': 'Verification code',
+    'email-verification-code-must-filled': 'Please fill in the verification code',
+    'email-verification-loading': 'Verifying email...',
+    'email-verification-success': 'Email verified successfully',
+    'email-verification-error': 'Failed to verify email',
   },
 }
 
