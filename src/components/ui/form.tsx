@@ -127,7 +127,9 @@ type SubmitProps = Except<ComponentProps<typeof Button>, 'form'> & {
 }
 
 function Submit({ form, allowDefaultValues = false, ...props }: SubmitProps) {
-  const allowDefault = allowDefaultValues ? false : isEqual(form.options.defaultValues, form.state.values)
+  // eslint-disable-next-line react-compiler/react-compiler
+  const formStore = form.useStore()
+  const allowDefault = allowDefaultValues ? false : isEqual(form.options.defaultValues, formStore.values)
 
   return (
     <form.Subscribe
@@ -135,6 +137,7 @@ function Submit({ form, allowDefaultValues = false, ...props }: SubmitProps) {
       children={([isSubmitting, canSubmit]) => (
         <Button
           type='submit'
+          data-allow-default={allowDefault || undefined}
           disabled={allowDefault || isSubmitting || !canSubmit}
           {...props}
         />
