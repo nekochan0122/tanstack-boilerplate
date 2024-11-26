@@ -51,7 +51,7 @@ function EmailVerificationRoute() {
     ],
   })
 
-  async function resendEmailVerif() {
+  async function handleResendEmailVerif() {
     const resendEmailVerifPromise = resendEmailVerifMutation.mutateAsync(undefined)
 
     toast.promise(resendEmailVerifPromise, {
@@ -68,7 +68,7 @@ function EmailVerificationRoute() {
       <Button
         variant='secondary'
         className='w-full'
-        onClick={resendEmailVerif}
+        onClick={handleResendEmailVerif}
       >
         {t('auth.email-verification-resend')}
       </Button>
