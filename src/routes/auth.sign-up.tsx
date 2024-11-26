@@ -53,7 +53,10 @@ function SignUpRoute() {
 
   const SignUpFormBuilder = createBasicFormBuilder(signUpForm)({
     base: {
-      submit: t('auth.sign-up'),
+      submit: {
+        children: t('auth.sign-up'),
+        allowDefaultValues: import.meta.env.DEV,
+      },
     },
     fields: [
       {

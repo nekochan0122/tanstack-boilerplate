@@ -126,9 +126,8 @@ type SubmitProps = Except<ComponentProps<typeof Button>, 'form'> & {
   allowDefaultValues?: boolean
 }
 
-function Submit({ form, allowDefaultValues = import.meta.env.DEV, ...props }: SubmitProps) {
-  const store = form.useStore()
-  const isDefaultValues = isEqual(form.options.defaultValues, store.values)
+function Submit({ form, allowDefaultValues = false, ...props }: SubmitProps) {
+  const allowDefault = allowDefaultValues ? false : isEqual(form.options.defaultValues, form.state.values)
 
   return (
     <form.Subscribe
@@ -136,7 +135,7 @@ function Submit({ form, allowDefaultValues = import.meta.env.DEV, ...props }: Su
       children={([isSubmitting, canSubmit]) => (
         <Button
           type='submit'
-          disabled={(allowDefaultValues ? false : isDefaultValues) || isSubmitting || !canSubmit}
+          disabled={allowDefault || isSubmitting || !canSubmit}
           {...props}
         />
       )}

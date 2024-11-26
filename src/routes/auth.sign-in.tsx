@@ -50,7 +50,10 @@ function SignInRoute() {
 
   const SignInFormBuilder = createBasicFormBuilder(signInForm)({
     base: {
-      submit: t('auth.sign-in'),
+      submit: {
+        children: t('auth.sign-in'),
+        allowDefaultValues: import.meta.env.DEV,
+      },
     },
     fields: [
       {
