@@ -10,7 +10,7 @@ import type { BetterAuthPlugin } from 'better-auth'
 import { VerificationEmail } from '~/emails/verification-email'
 import { prisma } from '~/server/db'
 import { sendEmail } from '~/server/email'
-import { PASSWORD_MAX, PASSWORD_MIN, passwordSchema } from '~/services/auth.schema'
+import { nameSchema, PASSWORD_MAX, PASSWORD_MIN, passwordSchema, usernameSchema } from '~/services/auth.schema'
 
 export const auth = betterAuth({
   baseURL: import.meta.env.VITE_APP_BASE_URL,
@@ -83,9 +83,58 @@ export const auth = betterAuth({
   plugins: [
     username(),
     admin(),
+    // https://discord.com/channels/1288403910284935179/1288403910284935182/1311052339225821225
+    nameValidator(),
+    usernameValidator(),
     passwordValidator(),
   ],
 })
+
+function nameValidator() {
+  return {
+    id: 'name-validator',
+    hooks: {
+      before: [
+        {
+          matcher: (ctx) => ctx.body?.name,
+          handler: async (ctx) => {
+            const nameParseResult = nameSchema().safeParse(ctx.body.name)
+
+            if (nameParseResult.error) {
+              console.log('nameParseResult.error')
+              throw new APIError('BAD_REQUEST', {
+                message: 'Invalid name',
+              })
+            }
+          },
+        },
+      ],
+    },
+  } as const satisfies BetterAuthPlugin
+}
+
+function usernameValidator() {
+  return {
+    id: 'username-validator',
+    hooks: {
+      before: [
+        {
+          matcher: (ctx) => ctx.body?.username,
+          handler: async (ctx) => {
+            const usernameParseResult = usernameSchema().safeParse(ctx.body.username)
+
+            if (usernameParseResult.error) {
+              console.log('usernameParseResult.error')
+              throw new APIError('BAD_REQUEST', {
+                message: 'Invalid username',
+              })
+            }
+          },
+        },
+      ],
+    },
+  } as const satisfies BetterAuthPlugin
+}
 
 function passwordValidator() {
   return {
