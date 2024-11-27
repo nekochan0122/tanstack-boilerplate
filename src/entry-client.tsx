@@ -3,13 +3,19 @@
 import { StartClient } from '@tanstack/start'
 import { StrictMode } from 'react'
 import { hydrateRoot } from 'react-dom/client'
+import { scan } from 'react-scan'
 
-import { createRouter } from '~/libs/router'
+import { createRouter } from '~/router'
 
 const router = createRouter()
 
 window.getRouter = () => router
 window.getQueryClient = () => router.options.context.queryClient
+
+scan({
+  enabled: import.meta.dev,
+  log: true,
+})
 
 hydrateRoot(document, (
   <StrictMode>
