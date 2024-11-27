@@ -88,7 +88,7 @@ export const Route = createRootRouteWithContext<RouterContext>()({
 
 function RootComponent() {
   return (
-    <RootDocument>
+    <Document>
       <SidebarProvider>
         <AppSidebar />
         <SidebarInset>
@@ -100,7 +100,7 @@ function RootComponent() {
           </div>
         </SidebarInset>
       </SidebarProvider>
-    </RootDocument>
+    </Document>
   )
 }
 
@@ -116,7 +116,7 @@ function PendingComponent() {
 
 function ErrorComponent({ error }: ErrorComponentProps) {
   return (
-    <RootDocument>
+    <Document>
       <div className='space-y-6 p-6'>
         <Typography.H1>
           Error
@@ -125,7 +125,7 @@ function ErrorComponent({ error }: ErrorComponentProps) {
           {error.message}
         </p>
       </div>
-    </RootDocument>
+    </Document>
   )
 }
 
@@ -139,7 +139,7 @@ function NotFoundComponent() {
   )
 }
 
-function RootDocument({ children }: PropsWithChildren) {
+function Document({ children }: PropsWithChildren) {
   const preferenceQuery = usePreferenceQuery()
   const i18nQuery = useI18nQuery(preferenceQuery.data.locale)
 
@@ -155,8 +155,6 @@ function RootDocument({ children }: PropsWithChildren) {
             <Toaster />
           </ThemeProvider>
         </IntlProvider>
-        {/* <QueryDevtools buttonPosition='bottom-left' /> */}
-        {/* <RouterDevtools position='bottom-right' /> */}
         <ScrollRestoration />
         <Scripts />
       </body>
