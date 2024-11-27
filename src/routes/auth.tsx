@@ -1,9 +1,9 @@
 import { createFileRoute, Outlet, redirect } from '@tanstack/react-router'
 import { zodValidator } from '@tanstack/zod-adapter'
-import { toast } from 'sonner'
+// import { toast } from 'sonner'
 import { z } from 'zod'
 
-import { logger } from '~/libs/logger'
+// import { logger } from '~/libs/logger'
 
 export const Route = createFileRoute('/auth')({
   validateSearch: zodValidator(
@@ -11,14 +11,12 @@ export const Route = createFileRoute('/auth')({
       callbackURL: z.string().default('/'),
     }),
   ),
-  beforeLoad: ({ context, search, location, preload }) => {
+  beforeLoad: ({ context, search, location }) => {
     if (context.auth.isAuthenticated) {
-      if (!preload) {
-        logger.info('Already authenticated, redirecting to callback URL')
-        toast.error(
-          context.i18n.translator('auth.already-authenticated-redirecting'),
-        )
-      }
+      // if (!preload) {
+      //   logger.info('Already authenticated, redirecting to callback URL')
+      //   toast.error( context.translator('auth.already-authenticated-redirecting'))
+      // }
 
       throw redirect({
         to: search.callbackURL,
@@ -28,6 +26,7 @@ export const Route = createFileRoute('/auth')({
     if (['/auth', '/auth/'].includes(location.pathname)) {
       throw redirect({
         to: '/auth/sign-in',
+        search,
       })
     }
   },

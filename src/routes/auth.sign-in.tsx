@@ -9,10 +9,10 @@ import { useForm } from '~/components/ui/form'
 import { Link } from '~/components/ui/link'
 import { Separator } from '~/components/ui/separator'
 import { socialProviders } from '~/config/social-provider'
+import { authClient } from '~/libs/auth-client'
 import { cx } from '~/libs/utils'
-import { useSignInMutation, useSignInSocialMutation } from '~/services/auth.query'
 import { signInSchema } from '~/services/auth.schema'
-import type { SupportedSocialProviderId } from '~/config/social-provider'
+import type { SocialProvider } from '~/config/social-provider'
 
 export const Route = createFileRoute('/auth/sign-in')({
   component: SignInRoute,
@@ -23,37 +23,41 @@ function SignInRoute() {
 
   const search = useSearch({ from: '/auth' })
 
-  const signInMutation = useSignInMutation(search)
-  const signInSocialMutation = useSignInSocialMutation()
-
   const signInForm = useForm(signInSchema(t), {
     defaultValues: {
       username: '',
       password: '',
       rememberMe: true,
       ...(import.meta.env.DEV && {
-        username: 'nekochan',
-        password: '12345678Ab!',
+        username: 'user',
+        password: '!Ab12345',
       }),
     },
     onSubmit: async ({ value }) => {
-      // TODO: error handling
-
-      const signInPromise = signInMutation.mutateAsync({ data: value })
-
-      toast.promise(signInPromise, {
-        loading: t('auth.sign-in-loading'),
-        success: t('auth.sign-in-success'),
-        error: t('auth.sign-in-error'),
+      await authClient.signIn.username(value, {
+        onRequest: () => {
+          toast.loading(t('auth.sign-in-loading'))
+        },
+        onSuccess: () => {
+          toast.dismiss()
+          toast.success(t('auth.sign-in-success'))
+        },
+        onError: ({ error }) => {
+          toast.dismiss()
+          toast.error(t('auth.sign-in-error'), {
+            description: error.message, // TODO: i18n
+          })
+        },
       })
-
-      await signInPromise
     },
   })
 
   const SignInFormBuilder = createBasicFormBuilder(signInForm)({
     base: {
-      submit: t('auth.sign-in'),
+      submit: {
+        children: t('auth.sign-in'),
+        allowDefaultValues: import.meta.env.DEV,
+      },
     },
     fields: [
       {
@@ -72,13 +76,12 @@ function SignInRoute() {
   function handleSignInSocial({
     provider,
   }: {
-    provider: SupportedSocialProviderId
+    provider: SocialProvider['id']
   }) {
-    return () =>
-      signInSocialMutation.mutate({
-        provider,
-        callbackURL: search.callbackURL,
-      })
+    return () => authClient.signIn.social({
+      provider,
+      callbackURL: search.callbackURL,
+    })
   }
 
   return (

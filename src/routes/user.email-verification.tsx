@@ -5,8 +5,8 @@ import { z } from 'zod'
 
 import { createBasicFormBuilder } from '~/components/form/basic'
 import { useForm } from '~/components/ui/form'
+import { authClient } from '~/libs/auth-client'
 import { useAuthedQuery } from '~/services/auth.query'
-import { useSendVerifyEmailMutation } from '~/services/user.query'
 
 export const Route = createFileRoute('/user/email-verification')({
   component: EmailVerificationRoute,
@@ -17,22 +17,29 @@ function EmailVerificationRoute() {
 
   const authedQuery = useAuthedQuery()
 
-  const sendVerifyEmailMutation = useSendVerifyEmailMutation()
-
   const sendVerifyEmailForm = useForm(z.any(), {
     defaultValues: {
       email: authedQuery.data.user.email,
     },
     async onSubmit() {
-      const sendVerifyEmailPromise = sendVerifyEmailMutation.mutateAsync(undefined)
-
-      toast.promise(sendVerifyEmailPromise, {
-        loading: t('common.submit-loading'),
-        success: t('common.submit-success'),
-        error: t('common.submit-error'),
+      authClient.sendVerificationEmail({
+        email: authedQuery.data.user.email,
+        callbackURL: window.location.href,
+      }, {
+        onRequest: () => {
+          toast.loading(t('common.submit-loading'))
+        },
+        onSuccess: () => {
+          toast.dismiss()
+          toast.success(t('common.submit-success'))
+        },
+        onError: ({ error }) => {
+          toast.dismiss()
+          toast.error(t('common.submit-error'), {
+            description: error.message, // TODO: i18n
+          })
+        },
       })
-
-      await sendVerifyEmailPromise
     },
   })
 

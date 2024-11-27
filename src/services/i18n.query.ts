@@ -1,26 +1,13 @@
-import { queryOptions, useMutation, useQueryClient, useSuspenseQuery } from '@tanstack/react-query'
-import { useRouter } from '@tanstack/react-router'
+import { queryOptions, useSuspenseQuery } from '@tanstack/react-query'
 
-import { getI18n, setLocale } from '~/services/i18n.api'
+import { getI18n } from '~/services/i18n.api'
+import type { Locale } from '~/libs/i18n'
 
-export const i18nQueryOptions = () => queryOptions({
-  queryKey: ['i18n'],
-  queryFn: () => getI18n(),
+export const i18nQueryOptions = (locale: Locale) => queryOptions({
+  queryKey: ['i18n', { locale }],
+  queryFn: () => getI18n({ data: locale }),
 })
 
-export const useI18nQuery = () => {
-  return useSuspenseQuery(i18nQueryOptions())
-}
-
-export const useSetLocaleMutation = () => {
-  const router = useRouter()
-  const queryClient = useQueryClient()
-
-  return useMutation({
-    mutationFn: setLocale,
-    onSuccess: async () => {
-      await queryClient.invalidateQueries(i18nQueryOptions())
-      await router.invalidate()
-    },
-  })
+export const useI18nQuery = (locale: Locale) => {
+  return useSuspenseQuery(i18nQueryOptions(locale))
 }

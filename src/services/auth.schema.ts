@@ -1,7 +1,6 @@
 import { z } from 'zod'
 
 import { tKey } from '~/libs/i18n'
-import type { InferAuthAPIZodShape } from '~/libs/auth'
 
 export const NAME_MIN = 2
 export const NAME_MAX = 10
@@ -42,13 +41,11 @@ export const passwordSchema = (t = tKey) => z
   .max(PASSWORD_MAX, t('auth.password-max', { max: PASSWORD_MAX }))
 
 export const signUpSchema = (t = tKey) => z
-  .object<InferAuthAPIZodShape<'signUpEmail'>>({
+  .object({
     name: nameSchema(t),
     email: emailSchema(t),
     username: usernameSchema(t),
     password: passwordSchema(t),
-  })
-  .extend({
     passwordConfirm: passwordSchema(t),
   })
   .refine((values) => values.password === values.passwordConfirm, {
@@ -57,7 +54,7 @@ export const signUpSchema = (t = tKey) => z
   })
 
 export const signInSchema = (t = tKey) => z
-  .object<InferAuthAPIZodShape<'signInUsername'>>({
+  .object({
     username: usernameSchema(t),
     password: passwordSchema(t),
     rememberMe: z.boolean().optional(),

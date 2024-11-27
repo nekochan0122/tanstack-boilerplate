@@ -4,9 +4,9 @@ import { useTranslations } from 'use-intl'
 
 import { createFancyFormBuilder } from '~/components/form/fancy'
 import { useForm } from '~/components/ui/form'
+import { authClient } from '~/libs/auth-client'
 import { useAuthedQuery } from '~/services/auth.query'
 import { NAME_MAX, USERNAME_MAX } from '~/services/auth.schema'
-import { useUpdateUserMutation } from '~/services/user.query'
 import { updateUserSchema } from '~/services/user.schema'
 
 export const Route = createFileRoute('/user/account-settings')({
@@ -17,23 +17,29 @@ function AccountSettingsRoute() {
   const t = useTranslations()
 
   const authedQuery = useAuthedQuery()
-  const updateUserMutation = useUpdateUserMutation()
 
   const accountSettingsForm = useForm(updateUserSchema(t), {
     defaultValues: {
-      username: authedQuery.data.user.username || undefined,
+      username: authedQuery.data.user.username,
       name: authedQuery.data.user.name,
     },
-    onSubmit: async ({ value }) => {
-      const updateUserPromise = updateUserMutation.mutateAsync({ data: value })
-
-      toast.promise(updateUserPromise, {
-        loading: t('common.save-loading'),
-        success: t('common.save-success'),
-        error: t('common.save-error'),
+    onSubmit: async ({ value, formApi }) => {
+      await authClient.updateUser(value, {
+        onRequest: () => {
+          toast.loading(t('common.save-loading'))
+        },
+        onSuccess: () => {
+          toast.dismiss()
+          toast.success(t('common.save-success'))
+          formApi.reset()
+        },
+        onError: ({ error }) => {
+          toast.dismiss()
+          toast.error(t('common.save-error'), {
+            description: error.message, // TODO: i18n
+          })
+        },
       })
-
-      await updateUserPromise
     },
   })
 

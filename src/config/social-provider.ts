@@ -2,18 +2,10 @@ import { BsDiscord, BsGithub } from 'react-icons/bs'
 import { FcGoogle } from 'react-icons/fc'
 import type { IconBaseProps, IconType } from 'react-icons'
 
-import type { InferAuthOptions } from '~/libs/auth'
-import type { ExtractUnionStrict } from '~/libs/utils'
-
-export type SocialProviderId = InferAuthOptions<'signInSocial'>['body']['provider']
-
-export type SupportedSocialProviderId = ExtractUnionStrict<
-  SocialProviderId,
-  'discord' | 'github' | 'google'
->
+import type { auth } from '~/server/auth'
 
 export type SocialProvider = {
-  id: SupportedSocialProviderId
+  id: keyof typeof auth.options.socialProviders
   name: string
   icon: IconType
   size: IconBaseProps['size']

@@ -23,7 +23,7 @@ export function createRouter() {
     search: {
       strict: true,
     },
-    defaultPreload: 'intent',
+    defaultPreload: false,
   })
 
   // handle redirect without useServerFn when using tanstack query

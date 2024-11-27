@@ -1,4 +1,4 @@
-import { createFileRoute, useSearch } from '@tanstack/react-router'
+import { createFileRoute } from '@tanstack/react-router'
 import { toast } from 'sonner'
 import { useTranslations } from 'use-intl'
 
@@ -7,7 +7,7 @@ import { Button } from '~/components/ui/button'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '~/components/ui/card'
 import { useForm } from '~/components/ui/form'
 import { Link } from '~/components/ui/link'
-import { useSignUpMutation } from '~/services/auth.query'
+import { authClient } from '~/libs/auth-client'
 import { signUpSchema } from '~/services/auth.schema'
 
 export const Route = createFileRoute('/auth/sign-up')({
@@ -17,10 +17,6 @@ export const Route = createFileRoute('/auth/sign-up')({
 function SignUpRoute() {
   const t = useTranslations()
 
-  const search = useSearch({ from: '/auth' })
-
-  const signUpMutation = useSignUpMutation(search)
-
   const signUpForm = useForm(signUpSchema(t), {
     defaultValues: {
       name: '',
@@ -29,31 +25,38 @@ function SignUpRoute() {
       passwordConfirm: '',
       email: '',
       ...(import.meta.env.DEV && {
-        name: 'NekoChan',
-        username: 'nekochan',
-        password: '12345678Ab!',
-        passwordConfirm: '12345678Ab!',
+        name: 'User',
+        username: 'user',
+        password: '!Ab12345',
+        passwordConfirm: '!Ab12345',
         email: import.meta.env.VITE_APP_EMAIL,
       }),
     },
     onSubmit: async ({ value }) => {
-      // TODO: error handling
-
-      const signUpPromise = signUpMutation.mutateAsync({ data: value })
-
-      toast.promise(signUpPromise, {
-        loading: t('auth.sign-up-loading'),
-        success: t('auth.sign-up-success'),
-        error: t('auth.sign-up-error'),
+      await authClient.signUp.email(value, {
+        onRequest: () => {
+          toast.loading(t('auth.sign-up-loading'))
+        },
+        onSuccess: () => {
+          toast.dismiss()
+          toast.success(t('auth.sign-up-success'))
+        },
+        onError: ({ error }) => {
+          toast.dismiss()
+          toast.error(t('auth.sign-up-error'), {
+            description: error.message, // TODO: i18n
+          })
+        },
       })
-
-      await signUpPromise
     },
   })
 
   const SignUpFormBuilder = createBasicFormBuilder(signUpForm)({
     base: {
-      submit: t('auth.sign-up'),
+      submit: {
+        children: t('auth.sign-up'),
+        allowDefaultValues: import.meta.env.DEV,
+      },
     },
     fields: [
       {

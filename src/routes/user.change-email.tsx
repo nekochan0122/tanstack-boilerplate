@@ -4,8 +4,8 @@ import { useTranslations } from 'use-intl'
 
 import { createBasicFormBuilder } from '~/components/form/basic'
 import { useForm } from '~/components/ui/form'
+import { authClient } from '~/libs/auth-client'
 import { useAuthedQuery } from '~/services/auth.query'
-import { useChangeEmailMutation } from '~/services/user.query'
 import { changeEmailSchema } from '~/services/user.schema'
 
 export const Route = createFileRoute('/user/change-email')({
@@ -17,8 +17,6 @@ function ChangeEmailRoute() {
 
   const authedQuery = useAuthedQuery()
 
-  const changeEmailMutation = useChangeEmailMutation()
-
   const changeEmailForm = useForm(
     changeEmailSchema(t).refine(
       (values) => values.newEmail !== authedQuery.data.user.email,
@@ -27,16 +25,23 @@ function ChangeEmailRoute() {
       defaultValues: {
         newEmail: '',
       },
-      onSubmit: async ({ value }) => {
-        const changeEmailPromise = changeEmailMutation.mutateAsync({ data: value })
-
-        toast.promise(changeEmailPromise, {
-          loading: t('common.submit-loading'),
-          success: t('common.submit-success'),
-          error: t('common.submit-error'),
+      onSubmit: async ({ value, formApi }) => {
+        await authClient.changeEmail(value, {
+          onRequest: () => {
+            toast.loading(t('common.submit-loading'))
+          },
+          onSuccess: () => {
+            toast.dismiss()
+            toast.success(t('common.submit-success'))
+            formApi.reset()
+          },
+          onError: ({ error }) => {
+            toast.dismiss()
+            toast.error(t('common.submit-error'), {
+              description: error.message, // TODO: i18n
+            })
+          },
         })
-
-        await changeEmailPromise
       },
     })
 

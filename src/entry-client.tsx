@@ -8,6 +8,9 @@ import { createRouter } from '~/libs/router'
 
 const router = createRouter()
 
+window.getRouter = () => router
+window.getQueryClient = () => router.options.context.queryClient
+
 hydrateRoot(document, (
   <StrictMode>
     <StartClient router={router} />

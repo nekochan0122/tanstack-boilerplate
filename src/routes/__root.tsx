@@ -18,23 +18,20 @@ import { Typography } from '~/components/ui/typography'
 import { createMetadata } from '~/libs/utils'
 import { authQueryOptions } from '~/services/auth.query'
 import { i18nQueryOptions, useI18nQuery } from '~/services/i18n.query'
+import { preferenceQueryOptions, usePreferenceQuery } from '~/services/preference.query'
 import type { RouterContext } from '~/libs/router'
 
 export const Route = createRootRouteWithContext<RouterContext>()({
   beforeLoad: async ({ context }) => {
-    const [auth, i18n] = await Promise.all([
-      context.queryClient.ensureQueryData(authQueryOptions()),
-      context.queryClient.ensureQueryData(i18nQueryOptions()),
-    ])
+    const auth = await context.queryClient.ensureQueryData(authQueryOptions())
+    const preference = await context.queryClient.ensureQueryData(preferenceQueryOptions())
 
+    const i18n = await context.queryClient.ensureQueryData(i18nQueryOptions(preference.locale))
     const translator = createTranslator(i18n)
 
     return {
       auth,
-      i18n: {
-        ...i18n,
-        translator,
-      },
+      translator,
     }
   },
   head: () => {
@@ -143,7 +140,8 @@ function NotFoundComponent() {
 }
 
 function RootDocument({ children }: PropsWithChildren) {
-  const i18nQuery = useI18nQuery()
+  const preferenceQuery = usePreferenceQuery()
+  const i18nQuery = useI18nQuery(preferenceQuery.data.locale)
 
   return (
     <html lang={i18nQuery.data.locale} suppressHydrationWarning>

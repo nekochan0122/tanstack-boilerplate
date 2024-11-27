@@ -4,7 +4,7 @@ import { useTranslations } from 'use-intl'
 
 import { createBasicFormBuilder } from '~/components/form/basic'
 import { useForm } from '~/components/ui/form'
-import { useChangePasswordMutation } from '~/services/user.query'
+import { authClient } from '~/libs/auth-client'
 import { changePasswordSchema } from '~/services/user.schema'
 
 export const Route = createFileRoute('/user/change-password')({
@@ -13,8 +13,6 @@ export const Route = createFileRoute('/user/change-password')({
 
 function ChangePasswordRoute() {
   const t = useTranslations()
-
-  const changePasswordMutation = useChangePasswordMutation()
 
   const changePasswordForm = useForm(changePasswordSchema(t), {
     defaultValues: {
@@ -25,15 +23,21 @@ function ChangePasswordRoute() {
       revokeOtherSessions: true,
     },
     onSubmit: async ({ value }) => {
-      const changePasswordPromise = changePasswordMutation.mutateAsync({ data: value })
-
-      toast.promise(changePasswordPromise, {
-        loading: t('common.submit-loading'),
-        success: t('common.submit-success'),
-        error: t('common.submit-error'),
+      await authClient.changePassword(value, {
+        onRequest: () => {
+          toast.loading(t('common.submit-loading'))
+        },
+        onSuccess: () => {
+          toast.dismiss()
+          toast.success(t('common.submit-success'))
+        },
+        onError: ({ error }) => {
+          toast.dismiss()
+          toast.error(t('common.submit-error'), {
+            description: error.message, // TODO: i18n
+          })
+        },
       })
-
-      await changePasswordPromise
     },
   })
 

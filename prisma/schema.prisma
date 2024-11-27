@@ -1,4 +1,4 @@
-// pnpm dlx @better-auth/cli generate --config src/libs/auth.ts
+// pnpm dlx @better-auth/cli generate --config src/server/auth.ts
 // https://www.better-auth.com/docs/concepts/database#core-schema
 // https://www.better-auth.com/docs/plugins/username#schema
 // https://www.better-auth.com/docs/plugins/admin#schema
@@ -13,64 +13,68 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-// Better Auth
 model User {
-  id            String    @id
+  id            String      @id
   name          String
-  email         String
+  email         String      @unique
   emailVerified Boolean
   image         String?
   createdAt     DateTime
   updatedAt     DateTime
-  username      String?
+  username      String?     @unique
   role          String?
   banned        Boolean?
   banReason     String?
   banExpires    DateTime?
   Session       Session[]
   Account       Account[]
-
-  @@unique([email])
-  @@unique([username])
-  @@map("user")
+  Preference    Preference?
 }
 
-// Better Auth
 model Session {
   id             String   @id
   expiresAt      DateTime
+  token          String   @unique
+  createdAt      DateTime
+  updatedAt      DateTime
   ipAddress      String?
   userAgent      String?
   userId         String
   user           User     @relation(fields: [userId], references: [id], onDelete: Cascade)
   impersonatedBy String?
-
-  @@map("session")
 }
 
-// Better Auth
 model Account {
-  id           String    @id
-  accountId    String
-  providerId   String
-  userId       String
-  user         User      @relation(fields: [userId], references: [id], onDelete: Cascade)
-  accessToken  String?
-  refreshToken String?
-  idToken      String?
-  expiresAt    DateTime?
-  password     String?
-
-  @@map("account")
+  id                    String    @id
+  accountId             String
+  providerId            String
+  userId                String
+  user                  User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  accessToken           String?
+  refreshToken          String?
+  idToken               String?
+  accessTokenExpiresAt  DateTime?
+  refreshTokenExpiresAt DateTime?
+  scope                 String?
+  password              String?
+  createdAt             DateTime
+  updatedAt             DateTime
 }
 
-// Better Auth
+model Preference {
+  id        String   @id @default(uuid())
+  userId    String   @unique
+  data      Json
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
 model Verification {
   id         String    @id
   identifier String
   value      String
   expiresAt  DateTime
   createdAt  DateTime?
-
-  @@map("verification")
+  updatedAt  DateTime?
 }

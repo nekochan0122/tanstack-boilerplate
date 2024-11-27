@@ -1,5 +1,4 @@
 import { LuCheck, LuChevronsUpDown, LuCommand, LuLanguages, LuLogOut, LuMoreHorizontal, LuPalette, LuUser } from 'react-icons/lu'
-import { toast } from 'sonner'
 import { useTranslations } from 'use-intl'
 import type { ComponentProps } from 'react'
 
@@ -12,10 +11,11 @@ import { Sidebar, SidebarContent, SidebarFooter, SidebarGroup, SidebarGroupLabel
 import { SidebarNavBuilder } from '~/components/ui/sidebar-nav-builder'
 import { TwemojiFlag } from '~/components/ui/twemoji'
 import { languageOptions, navigation, themeOptions } from '~/config/sidebar'
-import { useAuthQuery, useSignOutMutation } from '~/services/auth.query'
-import { useI18nQuery, useSetLocaleMutation } from '~/services/i18n.query'
+import { authClient } from '~/libs/auth-client'
+import { useAuthQuery } from '~/services/auth.query'
+import { usePreferenceQuery, useUpdatePreferenceMutation } from '~/services/preference.query'
 
-function AppSidebar(props: ComponentProps<typeof Sidebar>) {
+export function AppSidebar(props: ComponentProps<typeof Sidebar>) {
   return (
     <Sidebar variant='inset' {...props}>
       <SidebarHeader>
@@ -60,8 +60,8 @@ function SidebarAppearance() {
   const theme = useTheme()
   const sidebar = useSidebar()
 
-  const i18nQuery = useI18nQuery()
-  const setLocaleMutation = useSetLocaleMutation()
+  const preferenceQuery = usePreferenceQuery()
+  const updatePreferenceMutation = useUpdatePreferenceMutation()
 
   return (
     <SidebarGroup>
@@ -108,10 +108,13 @@ function SidebarAppearance() {
               className='min-w-56 rounded-lg'
             >
               {languageOptions.map(({ locale, countryCode, label }) => (
-                <DropdownMenuItem key={locale} onClick={() => setLocaleMutation.mutate({ data: locale })}>
+                <DropdownMenuItem
+                  key={locale}
+                  onClick={() => updatePreferenceMutation.mutate({ data: { locale } })}
+                >
                   <TwemojiFlag countryCode={countryCode} />
                   {label}
-                  {i18nQuery.data.locale === locale && <LuCheck className='ml-auto' />}
+                  {preferenceQuery.data.locale === locale && <LuCheck className='ml-auto' />}
                 </DropdownMenuItem>
               ))}
             </DropdownMenuContent>
@@ -128,17 +131,6 @@ function SidebarUser() {
   const sidebar = useSidebar()
 
   const authQuery = useAuthQuery()
-  const signOutMutation = useSignOutMutation()
-
-  async function handleSignOut() {
-    const signOutPromise = signOutMutation.mutateAsync(undefined)
-
-    toast.promise(signOutPromise, {
-      loading: t('auth.sign-out-loading'),
-      success: t('auth.sign-out-success'),
-      error: t('auth.sign-out-error'),
-    })
-  }
 
   return (
     <SidebarMenu>
@@ -167,7 +159,7 @@ function SidebarUser() {
               sideOffset={4}
               className='w-[--radix-dropdown-menu-trigger-width] min-w-56 rounded-lg'
             >
-              <DropdownMenuItem onSelect={handleSignOut}>
+              <DropdownMenuItem onSelect={() => authClient.signOut()}>
                 <LuLogOut />
                 {t('auth.sign-out')}
               </DropdownMenuItem>
@@ -192,5 +184,3 @@ function SidebarUser() {
     </SidebarMenu>
   )
 }
-
-export { AppSidebar }

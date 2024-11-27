@@ -1,11 +1,12 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
 import { clsx } from 'clsx'
+import { camelCase } from 'es-toolkit'
 import { createContext, useContext } from 'react'
 import { twMerge } from 'tailwind-merge'
 import type { ClassArray } from 'clsx'
 import type { JSX } from 'react'
-import type { LiteralUnion } from 'type-fest'
+import type { CamelCase, LiteralUnion, Simplify } from 'type-fest'
 
 export type StringNumber = `${number}`
 export type StringBoolean = `${boolean}`
@@ -55,6 +56,21 @@ export function createContextFactory<ContextData>(options?: {
   }
 
   return [context.Provider, useContextFactory] as const
+}
+
+export function objectKeysTyped<T extends object>(obj: T): (keyof T)[] {
+  return Object.keys(obj) as (keyof T)[]
+}
+
+type CamelCasedProperties<T> = Simplify<{
+  [K in keyof T as CamelCase<K>]: T[K]
+}>
+
+export function keysToCamelCase<T extends Record<string, unknown>>(obj: T): CamelCasedProperties<T> {
+  return Object.fromEntries(
+    Object.entries(obj)
+      .map(([key, value]) => [camelCase(key), value]),
+  ) as CamelCasedProperties<T>
 }
 
 type TryCatchResult<E = Error, T = unknown> = [null, T] | [E, null]
