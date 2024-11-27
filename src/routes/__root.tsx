@@ -19,7 +19,7 @@ import { createMetadata } from '~/libs/utils'
 import { authQueryOptions } from '~/services/auth.query'
 import { i18nQueryOptions, useI18nQuery } from '~/services/i18n.query'
 import { preferenceQueryOptions, usePreferenceQuery } from '~/services/preference.query'
-import type { RouterContext } from '~/libs/router'
+import type { RouterContext } from '~/router'
 
 export const Route = createRootRouteWithContext<RouterContext>()({
   beforeLoad: async ({ context }) => {

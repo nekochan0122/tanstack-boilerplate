@@ -1,9 +1,8 @@
+import { QueryClient } from '@tanstack/react-query'
 import { createRouter as createTanStackRouter, isRedirect } from '@tanstack/react-router'
 import { routerWithQueryClient } from '@tanstack/react-router-with-query'
 import { lazy } from 'react'
-import type { QueryClient } from '@tanstack/react-query'
 
-import { createQueryClient } from '~/libs/query'
 import { routeTree } from '~/route-tree.gen'
 
 export type RouterContext = {
@@ -11,7 +10,15 @@ export type RouterContext = {
 }
 
 export function createRouter() {
-  const queryClient = createQueryClient()
+  const queryClient = new QueryClient({
+    defaultOptions: {
+      queries: {
+        // With SSR, we usually want to set some default staleTime
+        // above 0 to avoid refetching immediately on the client
+        staleTime: 60 * 1000,
+      },
+    },
+  })
 
   const routerContext: RouterContext = {
     queryClient,
@@ -53,5 +60,11 @@ declare module '@tanstack/react-router' {
 export const RouterDevtools = import.meta.env.PROD ? () => null : lazy(() =>
   import('@tanstack/react-router-devtools').then((mod) => ({
     default: mod.TanStackRouterDevtools,
+  })),
+)
+
+export const QueryDevtools = import.meta.env.PROD ? () => null : lazy(() =>
+  import('@tanstack/react-query-devtools').then((mod) => ({
+    default: mod.ReactQueryDevtools,
   })),
 )

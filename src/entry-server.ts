@@ -3,7 +3,7 @@
 import { getRouterManifest } from '@tanstack/start/router-manifest'
 import { createStartHandler, defaultStreamHandler } from '@tanstack/start/server'
 
-import { createRouter } from '~/libs/router'
+import { createRouter } from '~/router'
 import { parseEnv } from '~/server/env'
 
 parseEnv()

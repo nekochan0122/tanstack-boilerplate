@@ -1,4 +1,4 @@
-import type { createRouter } from '~/libs/router'
+import type { createRouter } from '~/router'
 
 type Router = ReturnType<typeof createRouter>
 type QueryClient = Router['options']['context']['queryClient']
