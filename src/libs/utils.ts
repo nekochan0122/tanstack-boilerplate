@@ -11,30 +11,12 @@ import type { CamelCase, LiteralUnion, Simplify } from 'type-fest'
 export type StringNumber = `${number}`
 export type StringBoolean = `${boolean}`
 
-/**
- * Strict version of Extract for literal union types
- *
- * @see https://github.com/microsoft/TypeScript/issues/31474
- */
 export type ExtractUnionStrict<T, U extends T> = Extract<T, U>
 
-/**
- * Merges multiple TailwindCSS classes with `clsx` and `tailwind-merge`.
- *
- * @param inputs - The classes to merge.
- * @returns Merged classes.
- */
 export function cx(...inputs: ClassArray) {
   return twMerge(clsx(inputs))
 }
 
-/**
- * Creates a React Context with a custom `useContext` hook.
- *
- * @param defaultValue - Default context value, or `null`.
- * @param errorMessage - Error message if `useContext` is called outside a provider.
- * @returns A tuple with the Provider and custom `useContext` hook.
- */
 export function createContextFactory<ContextData>(options?: {
   defaultValue?: ContextData | null
   errorMessage?: string
@@ -75,14 +57,6 @@ export function keysToCamelCase<T extends Record<string, unknown>>(obj: T): Came
 
 type TryCatchResult<E = Error, T = unknown> = [null, T] | [E, null]
 
-/**
- * Executes a sync function, returning an error or result.
- *
- * @template E - Error type, defaults to `Error`.
- * @template T - Result type.
- * @param fn - The function to execute.
- * @returns `[null, T]` if successful, `[E, null]` if error.
- */
 export function tryCatchSync<
   E = Error,
   T = unknown,
@@ -98,14 +72,6 @@ export function tryCatchSync<
   }
 }
 
-/**
- * Executes an async function, returning a promise with an error or result.
- *
- * @template E - Error type, defaults to `Error`.
- * @template T - Result type.
- * @param promise - The async function to execute.
- * @returns A promise resolving to `[null, T]` if successful, `[E, null]` if error.
- */
 export async function tryCatchAsync<
   E = Error,
   T = unknown,
@@ -124,16 +90,6 @@ export async function tryCatchAsync<
 type ErrorUnion<T extends (new (...args: any[]) => any)[]> =
    T extends (new (...args: any[]) => infer U)[] ? U : never
 
-/**
- * Executes a sync function, catching specified errors, and returning an error or result.
- *
- * @template E - Error classes to catch.
- * @template T - Result type.
- * @param fn - The function to execute.
- * @param errorClasses - Optional array of error classes.
- * @returns `[null, T]` if successful, `[ErrorUnion<E>, null]` if error.
- * @throws Rethrows errors not in specified classes.
- */
 export function tryCatchErrorsSync<
   E extends (new (...args: any[]) => any)[],
   T,
@@ -155,16 +111,6 @@ export function tryCatchErrorsSync<
   }
 }
 
-/**
- * Executes an async function, catching specified errors, and returns a promise with an error or result.
- *
- * @template E - Error classes to catch.
- * @template T - Result type.
- * @param promise - The async function to execute.
- * @param errorClasses - Optional array of error classes.
- * @returns A promise resolving to `[null, T]` if successful, `[ErrorUnion<E>, null]` if error.
- * @throws Rethrows errors not in specified classes.
- */
 export async function tryCatchErrorsAsync<
   E extends (new (...args: any[]) => any)[],
   T,
