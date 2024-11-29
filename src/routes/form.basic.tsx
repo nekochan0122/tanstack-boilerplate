@@ -50,7 +50,7 @@ function BasicFormRoute() {
       <form.Field
         name='email'
         render={(field) => (
-          // Similar to the above, but less customizable and easier to write
+          // Similar to the above, easier to write but less customizable
           <field.Container label='Email'>
             <Input />
           </field.Container>
