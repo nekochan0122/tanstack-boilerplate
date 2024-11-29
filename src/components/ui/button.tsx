@@ -1,13 +1,12 @@
-import { Slot } from '@radix-ui/react-slot'
 import { cva } from 'class-variance-authority'
 import type { VariantProps } from 'class-variance-authority'
 import type { ComponentProps } from 'react'
 
+import { Slot } from '~/components/ui/slot'
 import { cx } from '~/libs/utils'
+import type { AsChildProps } from '~/components/ui/slot'
 
-type ButtonProps = ComponentProps<'button'> & VariantProps<typeof buttonVariants> & {
-  asChild?: boolean
-}
+type ButtonProps = ComponentProps<'button'> & VariantProps<typeof buttonVariants> & AsChildProps
 
 const buttonVariants = cva(
   'inline-flex select-none items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-shadow focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0',

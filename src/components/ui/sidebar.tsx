@@ -1,5 +1,4 @@
 import { useDidUpdate } from '@mantine/hooks'
-import { Slot } from '@radix-ui/react-slot'
 import { cva } from 'class-variance-authority'
 import { useCallback, useEffect, useState } from 'react'
 import { LuPanelLeft } from 'react-icons/lu'
@@ -11,9 +10,11 @@ import { Input } from '~/components/ui/input'
 import { Separator } from '~/components/ui/separator'
 import { Sheet, SheetContent, SheetDescription, SheetTitle } from '~/components/ui/sheet'
 import { Skeleton } from '~/components/ui/skeleton'
+import { Slot } from '~/components/ui/slot'
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '~/components/ui/tooltip'
 import { useIsMobile } from '~/hooks/use-is-mobile'
 import { createContextFactory, cx } from '~/libs/utils'
+import type { AsChildProps } from '~/components/ui/slot'
 
 const SIDEBAR_COOKIE_NAME = 'sidebar:state'
 const SIDEBAR_COOKIE_MAX_AGE = 60 * 60 * 24 * 7
@@ -352,7 +353,7 @@ function SidebarGroup({ className, ...props }: ComponentProps<'div'>) {
   )
 }
 
-function SidebarGroupLabel({ asChild = false, className, ...props }: ComponentProps<'div'> & { asChild?: boolean }) {
+function SidebarGroupLabel({ asChild = false, className, ...props }: ComponentProps<'div'> & AsChildProps) {
   const Comp = asChild ? Slot : 'div'
 
   return (
@@ -368,7 +369,7 @@ function SidebarGroupLabel({ asChild = false, className, ...props }: ComponentPr
   )
 }
 
-function SidebarGroupAction({ asChild = false, className, ...props }: ComponentProps<'button'> & { asChild?: boolean }) {
+function SidebarGroupAction({ asChild = false, className, ...props }: ComponentProps<'button'> & AsChildProps) {
   const Comp = asChild ? Slot : 'button'
 
   return (
@@ -437,8 +438,7 @@ const sidebarMenuButtonVariants = cva(
   },
 )
 
-type SidebarMenuButtonProps = ComponentProps<'button'> & VariantProps<typeof sidebarMenuButtonVariants> & {
-  asChild?: boolean
+type SidebarMenuButtonProps = ComponentProps<'button'> & VariantProps<typeof sidebarMenuButtonVariants> & AsChildProps & {
   isActive?: boolean
   tooltip?: string | ComponentProps<typeof TooltipContent>
 }
@@ -488,8 +488,7 @@ function SidebarMenuButton({
   )
 }
 
-type SidebarMenuActionProps = ComponentProps<'button'> & {
-  asChild?: boolean
+type SidebarMenuActionProps = ComponentProps<'button'> & AsChildProps & {
   showOnHover?: boolean
 }
 
@@ -589,8 +588,7 @@ function SidebarMenuSubItem(props: ComponentProps<'li'>) {
   )
 }
 
-type SidebarMenuSubButtonProps = ComponentProps<'a'> & {
-  asChild?: boolean
+type SidebarMenuSubButtonProps = ComponentProps<'a'> & AsChildProps & {
   size?: 'sm' | 'md'
   isActive?: boolean
 }

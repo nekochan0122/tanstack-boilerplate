@@ -2,8 +2,8 @@ import { createFileRoute } from '@tanstack/react-router'
 import { toast } from 'sonner'
 import { useTranslations } from 'use-intl'
 
-import { createFancyFormBuilder } from '~/components/form/fancy'
 import { useForm } from '~/components/ui/form'
+import { Input } from '~/components/ui/input'
 import { authClient } from '~/libs/auth-client'
 import { useAuthedQuery } from '~/services/auth.query'
 import { NAME_MAX, USERNAME_MAX } from '~/services/auth.schema'
@@ -18,7 +18,7 @@ function AccountSettingsRoute() {
 
   const authedQuery = useAuthedQuery()
 
-  const accountSettingsForm = useForm(updateUserSchema(t), {
+  const form = useForm(updateUserSchema(t), {
     defaultValues: {
       username: authedQuery.data.user.username,
       name: authedQuery.data.user.name,
@@ -43,27 +43,35 @@ function AccountSettingsRoute() {
     },
   })
 
-  const AccountSettingsFormBuilder = createFancyFormBuilder(accountSettingsForm)({
-    base: {
-      submit: t('common.save'),
-    },
-    fields: [
-      {
-        type: 'text',
-        name: 'username',
-        label: t('auth.username'),
-        description: t('auth.username-description'),
-        info: t('auth.username-max', { max: USERNAME_MAX }),
-      },
-      {
-        type: 'text',
-        name: 'name',
-        label: t('auth.name'),
-        description: t('auth.name-description'),
-        info: t('auth.name-max', { max: NAME_MAX }),
-      },
-    ],
-  })
-
-  return <AccountSettingsFormBuilder />
+  return (
+    <form.Root>
+      <form.Field
+        name='username'
+        render={(field) => (
+          <field.Container
+            label={t('auth.username')}
+            detail={t('auth.username-detail')}
+            message={t('auth.username-max', { max: USERNAME_MAX })}
+          >
+            <Input />
+          </field.Container>
+        )}
+      />
+      <form.Field
+        name='name'
+        render={(field) => (
+          <field.Container
+            label={t('auth.name')}
+            detail={t('auth.name-detail')}
+            message={t('auth.name-max', { max: NAME_MAX })}
+          >
+            <Input />
+          </field.Container>
+        )}
+      />
+      <form.Submit>
+        {t('common.save')}
+      </form.Submit>
+    </form.Root>
+  )
 }

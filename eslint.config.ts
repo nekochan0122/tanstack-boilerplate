@@ -38,7 +38,6 @@ export default tseslint.config(
       'react-refresh/only-export-components': 'off',
       'unicorn/no-useless-undefined': 'off', // a quickfix for server function
       'jsx-a11y/no-autofocus': ['error', { ignoreNonDOM: true }], // for react-day-picker autoFocus prop
-      'react/no-children-prop': 'off', // for tanstack form
     },
   },
   {
@@ -48,16 +47,6 @@ export default tseslint.config(
     rules: {
       'jsx-a11y/heading-has-content': 'off',
       'jsx-a11y/anchor-has-content': 'off',
-    },
-  },
-  {
-    files: [
-      'src/components/ui/form.tsx',
-      'src/components/ui/form-builder.tsx',
-      'src/components/form/**/*',
-    ],
-    rules: {
-      '@typescript-eslint/no-explicit-any': 'off',
     },
   },
   {

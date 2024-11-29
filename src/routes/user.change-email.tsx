@@ -2,8 +2,8 @@ import { createFileRoute } from '@tanstack/react-router'
 import { toast } from 'sonner'
 import { useTranslations } from 'use-intl'
 
-import { createBasicFormBuilder } from '~/components/form/basic'
 import { useForm } from '~/components/ui/form'
+import { Input } from '~/components/ui/input'
 import { authClient } from '~/libs/auth-client'
 import { useAuthedQuery } from '~/services/auth.query'
 import { changeEmailSchema } from '~/services/user.schema'
@@ -17,7 +17,7 @@ function ChangeEmailRoute() {
 
   const authedQuery = useAuthedQuery()
 
-  const changeEmailForm = useForm(
+  const form = useForm(
     changeEmailSchema(t).refine(
       (values) => values.newEmail !== authedQuery.data.user.email,
       { path: ['newEmail'], message: t('auth.email-must-different') },
@@ -45,21 +45,19 @@ function ChangeEmailRoute() {
       },
     })
 
-  const ChangeEmailFormBuilder = createBasicFormBuilder(changeEmailForm)({
-    base: {
-      submit: t('common.submit'),
-    },
-    fields: [
-      {
-        type: 'email',
-        name: 'newEmail',
-        label: t('auth.new-email'),
-        inputProps: {
-          placeholder: authedQuery.data.user.email,
-        },
-      },
-    ],
-  })
-
-  return <ChangeEmailFormBuilder />
+  return (
+    <form.Root>
+      <form.Field
+        name='newEmail'
+        render={(field) => (
+          <field.Container label={t('auth.new-email')}>
+            <Input placeholder={authedQuery.data.user.email} />
+          </field.Container>
+        )}
+      />
+      <form.Submit>
+        {t('common.submit')}
+      </form.Submit>
+    </form.Root>
+  )
 }

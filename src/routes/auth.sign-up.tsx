@@ -2,10 +2,11 @@ import { createFileRoute } from '@tanstack/react-router'
 import { toast } from 'sonner'
 import { useTranslations } from 'use-intl'
 
-import { createBasicFormBuilder } from '~/components/form/basic'
 import { Button } from '~/components/ui/button'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '~/components/ui/card'
 import { useForm } from '~/components/ui/form'
+import { Input } from '~/components/ui/input'
+import { InputPassword } from '~/components/ui/input-password'
 import { Link } from '~/components/ui/link'
 import { authClient } from '~/libs/auth-client'
 import { signUpSchema } from '~/services/auth.schema'
@@ -17,7 +18,7 @@ export const Route = createFileRoute('/auth/sign-up')({
 function SignUpRoute() {
   const t = useTranslations()
 
-  const signUpForm = useForm(signUpSchema(t), {
+  const form = useForm(signUpSchema(t), {
     defaultValues: {
       name: '',
       username: '',
@@ -51,42 +52,6 @@ function SignUpRoute() {
     },
   })
 
-  const SignUpFormBuilder = createBasicFormBuilder(signUpForm)({
-    base: {
-      submit: {
-        children: t('auth.sign-up'),
-        allowDefaultValues: import.meta.env.DEV,
-      },
-    },
-    fields: [
-      {
-        type: 'text',
-        name: 'name',
-        label: t('auth.name'),
-      },
-      {
-        type: 'email',
-        name: 'email',
-        label: t('auth.email'),
-      },
-      {
-        type: 'text',
-        name: 'username',
-        label: t('auth.username'),
-      },
-      {
-        type: 'password',
-        name: 'password',
-        label: t('auth.password'),
-      },
-      {
-        type: 'password',
-        name: 'passwordConfirm',
-        label: t('auth.password-confirm'),
-      },
-    ],
-  })
-
   return (
     <Card className='w-full lg:max-w-md'>
       <CardHeader>
@@ -95,7 +60,51 @@ function SignUpRoute() {
       </CardHeader>
 
       <CardContent className='space-y-6'>
-        <SignUpFormBuilder />
+        <form.Root>
+          <form.Field
+            name='name'
+            render={(field) => (
+              <field.Container label={t('auth.name')}>
+                <Input />
+              </field.Container>
+            )}
+          />
+          <form.Field
+            name='email'
+            render={(field) => (
+              <field.Container label={t('auth.email')}>
+                <Input />
+              </field.Container>
+            )}
+          />
+          <form.Field
+            name='username'
+            render={(field) => (
+              <field.Container label={t('auth.username')}>
+                <Input />
+              </field.Container>
+            )}
+          />
+          <form.Field
+            name='password'
+            render={(field) => (
+              <field.Container label={t('auth.password')}>
+                <InputPassword />
+              </field.Container>
+            )}
+          />
+          <form.Field
+            name='passwordConfirm'
+            render={(field) => (
+              <field.Container label={t('auth.password-confirm')}>
+                <InputPassword />
+              </field.Container>
+            )}
+          />
+          <form.Submit>
+            {t('auth.sign-up')}
+          </form.Submit>
+        </form.Root>
 
         <div className='flex items-center justify-center gap-2'>
           <p>{t('auth.already-have-an-account')}</p>

@@ -3,8 +3,8 @@ import { toast } from 'sonner'
 import { useTranslations } from 'use-intl'
 import { z } from 'zod'
 
-import { createBasicFormBuilder } from '~/components/form/basic'
 import { useForm } from '~/components/ui/form'
+import { Input } from '~/components/ui/input'
 import { authClient } from '~/libs/auth-client'
 import { useAuthedQuery } from '~/services/auth.query'
 
@@ -17,7 +17,7 @@ function EmailVerificationRoute() {
 
   const authedQuery = useAuthedQuery()
 
-  const sendVerifyEmailForm = useForm(z.any(), {
+  const form = useForm(z.any(), {
     defaultValues: {
       email: authedQuery.data.user.email,
     },
@@ -43,24 +43,19 @@ function EmailVerificationRoute() {
     },
   })
 
-  const SendVerifyEmailFormBuilder = createBasicFormBuilder(sendVerifyEmailForm)({
-    base: {
-      submit: {
-        children: t('common.submit'),
-        disabled: authedQuery.data.user.emailVerified,
-      },
-    },
-    fields: [
-      {
-        type: 'text',
-        name: 'email',
-        label: t('auth.email'),
-        inputProps: {
-          disabled: true,
-        },
-      },
-    ],
-  })
-
-  return <SendVerifyEmailFormBuilder />
+  return (
+    <form.Root>
+      <form.Field
+        name='email'
+        render={(field) => (
+          <field.Container label={t('auth.email')}>
+            <Input disabled />
+          </field.Container>
+        )}
+      />
+      <form.Submit disabled={authedQuery.data.user.emailVerified}>
+        {t('common.submit')}
+      </form.Submit>
+    </form.Root>
+  )
 }

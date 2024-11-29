@@ -2,8 +2,8 @@ import { createFileRoute } from '@tanstack/react-router'
 import { toast } from 'sonner'
 import { useTranslations } from 'use-intl'
 
-import { createBasicFormBuilder } from '~/components/form/basic'
 import { useForm } from '~/components/ui/form'
+import { InputPassword } from '~/components/ui/input-password'
 import { authClient } from '~/libs/auth-client'
 import { changePasswordSchema } from '~/services/user.schema'
 
@@ -14,9 +14,8 @@ export const Route = createFileRoute('/user/change-password')({
 function ChangePasswordRoute() {
   const t = useTranslations()
 
-  const changePasswordForm = useForm(changePasswordSchema(t), {
+  const form = useForm(changePasswordSchema(t), {
     defaultValues: {
-      username: undefined,
       currentPassword: '',
       newPassword: '',
       newPasswordConfirm: '',
@@ -41,39 +40,41 @@ function ChangePasswordRoute() {
     },
   })
 
-  const ChangePasswordFormBuilder = createBasicFormBuilder(changePasswordForm)({
-    base: {
-      submit: t('common.submit'),
-    },
-    fields: [
-      // https://www.chromium.org/developers/design-documents/create-amazing-password-forms/#use-hidden-fields-for-implicit-information
-      // https://stackoverflow.com/questions/48525114/chrome-warning-dom-password-forms-should-have-optionally-hidden-username-field
-      {
-        type: 'text',
-        name: 'username',
-        label: 'ForAccessibility',
-        inputProps: {
-          autoComplete: 'username',
-          className: 'hidden',
-        },
-      },
-      {
-        type: 'password',
-        name: 'currentPassword',
-        label: t('auth.current-password'),
-      },
-      {
-        type: 'password',
-        name: 'newPassword',
-        label: t('auth.new-password'),
-      },
-      {
-        type: 'password',
-        name: 'newPasswordConfirm',
-        label: t('auth.new-password-confirm'),
-      },
-    ],
-  })
-
-  return <ChangePasswordFormBuilder />
+  return (
+    <form.Root>
+      {/*
+        [DOM] Password forms should have (optionally hidden) username fields for accessibility
+          - https://goo.gl/9p2vKq
+          - https://stackoverflow.com/a/77160563
+      */}
+      <input hidden type='text' autoComplete='username' />
+      <form.Field
+        name='currentPassword'
+        render={(field) => (
+          <field.Container label={t('auth.current-password')}>
+            <InputPassword />
+          </field.Container>
+        )}
+      />
+      <form.Field
+        name='newPassword'
+        render={(field) => (
+          <field.Container label={t('auth.new-password')}>
+            <InputPassword />
+          </field.Container>
+        )}
+      />
+      <form.Field
+        name='newPasswordConfirm'
+        render={(field) => (
+          <field.Container label={t('auth.new-password-confirm')}>
+            <InputPassword />
+          </field.Container>
+        )}
+      />
+      <form.Submit>
+        {t('common.submit')}
+      </form.Submit>
+    </form.Root>
+  )
 }

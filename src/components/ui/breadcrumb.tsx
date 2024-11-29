@@ -1,8 +1,9 @@
-import { Slot } from '@radix-ui/react-slot'
 import { LuChevronRight, LuMoreHorizontal } from 'react-icons/lu'
 import type { ComponentProps } from 'react'
 
+import { Slot } from '~/components/ui/slot'
 import { cx } from '~/libs/utils'
+import type { AsChildProps } from '~/components/ui/slot'
 
 function Breadcrumb(props: ComponentProps<'nav'>) {
   return (
@@ -33,7 +34,7 @@ function BreadcrumbItem({ className, ...props }: ComponentProps<'li'>) {
   )
 }
 
-function BreadcrumbLink({ asChild, className, ...props }: ComponentProps<'a'> & { asChild?: boolean }) {
+function BreadcrumbLink({ asChild, className, ...props }: ComponentProps<'a'> & AsChildProps) {
   const Comp = asChild ? Slot : 'a'
 
   return (

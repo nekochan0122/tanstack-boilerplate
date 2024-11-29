@@ -94,7 +94,7 @@ function RootComponent() {
         <SidebarInset>
           <div className='flex h-full flex-col'>
             <AppHeader />
-            <div className='flex h-full flex-1 flex-col items-center px-2'>
+            <div className='flex h-full flex-1 flex-col items-center px-4'>
               <Outlet />
             </div>
           </div>

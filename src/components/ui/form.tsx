@@ -1,29 +1,86 @@
-// https://github.com/TanStack/form/blob/demo-internal-components/examples/react/custom-component-wrapper/src/index.tsx
+/* eslint-disable @typescript-eslint/no-explicit-any, react/no-children-prop */
 
-import { useForm } from '@tanstack/react-form'
+import { useForm as useTanStackForm } from '@tanstack/react-form'
 import { zodValidator } from '@tanstack/react-form-zod-adapter'
-import { isEqual } from 'es-toolkit'
-import type { DeepKeys, DeepValue, FieldApi, FieldOptions, FormApi, FormOptions, ReactFormApi, Validator } from '@tanstack/react-form'
-import type { ComponentProps } from 'react'
-import type { Except, LiteralUnion, UnknownRecord } from 'type-fest'
+import type { DeepKeys, DeepValue, FieldApi, FormOptions, Validator } from '@tanstack/react-form'
+import type { UseFieldOptions } from 'node_modules/@tanstack/react-form/dist/esm/types'
+import type { ChangeEvent, ComponentProps, FC, ReactNode } from 'react'
+import type { Except } from 'type-fest'
 import type { z } from 'zod'
 
 import { Button } from '~/components/ui/button'
 import { Label } from '~/components/ui/label'
-import { cx } from '~/libs/utils'
-import type { Calendar } from '~/components/ui/calendar'
-import type { Checkbox } from '~/components/ui/checkbox'
-import type { Input } from '~/components/ui/input'
-import type { InputPhone } from '~/components/ui/input-phone'
+import { Slot } from '~/components/ui/slot'
+import { createContextFactory, cx } from '~/libs/utils'
+import type { AsChildProps } from '~/components/ui/slot'
 
-function useFormWithZod<
+type FieldController = {
+  id: string
+  name: string
+  value: any
+  onChange: (value: any) => void
+  onBlur: () => void
+}
+
+type FieldLabelProps = ComponentProps<typeof Label>
+type FieldDetailProps = ComponentProps<'p'> & AsChildProps
+type FieldMessageProps = ComponentProps<'p'> & AsChildProps
+type FieldContainerProps = ComponentProps<'div'> & { label?: string; detail?: string; message?: string }
+
+type FieldComponentProps<
+  TParentData,
+  TName extends DeepKeys<TParentData>,
+  TFieldValidator extends Validator<DeepValue<TParentData, TName>, unknown> | undefined = undefined,
+  TFormValidator extends Validator<TParentData, unknown> | undefined = undefined,
+  TData extends DeepValue<TParentData, TName> = DeepValue<TParentData, TName>,
+> = UseFieldOptions<
+  TParentData,
+  TName,
+  TFieldValidator,
+  TFormValidator,
+  TData
+> & {
+  render: (fieldApi: FieldApi<TParentData, TName, TFieldValidator, TFormValidator, TData> & {
+    Label: FC<FieldLabelProps>
+    Detail: FC<FieldDetailProps>
+    Message: FC<FieldMessageProps>
+    Container: FC<FieldContainerProps>
+    controller: FieldController
+  }) => ReactNode
+}
+
+type FieldComponent<
+  TParentData,
+  TFormValidator extends Validator<TParentData, unknown> | undefined = undefined,
+> = <
+  TName extends DeepKeys<TParentData>,
+  TFieldValidator extends Validator<DeepValue<TParentData, TName>, unknown> | undefined = undefined,
+  TData extends DeepValue<TParentData, TName
+  > = DeepValue<TParentData, TName>,
+>( { render, ...fieldOptions }: Except<
+  FieldComponentProps<
+    TParentData,
+    TName,
+    TFieldValidator,
+    TFormValidator,
+    TData
+  >,
+  'form'
+>
+) => ReactNode
+
+type AnyFieldApi = FieldApi<any, any, any, any, any>
+
+const [FieldContextProvider, useFieldContext] = createContextFactory<AnyFieldApi>()
+
+function useForm<
   TFormSchema extends z.ZodType,
   TFormData = z.infer<TFormSchema>,
 >(
   schema: TFormSchema,
-  options?: Except<FormOptions<TFormData, Validator<TFormData, TFormSchema>>, 'validatorAdapter'>,
+  options?: Except<FormOptions<TFormData, Validator<TFormData>>, 'validatorAdapter'>,
 ) {
-  return useForm({
+  const form = useTanStackForm({
     validatorAdapter: zodValidator({
       transformErrors: (errors) => errors.map((e) => e.message)[0],
     }),
@@ -32,179 +89,169 @@ function useFormWithZod<
     },
     ...options,
   })
-}
 
-// https://github.com/TanStack/form/blob/2adadbf80b3c82802a83a53bba6fec2d09f54e97/packages/form-core/src/util-types.ts#L147
-type SelfKeys<T> = {
-  [K in keyof T]: K
-}[keyof T]
-
-// https://github.com/TanStack/form/blob/2adadbf80b3c82802a83a53bba6fec2d09f54e97/packages/form-core/src/util-types.ts#L153
-type DeepKeyValueName<TFormData, TField = any> = SelfKeys<{
-  [K in DeepKeys<TFormData> as DeepValue<TFormData, K> extends TField ? K : never]: K
-}>
-
-type AnyFormApi = FormApi<any, any>
-type AnyFieldApi = FieldApi<any, any, any, any>
-
-type AnyReactFormApi = ReactFormApi<any, any>
-type AnyReactFormApiMerged = AnyFormApi & AnyReactFormApi
-
-type FieldController = Record<string, (form: AnyReactFormApiMerged, field: AnyFieldApi) => UnknownRecord>
-
-const fieldControllerBase = (form: AnyReactFormApiMerged, field: AnyFieldApi) => ({
-  id: field.name,
-  name: field.name,
-  onBlur: field.handleBlur,
-  disabled: form.state.isSubmitting,
-})
-
-const fieldController = {
-  input: (form, field) => ({
-    ...fieldControllerBase(form, field),
-    value: field.state.value ?? '',
-    onChange: (e) => {
-      const isEmpty = e.target.value.length === 0
-      const isOptional = form.options.defaultValues[field.name] === undefined
-
-      const inputMode = e.target.inputMode as ComponentProps<typeof Input>['inputMode']
-      const inputValue = (() => {
-        let parsedNumber: number
-        switch (inputMode) {
-          case 'numeric':
-            parsedNumber = parseInt(e.target.value)
-            return isNaN(parsedNumber) ? e.target.value : parsedNumber
-          case 'decimal':
-            parsedNumber = parseFloat(e.target.value)
-            return isNaN(parsedNumber) ? e.target.value : parsedNumber
-          default:
-            return e.target.value
-        }
-      })()
-
-      field.handleChange(isOptional && isEmpty ? undefined : inputValue)
-    },
-  }) satisfies ComponentProps<typeof Input>,
-  phone: (form, field) => ({
-    ...fieldControllerBase(form, field),
-    value: field.state.value ?? '',
-    onChange: field.handleChange,
-  }) satisfies ComponentProps<typeof InputPhone>,
-  checkbox: (form, field) => ({
-    ...fieldControllerBase(form, field),
-    checked: field.state.value,
-    onCheckedChange: field.handleChange,
-  }) satisfies ComponentProps<typeof Checkbox>,
-  calendar: (form, field) => ({
-    ...fieldControllerBase(form, field),
-    selected: field.state.value,
-    onSelect: field.handleChange,
-  }) satisfies ComponentProps<typeof Calendar>,
-} satisfies FieldController
-
-type FormProps = Except<ComponentProps<'form'>, 'action'> & {
-  form: AnyReactFormApiMerged
-}
-
-function Form({ form, className, ...props }: FormProps) {
-  return (
+  const FormRoot = ({ className, ...props }: ComponentProps<'form'>) => (
     <form
       onSubmit={(e) => {
         e.preventDefault()
         e.stopPropagation()
         form.handleSubmit()
       }}
-      className={cx('w-full', className)}
-      autoComplete='off'
+      className={cx('w-full space-y-4 lg:max-w-sm', className)}
       {...props}
     />
   )
-}
 
-type SubmitProps = Except<ComponentProps<typeof Button>, 'form'> & {
-  form: AnyReactFormApiMerged
-  allowDefaultValues?: boolean
-}
+  const FormField: FieldComponent<TFormData, Validator<TFormData>> = (props) => (
+    <form.Field
+      children={(field) => (
+        <FieldContextProvider value={field}>
+          {props.render(
+            // @ts-expect-error I ❤️ TypeScript
+            {
+              ...field,
+              Label: FieldLabel,
+              Detail: FieldDetail,
+              Message: FieldMessage,
+              Container: FieldContainer,
+              controller: {
+                id: field.name.toString(),
+                name: field.name.toString(),
+                value: field.state.value ?? '',
+                onChange: (value: any) => field.handleChange(isChangeEvent(value) ? value.target.value : value),
+                onBlur: field.handleBlur,
+              } satisfies FieldController,
+            },
+          )}
+        </FieldContextProvider>
+      )}
+      {...props}
 
-function Submit({ form, allowDefaultValues = false, ...props }: SubmitProps) {
-  // eslint-disable-next-line react-compiler/react-compiler
-  const formStore = form.useStore()
-  const allowDefault = allowDefaultValues ? false : isEqual(form.options.defaultValues, formStore.values)
+    />
+  )
 
-  return (
+  const FormSubmit = ({ className, ...props }: ComponentProps<typeof Button>) => (
     <form.Subscribe
-      selector={(state) => [state.isSubmitting, state.canSubmit]}
-      children={([isSubmitting, canSubmit]) => (
+      children={(state) => (
         <Button
           type='submit'
-          data-allow-default={allowDefault || undefined}
-          disabled={allowDefault || isSubmitting || !canSubmit}
+          disabled={state.isSubmitting || !state.canSubmit}
+          className={cx('w-full', className)}
           {...props}
         />
       )}
     />
   )
+
+  return {
+    ...form,
+    Root: FormRoot,
+    Field: FormField,
+    Submit: FormSubmit,
+  }
 }
 
-// to define the components of the form.Field
-type FormFieldProps<
-  TFormData,
-  TName extends DeepKeyValueName<TFormData, any>,
-> = Except<FieldOptions<TFormData, TName, Validator<any, z.ZodTypeAny>>, 'validatorAdapter'> & {
-  form: AnyFormApi & ReactFormApi<TFormData, any>
-}
+function FieldLabel({ className, children, ...props }: FieldLabelProps) {
+  const field = useFieldContext()
 
-// to define the components inside the form.Field children
-type FieldBaseProps = {
-  field: AnyFieldApi
-}
+  const isTouched = field.state.meta.isTouched
+  const hasErrors = field.state.meta.errors.length > 0
+  const hasChildren = children !== undefined
 
-type FieldLabelProps = ComponentProps<typeof Label> & FieldBaseProps & {
-  label: LiteralUnion<'ForAccessibility', string>
-}
-
-function FieldLabel({ field, label, className, ...props }: FieldLabelProps) {
-  if (label === 'ForAccessibility') return null
-
-  const isDefaultValue = field.form.options.defaultValues[field.name] === field.state.value
+  if (!hasChildren) return null
 
   return (
     <Label
-      htmlFor={field.name}
-      className={cx(className,
-        field.state.meta.isTouched && field.state.meta.errors.length > 0 && 'text-destructive',
+      htmlFor={field.name.toString()}
+      className={cx('text-lg font-semibold',
+        isTouched && hasErrors && 'text-destructive',
+        className,
       )}
       {...props}
     >
-      {label} {!isDefaultValue && field.state.meta.isTouched ? '*' : null}
+      {children}
     </Label>
   )
 }
 
-type FieldInfoProps = FieldBaseProps & {
-  placeholder?: string
-}
+function FieldDetail({ asChild, className, children, ...props }: FieldDetailProps) {
+  const Comp = asChild ? Slot : 'p'
 
-function FieldInfo({ field, placeholder }: FieldInfoProps) {
-  const isTouched = field.state.meta.isTouched
-  const hasErrors = field.state.meta.errors.length > 0
+  const hasChildren = children !== undefined
 
-  const info = isTouched && hasErrors
-    ? field.state.meta.errors[0]
-    : placeholder
+  if (!hasChildren) return null
 
   return (
-    <p className={cx(
-      'text-sm',
-      isTouched && hasErrors ? 'text-destructive' : 'text-muted-foreground',
-    )}
+    <Comp
+      className='text-sm text-muted-foreground'
+      {...props}
     >
-      {typeof info === 'string' && info.length > 0 ? info : undefined}
-    </p>
+      {children}
+    </Comp>
   )
 }
 
-export { fieldController }
-export { useFormWithZod as useForm }
-export { FieldInfo, FieldLabel, Form, Submit }
-export type { AnyFieldApi, AnyFormApi, AnyReactFormApi, AnyReactFormApiMerged, DeepKeyValueName, FieldLabelProps, FormFieldProps, FormProps, SubmitProps }
+function FieldMessage({ asChild, className, children, ...props }: FieldMessageProps) {
+  const field = useFieldContext()
+
+  const Comp = asChild ? Slot : 'p'
+
+  const isTouched = field.state.meta.isTouched
+  const hasErrors = field.state.meta.errors.length > 0
+  const hasPlaceholder = children !== undefined
+
+  const message = isTouched && hasErrors ? field.state.meta.errors[0] : null
+
+  if (!hasPlaceholder && !message) return null
+
+  return (
+    <Comp
+      className={cx(
+        'text-sm',
+        isTouched && hasErrors ? 'font-medium text-destructive' : 'text-muted-foreground',
+        className,
+      )}
+      {...props}
+    >
+      {message || children}
+    </Comp>
+  )
+}
+
+function FieldContainer({ label, detail, message, className, children, ...props }: FieldContainerProps) {
+  const field = useFieldContext()
+
+  const controller: FieldController = {
+    id: field.name.toString(),
+    name: field.name.toString(),
+    value: field.state.value ?? '',
+    onChange: (value: any) => field.handleChange(isChangeEvent(value) ? value.target.value : value),
+    onBlur: field.handleBlur,
+  }
+
+  return (
+    <div
+      className={cx('space-y-4', className)}
+      {...props}
+    >
+      <FieldLabel>
+        {label}
+      </FieldLabel>
+      <FieldDetail>
+        {detail}
+      </FieldDetail>
+      <Slot {...controller}>
+        {children}
+      </Slot>
+      <FieldMessage>
+        {message}
+      </FieldMessage>
+    </div>
+  )
+}
+
+function isChangeEvent(value: any): value is ChangeEvent<any> {
+  return value && typeof value === 'object' && 'target' in value && 'value' in value.target
+}
+
+export { useForm }
