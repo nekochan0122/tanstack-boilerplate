@@ -32,6 +32,9 @@ const en = {
     'admin': 'Protected Admin Route',
     'dashboard': 'Dashboard',
     'user-management': 'User Management',
+    'integrations': 'Integrations',
+    'form': 'Tanstack Form',
+    'form-basic': 'Basic Form',
   },
   auth: {
     'name': 'Name',

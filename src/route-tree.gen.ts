@@ -19,6 +19,7 @@ import { Route as UserEmailVerificationImport } from './routes/user.email-verifi
 import { Route as UserChangePasswordImport } from './routes/user.change-password'
 import { Route as UserChangeEmailImport } from './routes/user.change-email'
 import { Route as UserAccountSettingsImport } from './routes/user.account-settings'
+import { Route as FormBasicImport } from './routes/form.basic'
 import { Route as AuthSignUpImport } from './routes/auth.sign-up'
 import { Route as AuthSignInImport } from './routes/auth.sign-in'
 import { Route as AdminUserManagementImport } from './routes/admin.user-management'
@@ -72,6 +73,12 @@ const UserAccountSettingsRoute = UserAccountSettingsImport.update({
   id: '/account-settings',
   path: '/account-settings',
   getParentRoute: () => UserRoute,
+} as any)
+
+const FormBasicRoute = FormBasicImport.update({
+  id: '/form/basic',
+  path: '/form/basic',
+  getParentRoute: () => rootRoute,
 } as any)
 
 const AuthSignUpRoute = AuthSignUpImport.update({
@@ -158,6 +165,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthSignUpImport
       parentRoute: typeof AuthImport
     }
+    '/form/basic': {
+      id: '/form/basic'
+      path: '/form/basic'
+      fullPath: '/form/basic'
+      preLoaderRoute: typeof FormBasicImport
+      parentRoute: typeof rootRoute
+    }
     '/user/account-settings': {
       id: '/user/account-settings'
       path: '/account-settings'
@@ -240,6 +254,7 @@ export interface FileRoutesByFullPath {
   '/admin/user-management': typeof AdminUserManagementRoute
   '/auth/sign-in': typeof AuthSignInRoute
   '/auth/sign-up': typeof AuthSignUpRoute
+  '/form/basic': typeof FormBasicRoute
   '/user/account-settings': typeof UserAccountSettingsRoute
   '/user/change-email': typeof UserChangeEmailRoute
   '/user/change-password': typeof UserChangePasswordRoute
@@ -255,6 +270,7 @@ export interface FileRoutesByTo {
   '/admin/user-management': typeof AdminUserManagementRoute
   '/auth/sign-in': typeof AuthSignInRoute
   '/auth/sign-up': typeof AuthSignUpRoute
+  '/form/basic': typeof FormBasicRoute
   '/user/account-settings': typeof UserAccountSettingsRoute
   '/user/change-email': typeof UserChangeEmailRoute
   '/user/change-password': typeof UserChangePasswordRoute
@@ -271,6 +287,7 @@ export interface FileRoutesById {
   '/admin/user-management': typeof AdminUserManagementRoute
   '/auth/sign-in': typeof AuthSignInRoute
   '/auth/sign-up': typeof AuthSignUpRoute
+  '/form/basic': typeof FormBasicRoute
   '/user/account-settings': typeof UserAccountSettingsRoute
   '/user/change-email': typeof UserChangeEmailRoute
   '/user/change-password': typeof UserChangePasswordRoute
@@ -288,6 +305,7 @@ export interface FileRouteTypes {
     | '/admin/user-management'
     | '/auth/sign-in'
     | '/auth/sign-up'
+    | '/form/basic'
     | '/user/account-settings'
     | '/user/change-email'
     | '/user/change-password'
@@ -302,6 +320,7 @@ export interface FileRouteTypes {
     | '/admin/user-management'
     | '/auth/sign-in'
     | '/auth/sign-up'
+    | '/form/basic'
     | '/user/account-settings'
     | '/user/change-email'
     | '/user/change-password'
@@ -316,6 +335,7 @@ export interface FileRouteTypes {
     | '/admin/user-management'
     | '/auth/sign-in'
     | '/auth/sign-up'
+    | '/form/basic'
     | '/user/account-settings'
     | '/user/change-email'
     | '/user/change-password'
@@ -328,6 +348,7 @@ export interface RootRouteChildren {
   AdminRoute: typeof AdminRouteWithChildren
   AuthRoute: typeof AuthRouteWithChildren
   UserRoute: typeof UserRouteWithChildren
+  FormBasicRoute: typeof FormBasicRoute
 }
 
 const rootRouteChildren: RootRouteChildren = {
@@ -335,6 +356,7 @@ const rootRouteChildren: RootRouteChildren = {
   AdminRoute: AdminRouteWithChildren,
   AuthRoute: AuthRouteWithChildren,
   UserRoute: UserRouteWithChildren,
+  FormBasicRoute: FormBasicRoute,
 }
 
 export const routeTree = rootRoute
@@ -350,7 +372,8 @@ export const routeTree = rootRoute
         "/",
         "/admin",
         "/auth",
-        "/user"
+        "/user",
+        "/form/basic"
       ]
     },
     "/": {
@@ -394,6 +417,9 @@ export const routeTree = rootRoute
     "/auth/sign-up": {
       "filePath": "auth.sign-up.tsx",
       "parent": "/auth"
+    },
+    "/form/basic": {
+      "filePath": "form.basic.tsx"
     },
     "/user/account-settings": {
       "filePath": "user.account-settings.tsx",

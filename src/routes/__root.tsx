@@ -1,4 +1,5 @@
 import fontsourceInter from '@fontsource-variable/inter?url'
+import fontsourceJetBrainsMono from '@fontsource-variable/jetbrains-mono?url'
 import fontsourceNotoSansTC from '@fontsource-variable/noto-sans-tc?url'
 import globalStyle from '~/styles/global.css?url'
 
@@ -61,6 +62,10 @@ export const Route = createRootRouteWithContext<RouterContext>()({
         {
           rel: 'stylesheet',
           href: fontsourceInter,
+        },
+        {
+          rel: 'stylesheet',
+          href: fontsourceJetBrainsMono,
         },
         {
           rel: 'stylesheet',

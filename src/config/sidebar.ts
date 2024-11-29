@@ -1,4 +1,4 @@
-import { LuKeyRound, LuLaptop, LuMoon, LuShieldCheck, LuSun, LuUser } from 'react-icons/lu'
+import { LuKeyRound, LuLaptop, LuMoon, LuShieldCheck, LuSun, LuTextSelect, LuUser } from 'react-icons/lu'
 import type { IconType } from 'react-icons'
 import type { Country } from 'react-phone-number-input'
 
@@ -91,6 +91,24 @@ export const navigation: readonly NavItem[] = [
             type: 'link',
             name: 'navigation.user-management',
             link: '/admin/user-management',
+          },
+        ],
+      },
+    ],
+  },
+  {
+    type: 'group',
+    name: 'navigation.integrations',
+    items: [
+      {
+        type: 'menu',
+        name: 'navigation.form',
+        icon: LuTextSelect,
+        items: [
+          {
+            type: 'link',
+            name: 'navigation.form-basic',
+            link: '/form/basic',
           },
         ],
       },
