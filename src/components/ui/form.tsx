@@ -14,6 +14,11 @@ import { Slot } from '~/components/ui/slot'
 import { createContextFactory, cx } from '~/libs/utils'
 import type { AsChildProps } from '~/components/ui/slot'
 
+type FieldLabelProps = ComponentProps<typeof Label>
+type FieldDetailProps = ComponentProps<'p'> & AsChildProps
+type FieldMessageProps = ComponentProps<'p'> & AsChildProps
+type FieldContainerProps = ComponentProps<'div'> & { label?: string; detail?: string; message?: string }
+
 type FieldController = {
   id: string
   name: string
@@ -21,11 +26,6 @@ type FieldController = {
   onChange: (value: any) => void
   onBlur: () => void
 }
-
-type FieldLabelProps = ComponentProps<typeof Label>
-type FieldDetailProps = ComponentProps<'p'> & AsChildProps
-type FieldMessageProps = ComponentProps<'p'> & AsChildProps
-type FieldContainerProps = ComponentProps<'div'> & { label?: string; detail?: string; message?: string }
 
 type FieldComponentProps<
   TParentData,

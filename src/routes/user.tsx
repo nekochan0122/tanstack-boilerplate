@@ -1,16 +1,16 @@
 import { createFileRoute, Outlet, redirect } from '@tanstack/react-router'
+import { toast } from 'sonner'
 
-// import { toast } from 'sonner'
-// import { logger } from '~/libs/logger'
+import { logger } from '~/libs/logger'
 import { useAuthQuery } from '~/services/auth.query'
 
 export const Route = createFileRoute('/user')({
-  beforeLoad: ({ context, location }) => {
+  beforeLoad: ({ context, location, preload }) => {
     if (!context.auth.isAuthenticated) {
-      // if (!preload) {
-      //   logger.info('Authentication failed, redirecting to sign-in page')
-      //   toast.error(context.translator('auth.authentication-failed'))
-      // }
+      if (!preload) {
+        logger.info('Authentication failed, redirecting to sign-in page')
+        toast.error(context.translator('auth.authentication-failed'))
+      }
 
       throw redirect({
         to: '/auth/sign-in',
