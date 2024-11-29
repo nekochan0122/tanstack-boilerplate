@@ -18,13 +18,14 @@ type FieldLabelProps = ComponentProps<typeof Label>
 type FieldDetailProps = ComponentProps<'p'> & AsChildProps
 type FieldMessageProps = ComponentProps<'p'> & AsChildProps
 type FieldContainerProps = ComponentProps<'div'> & { label?: string; detail?: string; message?: string }
+type FieldControllerProps = ComponentProps<typeof Slot>
 
-type FieldController = {
-  id: string
-  name: string
-  value: any
-  onChange: (value: any) => void
-  onBlur: () => void
+type FieldComponentExtendedProps = {
+  Label: FC<FieldLabelProps>
+  Detail: FC<FieldDetailProps>
+  Message: FC<FieldMessageProps>
+  Container: FC<FieldContainerProps>
+  Controller: FC<FieldControllerProps>
 }
 
 type FieldComponentProps<
@@ -40,13 +41,7 @@ type FieldComponentProps<
   TFormValidator,
   TData
 > & {
-  render: (fieldApi: FieldApi<TParentData, TName, TFieldValidator, TFormValidator, TData> & {
-    Label: FC<FieldLabelProps>
-    Detail: FC<FieldDetailProps>
-    Message: FC<FieldMessageProps>
-    Container: FC<FieldContainerProps>
-    controller: FieldController
-  }) => ReactNode
+  render: (fieldApi: FieldApi<TParentData, TName, TFieldValidator, TFormValidator, TData> & FieldComponentExtendedProps) => ReactNode
 }
 
 type FieldComponent<
@@ -114,13 +109,7 @@ function useForm<
               Detail: FieldDetail,
               Message: FieldMessage,
               Container: FieldContainer,
-              controller: {
-                id: field.name.toString(),
-                name: field.name.toString(),
-                value: field.state.value ?? '',
-                onChange: (value: any) => field.handleChange(isChangeEvent(value) ? value.target.value : value),
-                onBlur: field.handleBlur,
-              } satisfies FieldController,
+              Controller: FieldController,
             },
           )}
         </FieldContextProvider>
@@ -219,16 +208,6 @@ function FieldMessage({ asChild, className, children, ...props }: FieldMessagePr
 }
 
 function FieldContainer({ label, detail, message, className, children, ...props }: FieldContainerProps) {
-  const field = useFieldContext()
-
-  const controller: FieldController = {
-    id: field.name.toString(),
-    name: field.name.toString(),
-    value: field.state.value ?? '',
-    onChange: (value: any) => field.handleChange(isChangeEvent(value) ? value.target.value : value),
-    onBlur: field.handleBlur,
-  }
-
   return (
     <div
       className={cx('space-y-4', className)}
@@ -240,13 +219,32 @@ function FieldContainer({ label, detail, message, className, children, ...props 
       <FieldDetail>
         {detail}
       </FieldDetail>
-      <Slot {...controller}>
+      <FieldController>
         {children}
-      </Slot>
+      </FieldController>
       <FieldMessage>
         {message}
       </FieldMessage>
     </div>
+  )
+}
+
+function FieldController( { children, ...props }: FieldControllerProps) {
+  const field = useFieldContext()
+
+  return (
+    <Slot
+      {...({
+        id: field.name.toString(),
+        name: field.name.toString(),
+        value: field.state.value ?? '',
+        onChange: (value: any) => field.handleChange(isChangeEvent(value) ? value.target.value : value),
+        onBlur: field.handleBlur,
+      })}
+      {...props}
+    >
+      {children}
+    </Slot>
   )
 }
 
