@@ -155,7 +155,7 @@ function FieldLabel({ className, children, ...props }: FieldLabelProps) {
   return (
     <Label
       htmlFor={field.name.toString()}
-      className={cx('text-lg font-semibold',
+      className={cx('font-semibold',
         isTouched && hasErrors && 'text-destructive',
         className,
       )}
