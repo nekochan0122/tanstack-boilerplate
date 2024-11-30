@@ -300,18 +300,17 @@ function onChangeHandler(field: AnyFieldApi) {
 function isChangeEvent(value: any): value is ChangeEvent<any> {
   return (
     value &&
-     typeof value === 'object' &&
-     'target' in value &&
-     'value' in value.target
+    value.target &&
+    value.target.value
   )
 }
 
 function isInputChangeEvent(changeEvent: ChangeEvent<any>): changeEvent is ChangeEvent<HTMLInputElement> {
   return (
-    'name' in changeEvent.target &&
-    'type' in changeEvent.target &&
-    'value' in changeEvent.target &&
-    'inputMode' in changeEvent.target
+    changeEvent.target?.name &&
+    changeEvent.target?.type &&
+    changeEvent.target?.value &&
+    changeEvent.target?.inputMode
   )
 }
 
