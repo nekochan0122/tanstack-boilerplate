@@ -7,7 +7,7 @@ import { Input } from '~/components/ui/input'
 import { InputPassword } from '~/components/ui/input-password'
 
 export const Route = createFileRoute('/form/with-grid-layout')({
-  component: FormGridLayoutRoute,
+  component: FormWithGridLayoutRoute,
 })
 
 const exampleSchema = z.object({
@@ -16,7 +16,7 @@ const exampleSchema = z.object({
   password: z.string().min(8),
 })
 
-function FormGridLayoutRoute() {
+function FormWithGridLayoutRoute() {
   const form = useForm(exampleSchema, {
     defaultValues: {
       firstName: 'John',
