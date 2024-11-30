@@ -243,7 +243,7 @@ function FieldController( { children, ...props }: FieldControllerProps) {
         id: field.name.toString(),
         name: field.name.toString(),
         value: field.state.value ?? '',
-        onChange: (value: any) => field.handleChange(isChangeEvent(value) ? value.target.value : value),
+        onChange: onChangeHandler(field),
         onBlur: field.handleBlur,
       })}
       {...props}
@@ -253,8 +253,65 @@ function FieldController( { children, ...props }: FieldControllerProps) {
   )
 }
 
+function onChangeHandler(field: AnyFieldApi) {
+  return (value: any) => {
+    const fieldValue = isChangeEvent(value) ? value.target.value : value
+
+    const isOptional = field.form.options.defaultValues[field.name] === undefined
+    const isEmpty = fieldValue.length === 0
+
+    if (isInputChangeEvent(value)) {
+      const inputMode = value.target.inputMode as ComponentProps<'input'>['inputMode']
+      const inputType = value.target.type as ComponentProps<'input'>['type']
+      const inputValue = (() => {
+        switch (inputType) {
+          case 'number':
+            return value.target.valueAsNumber
+
+          case 'date':
+          case 'time':
+            return value.target.valueAsDate
+
+          case 'checkbox':
+          case 'radio':
+            return value.target.checked
+
+          case 'file':
+            return value.target.files
+
+          default:
+            // Additional checks for color, range, hidden, etc. if needed
+            if (inputMode === 'numeric' || inputMode === 'decimal') {
+              return value.target.valueAsNumber
+            }
+
+            return value.target.value
+        }
+      })()
+
+      return field.handleChange(isOptional && isEmpty ? undefined : inputValue)
+    }
+
+    field.handleChange(isOptional && isEmpty ? undefined : fieldValue)
+  }
+}
+
 function isChangeEvent(value: any): value is ChangeEvent<any> {
-  return value && typeof value === 'object' && 'target' in value && 'value' in value.target
+  return (
+    value &&
+     typeof value === 'object' &&
+     'target' in value &&
+     'value' in value.target
+  )
+}
+
+function isInputChangeEvent(changeEvent: ChangeEvent<any>): changeEvent is ChangeEvent<HTMLInputElement> {
+  return (
+    'name' in changeEvent.target &&
+    'type' in changeEvent.target &&
+    'value' in changeEvent.target &&
+    'inputMode' in changeEvent.target
+  )
 }
 
 export { useForm }
