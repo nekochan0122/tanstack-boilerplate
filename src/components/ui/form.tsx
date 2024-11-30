@@ -93,7 +93,7 @@ function useForm<
         e.stopPropagation()
         form.handleSubmit()
       }}
-      className={cx('w-full space-y-4 lg:max-w-sm', className)}
+      className={cx('w-full space-y-6 lg:max-w-sm', className)}
       {...props}
     />
   )
