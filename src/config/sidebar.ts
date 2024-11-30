@@ -115,6 +115,11 @@ export const navigation: readonly NavItem[] = [
             name: 'navigation.form-with-non-input',
             link: '/form/with-non-input',
           },
+          {
+            type: 'link',
+            name: 'navigation.form-with-grid-layout',
+            link: '/form/with-grid-layout',
+          },
         ],
       },
     ],

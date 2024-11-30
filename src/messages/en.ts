@@ -36,6 +36,7 @@ const en = {
     'form': 'Tanstack Form',
     'form-basic': 'Basic Form',
     'form-with-non-input': 'Form with Non-Input',
+    'form-with-grid-layout': 'Form Grid Layout',
   },
   auth: {
     'name': 'Name',

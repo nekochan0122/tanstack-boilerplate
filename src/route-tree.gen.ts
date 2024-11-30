@@ -20,6 +20,7 @@ import { Route as UserChangePasswordImport } from './routes/user.change-password
 import { Route as UserChangeEmailImport } from './routes/user.change-email'
 import { Route as UserAccountSettingsImport } from './routes/user.account-settings'
 import { Route as FormWithNonInputImport } from './routes/form.with-non-input'
+import { Route as FormWithGridLayoutImport } from './routes/form.with-grid-layout'
 import { Route as FormBasicImport } from './routes/form.basic'
 import { Route as AuthSignUpImport } from './routes/auth.sign-up'
 import { Route as AuthSignInImport } from './routes/auth.sign-in'
@@ -79,6 +80,12 @@ const UserAccountSettingsRoute = UserAccountSettingsImport.update({
 const FormWithNonInputRoute = FormWithNonInputImport.update({
   id: '/form/with-non-input',
   path: '/form/with-non-input',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const FormWithGridLayoutRoute = FormWithGridLayoutImport.update({
+  id: '/form/with-grid-layout',
+  path: '/form/with-grid-layout',
   getParentRoute: () => rootRoute,
 } as any)
 
@@ -179,6 +186,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof FormBasicImport
       parentRoute: typeof rootRoute
     }
+    '/form/with-grid-layout': {
+      id: '/form/with-grid-layout'
+      path: '/form/with-grid-layout'
+      fullPath: '/form/with-grid-layout'
+      preLoaderRoute: typeof FormWithGridLayoutImport
+      parentRoute: typeof rootRoute
+    }
     '/form/with-non-input': {
       id: '/form/with-non-input'
       path: '/form/with-non-input'
@@ -269,6 +283,7 @@ export interface FileRoutesByFullPath {
   '/auth/sign-in': typeof AuthSignInRoute
   '/auth/sign-up': typeof AuthSignUpRoute
   '/form/basic': typeof FormBasicRoute
+  '/form/with-grid-layout': typeof FormWithGridLayoutRoute
   '/form/with-non-input': typeof FormWithNonInputRoute
   '/user/account-settings': typeof UserAccountSettingsRoute
   '/user/change-email': typeof UserChangeEmailRoute
@@ -286,6 +301,7 @@ export interface FileRoutesByTo {
   '/auth/sign-in': typeof AuthSignInRoute
   '/auth/sign-up': typeof AuthSignUpRoute
   '/form/basic': typeof FormBasicRoute
+  '/form/with-grid-layout': typeof FormWithGridLayoutRoute
   '/form/with-non-input': typeof FormWithNonInputRoute
   '/user/account-settings': typeof UserAccountSettingsRoute
   '/user/change-email': typeof UserChangeEmailRoute
@@ -304,6 +320,7 @@ export interface FileRoutesById {
   '/auth/sign-in': typeof AuthSignInRoute
   '/auth/sign-up': typeof AuthSignUpRoute
   '/form/basic': typeof FormBasicRoute
+  '/form/with-grid-layout': typeof FormWithGridLayoutRoute
   '/form/with-non-input': typeof FormWithNonInputRoute
   '/user/account-settings': typeof UserAccountSettingsRoute
   '/user/change-email': typeof UserChangeEmailRoute
@@ -323,6 +340,7 @@ export interface FileRouteTypes {
     | '/auth/sign-in'
     | '/auth/sign-up'
     | '/form/basic'
+    | '/form/with-grid-layout'
     | '/form/with-non-input'
     | '/user/account-settings'
     | '/user/change-email'
@@ -339,6 +357,7 @@ export interface FileRouteTypes {
     | '/auth/sign-in'
     | '/auth/sign-up'
     | '/form/basic'
+    | '/form/with-grid-layout'
     | '/form/with-non-input'
     | '/user/account-settings'
     | '/user/change-email'
@@ -355,6 +374,7 @@ export interface FileRouteTypes {
     | '/auth/sign-in'
     | '/auth/sign-up'
     | '/form/basic'
+    | '/form/with-grid-layout'
     | '/form/with-non-input'
     | '/user/account-settings'
     | '/user/change-email'
@@ -369,6 +389,7 @@ export interface RootRouteChildren {
   AuthRoute: typeof AuthRouteWithChildren
   UserRoute: typeof UserRouteWithChildren
   FormBasicRoute: typeof FormBasicRoute
+  FormWithGridLayoutRoute: typeof FormWithGridLayoutRoute
   FormWithNonInputRoute: typeof FormWithNonInputRoute
 }
 
@@ -378,6 +399,7 @@ const rootRouteChildren: RootRouteChildren = {
   AuthRoute: AuthRouteWithChildren,
   UserRoute: UserRouteWithChildren,
   FormBasicRoute: FormBasicRoute,
+  FormWithGridLayoutRoute: FormWithGridLayoutRoute,
   FormWithNonInputRoute: FormWithNonInputRoute,
 }
 
@@ -396,6 +418,7 @@ export const routeTree = rootRoute
         "/auth",
         "/user",
         "/form/basic",
+        "/form/with-grid-layout",
         "/form/with-non-input"
       ]
     },
@@ -443,6 +466,9 @@ export const routeTree = rootRoute
     },
     "/form/basic": {
       "filePath": "form.basic.tsx"
+    },
+    "/form/with-grid-layout": {
+      "filePath": "form.with-grid-layout.tsx"
     },
     "/form/with-non-input": {
       "filePath": "form.with-non-input.tsx"
