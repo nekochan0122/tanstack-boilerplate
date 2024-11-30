@@ -26,6 +26,7 @@ type FieldComponentExtendedProps = {
   Message: FC<FieldMessageProps>
   Container: FC<FieldContainerProps>
   Controller: FC<FieldControllerProps>
+  handleChangeExtended: (value: any) => void
 }
 
 type FieldComponentProps<
@@ -110,6 +111,7 @@ function useForm<
               Message: FieldMessage,
               Container: FieldContainer,
               Controller: FieldController,
+              handleChangeExtended: handleChangeExtended(field),
             },
           )}
         </FieldContextProvider>
@@ -243,7 +245,7 @@ function FieldController( { children, ...props }: FieldControllerProps) {
         id: field.name.toString(),
         name: field.name.toString(),
         value: field.state.value ?? '',
-        onChange: onChangeHandler(field),
+        onChange: handleChangeExtended(field),
         onBlur: field.handleBlur,
       })}
       {...props}
@@ -253,7 +255,7 @@ function FieldController( { children, ...props }: FieldControllerProps) {
   )
 }
 
-function onChangeHandler(field: AnyFieldApi) {
+function handleChangeExtended(field: AnyFieldApi) {
   return (value: any) => {
     const fieldValue = isChangeEvent(value) ? value.target.value : value
 
