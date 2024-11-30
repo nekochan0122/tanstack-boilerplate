@@ -51,16 +51,16 @@ function FormWithNonInputRoute() {
             detail='Select your favorite food'
             /**
              * @Note
-             * By default, the child component of FieldContainer is auto-controlled by FieldController.
-             * FieldController will manage the id, name, value, onChange, and onBlur props for you.
-             * You can disable this behavior by setting `disableController` and handle these props manually.
+             * By default, FieldContainer's child component is managed by FieldController,
+             * which handles `id`, `name`, `value`, `onChange`, and `onBlur` for you.
+             * To manage these props yourself, set `disableController`.
              *
              * @Important
-             * FieldController is not limited to Input; it also works with other components that have similar props.
-             * If the onChange callback parameter is a `ChangeEvent`, it will take the value from `event.target.value`.
-             * Otherwise, it will directly use the parameter passed to the callback.
+             * FieldController works with components beyond Input, as long as they use similar props.
+             * - If `onChange` receives a `ChangeEvent`, it extracts the value from `event.target.X` (X depends on the input type).
+             * - Otherwise, it uses the provided parameter directly.
              *
-             * In this example, we disable FieldController and handle it manually.
+             * This example disables FieldController for manual handling.
              */
             disableController
           >
