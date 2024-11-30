@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any, react/no-children-prop */
 
-import { useForm as useTanStackForm } from '@tanstack/react-form'
+import { useField, useForm as useTanStackForm } from '@tanstack/react-form'
 import { zodValidator } from '@tanstack/react-form-zod-adapter'
 import type { DeepKeys, DeepValue, FieldApi, FormOptions, Validator } from '@tanstack/react-form'
 import type { UseFieldOptions } from 'node_modules/@tanstack/react-form/dist/esm/types'
@@ -141,7 +141,8 @@ function useForm<
 }
 
 function FieldLabel({ className, children, ...props }: FieldLabelProps) {
-  const field = useFieldContext()
+  const fieldContext = useFieldContext()
+  const field = useField({ form: fieldContext.form, name: fieldContext.name })
 
   const isTouched = field.state.meta.isTouched
   const hasErrors = field.state.meta.errors.length > 0
@@ -181,7 +182,8 @@ function FieldDetail({ asChild, className, children, ...props }: FieldDetailProp
 }
 
 function FieldMessage({ asChild, className, children, ...props }: FieldMessageProps) {
-  const field = useFieldContext()
+  const fieldContext = useFieldContext()
+  const field = useField({ form: fieldContext.form, name: fieldContext.name })
 
   const Comp = asChild ? Slot : 'p'
 
@@ -232,7 +234,8 @@ function FieldContainer({ label, detail, message, disableController, className, 
 }
 
 function FieldController( { children, ...props }: FieldControllerProps) {
-  const field = useFieldContext()
+  const fieldContext = useFieldContext()
+  const field = useField({ form: fieldContext.form, name: fieldContext.name })
 
   return (
     <Slot
