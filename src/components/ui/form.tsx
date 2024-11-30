@@ -17,7 +17,7 @@ import type { AsChildProps } from '~/components/ui/slot'
 type FieldLabelProps = ComponentProps<typeof Label>
 type FieldDetailProps = ComponentProps<'p'> & AsChildProps
 type FieldMessageProps = ComponentProps<'p'> & AsChildProps
-type FieldContainerProps = ComponentProps<'div'> & { label?: string; detail?: string; message?: string }
+type FieldContainerProps = ComponentProps<'div'> & { label?: string; detail?: string; message?: string; disableController?: boolean }
 type FieldControllerProps = ComponentProps<typeof Slot>
 
 type FieldComponentExtendedProps = {
@@ -207,7 +207,7 @@ function FieldMessage({ asChild, className, children, ...props }: FieldMessagePr
   )
 }
 
-function FieldContainer({ label, detail, message, className, children, ...props }: FieldContainerProps) {
+function FieldContainer({ label, detail, message, disableController, className, children, ...props }: FieldContainerProps) {
   return (
     <div
       className={cx('space-y-4', className)}
@@ -219,9 +219,11 @@ function FieldContainer({ label, detail, message, className, children, ...props 
       <FieldDetail>
         {detail}
       </FieldDetail>
-      <FieldController>
-        {children}
-      </FieldController>
+      {disableController ? children : (
+        <FieldController>
+          {children}
+        </FieldController>
+      )}
       <FieldMessage>
         {message}
       </FieldMessage>
