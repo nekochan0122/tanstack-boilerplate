@@ -20,7 +20,7 @@ function BasicFormRoute() {
       name: 'John Doe',
       email: 'john@example.com',
     },
-    onSubmit: async ({ value, formApi }) => {
+    onSubmit: ({ value, formApi }) => {
       toast.success('Submitted!', {
         description: () => (
           <pre>
