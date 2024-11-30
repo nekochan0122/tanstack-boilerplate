@@ -267,7 +267,7 @@ function onChangeHandler(field: AnyFieldApi) {
       const inputValue = (() => {
         switch (inputType) {
           case 'number':
-          case 'color':
+          case 'range':
             return value.target.valueAsNumber
 
           case 'date':
