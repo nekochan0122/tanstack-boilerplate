@@ -260,6 +260,7 @@ function handleChangeExtended(field: AnyFieldApi) {
     // TODO: this can be better
     const isOptional = field.form.options.defaultValues[field.name] === undefined
 
+    let valueFromInput: any = undefined
     if (isInputChangeEvent(value)) {
       const inputMode = value.target.inputMode as ComponentProps<'input'>['inputMode']
       const inputType = value.target.type as ComponentProps<'input'>['type']
@@ -289,14 +290,13 @@ function handleChangeExtended(field: AnyFieldApi) {
         }
       })()
 
-      const isEmpty = inputValue?.toString().length === 0
-
-      return field.handleChange(isOptional && isEmpty ? undefined : inputValue)
+      valueFromInput = inputValue
     }
 
-    const isEmpty = value?.toString().length === 0
+    const finalValue = valueFromInput ?? value
+    const isEmpty = finalValue?.toString().length === 0
 
-    field.handleChange(isOptional && isEmpty ? undefined : value)
+    field.handleChange(isOptional && isEmpty ? undefined : finalValue)
   }
 }
 
