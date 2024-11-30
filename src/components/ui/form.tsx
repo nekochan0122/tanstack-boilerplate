@@ -299,18 +299,19 @@ function onChangeHandler(field: AnyFieldApi) {
 
 function isChangeEvent(value: any): value is ChangeEvent<any> {
   return (
-    value &&
-    value.target &&
-    value.target.value
+    value?.target !== undefined &&
+    value.target?.value !== undefined
   )
 }
 
 function isInputChangeEvent(changeEvent: ChangeEvent<any>): changeEvent is ChangeEvent<HTMLInputElement> {
+  const target = changeEvent.target
+
   return (
-    changeEvent.target?.name &&
-    changeEvent.target?.type &&
-    changeEvent.target?.value &&
-    changeEvent.target?.inputMode
+    target instanceof HTMLInputElement &&
+    target.tagName === 'INPUT' &&
+    target.type === 'string' &&
+    target.value === 'string'
   )
 }
 
