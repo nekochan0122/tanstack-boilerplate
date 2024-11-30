@@ -35,6 +35,7 @@ const en = {
     'integrations': 'Integrations',
     'form': 'Tanstack Form',
     'form-basic': 'Basic Form',
+    'form-with-non-input': 'Form with Non-Input',
   },
   auth: {
     'name': 'Name',

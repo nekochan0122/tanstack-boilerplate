@@ -110,6 +110,11 @@ export const navigation: readonly NavItem[] = [
             name: 'navigation.form-basic',
             link: '/form/basic',
           },
+          {
+            type: 'link',
+            name: 'navigation.form-with-non-input',
+            link: '/form/with-non-input',
+          },
         ],
       },
     ],

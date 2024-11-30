@@ -37,6 +37,7 @@ const zhTW: Messages = {
     'integrations': '集成',
     'form': 'TanStack Form',
     'form-basic': '基本表單',
+    'form-with-non-input': '非 Input 表單',
   },
   auth: {
     'name': '名稱',
