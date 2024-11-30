@@ -266,6 +266,7 @@ function onChangeHandler(field: AnyFieldApi) {
       const inputValue = (() => {
         switch (inputType) {
           case 'number':
+          case 'color':
             return value.target.valueAsNumber
 
           case 'date':
@@ -280,7 +281,6 @@ function onChangeHandler(field: AnyFieldApi) {
             return value.target.files
 
           default:
-            // Additional checks for color, range, hidden, etc. if needed
             if (inputMode === 'numeric' || inputMode === 'decimal') {
               return value.target.valueAsNumber
             }
