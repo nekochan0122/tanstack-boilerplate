@@ -257,11 +257,8 @@ function FieldController( { children, ...props }: FieldControllerProps) {
 
 function handleChangeExtended(field: AnyFieldApi) {
   return (value: any) => {
-    const fieldValue = isChangeEvent(value) ? value.target.value : value
-
     // TODO: this can be better
     const isOptional = field.form.options.defaultValues[field.name] === undefined
-    const isEmpty = fieldValue.length === 0
 
     if (isInputChangeEvent(value)) {
       const inputMode = value.target.inputMode as ComponentProps<'input'>['inputMode']
@@ -292,10 +289,14 @@ function handleChangeExtended(field: AnyFieldApi) {
         }
       })()
 
+      const isEmpty = inputValue?.toString().length === 0
+
       return field.handleChange(isOptional && isEmpty ? undefined : inputValue)
     }
 
-    field.handleChange(isOptional && isEmpty ? undefined : fieldValue)
+    const isEmpty = value?.toString().length === 0
+
+    field.handleChange(isOptional && isEmpty ? undefined : value)
   }
 }
 
@@ -306,14 +307,16 @@ function isChangeEvent(value: any): value is ChangeEvent<any> {
   )
 }
 
-function isInputChangeEvent(changeEvent: ChangeEvent<any>): changeEvent is ChangeEvent<HTMLInputElement> {
-  const target = changeEvent.target
+function isInputChangeEvent(value: any): value is ChangeEvent<HTMLInputElement> {
+  if (!isChangeEvent(value)) return false
+
+  const target = value.target
 
   return (
     target instanceof HTMLInputElement &&
     target.tagName === 'INPUT' &&
-    target.type === 'string' &&
-    target.value === 'string'
+    typeof target.type === 'string' &&
+    typeof target.value === 'string'
   )
 }
 
