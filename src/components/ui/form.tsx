@@ -14,11 +14,16 @@ import { Slot } from '~/components/ui/slot'
 import { createContextFactory, cx } from '~/libs/utils'
 import type { AsChildProps } from '~/components/ui/slot'
 
-type FieldLabelProps = ComponentProps<typeof Label>
-type FieldDetailProps = ComponentProps<'p'> & AsChildProps
-type FieldMessageProps = ComponentProps<'p'> & AsChildProps
-type FieldContainerProps = ComponentProps<'div'> & { label?: string; detail?: string; message?: string; disableController?: boolean }
-type FieldControllerProps = ComponentProps<typeof Slot>
+interface FieldLabelProps extends ComponentProps<typeof Label> {}
+interface FieldDetailProps extends ComponentProps<'p'>, AsChildProps {}
+interface FieldMessageProps extends ComponentProps<'p'>, AsChildProps {}
+interface FieldContainerProps extends ComponentProps<'div'> {
+  label?: string
+  detail?: string
+  message?: string
+  disableController?: boolean
+}
+interface FieldControllerProps extends ComponentProps<typeof Slot> {}
 
 interface FieldApiExtended<
   TParentData,
@@ -35,19 +40,13 @@ interface FieldApiExtended<
   handleChangeExtended: (value: any) => void
 }
 
-type FieldComponentProps<
+interface FieldComponentProps<
   TParentData,
   TName extends DeepKeys<TParentData>,
   TFieldValidator extends Validator<DeepValue<TParentData, TName>, unknown> | undefined = undefined,
   TFormValidator extends Validator<TParentData, unknown> | undefined = undefined,
   TData extends DeepValue<TParentData, TName> = DeepValue<TParentData, TName>,
-> = UseFieldOptions<
-  TParentData,
-  TName,
-  TFieldValidator,
-  TFormValidator,
-  TData
-> & {
+> extends UseFieldOptions<TParentData, TName, TFieldValidator, TFormValidator, TData> {
   render: (fieldApi: FieldApiExtended<TParentData, TName, TFieldValidator, TFormValidator, TData>) => ReactNode
 }
 
@@ -57,19 +56,8 @@ type FieldComponent<
 > = <
   TName extends DeepKeys<TParentData>,
   TFieldValidator extends Validator<DeepValue<TParentData, TName>, unknown> | undefined = undefined,
-  TData extends DeepValue<TParentData, TName
-  > = DeepValue<TParentData, TName>,
->( { render, ...fieldOptions }: Except<
-  FieldComponentProps<
-    TParentData,
-    TName,
-    TFieldValidator,
-    TFormValidator,
-    TData
-  >,
-  'form'
->
-) => ReactNode
+  TData extends DeepValue<TParentData, TName> = DeepValue<TParentData, TName>,
+>({ render, ...fieldOptions }: Except<FieldComponentProps<TParentData, TName, TFieldValidator, TFormValidator, TData>, 'form'>) => ReactNode
 
 type AnyFieldApi = FieldApi<any, any, any, any, any>
 
