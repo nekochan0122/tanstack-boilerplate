@@ -60,7 +60,7 @@
     "cmdk": "^1.0.4",
     "date-fns": "^4.1.0",
     "dotenv-cli": "^7.4.4",
-    "es-toolkit": "^1.27.0",
+    "es-toolkit": "^1.28.0",
     "http-status": "^2.0.0",
     "nodemailer": "^6.9.16",
     "outdent": "^0.8.0",
@@ -73,7 +73,7 @@
     "react-phone-number-input": "^3.4.9",
     "sonner": "^1.7.0",
     "tailwind-merge": "^2.5.5",
-    "use-intl": "4.0.0-beta-8cce53e",
+    "use-intl": "4.0.0-beta-db95243",
     "vaul": "^1.1.1",
     "vinxi": "^0.4.3",
     "zod": "^3.23.8"

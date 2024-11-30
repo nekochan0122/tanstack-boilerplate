@@ -20,7 +20,13 @@ type FieldMessageProps = ComponentProps<'p'> & AsChildProps
 type FieldContainerProps = ComponentProps<'div'> & { label?: string; detail?: string; message?: string; disableController?: boolean }
 type FieldControllerProps = ComponentProps<typeof Slot>
 
-type FieldComponentExtendedProps = {
+interface FieldApiExtended<
+  TParentData,
+  TName extends DeepKeys<TParentData>,
+  TFieldValidator extends Validator<DeepValue<TParentData, TName>, unknown> | undefined = undefined,
+  TFormValidator extends Validator<TParentData, unknown> | undefined = undefined,
+  TData extends DeepValue<TParentData, TName> = DeepValue<TParentData, TName>,
+> extends FieldApi<TParentData, TName, TFieldValidator, TFormValidator, TData> {
   Label: FC<FieldLabelProps>
   Detail: FC<FieldDetailProps>
   Message: FC<FieldMessageProps>
@@ -42,7 +48,7 @@ type FieldComponentProps<
   TFormValidator,
   TData
 > & {
-  render: (fieldApi: FieldApi<TParentData, TName, TFieldValidator, TFormValidator, TData> & FieldComponentExtendedProps) => ReactNode
+  render: (fieldApi: FieldApiExtended<TParentData, TName, TFieldValidator, TFormValidator, TData>) => ReactNode
 }
 
 type FieldComponent<
@@ -103,7 +109,6 @@ function useForm<
       children={(field) => (
         <FieldContextProvider value={field}>
           {props.render(
-            // @ts-expect-error I ❤️ TypeScript
             {
               ...field,
               Label: FieldLabel,
@@ -112,7 +117,7 @@ function useForm<
               Container: FieldContainer,
               Controller: FieldController,
               handleChangeExtended: handleChangeExtended(field),
-            },
+            } as any,
           )}
         </FieldContextProvider>
       )}
