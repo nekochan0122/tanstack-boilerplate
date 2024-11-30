@@ -257,6 +257,7 @@ function onChangeHandler(field: AnyFieldApi) {
   return (value: any) => {
     const fieldValue = isChangeEvent(value) ? value.target.value : value
 
+    // TODO: this can be better
     const isOptional = field.form.options.defaultValues[field.name] === undefined
     const isEmpty = fieldValue.length === 0
 
