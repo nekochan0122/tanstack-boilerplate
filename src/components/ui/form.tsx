@@ -2,7 +2,7 @@
 
 // TODO: Support Optional Fields ( Fields are required by default )
 
-import { useField, useForm as useTanStackForm } from '@tanstack/react-form'
+import { useField as useFieldApi, useForm as useTanStackForm } from '@tanstack/react-form'
 import { zodValidator } from '@tanstack/react-form-zod-adapter'
 import type { DeepKeys, DeepValue, FieldApi, FormOptions, Validator } from '@tanstack/react-form'
 import type { UseFieldOptions } from 'node_modules/@tanstack/react-form/dist/esm/types'
@@ -98,21 +98,17 @@ function useForm<
     <form.Field
       children={(field) => (
         <FieldContextProvider value={field}>
-          {props.render(
-            {
-              ...field,
-              Label: FieldLabel,
-              Detail: FieldDetail,
-              Message: FieldMessage,
-              Container: FieldContainer,
-              Controller: FieldController,
-              handleChangeExtended: handleChangeExtended(field),
-            } as any,
-          )}
+          {props.render(Object.assign(field, {
+            Label: FieldLabel,
+            Detail: FieldDetail,
+            Message: FieldMessage,
+            Container: FieldContainer,
+            Controller: FieldController,
+            handleChangeExtended: handleChangeExtended(field),
+          }))}
         </FieldContextProvider>
       )}
       {...props}
-
     />
   )
 
@@ -137,21 +133,26 @@ function useForm<
   }
 }
 
-function FieldLabel({ className, children, ...props }: FieldLabelProps) {
+function useField() {
   const fieldContext = useFieldContext()
-  const field = useField({ form: fieldContext.form, name: fieldContext.name })
+  const fieldApi = useFieldApi({ form: fieldContext.form, name: fieldContext.name })
 
-  const isTouched = field.state.meta.isTouched
-  const hasErrors = field.state.meta.errors.length > 0
-  const hasChildren = children !== undefined
+  return Object.assign(fieldContext, {
+    ...fieldApi.state.meta,
+    hasErrors: fieldApi.state.meta.errors.length > 0,
+  })
+}
 
-  if (!hasChildren) return null
+function FieldLabel({ className, children, ...props }: FieldLabelProps) {
+  const field = useField()
+
+  if (children === undefined) return null
 
   return (
     <Label
       htmlFor={field.name.toString()}
       className={cx('font-semibold',
-        isTouched && hasErrors && 'text-destructive',
+        field.isTouched && field.hasErrors && 'text-destructive',
         className,
       )}
       {...props}
@@ -164,9 +165,7 @@ function FieldLabel({ className, children, ...props }: FieldLabelProps) {
 function FieldDetail({ asChild, className, children, ...props }: FieldDetailProps) {
   const Comp = asChild ? Slot : 'p'
 
-  const hasChildren = children !== undefined
-
-  if (!hasChildren) return null
+  if (children === undefined) return null
 
   return (
     <Comp
@@ -179,16 +178,11 @@ function FieldDetail({ asChild, className, children, ...props }: FieldDetailProp
 }
 
 function FieldMessage({ asChild, className, children, ...props }: FieldMessageProps) {
-  const fieldContext = useFieldContext()
-  const field = useField({ form: fieldContext.form, name: fieldContext.name })
+  const field = useField()
 
   const Comp = asChild ? Slot : 'p'
-
-  const isTouched = field.state.meta.isTouched
-  const hasErrors = field.state.meta.errors.length > 0
   const hasPlaceholder = children !== undefined
-
-  const message = isTouched && hasErrors ? field.state.meta.errors[0] : null
+  const message = field.isTouched && field.hasErrors ? field.state.meta.errors[0] : null
 
   if (!hasPlaceholder && !message) return null
 
@@ -196,7 +190,7 @@ function FieldMessage({ asChild, className, children, ...props }: FieldMessagePr
     <Comp
       className={cx(
         'text-sm',
-        isTouched && hasErrors ? 'font-medium text-destructive' : 'text-muted-foreground',
+        field.isTouched && field.hasErrors ? 'font-medium text-destructive' : 'text-muted-foreground',
         className,
       )}
       {...props}
@@ -231,8 +225,7 @@ function FieldContainer({ label, detail, message, disableController, className, 
 }
 
 function FieldController( { children, ...props }: FieldControllerProps) {
-  const fieldContext = useFieldContext()
-  const field = useField({ form: fieldContext.form, name: fieldContext.name })
+  const field = useField()
 
   return (
     <Slot
