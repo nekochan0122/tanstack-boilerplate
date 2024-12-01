@@ -146,6 +146,7 @@ function useField() {
   const fieldApi = useFieldApi({ form: fieldContext.form, name: fieldContext.name })
 
   return Object.assign(fieldContext, {
+    //  when using `fieldContext.state` in here, the state is not updated
     ...fieldApi.state.meta,
     hasErrors: fieldApi.state.meta.errors.length > 0,
   })
