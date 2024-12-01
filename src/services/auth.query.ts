@@ -4,7 +4,7 @@ import type { UseSuspenseQueryResult } from '@tanstack/react-query'
 import { getAuth } from '~/services/auth.api'
 import type { Auth } from '~/services/auth.api'
 
-export const authQueryOptions = () => queryOptions({
+export const authQueryOptions = () => queryOptions<Auth>({
   queryKey: ['getAuth'],
   queryFn: () => getAuth(),
 })
