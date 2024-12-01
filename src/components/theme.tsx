@@ -2,12 +2,16 @@ import { useDidUpdate } from '@mantine/hooks'
 import { ScriptOnce } from '@tanstack/react-router'
 import { outdent } from 'outdent'
 import { useEffect, useState } from 'react'
+import { z } from 'zod'
 import type { PropsWithChildren } from 'react'
 
 import { createContextFactory } from '~/libs/utils'
+import type { ExcludeUnionStrict } from '~/libs/utils'
 
-type Theme = 'dark' | 'light' | 'system'
-type ResolvedTheme = Exclude<Theme, 'system'>
+const themeSchema = z.enum(['dark', 'light', 'system'])
+
+type Theme = z.infer<typeof themeSchema>
+type ResolvedTheme = ExcludeUnionStrict<Theme, 'system'>
 
 interface ThemeContext {
   value: Theme
@@ -88,20 +92,19 @@ function ThemeProvider({ children }: PropsWithChildren) {
 }
 
 function getLocalTheme(): Theme {
-  if (typeof localStorage === 'undefined') {
-    return 'system'
-  }
+  if (typeof localStorage === 'undefined') return 'system'
 
   const localTheme = localStorage.getItem('theme')
   if (localTheme === null) throw new Error('Can\'t find theme in localStorage. Make sure you wrap the app with ThemeProvider.')
 
-  return localTheme as Theme
+  const localThemeParsed = themeSchema.safeParse(localTheme)
+  if (localThemeParsed.error) return 'system'
+
+  return localThemeParsed.data
 }
 
 function getPreferTheme(): ResolvedTheme {
-  if (typeof window === 'undefined') {
-    return 'dark'
-  }
+  if (typeof window === 'undefined') return 'dark'
 
   return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'
 }
@@ -110,5 +113,6 @@ function getResolvedTheme(theme: Theme): ResolvedTheme {
   return theme === 'system' ? getPreferTheme() : theme
 }
 
+export { themeSchema }
 export { ThemeProvider, useTheme }
 export type { ResolvedTheme, Theme }
