@@ -32,6 +32,7 @@ const en = {
     'admin': 'Protected Admin Route',
     'dashboard': 'Dashboard',
     'user-management': 'User Management',
+    'others': 'Others',
     'examples': 'Examples',
     'example-form': 'Form',
   },

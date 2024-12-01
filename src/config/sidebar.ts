@@ -97,14 +97,20 @@ export const navigation: readonly NavItem[] = [
     ],
   },
   {
-    type: 'menu',
-    name: 'navigation.examples',
-    icon: LuShapes,
+    type: 'group',
+    name: 'navigation.others',
     items: [
       {
-        type: 'link',
-        name: 'navigation.example-form',
-        link: '/example-form',
+        type: 'menu',
+        name: 'navigation.examples',
+        icon: LuShapes,
+        items: [
+          {
+            type: 'link',
+            name: 'navigation.example-form',
+            link: '/example-form',
+          },
+        ],
       },
     ],
   },

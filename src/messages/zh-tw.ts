@@ -34,6 +34,7 @@ const zhTW: Messages = {
     'admin': '受保護的管理員頁面',
     'dashboard': '儀表板',
     'user-management': '用戶管理',
+    'others': '其他',
     'examples': '範例',
     'example-form': '表單',
   },
