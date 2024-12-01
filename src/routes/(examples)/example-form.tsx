@@ -40,7 +40,7 @@ function ExampleFormRoute() {
       password: '12345678',
       confirmPassword: '12345678',
       acceptTerms: true,
-      emailNotifications: [] as string[],
+      emailNotifications: ['news'],
     },
     onSubmit: ({ value, formApi }) => {
       toast.success('Submitted!')
