@@ -132,8 +132,8 @@ importers:
         specifier: ^7.4.4
         version: 7.4.4
       es-toolkit:
-        specifier: ^1.28.0
-        version: 1.28.0
+        specifier: ^1.29.0
+        version: 1.29.0
       http-status:
         specifier: ^2.0.0
         version: 2.0.0
@@ -191,7 +191,7 @@ importers:
         version: 9.16.0
       '@nekochan0122/config':
         specifier: ^1.14.0
-        version: 1.14.0(@eslint/compat@1.2.3(eslint@9.16.0(jiti@2.4.1)))(@eslint/js@9.16.0)(@stylistic/eslint-plugin@2.11.0(eslint@9.16.0(jiti@2.4.1))(typescript@5.7.2))(@types/eslint__js@8.42.3)(eslint-plugin-import@2.31.0(@typescript-eslint/parser@8.16.0(eslint@9.16.0(jiti@2.4.1))(typescript@5.7.2))(eslint@9.16.0(jiti@2.4.1)))(eslint-plugin-jsx-a11y@6.10.2(eslint@9.16.0(jiti@2.4.1)))(eslint-plugin-react-hooks@5.1.0-rc-d5bba18b-20241009(eslint@9.16.0(jiti@2.4.1)))(eslint-plugin-react-refresh@0.4.14(eslint@9.16.0(jiti@2.4.1)))(eslint-plugin-react@7.37.2(eslint@9.16.0(jiti@2.4.1)))(eslint-plugin-simple-import-sort@12.1.1(eslint@9.16.0(jiti@2.4.1)))(eslint-plugin-unicorn@56.0.1(eslint@9.16.0(jiti@2.4.1)))(eslint@9.16.0(jiti@2.4.1))(globals@15.12.0)(typescript-eslint@8.16.0(eslint@9.16.0(jiti@2.4.1))(typescript@5.7.2))
+        version: 1.14.0(@eslint/compat@1.2.3(eslint@9.16.0(jiti@2.4.1)))(@eslint/js@9.16.0)(@stylistic/eslint-plugin@2.11.0(eslint@9.16.0(jiti@2.4.1))(typescript@5.7.2))(@types/eslint__js@8.42.3)(eslint-plugin-import@2.31.0(@typescript-eslint/parser@8.16.0(eslint@9.16.0(jiti@2.4.1))(typescript@5.7.2))(eslint@9.16.0(jiti@2.4.1)))(eslint-plugin-jsx-a11y@6.10.2(eslint@9.16.0(jiti@2.4.1)))(eslint-plugin-react-hooks@5.1.0-rc-d5bba18b-20241009(eslint@9.16.0(jiti@2.4.1)))(eslint-plugin-react-refresh@0.4.14(eslint@9.16.0(jiti@2.4.1)))(eslint-plugin-react@7.37.2(eslint@9.16.0(jiti@2.4.1)))(eslint-plugin-simple-import-sort@12.1.1(eslint@9.16.0(jiti@2.4.1)))(eslint-plugin-unicorn@56.0.1(eslint@9.16.0(jiti@2.4.1)))(eslint@9.16.0(jiti@2.4.1))(globals@15.13.0)(typescript-eslint@8.16.0(eslint@9.16.0(jiti@2.4.1))(typescript@5.7.2))
       '@stylistic/eslint-plugin':
         specifier: ^2.11.0
         version: 2.11.0(eslint@9.16.0(jiti@2.4.1))(typescript@5.7.2)
@@ -265,8 +265,8 @@ importers:
         specifier: npm:@faker-js/faker@^9.2.0
         version: '@faker-js/faker@9.2.0'
       globals:
-        specifier: ^15.12.0
-        version: 15.12.0
+        specifier: ^15.13.0
+        version: 15.13.0
       postcss:
         specifier: ^8.4.49
         version: 8.4.49
@@ -3753,8 +3753,8 @@ packages:
     resolution: {integrity: sha512-w+5mJ3GuFL+NjVtJlvydShqE1eN3h3PbI7/5LAsYJP/2qtuMXjfL2LpHSRqo4b4eSF5K/DH1JXKUAHSB2UW50g==}
     engines: {node: '>= 0.4'}
 
-  es-toolkit@1.28.0:
-    resolution: {integrity: sha512-CxyuOl9b2CoaOOR+J8mrEIbWlD5NuDQ8IFh+mcS5jBecPfyYTz7dY1mPk7qaIEY+lauiRtrUs7yHfzLKw8AFNA==}
+  es-toolkit@1.29.0:
+    resolution: {integrity: sha512-GjTll+E6APcfAQA09D89HdT8Qn2Yb+TeDSDBTMcxAo+V+w1amAtCI15LJu4YPH/UCPoSo/F47Gr1LIM0TE0lZA==}
 
   esbuild@0.19.11:
     resolution: {integrity: sha512-HJ96Hev2hX/6i5cDVwcqiJBBtuo9+FeIJOtZ9W1kA5M6AMJRHUZlpYZ1/SbEwtO0ioNAW8rUooVpC/WehY2SfA==}
@@ -4137,8 +4137,8 @@ packages:
     resolution: {integrity: sha512-oahGvuMGQlPw/ivIYBjVSrWAfWLBeku5tpPE2fOPLi+WHffIWbuh2tCjhyQhTBPMf5E9jDEH4FOmTYgYwbKwtQ==}
     engines: {node: '>=18'}
 
-  globals@15.12.0:
-    resolution: {integrity: sha512-1+gLErljJFhbOVyaetcwJiJ4+eLe45S2E7P5UiZ9xGfeq3ATQf5DOv9G7MH3gGbKQLkzmNh2DxfZwLdw+j6oTQ==}
+  globals@15.13.0:
+    resolution: {integrity: sha512-49TewVEz0UxZjr1WYYsWpPrhyC/B/pA8Bq0fUmet2n+eR7yn0IvNzNaoBwnK6mdkzcN+se7Ez9zUgULTz2QH4g==}
     engines: {node: '>=18'}
 
   globalthis@1.0.4:
@@ -4187,8 +4187,8 @@ packages:
   has-property-descriptors@1.0.2:
     resolution: {integrity: sha512-55JNKuIW+vq4Ke1BjOTjM2YctQIvCT7GFzHwmfZPGo5wnrgkid0YQtnAleFSqumZm4az3n2BS+erby5ipJdgrg==}
 
-  has-proto@1.0.3:
-    resolution: {integrity: sha512-SJ1amZAJUiZS+PhsVLf5tGydlaVB8EdFpaSO4gmiUKUOxk8qzn5AIy4ZeJUmh22znIdk/uMAUT2pl3FxzVUH+Q==}
+  has-proto@1.1.0:
+    resolution: {integrity: sha512-QLdzI9IIO1Jg7f9GT1gXpPpXArAn6cS31R1eEZqz08Gc+uQ8/XiqHWt17Fiw+2p6oTTIq5GXEpQkAlA88YRl/Q==}
     engines: {node: '>= 0.4'}
 
   has-symbols@1.0.3:
@@ -5077,8 +5077,8 @@ packages:
     resolution: {integrity: sha512-7x81NCL719oNbsq/3mh+hVrAWmFuEYUqrq/Iw3kUzH8ReypT9QQ0BLoJS7/G9k6N81XjW4qHWtjWwe/9eLy1EQ==}
     engines: {node: '>=12'}
 
-  openapi-typescript@7.4.3:
-    resolution: {integrity: sha512-xTIjMIIOv9kNhsr8JxaC00ucbIY/6ZwuJPJBZMSh5FA2dicZN5uM805DWVJojXdom8YI4AQTavPDPHMx/3g0vQ==}
+  openapi-typescript@7.4.4:
+    resolution: {integrity: sha512-7j3nktnRzlQdlHnHsrcr6Gqz8f80/RhfA2I8s1clPI+jkY0hLNmnYVKBfuUEli5EEgK1B6M+ibdS5REasPlsUw==}
     hasBin: true
     peerDependencies:
       typescript: ^5.x
@@ -6363,7 +6363,7 @@ snapshots:
       '@babel/helper-compilation-targets': 7.25.9
       '@babel/helper-module-transforms': 7.26.0(@babel/core@7.24.5)
       '@babel/helpers': 7.26.0
-      '@babel/parser': 7.24.5
+      '@babel/parser': 7.26.2
       '@babel/template': 7.25.9
       '@babel/traverse': 7.25.9
       '@babel/types': 7.26.0
@@ -7115,7 +7115,7 @@ snapshots:
       '@tybys/wasm-util': 0.9.0
     optional: true
 
-  '@nekochan0122/config@1.14.0(@eslint/compat@1.2.3(eslint@9.16.0(jiti@2.4.1)))(@eslint/js@9.16.0)(@stylistic/eslint-plugin@2.11.0(eslint@9.16.0(jiti@2.4.1))(typescript@5.7.2))(@types/eslint__js@8.42.3)(eslint-plugin-import@2.31.0(@typescript-eslint/parser@8.16.0(eslint@9.16.0(jiti@2.4.1))(typescript@5.7.2))(eslint@9.16.0(jiti@2.4.1)))(eslint-plugin-jsx-a11y@6.10.2(eslint@9.16.0(jiti@2.4.1)))(eslint-plugin-react-hooks@5.1.0-rc-d5bba18b-20241009(eslint@9.16.0(jiti@2.4.1)))(eslint-plugin-react-refresh@0.4.14(eslint@9.16.0(jiti@2.4.1)))(eslint-plugin-react@7.37.2(eslint@9.16.0(jiti@2.4.1)))(eslint-plugin-simple-import-sort@12.1.1(eslint@9.16.0(jiti@2.4.1)))(eslint-plugin-unicorn@56.0.1(eslint@9.16.0(jiti@2.4.1)))(eslint@9.16.0(jiti@2.4.1))(globals@15.12.0)(typescript-eslint@8.16.0(eslint@9.16.0(jiti@2.4.1))(typescript@5.7.2))':
+  '@nekochan0122/config@1.14.0(@eslint/compat@1.2.3(eslint@9.16.0(jiti@2.4.1)))(@eslint/js@9.16.0)(@stylistic/eslint-plugin@2.11.0(eslint@9.16.0(jiti@2.4.1))(typescript@5.7.2))(@types/eslint__js@8.42.3)(eslint-plugin-import@2.31.0(@typescript-eslint/parser@8.16.0(eslint@9.16.0(jiti@2.4.1))(typescript@5.7.2))(eslint@9.16.0(jiti@2.4.1)))(eslint-plugin-jsx-a11y@6.10.2(eslint@9.16.0(jiti@2.4.1)))(eslint-plugin-react-hooks@5.1.0-rc-d5bba18b-20241009(eslint@9.16.0(jiti@2.4.1)))(eslint-plugin-react-refresh@0.4.14(eslint@9.16.0(jiti@2.4.1)))(eslint-plugin-react@7.37.2(eslint@9.16.0(jiti@2.4.1)))(eslint-plugin-simple-import-sort@12.1.1(eslint@9.16.0(jiti@2.4.1)))(eslint-plugin-unicorn@56.0.1(eslint@9.16.0(jiti@2.4.1)))(eslint@9.16.0(jiti@2.4.1))(globals@15.13.0)(typescript-eslint@8.16.0(eslint@9.16.0(jiti@2.4.1))(typescript@5.7.2))':
     dependencies:
       '@eslint/compat': 1.2.3(eslint@9.16.0(jiti@2.4.1))
       '@eslint/js': 9.16.0
@@ -7129,7 +7129,7 @@ snapshots:
       eslint-plugin-react-refresh: 0.4.14(eslint@9.16.0(jiti@2.4.1))
       eslint-plugin-simple-import-sort: 12.1.1(eslint@9.16.0(jiti@2.4.1))
       eslint-plugin-unicorn: 56.0.1(eslint@9.16.0(jiti@2.4.1))
-      globals: 15.12.0
+      globals: 15.13.0
       typescript-eslint: 8.16.0(eslint@9.16.0(jiti@2.4.1))(typescript@5.7.2)
 
   '@netlify/functions@2.8.2':
@@ -9592,7 +9592,7 @@ snapshots:
       globalthis: 1.0.4
       gopd: 1.1.0
       has-property-descriptors: 1.0.2
-      has-proto: 1.0.3
+      has-proto: 1.1.0
       has-symbols: 1.0.3
       hasown: 2.0.2
       internal-slot: 1.0.7
@@ -9639,7 +9639,7 @@ snapshots:
       globalthis: 1.0.4
       gopd: 1.1.0
       has-property-descriptors: 1.0.2
-      has-proto: 1.0.3
+      has-proto: 1.1.0
       has-symbols: 1.0.3
       internal-slot: 1.0.7
       iterator.prototype: 1.1.3
@@ -9667,7 +9667,7 @@ snapshots:
       is-date-object: 1.0.5
       is-symbol: 1.0.4
 
-  es-toolkit@1.28.0: {}
+  es-toolkit@1.29.0: {}
 
   esbuild@0.19.11:
     optionalDependencies:
@@ -9938,7 +9938,7 @@ snapshots:
       core-js-compat: 3.39.0
       eslint: 9.16.0(jiti@2.4.1)
       esquery: 1.6.0
-      globals: 15.12.0
+      globals: 15.13.0
       indent-string: 4.0.0
       is-builtin-module: 3.2.1
       jsesc: 3.0.2
@@ -10168,7 +10168,7 @@ snapshots:
     dependencies:
       es-errors: 1.3.0
       function-bind: 1.1.2
-      has-proto: 1.0.3
+      has-proto: 1.1.0
       has-symbols: 1.0.3
       hasown: 2.0.2
 
@@ -10246,7 +10246,7 @@ snapshots:
 
   globals@14.0.0: {}
 
-  globals@15.12.0: {}
+  globals@15.13.0: {}
 
   globalthis@1.0.4:
     dependencies:
@@ -10316,7 +10316,9 @@ snapshots:
     dependencies:
       es-define-property: 1.0.0
 
-  has-proto@1.0.3: {}
+  has-proto@1.1.0:
+    dependencies:
+      call-bind: 1.0.7
 
   has-symbols@1.0.3: {}
 
@@ -11055,7 +11057,7 @@ snapshots:
       node-fetch-native: 1.6.4
       ofetch: 1.4.1
       ohash: 1.1.4
-      openapi-typescript: 7.4.3(typescript@5.7.2)
+      openapi-typescript: 7.4.4(typescript@5.7.2)
       pathe: 1.1.2
       perfect-debounce: 1.0.0
       pkg-types: 1.2.1
@@ -11225,7 +11227,7 @@ snapshots:
       is-docker: 2.2.1
       is-wsl: 2.2.0
 
-  openapi-typescript@7.4.3(typescript@5.7.2):
+  openapi-typescript@7.4.4(typescript@5.7.2):
     dependencies:
       '@redocly/openapi-core': 1.25.15(supports-color@9.4.0)
       ansi-colors: 4.1.3
@@ -12215,7 +12217,7 @@ snapshots:
       call-bind: 1.0.7
       for-each: 0.3.3
       gopd: 1.1.0
-      has-proto: 1.0.3
+      has-proto: 1.1.0
       is-typed-array: 1.1.13
 
   typed-array-byte-offset@1.0.3:
@@ -12224,7 +12226,7 @@ snapshots:
       call-bind: 1.0.7
       for-each: 0.3.3
       gopd: 1.1.0
-      has-proto: 1.0.3
+      has-proto: 1.1.0
       is-typed-array: 1.1.13
       reflect.getprototypeof: 1.0.7
 
