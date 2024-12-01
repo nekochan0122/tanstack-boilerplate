@@ -169,9 +169,7 @@ function ExampleFormRoute() {
                       onCheckedChange={() => {
                         field.handleChange(
                           field.state.value.includes(notification)
-                            ? field.state.value.filter(
-                              (v) => v !== notification,
-                            )
+                            ? field.state.value.filter((v) => v !== notification)
                             : [...field.state.value, notification],
                         )
                       }}
