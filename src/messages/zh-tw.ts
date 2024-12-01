@@ -34,11 +34,8 @@ const zhTW: Messages = {
     'admin': '受保護的管理員頁面',
     'dashboard': '儀表板',
     'user-management': '用戶管理',
-    'integrations': '集成',
-    'form': 'TanStack Form',
-    'form-basic': '基本表單',
-    'form-with-non-input': '非 Input 表單',
-    'form-with-grid-layout': 'Grid 布局表單',
+    'examples': '範例',
+    'example-form': '表單',
   },
   auth: {
     'name': '名稱',

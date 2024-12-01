@@ -19,13 +19,11 @@ import { Route as UserEmailVerificationImport } from './routes/user.email-verifi
 import { Route as UserChangePasswordImport } from './routes/user.change-password'
 import { Route as UserChangeEmailImport } from './routes/user.change-email'
 import { Route as UserAccountSettingsImport } from './routes/user.account-settings'
-import { Route as FormWithNonInputImport } from './routes/form.with-non-input'
-import { Route as FormWithGridLayoutImport } from './routes/form.with-grid-layout'
-import { Route as FormBasicImport } from './routes/form.basic'
 import { Route as AuthSignUpImport } from './routes/auth.sign-up'
 import { Route as AuthSignInImport } from './routes/auth.sign-in'
 import { Route as AdminUserManagementImport } from './routes/admin.user-management'
 import { Route as AdminDashboardImport } from './routes/admin.dashboard'
+import { Route as examplesExampleFormImport } from './routes/(examples)/example-form'
 
 // Create/Update Routes
 
@@ -77,24 +75,6 @@ const UserAccountSettingsRoute = UserAccountSettingsImport.update({
   getParentRoute: () => UserRoute,
 } as any)
 
-const FormWithNonInputRoute = FormWithNonInputImport.update({
-  id: '/form/with-non-input',
-  path: '/form/with-non-input',
-  getParentRoute: () => rootRoute,
-} as any)
-
-const FormWithGridLayoutRoute = FormWithGridLayoutImport.update({
-  id: '/form/with-grid-layout',
-  path: '/form/with-grid-layout',
-  getParentRoute: () => rootRoute,
-} as any)
-
-const FormBasicRoute = FormBasicImport.update({
-  id: '/form/basic',
-  path: '/form/basic',
-  getParentRoute: () => rootRoute,
-} as any)
-
 const AuthSignUpRoute = AuthSignUpImport.update({
   id: '/sign-up',
   path: '/sign-up',
@@ -117,6 +97,12 @@ const AdminDashboardRoute = AdminDashboardImport.update({
   id: '/dashboard',
   path: '/dashboard',
   getParentRoute: () => AdminRoute,
+} as any)
+
+const examplesExampleFormRoute = examplesExampleFormImport.update({
+  id: '/(examples)/example-form',
+  path: '/example-form',
+  getParentRoute: () => rootRoute,
 } as any)
 
 // Populate the FileRoutesByPath interface
@@ -151,6 +137,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof UserImport
       parentRoute: typeof rootRoute
     }
+    '/(examples)/example-form': {
+      id: '/(examples)/example-form'
+      path: '/example-form'
+      fullPath: '/example-form'
+      preLoaderRoute: typeof examplesExampleFormImport
+      parentRoute: typeof rootRoute
+    }
     '/admin/dashboard': {
       id: '/admin/dashboard'
       path: '/dashboard'
@@ -178,27 +171,6 @@ declare module '@tanstack/react-router' {
       fullPath: '/auth/sign-up'
       preLoaderRoute: typeof AuthSignUpImport
       parentRoute: typeof AuthImport
-    }
-    '/form/basic': {
-      id: '/form/basic'
-      path: '/form/basic'
-      fullPath: '/form/basic'
-      preLoaderRoute: typeof FormBasicImport
-      parentRoute: typeof rootRoute
-    }
-    '/form/with-grid-layout': {
-      id: '/form/with-grid-layout'
-      path: '/form/with-grid-layout'
-      fullPath: '/form/with-grid-layout'
-      preLoaderRoute: typeof FormWithGridLayoutImport
-      parentRoute: typeof rootRoute
-    }
-    '/form/with-non-input': {
-      id: '/form/with-non-input'
-      path: '/form/with-non-input'
-      fullPath: '/form/with-non-input'
-      preLoaderRoute: typeof FormWithNonInputImport
-      parentRoute: typeof rootRoute
     }
     '/user/account-settings': {
       id: '/user/account-settings'
@@ -278,13 +250,11 @@ export interface FileRoutesByFullPath {
   '/admin': typeof AdminRouteWithChildren
   '/auth': typeof AuthRouteWithChildren
   '/user': typeof UserRouteWithChildren
+  '/example-form': typeof examplesExampleFormRoute
   '/admin/dashboard': typeof AdminDashboardRoute
   '/admin/user-management': typeof AdminUserManagementRoute
   '/auth/sign-in': typeof AuthSignInRoute
   '/auth/sign-up': typeof AuthSignUpRoute
-  '/form/basic': typeof FormBasicRoute
-  '/form/with-grid-layout': typeof FormWithGridLayoutRoute
-  '/form/with-non-input': typeof FormWithNonInputRoute
   '/user/account-settings': typeof UserAccountSettingsRoute
   '/user/change-email': typeof UserChangeEmailRoute
   '/user/change-password': typeof UserChangePasswordRoute
@@ -296,13 +266,11 @@ export interface FileRoutesByTo {
   '/admin': typeof AdminRouteWithChildren
   '/auth': typeof AuthRouteWithChildren
   '/user': typeof UserRouteWithChildren
+  '/example-form': typeof examplesExampleFormRoute
   '/admin/dashboard': typeof AdminDashboardRoute
   '/admin/user-management': typeof AdminUserManagementRoute
   '/auth/sign-in': typeof AuthSignInRoute
   '/auth/sign-up': typeof AuthSignUpRoute
-  '/form/basic': typeof FormBasicRoute
-  '/form/with-grid-layout': typeof FormWithGridLayoutRoute
-  '/form/with-non-input': typeof FormWithNonInputRoute
   '/user/account-settings': typeof UserAccountSettingsRoute
   '/user/change-email': typeof UserChangeEmailRoute
   '/user/change-password': typeof UserChangePasswordRoute
@@ -315,13 +283,11 @@ export interface FileRoutesById {
   '/admin': typeof AdminRouteWithChildren
   '/auth': typeof AuthRouteWithChildren
   '/user': typeof UserRouteWithChildren
+  '/(examples)/example-form': typeof examplesExampleFormRoute
   '/admin/dashboard': typeof AdminDashboardRoute
   '/admin/user-management': typeof AdminUserManagementRoute
   '/auth/sign-in': typeof AuthSignInRoute
   '/auth/sign-up': typeof AuthSignUpRoute
-  '/form/basic': typeof FormBasicRoute
-  '/form/with-grid-layout': typeof FormWithGridLayoutRoute
-  '/form/with-non-input': typeof FormWithNonInputRoute
   '/user/account-settings': typeof UserAccountSettingsRoute
   '/user/change-email': typeof UserChangeEmailRoute
   '/user/change-password': typeof UserChangePasswordRoute
@@ -335,13 +301,11 @@ export interface FileRouteTypes {
     | '/admin'
     | '/auth'
     | '/user'
+    | '/example-form'
     | '/admin/dashboard'
     | '/admin/user-management'
     | '/auth/sign-in'
     | '/auth/sign-up'
-    | '/form/basic'
-    | '/form/with-grid-layout'
-    | '/form/with-non-input'
     | '/user/account-settings'
     | '/user/change-email'
     | '/user/change-password'
@@ -352,13 +316,11 @@ export interface FileRouteTypes {
     | '/admin'
     | '/auth'
     | '/user'
+    | '/example-form'
     | '/admin/dashboard'
     | '/admin/user-management'
     | '/auth/sign-in'
     | '/auth/sign-up'
-    | '/form/basic'
-    | '/form/with-grid-layout'
-    | '/form/with-non-input'
     | '/user/account-settings'
     | '/user/change-email'
     | '/user/change-password'
@@ -369,13 +331,11 @@ export interface FileRouteTypes {
     | '/admin'
     | '/auth'
     | '/user'
+    | '/(examples)/example-form'
     | '/admin/dashboard'
     | '/admin/user-management'
     | '/auth/sign-in'
     | '/auth/sign-up'
-    | '/form/basic'
-    | '/form/with-grid-layout'
-    | '/form/with-non-input'
     | '/user/account-settings'
     | '/user/change-email'
     | '/user/change-password'
@@ -388,9 +348,7 @@ export interface RootRouteChildren {
   AdminRoute: typeof AdminRouteWithChildren
   AuthRoute: typeof AuthRouteWithChildren
   UserRoute: typeof UserRouteWithChildren
-  FormBasicRoute: typeof FormBasicRoute
-  FormWithGridLayoutRoute: typeof FormWithGridLayoutRoute
-  FormWithNonInputRoute: typeof FormWithNonInputRoute
+  examplesExampleFormRoute: typeof examplesExampleFormRoute
 }
 
 const rootRouteChildren: RootRouteChildren = {
@@ -398,9 +356,7 @@ const rootRouteChildren: RootRouteChildren = {
   AdminRoute: AdminRouteWithChildren,
   AuthRoute: AuthRouteWithChildren,
   UserRoute: UserRouteWithChildren,
-  FormBasicRoute: FormBasicRoute,
-  FormWithGridLayoutRoute: FormWithGridLayoutRoute,
-  FormWithNonInputRoute: FormWithNonInputRoute,
+  examplesExampleFormRoute: examplesExampleFormRoute,
 }
 
 export const routeTree = rootRoute
@@ -417,9 +373,7 @@ export const routeTree = rootRoute
         "/admin",
         "/auth",
         "/user",
-        "/form/basic",
-        "/form/with-grid-layout",
-        "/form/with-non-input"
+        "/(examples)/example-form"
       ]
     },
     "/": {
@@ -448,6 +402,9 @@ export const routeTree = rootRoute
         "/user/email-verification"
       ]
     },
+    "/(examples)/example-form": {
+      "filePath": "(examples)/example-form.tsx"
+    },
     "/admin/dashboard": {
       "filePath": "admin.dashboard.tsx",
       "parent": "/admin"
@@ -463,15 +420,6 @@ export const routeTree = rootRoute
     "/auth/sign-up": {
       "filePath": "auth.sign-up.tsx",
       "parent": "/auth"
-    },
-    "/form/basic": {
-      "filePath": "form.basic.tsx"
-    },
-    "/form/with-grid-layout": {
-      "filePath": "form.with-grid-layout.tsx"
-    },
-    "/form/with-non-input": {
-      "filePath": "form.with-non-input.tsx"
     },
     "/user/account-settings": {
       "filePath": "user.account-settings.tsx",
