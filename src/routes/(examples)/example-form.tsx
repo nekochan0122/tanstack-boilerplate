@@ -79,7 +79,10 @@ function ExampleFormRoute() {
         <form.Field
           name='gender'
           render={(field) => (
-            <field.Container label='Gender' disableController>
+            <field.Container
+              label='Gender'
+              disableController
+            >
               <Select
                 value={field.state.value}
                 onValueChange={field.handleChange}
@@ -132,10 +135,7 @@ function ExampleFormRoute() {
             <field.Controller>
               <Checkbox
                 checked={field.state.value}
-                onCheckedChange={(value) => {
-                  if (value === 'indeterminate') return
-                  field.handleChange(value)
-                }}
+                onCheckedChange={(value) => field.handleChange(value === 'indeterminate' ? false : value)}
               />
             </field.Controller>
             <div className='grid gap-1.5'>
@@ -153,11 +153,9 @@ function ExampleFormRoute() {
         name='emailNotifications'
         render={(field) => (
           <div className='space-y-4'>
-            <div className=''>
-              <field.Label>Notifications</field.Label>
-              <field.Detail>
-                Which of these would you like to receive?
-              </field.Detail>
+            <div>
+              <field.Label> Notifications</field.Label>
+              <field.Detail>Which of these would you like to receive?</field.Detail>
             </div>
             <ul className='space-y-2'>
               {['news', 'promotions', 'updates'].map((notification) => (
