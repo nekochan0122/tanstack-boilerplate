@@ -1,4 +1,4 @@
-/* eslint-disable @typescript-eslint/no-namespace, @typescript-eslint/no-empty-object-type */
+/* eslint-disable @typescript-eslint/no-namespace */
 
 import { z } from 'zod'
 
@@ -61,7 +61,7 @@ function createEnvSchema<Shpae extends z.ZodRawShape>(type: 'Public' | 'Private'
   return z.object(shape)
 }
 
-type ViteBuiltInEnv = {
+interface ViteBuiltInEnv {
   MODE: 'development' | 'production' | 'test'
   DEV: boolean
   SSR: boolean

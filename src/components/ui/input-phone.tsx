@@ -66,16 +66,19 @@ function InputComponent({ className, ...props }: ComponentProps<typeof Input>) {
   )
 }
 
-type CountrySelectOption = { label: string; value: PhoneInputPrimitive.Country }
+interface CountrySelectOption {
+  label: string
+  value: PhoneInputPrimitive.Country
+}
 
-type CountrySelectProps = {
+interface CountrySelectProps {
   disabled?: boolean
   value: PhoneInputPrimitive.Country
   options: CountrySelectOption[]
   onChange: (value: PhoneInputPrimitive.Country) => void
 }
 
-type CountrySelectContext = {
+interface CountrySelectContext {
   value: PhoneInputPrimitive.Country
   onChange: (value: PhoneInputPrimitive.Country) => void
   open: boolean

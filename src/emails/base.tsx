@@ -3,7 +3,7 @@ import type { ComponentProps } from 'react'
 
 import { cx } from '~/libs/utils'
 
-type EmailLayoutProps = ComponentProps<typeof Container> & {
+interface EmailLayoutProps extends ComponentProps<typeof Container> {
   preview?: string
 }
 

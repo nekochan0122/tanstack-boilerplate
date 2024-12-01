@@ -9,7 +9,7 @@ import { createContextFactory } from '~/libs/utils'
 type Theme = 'dark' | 'light' | 'system'
 type ResolvedTheme = Exclude<Theme, 'system'>
 
-type ThemeContext = {
+interface ThemeContext {
   value: Theme
   resolved: ResolvedTheme
   set: (theme: Theme) => void

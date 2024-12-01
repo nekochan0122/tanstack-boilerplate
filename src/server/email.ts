@@ -15,7 +15,7 @@ const transporter = createTransport({
   },
 })
 
-type SendEmailOptions = {
+interface SendEmailOptions {
   from?: string
   to: string
   subject: string

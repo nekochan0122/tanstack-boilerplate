@@ -7,7 +7,7 @@ import { cx } from '~/libs/utils'
 
 const BASE = 'https://cdn.jsdelivr.net/gh/jdecked/twemoji@latest'
 
-type TwemojiProps = ComponentProps<'img'> & {
+interface TwemojiProps extends ComponentProps<'img'> {
   emoji: string
   format?: 'svg' | 'png'
 }
@@ -28,7 +28,7 @@ function Twemoji({ emoji, format = 'svg', className, ...props }: TwemojiProps) {
   )
 }
 
-type TwemojiFlagProps = Except<TwemojiProps, 'emoji'> & {
+interface TwemojiFlagProps extends Except<TwemojiProps, 'emoji'> {
   countryCode: Country
 }
 

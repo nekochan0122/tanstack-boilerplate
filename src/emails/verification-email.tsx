@@ -2,7 +2,7 @@ import { Section } from '@react-email/components'
 
 import { EmailButton, EmailHeading, EmailLayout } from '~/emails/base'
 
-type VerificationEmailProps = {
+interface VerificationEmailProps {
   url: string
 }
 

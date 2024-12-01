@@ -17,12 +17,12 @@ import { useDynamicNode } from '~/hooks/use-dynamic-node'
 import { useIsMobile } from '~/hooks/use-is-mobile'
 import { createContextFactory, cx } from '~/libs/utils'
 
-type ComboboxOption = {
+interface ComboboxOption {
   label: string
   value: string
 }
 
-type ComboboxContext = {
+interface ComboboxContext {
   selected?: ComboboxOption['value']
   onSelectChange: (value: ComboboxOption['value']) => void
   selectedOption?: ComboboxOption
@@ -35,7 +35,7 @@ type ComboboxContext = {
   virtualizer: Virtualizer<HTMLDivElement, Element>
 }
 
-type ComboboxProps = {
+interface ComboboxProps {
   options: ComboboxOption[]
   selected?: ComboboxOption['value']
   onSelectChange?: (value: ComboboxOption['value']) => void

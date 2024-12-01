@@ -4,7 +4,7 @@ import type { IconBaseProps, IconType } from 'react-icons'
 
 import type { auth } from '~/server/auth'
 
-export type SocialProvider = {
+export interface SocialProvider {
   id: keyof typeof auth.options.socialProviders
   name: string
   icon: IconType

@@ -5,7 +5,7 @@ import { lazy } from 'react'
 
 import { routeTree } from '~/route-tree.gen'
 
-export type RouterContext = {
+export interface RouterContext {
   queryClient: QueryClient
 }
 

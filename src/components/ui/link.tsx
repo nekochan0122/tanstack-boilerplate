@@ -5,11 +5,8 @@ import type { ComponentProps } from 'react'
 import type { FileRouteTypes } from '~/route-tree.gen'
 
 type InternalLink = '.' | '..' | Exclude<FileRouteTypes['to'], ''>
-
 type ExternalLink = `http${'s' | ''}://${string}.${string}`
-
 type AnchorLink = `#${string}`
-
 type ValidLink = InternalLink | ExternalLink | AnchorLink
 
 type LinkProps<To extends ValidLink> = (

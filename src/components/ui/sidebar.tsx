@@ -23,7 +23,7 @@ const SIDEBAR_WIDTH_MOBILE = '18rem'
 const SIDEBAR_WIDTH_ICON = '3rem'
 const SIDEBAR_KEYBOARD_SHORTCUT = 'b'
 
-type SidebarContext = {
+interface SidebarContext {
   state: 'expanded' | 'collapsed'
   open: boolean
   setOpen: (open: boolean) => void
@@ -37,7 +37,7 @@ const [SidebarContextProvider, useSidebar] = createContextFactory<SidebarContext
   errorMessage: 'useSidebar must be used within a SidebarProvider',
 })
 
-type SidebarProviderProps = ComponentProps<'div'> & {
+interface SidebarProviderProps extends ComponentProps<'div'> {
   defaultOpen?: boolean
   open?: boolean
   onOpenChange?: Dispatch<SetStateAction<boolean>>
@@ -137,7 +137,7 @@ function SidebarProvider({
   )
 }
 
-type SidebarProps = ComponentProps<'div'> & {
+interface SidebarProps extends ComponentProps<'div'> {
   side?: 'left' | 'right'
   variant?: 'sidebar' | 'floating' | 'inset'
   collapsible?: 'offcanvas' | 'icon' | 'none'
@@ -438,7 +438,10 @@ const sidebarMenuButtonVariants = cva(
   },
 )
 
-type SidebarMenuButtonProps = ComponentProps<'button'> & VariantProps<typeof sidebarMenuButtonVariants> & AsChildProps & {
+interface SidebarMenuButtonProps extends
+  ComponentProps<'button'>,
+  VariantProps<typeof sidebarMenuButtonVariants>,
+  AsChildProps {
   isActive?: boolean
   tooltip?: string | ComponentProps<typeof TooltipContent>
 }
@@ -488,7 +491,9 @@ function SidebarMenuButton({
   )
 }
 
-type SidebarMenuActionProps = ComponentProps<'button'> & AsChildProps & {
+interface SidebarMenuActionProps extends
+  ComponentProps<'button'>,
+  AsChildProps {
   showOnHover?: boolean
 }
 
@@ -538,7 +543,7 @@ function SidebarMenuBadge({ className, ...props }: ComponentProps<'div'>) {
   )
 }
 
-type SidebarMenuSkeletonProps = ComponentProps<'div'> & {
+interface SidebarMenuSkeletonProps extends ComponentProps<'div'> {
   showIcon?: boolean
 }
 
@@ -588,7 +593,9 @@ function SidebarMenuSubItem(props: ComponentProps<'li'>) {
   )
 }
 
-type SidebarMenuSubButtonProps = ComponentProps<'a'> & AsChildProps & {
+interface SidebarMenuSubButtonProps extends
+  ComponentProps<'a'>,
+  AsChildProps {
   size?: 'sm' | 'md'
   isActive?: boolean
 }

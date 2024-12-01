@@ -1,17 +1,17 @@
 import plugin from 'tailwindcss/plugin.js'
 import animatePlugin from 'tailwindcss-plugin-animate'
 import type { Config } from 'tailwindcss'
-import type { SetOptional } from 'type-fest'
+import type { Except, SetOptional } from 'type-fest'
 
 type Preset = SetOptional<Config, 'content'>
 
-type Options = {
+interface Options {
   theme?: Record<ColorScheme, ColorVariables>
   color?: Color
   radius?: Radius
 }
 
-const defaultOptions: Required<Omit<Options, 'theme'>> = {
+const defaultOptions: Required<Except<Options, 'theme'>> = {
   color: 'zinc',
   radius: '0.5',
 }
@@ -111,15 +111,10 @@ function createShadcnPlugin(options?: Options) {
 }
 
 type Theme = Record<Color, Record<ColorScheme, ColorVariables>>
-
 type Radius = '0' | '0.3' | '0.5' | '0.75' | '1'
-
 type Color = 'zinc' | 'slate' | 'stone' | 'gray' | 'neutral' | 'red' | 'rose' | 'orange' | 'green' | 'blue' | 'yellow' | 'violet'
-
 type ColorScheme = 'light' | 'dark'
-
 type ColorValue = `${number} ${number}% ${number}%`
-
 type ColorVariables = {
   '--background': ColorValue
   '--foreground': ColorValue

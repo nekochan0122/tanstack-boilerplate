@@ -136,7 +136,7 @@ type Meta = JSX.IntrinsicElements['meta']
 
 type ViewportWidthHeightValues = StringNumber | 'device-width' | 'device-height'
 
-type Viewport = {
+interface Viewport {
   'width'?: ViewportWidthHeightValues
   'height'?: ViewportWidthHeightValues
   'initial-scale'?: StringNumber
@@ -147,7 +147,7 @@ type Viewport = {
   [key: string]: unknown
 }
 
-type ImageMetadata = {
+interface ImageMetadata {
   width?: number
   height?: number
   url?: string
@@ -168,7 +168,7 @@ type TwitterCard =
   | 'summary'
   | 'summary_large_image'
 
-type Metadata = {
+interface Metadata {
   charSet?: LiteralUnion<'utf-8', string>
   title?: string
   description?: string

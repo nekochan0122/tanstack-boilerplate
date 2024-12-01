@@ -11,7 +11,7 @@ import type { Except } from 'type-fest'
 import { Button, buttonVariants } from '~/components/ui/button'
 import { createContextFactory, cx } from '~/libs/utils'
 
-type CalendarBaseProps = {
+interface CalendarBaseProps {
   /**
  * In the year view, the number of years to display at once.
  * @default 12
@@ -23,9 +23,12 @@ type CalendarProps = DayPickerProps & CalendarBaseProps
 
 type NavView = 'days' | 'years'
 
-type DisplayYears = { from: number; to: number }
+interface DisplayYears {
+  from: number
+  to: number
+}
 
-type Context = {
+interface Context {
   navView: NavView
   setNavView: Dispatch<SetStateAction<NavView>>
   displayYears: DisplayYears

@@ -1,7 +1,6 @@
 import { LuChevronRight } from 'react-icons/lu'
 import { useTranslations } from 'use-intl'
 import type { IconType } from 'react-icons'
-import type { Simplify } from 'type-fest'
 
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '~/components/ui/collapsible'
 import { Link } from '~/components/ui/link'
@@ -11,31 +10,27 @@ import type { TranslateKeys } from '~/libs/i18n'
 
 type NavItem = NavItemGroup | NavItemMenu | NavItemLink
 
-type NavItemBase<
-  Item extends { type: string },
-> = Simplify<
-  Item & {
-    name: TranslateKeys
-  }
->
+interface NavItemBase {
+  name: TranslateKeys
+}
 
-type NavItemGroup = NavItemBase<{
+interface NavItemGroup extends NavItemBase {
   type: 'group'
   items: NavItem[]
-}>
+}
 
-type NavItemMenu = NavItemBase<{
+interface NavItemMenu extends NavItemBase {
   type: 'menu'
   icon: IconType
   items: NavItem[]
-}>
+}
 
-type NavItemLink = NavItemBase<{
+interface NavItemLink extends NavItemBase {
   type: 'link'
   link: ValidLink
-}>
+}
 
-type SidebarNavBuilderProps = {
+interface SidebarNavBuilderProps {
   navigation: readonly NavItem[]
 }
 

@@ -12,6 +12,8 @@ import { prisma } from '~/server/db'
 import { sendEmail } from '~/server/email'
 import { nameSchema, PASSWORD_MAX, PASSWORD_MIN, passwordSchema, usernameSchema } from '~/services/auth.schema'
 
+export type Session = typeof auth.$Infer.Session
+
 export const auth = betterAuth({
   baseURL: import.meta.env.VITE_APP_BASE_URL,
   secret: process.env.AUTH_SECRET,

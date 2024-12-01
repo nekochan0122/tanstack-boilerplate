@@ -6,7 +6,7 @@ import type { Theme } from '~/components/theme'
 import type { NavItem } from '~/components/ui/sidebar-nav-builder'
 import type { Locale } from '~/libs/i18n'
 
-export type LanguageOption = {
+export interface LanguageOption {
   locale: Locale
   countryCode: Country
   label: string
@@ -17,7 +17,7 @@ export const languageOptions: readonly LanguageOption[] = [
   { locale: 'zh-tw', countryCode: 'TW', label: '繁體中文' },
 ]
 
-export type ThemeOption = {
+export interface ThemeOption {
   value: Theme
   Icon: IconType
 }
