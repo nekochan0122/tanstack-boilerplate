@@ -2,9 +2,9 @@ import { queryOptions, useSuspenseQuery } from '@tanstack/react-query'
 import type { UseSuspenseQueryResult } from '@tanstack/react-query'
 
 import { getAuth } from '~/services/auth.api'
-import type { Auth } from '~/services/auth.api'
+import type { Authenticated } from '~/services/auth.api'
 
-export const authQueryOptions = () => queryOptions<Auth>({
+export const authQueryOptions = () => queryOptions({
   queryKey: ['getAuth'],
   queryFn: () => getAuth(),
 })
@@ -20,5 +20,5 @@ export const useAuthedQuery = () => {
     throw new Error('Not authenticated')
   }
 
-  return authQuery as UseSuspenseQueryResult<Extract<Auth, { isAuthenticated: true }>>
+  return authQuery as UseSuspenseQueryResult<Authenticated>
 }

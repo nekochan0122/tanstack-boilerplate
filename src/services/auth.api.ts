@@ -1,17 +1,18 @@
 import { createServerFn } from '@tanstack/start'
 import { getEvent } from 'vinxi/http'
+import type { Simplify } from 'type-fest'
 
 import type { Session } from '~/server/auth'
 
-interface Authenticated extends Session {
+export interface Authenticated extends Session {
   isAuthenticated: true
 }
 
-interface Unauthenticated {
+export interface Unauthenticated {
   isAuthenticated: false
 }
 
-export type Auth = Authenticated | Unauthenticated
+export type Auth = Simplify<Authenticated | Unauthenticated>
 
 export const getAuth = createServerFn({ method: 'GET' })
   .handler<Auth>(async () => {
