@@ -63,6 +63,13 @@ declare module '@tanstack/react-router' {
   }
 }
 
+declare global {
+  interface Window {
+    getRouter: () => ReturnType<typeof createRouter>
+    getQueryClient: () => QueryClient
+  }
+}
+
 export const RouterDevtools = import.meta.env.PROD ? () => null : lazy(() =>
   import('@tanstack/react-router-devtools').then((mod) => ({
     default: mod.TanStackRouterDevtools,
