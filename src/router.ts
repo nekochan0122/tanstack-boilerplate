@@ -48,6 +48,12 @@ export function createRouter() {
     }
   }
 
+  // expose router and query client to window for use outside React (e.g. for Better Auth)
+  if (typeof window !== 'undefined') {
+    window.getRouter = () => router
+    window.getQueryClient = () => queryClient
+  }
+
   return routerWithQueryClient(router, queryClient)
 }
 
