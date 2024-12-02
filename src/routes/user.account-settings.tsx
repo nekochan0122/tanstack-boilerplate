@@ -30,18 +30,13 @@ function AccountSettingsRoute() {
       username: authedQuery.data.user.username,
       name: authedQuery.data.user.name,
     },
-    onSubmit: async ({ value, formApi }) => {
+    async onSubmit({ value, formApi }) {
       await authClient.updateUser(value, {
-        onRequest: () => {
-          toast.loading(t('common.save-loading'))
-        },
         onSuccess: () => {
-          toast.dismiss()
           toast.success(t('common.save-success'))
           formApi.reset()
         },
         onError: ({ error }) => {
-          toast.dismiss()
           toast.error(t('common.save-error'), {
             description: error.message, // TODO: i18n
           })

@@ -32,18 +32,13 @@ function ChangeEmailRoute() {
       defaultValues: {
         newEmail: '',
       },
-      onSubmit: async ({ value, formApi }) => {
+      async onSubmit({ value, formApi }) {
         await authClient.changeEmail(value, {
-          onRequest: () => {
-            toast.loading(t('common.submit-loading'))
-          },
           onSuccess: () => {
-            toast.dismiss()
             toast.success(t('common.submit-success'))
             formApi.reset()
           },
           onError: ({ error }) => {
-            toast.dismiss()
             toast.error(t('common.submit-error'), {
               description: error.message, // TODO: i18n
             })

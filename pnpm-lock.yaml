@@ -98,6 +98,9 @@ importers:
       '@tanstack/react-router-with-query':
         specifier: ^1.85.0
         version: 1.85.0(@tanstack/react-query@5.62.0(react@19.0.0-rc.1))(@tanstack/react-router@1.85.0(@tanstack/router-generator@1.84.4)(react-dom@19.0.0-rc.1(react@19.0.0-rc.1))(react@19.0.0-rc.1))(react-dom@19.0.0-rc.1(react@19.0.0-rc.1))(react@19.0.0-rc.1)
+      '@tanstack/react-store':
+        specifier: ^0.6.1
+        version: 0.6.1(react-dom@19.0.0-rc.1(react@19.0.0-rc.1))(react@19.0.0-rc.1)
       '@tanstack/react-virtual':
         specifier: ^3.10.9
         version: 3.10.9(react-dom@19.0.0-rc.1(react@19.0.0-rc.1))(react@19.0.0-rc.1)

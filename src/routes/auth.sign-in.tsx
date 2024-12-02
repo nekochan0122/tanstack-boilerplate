@@ -42,17 +42,12 @@ function SignInRoute() {
         password: '!Ab12345',
       }),
     },
-    onSubmit: async ({ value }) => {
+    async onSubmit({ value }) {
       await authClient.signIn.username(value, {
-        onRequest: () => {
-          toast.loading(t('auth.sign-in-loading'))
-        },
         onSuccess: () => {
-          toast.dismiss()
           toast.success(t('auth.sign-in-success'))
         },
         onError: ({ error }) => {
-          toast.dismiss()
           toast.error(t('auth.sign-in-error'), {
             description: error.message, // TODO: i18n
           })

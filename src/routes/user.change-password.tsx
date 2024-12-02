@@ -39,17 +39,12 @@ function ChangePasswordRoute() {
       newPasswordConfirm: '',
       revokeOtherSessions: true,
     },
-    onSubmit: async ({ value }) => {
+    async onSubmit({ value }) {
       await authClient.changePassword(value, {
-        onRequest: () => {
-          toast.loading(t('common.submit-loading'))
-        },
         onSuccess: () => {
-          toast.dismiss()
           toast.success(t('common.submit-success'))
         },
         onError: ({ error }) => {
-          toast.dismiss()
           toast.error(t('common.submit-error'), {
             description: error.message, // TODO: i18n
           })

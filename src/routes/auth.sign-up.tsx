@@ -48,17 +48,12 @@ function SignUpRoute() {
         email: import.meta.env.VITE_APP_EMAIL,
       }),
     },
-    onSubmit: async ({ value }) => {
+    async onSubmit({ value }) {
       await authClient.signUp.email(value, {
-        onRequest: () => {
-          toast.loading(t('auth.sign-up-loading'))
-        },
         onSuccess: () => {
-          toast.dismiss()
           toast.success(t('auth.sign-up-success'))
         },
         onError: ({ error }) => {
-          toast.dismiss()
           toast.error(t('auth.sign-up-error'), {
             description: error.message, // TODO: i18n
           })
