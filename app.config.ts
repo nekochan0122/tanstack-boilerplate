@@ -13,7 +13,7 @@ const config = {
 const app = defineConfig({
   server: {
     preset: 'node-server',
-    compatibilityDate: '2024-11-16',
+    compatibilityDate: '2024-12-02',
   },
   routers: {
     api: {

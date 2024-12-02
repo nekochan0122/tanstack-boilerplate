@@ -24,14 +24,14 @@ export const auth = betterAuth({
     minPasswordLength: PASSWORD_MIN,
     maxPasswordLength: PASSWORD_MAX,
     password: {
-      hash,
-      verify,
+      hash: (password) => hash(password),
+      verify: ({ hash, password }) => verify(hash, password),
     },
   },
   emailVerification: {
     sendOnSignUp: true,
     autoSignInAfterVerification: true,
-    sendVerificationEmail: async ({ user, url }) => {
+    async sendVerificationEmail({ user, url }) {
       sendEmail({
         to: user.email,
         // TODO: i18n
@@ -44,7 +44,7 @@ export const auth = betterAuth({
     modelName: 'User',
     changeEmail: {
       enabled: true,
-      sendChangeEmailVerification: async ({ newEmail, url }) => {
+      async sendChangeEmailVerification({ newEmail, url }) {
         sendEmail({
           to: newEmail,
           // TODO: i18n
@@ -101,9 +101,7 @@ function nameValidator() {
           matcher: (ctx) => ctx.body?.name,
           handler: async (ctx) => {
             const nameParseResult = nameSchema().safeParse(ctx.body.name)
-
             if (nameParseResult.error) {
-              console.log('nameParseResult.error')
               throw new APIError('BAD_REQUEST', {
                 message: 'Invalid name',
               })
@@ -124,9 +122,7 @@ function usernameValidator() {
           matcher: (ctx) => ctx.body?.username,
           handler: async (ctx) => {
             const usernameParseResult = usernameSchema().safeParse(ctx.body.username)
-
             if (usernameParseResult.error) {
-              console.log('usernameParseResult.error')
               throw new APIError('BAD_REQUEST', {
                 message: 'Invalid username',
               })
@@ -147,7 +143,6 @@ function passwordValidator() {
           matcher: (ctx) => ctx.body?.password,
           handler: async (ctx) => {
             const passwordParseResult = passwordSchema().safeParse(ctx.body.password)
-
             if (passwordParseResult.error) {
               throw new APIError('BAD_REQUEST', {
                 message: 'Invalid password',
