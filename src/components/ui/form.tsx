@@ -122,10 +122,11 @@ function useForm<
 
   const FormSubmit = ({ className, ...props }: ComponentProps<typeof Button>) => (
     <form.Subscribe
-      children={(state) => (
+      selector={(state) => [state.canSubmit, state.isSubmitting]}
+      children={([canSubmit, isSubmitting]) => (
         <Button
           type='submit'
-          disabled={state.isSubmitting || !state.canSubmit}
+          disabled={isSubmitting || !canSubmit}
           className={cx('w-full', className)}
           {...props}
         />
