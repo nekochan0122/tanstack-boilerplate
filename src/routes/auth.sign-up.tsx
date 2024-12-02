@@ -48,7 +48,7 @@ function SignUpRoute() {
         email: import.meta.env.VITE_APP_EMAIL,
       }),
     },
-    async onSubmit({ value }) {
+    onSubmit: async ({ value }) => {
       await authClient.signUp.email(value, {
         onSuccess: () => {
           toast.success(t('auth.sign-up-success'))

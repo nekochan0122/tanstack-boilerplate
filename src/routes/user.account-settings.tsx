@@ -30,7 +30,7 @@ function AccountSettingsRoute() {
       username: authedQuery.data.user.username,
       name: authedQuery.data.user.name,
     },
-    async onSubmit({ value, formApi }) {
+    onSubmit: async ({ value, formApi }) => {
       await authClient.updateUser(value, {
         onSuccess: () => {
           toast.success(t('common.save-success'))

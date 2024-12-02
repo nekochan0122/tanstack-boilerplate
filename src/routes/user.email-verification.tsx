@@ -21,7 +21,7 @@ function EmailVerificationRoute() {
     defaultValues: {
       email: authedQuery.data.user.email,
     },
-    async onSubmit() {
+    onSubmit: async () => {
       await authClient.sendVerificationEmail({
         email: authedQuery.data.user.email,
         callbackURL: window.location.href,

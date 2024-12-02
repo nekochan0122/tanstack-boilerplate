@@ -31,7 +31,7 @@ export const auth = betterAuth({
   emailVerification: {
     sendOnSignUp: true,
     autoSignInAfterVerification: true,
-    async sendVerificationEmail({ user, url }) {
+    sendVerificationEmail: async ({ user, url }) => {
       sendEmail({
         to: user.email,
         // TODO: i18n
@@ -44,7 +44,7 @@ export const auth = betterAuth({
     modelName: 'User',
     changeEmail: {
       enabled: true,
-      async sendChangeEmailVerification({ newEmail, url }) {
+      sendChangeEmailVerification: async ({ newEmail, url }) => {
         sendEmail({
           to: newEmail,
           // TODO: i18n

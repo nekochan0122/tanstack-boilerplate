@@ -39,7 +39,7 @@ function ChangePasswordRoute() {
       newPasswordConfirm: '',
       revokeOtherSessions: true,
     },
-    async onSubmit({ value }) {
+    onSubmit: async ({ value }) => {
       await authClient.changePassword(value, {
         onSuccess: () => {
           toast.success(t('common.submit-success'))

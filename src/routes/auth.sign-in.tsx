@@ -42,7 +42,7 @@ function SignInRoute() {
         password: '!Ab12345',
       }),
     },
-    async onSubmit({ value }) {
+    onSubmit: async ({ value }) => {
       await authClient.signIn.username(value, {
         onSuccess: () => {
           toast.success(t('auth.sign-in-success'))
