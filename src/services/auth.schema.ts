@@ -39,23 +39,3 @@ export const passwordSchema = (t = tKey) => z
   .regex(PASSWORD_ONE_SPECIAL_REGEX, t('auth.password-one-special-regex'))
   .min(PASSWORD_MIN, t('auth.password-min', { min: PASSWORD_MIN }))
   .max(PASSWORD_MAX, t('auth.password-max', { max: PASSWORD_MAX }))
-
-export const signUpSchema = (t = tKey) => z
-  .object({
-    name: nameSchema(t),
-    email: emailSchema(t),
-    username: usernameSchema(t),
-    password: passwordSchema(t),
-    passwordConfirm: passwordSchema(t),
-  })
-  .refine((values) => values.password === values.passwordConfirm, {
-    path: ['passwordConfirm'],
-    message: t('auth.password-must-match'),
-  })
-
-export const signInSchema = (t = tKey) => z
-  .object({
-    username: usernameSchema(t),
-    password: passwordSchema(t),
-    rememberMe: z.boolean().optional(),
-  })

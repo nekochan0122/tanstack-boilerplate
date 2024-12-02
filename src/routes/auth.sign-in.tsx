@@ -1,6 +1,7 @@
 import { createFileRoute, useSearch } from '@tanstack/react-router'
 import { toast } from 'sonner'
 import { useTranslations } from 'use-intl'
+import { z } from 'zod'
 
 import { Button } from '~/components/ui/button'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '~/components/ui/card'
@@ -11,12 +12,20 @@ import { Link } from '~/components/ui/link'
 import { Separator } from '~/components/ui/separator'
 import { socialProviders } from '~/config/social-provider'
 import { authClient } from '~/libs/auth-client'
+import { tKey } from '~/libs/i18n'
 import { cx } from '~/libs/utils'
-import { signInSchema } from '~/services/auth.schema'
+import { passwordSchema, usernameSchema } from '~/services/auth.schema'
 
 export const Route = createFileRoute('/auth/sign-in')({
   component: SignInRoute,
 })
+
+const signInSchema = (t = tKey) => z
+  .object({
+    username: usernameSchema(t),
+    password: passwordSchema(t),
+    rememberMe: z.boolean().optional(),
+  })
 
 function SignInRoute() {
   const t = useTranslations()

@@ -1,6 +1,7 @@
 import { createFileRoute } from '@tanstack/react-router'
 import { toast } from 'sonner'
 import { useTranslations } from 'use-intl'
+import { z } from 'zod'
 
 import { Button } from '~/components/ui/button'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '~/components/ui/card'
@@ -9,11 +10,25 @@ import { Input } from '~/components/ui/input'
 import { InputPassword } from '~/components/ui/input-password'
 import { Link } from '~/components/ui/link'
 import { authClient } from '~/libs/auth-client'
-import { signUpSchema } from '~/services/auth.schema'
+import { tKey } from '~/libs/i18n'
+import { emailSchema, nameSchema, passwordSchema, usernameSchema } from '~/services/auth.schema'
 
 export const Route = createFileRoute('/auth/sign-up')({
   component: SignUpRoute,
 })
+
+const signUpSchema = (t = tKey) => z
+  .object({
+    name: nameSchema(t),
+    email: emailSchema(t),
+    username: usernameSchema(t),
+    password: passwordSchema(t),
+    passwordConfirm: passwordSchema(t),
+  })
+  .refine((values) => values.password === values.passwordConfirm, {
+    path: ['passwordConfirm'],
+    message: t('auth.password-must-match'),
+  })
 
 function SignUpRoute() {
   const t = useTranslations()

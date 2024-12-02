@@ -1,15 +1,33 @@
 import { createFileRoute } from '@tanstack/react-router'
 import { toast } from 'sonner'
 import { useTranslations } from 'use-intl'
+import { z } from 'zod'
 
 import { useForm } from '~/components/ui/form'
 import { InputPassword } from '~/components/ui/input-password'
 import { authClient } from '~/libs/auth-client'
-import { changePasswordSchema } from '~/services/user.schema'
+import { tKey } from '~/libs/i18n'
+import { passwordSchema } from '~/services/auth.schema'
 
 export const Route = createFileRoute('/user/change-password')({
   component: ChangePasswordRoute,
 })
+
+const changePasswordSchema = (t = tKey) => z
+  .object({
+    revokeOtherSessions: z.boolean().optional(),
+    currentPassword: passwordSchema(t),
+    newPassword: passwordSchema(t),
+    newPasswordConfirm: passwordSchema(t),
+  })
+  .refine((values) => values.newPassword !== values.currentPassword, {
+    path: ['newPassword'],
+    message: t('auth.password-must-different'),
+  })
+  .refine((values) => values.newPassword === values.newPasswordConfirm, {
+    path: ['newPasswordConfirm'],
+    message: t('auth.password-must-match'),
+  })
 
 function ChangePasswordRoute() {
   const t = useTranslations()
