@@ -1,4 +1,4 @@
-import { LuCheck, LuChevronsUpDown, LuCommand, LuLanguages, LuLogOut, LuMoreHorizontal, LuPalette, LuUser } from 'react-icons/lu'
+import { LuCheck, LuChevronsUpDown, LuCommand, LuLanguages, LuLogOut, LuEllipsis, LuPalette, LuUser } from 'react-icons/lu'
 import { useTranslations } from 'use-intl'
 import type { ComponentProps } from 'react'
 
@@ -75,7 +75,7 @@ function SidebarAppearance() {
               <SidebarMenuButton>
                 <LuPalette />
                 {t('sidebar.theme')}
-                <LuMoreHorizontal className='ml-auto' />
+                <LuEllipsis className='ml-auto' />
               </SidebarMenuButton>
             </DropdownMenuTrigger>
             <DropdownMenuContent
@@ -99,7 +99,7 @@ function SidebarAppearance() {
               <SidebarMenuButton>
                 <LuLanguages />
                 {t('sidebar.language')}
-                <LuMoreHorizontal className='ml-auto' />
+                <LuEllipsis className='ml-auto' />
               </SidebarMenuButton>
             </DropdownMenuTrigger>
             <DropdownMenuContent

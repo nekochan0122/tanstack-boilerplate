@@ -1,4 +1,4 @@
-import { LuChevronRight, LuMoreHorizontal } from 'react-icons/lu'
+import { LuChevronRight, LuEllipsis } from 'react-icons/lu'
 import type { ComponentProps } from 'react'
 
 import { Slot } from '~/components/ui/slot'
@@ -78,7 +78,7 @@ function BreadcrumbEllipsis({ className, ...props }: ComponentProps<'span'>) {
       className={cx('flex size-9 items-center justify-center', className)}
       {...props}
     >
-      <LuMoreHorizontal className='size-4' />
+      <LuEllipsis className='size-4' />
       <span className='sr-only'>More</span>
     </span>
   )
