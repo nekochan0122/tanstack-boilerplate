@@ -57,6 +57,21 @@ function ThemeProvider({ children }: PropsWithChildren) {
     document.documentElement.style.colorScheme = resolvedTheme
   }, [resolvedTheme])
 
+  // Handle system theme changes
+  useEffect(() => {
+    if (theme !== 'system') return;
+
+    function handleSystemThemeChange(e: MediaQueryListEvent | MediaQueryList) {
+      _setResolvedTheme(getResolvedTheme(theme));
+    }
+
+    const media = window.matchMedia('(prefers-color-scheme: dark)');
+
+    // Intentionally use deprecated listener methods to support iOS & old browsers
+    media.addListener(handleSystemThemeChange);
+    return () => media.removeListener(handleSystemThemeChange);
+  }, [theme]);
+
   const context: ThemeContext = {
     value: theme,
     resolved: resolvedTheme,
