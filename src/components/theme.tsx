@@ -37,17 +37,6 @@ function ThemeProvider({ children }: PropsWithChildren) {
     setTheme(resolvedTheme === 'dark' ? 'light' : 'dark')
   }
 
-  useEffect(() => {
-    const storageListener = () => {
-      setTheme(getLocalTheme())
-    }
-
-    storageListener()
-
-    window.addEventListener('storage', storageListener)
-    return () => window.removeEventListener('storage', storageListener)
-  }, [])
-
   useDidUpdate(() => {
     localStorage.setItem('theme', theme)
   }, [theme])
@@ -57,20 +46,32 @@ function ThemeProvider({ children }: PropsWithChildren) {
     document.documentElement.style.colorScheme = resolvedTheme
   }, [resolvedTheme])
 
-  // Handle system theme changes
+  // Handle cross-tab theme changes
   useEffect(() => {
-    if (theme !== 'system') return;
-
-    function handleSystemThemeChange(e: MediaQueryListEvent | MediaQueryList) {
-      _setResolvedTheme(getResolvedTheme(theme));
+    const handleStorageListener = () => {
+      setTheme(getLocalTheme())
     }
 
-    const media = window.matchMedia('(prefers-color-scheme: dark)');
+    handleStorageListener()
+
+    window.addEventListener('storage', handleStorageListener)
+    return () => window.removeEventListener('storage', handleStorageListener)
+  }, [])
+
+  // Handle system theme changes
+  useEffect(() => {
+    if (theme !== 'system') return
+
+    const handleSystemThemeChange = () => {
+      _setResolvedTheme(getResolvedTheme(theme))
+    }
+
+    const media = window.matchMedia('(prefers-color-scheme: dark)')
 
     // Intentionally use deprecated listener methods to support iOS & old browsers
-    media.addListener(handleSystemThemeChange);
-    return () => media.removeListener(handleSystemThemeChange);
-  }, [theme]);
+    media.addListener(handleSystemThemeChange)
+    return () => media.removeListener(handleSystemThemeChange)
+  }, [theme])
 
   const context: ThemeContext = {
     value: theme,
